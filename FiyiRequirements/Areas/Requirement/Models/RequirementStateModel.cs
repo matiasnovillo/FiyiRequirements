@@ -27,8 +27,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
     /// Fields:            7 <br/> 
-    /// Dependencies:      0 models <br/>
-    /// Last modification: 24/12/2022 5:23:01
+    /// Dependencies:      2 models <br/>
+    /// Last modification: 24/12/2022 6:47:04
     /// </summary>
     [Serializable]
     public partial class RequirementStateModel
@@ -74,7 +74,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
         #endregion
 
         #region Models that depend on this model
-        
+        public virtual List<RequirementModel> lstRequirementModel { get; set; } //Foreign Key name: RequirementStateId 
+		public virtual List<RequirementChangehistoryModel> lstRequirementChangehistoryModel { get; set; } //Foreign Key name: RequirementStateId 
         #endregion
 
         #region Constructors
@@ -84,7 +85,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Note 1:       Generally used to have fast access to functions of object. <br/>
         /// Note 2:       Need construction with [new] reserved word, as all constructors. <br/>
         /// Fields:       7 <br/> 
-        /// Dependencies: 0 models depend on this model <br/>
+        /// Dependencies: 2 models depend on this model <br/>
         /// </summary>
         public RequirementStateModel()
         {
@@ -97,7 +98,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Function:     Create this model with stored information in database using RequirementStateId <br/>
         /// Note:         Raise exception on duplicated IDs <br/>
         /// Fields:       7 <br/> 
-        /// Dependencies: 0 models depend on this model <br/>
+        /// Dependencies: 2 models depend on this model <br/>
         /// </summary>
         public RequirementStateModel(int RequirementStateId)
         {
@@ -139,7 +140,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Function:     Create this model with filled parameters <br/>
         /// Note:         Raise exception on duplicated IDs <br/>
         /// Fields:       7 <br/> 
-        /// Dependencies: 0 models depend on this model <br/>
+        /// Dependencies: 2 models depend on this model <br/>
         /// </summary>
         public RequirementStateModel(int RequirementStateId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Name)
         {
@@ -161,7 +162,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Function:     Create this model (copy) using the given model (original), requirementstate, passed by parameter. <br/>
         /// Note:         This constructor is generally used to execute functions using the copied fields <br/>
         /// Fields:       7 <br/> 
-        /// Dependencies: 0 models depend on this model <br/>
+        /// Dependencies: 2 models depend on this model <br/>
         /// </summary>
         public RequirementStateModel(RequirementStateModel requirementstate)
         {

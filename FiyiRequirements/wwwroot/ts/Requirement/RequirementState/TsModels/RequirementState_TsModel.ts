@@ -13,7 +13,7 @@ import { Ajax } from "../../../Library/Ajax";
  * 
 */
 
-//7 fields | Last modification on: 24/12/2022 5:23:01 | Stack: 9
+//7 fields | Last modification on: 24/12/2022 6:47:04 | Stack: 9
 
 export class RequirementStateModel {
 

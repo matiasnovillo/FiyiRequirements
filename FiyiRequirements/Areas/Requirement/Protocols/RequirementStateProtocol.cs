@@ -14,7 +14,7 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 24/12/2022 5:23:01
+//Last modification on: 24/12/2022 6:47:04
 
 namespace FiyiRequirements.Areas.Requirement.Protocols
 {
@@ -24,7 +24,7 @@ namespace FiyiRequirements.Areas.Requirement.Protocols
     /// Function:          This protocol/interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 24/12/2022 5:23:01
+    /// Last modification: 24/12/2022 6:47:04
     /// </summary>
     public partial interface RequirementStateProtocol
     {

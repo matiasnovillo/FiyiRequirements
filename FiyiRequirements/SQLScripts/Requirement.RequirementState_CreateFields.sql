@@ -2,7 +2,7 @@ USE [fiyistack_FiyiRequirements]
 SET ANSI_NULLS ON
 SET QUOTED_IDENTIFIER ON
 
---Last modification on: 24/12/2022 5:23:01
+--Last modification on: 24/12/2022 6:47:04
 
 ALTER TABLE [dbo].[Requirement.RequirementState] ADD [RequirementStateId] INT IDENTITY(1,1) NOT NULL
 ALTER TABLE [dbo].[Requirement.RequirementState] ADD [Active] TINYINT NOT NULL
