@@ -1,13 +1,17 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using FiyiRequirements.Areas.BasicCore.Protocols;
+using FiyiRequirements.Areas.CMSCore.Protocols;
+using FiyiRequirements.Areas.BasicCore.Services;
+using FiyiRequirements.Areas.CMSCore.Services;
+using FiyiRequirements.Library;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SixLaborsCaptcha.Mvc.Core;
+using FiyiRequirements.Areas.BasicCulture.Services;
+using FiyiRequirements.Areas.BasicCulture.Protocols;
 
 namespace FiyiRequirements
 {
@@ -24,6 +28,46 @@ namespace FiyiRequirements
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddControllers();
+
+            //JSON to TimeSpan configuration
+            services.AddControllers()
+        .AddJsonOptions(options =>
+            options.JsonSerializerOptions.Converters.Add(new JsonToTimeSpan()));
+
+            //JSON configuration to output field names in PascalCase. Example: "TestId" : 1 and not "testId" : 1
+            services.AddControllers()
+        .AddJsonOptions(options =>
+            options.JsonSerializerOptions.PropertyNamingPolicy = null);
+
+            services.AddHttpContextAccessor();
+
+            //Area: BasicCore
+            services.AddScoped<FailureProtocol, FailureService>();
+            services.AddScoped<ParameterProtocol, ParameterService>();
+            //Area: BasicCulture
+            services.AddScoped<CityProtocol, CityService>();
+            services.AddScoped<ProvinceProtocol, ProvinceService>();
+            services.AddScoped<CountryProtocol, CountryService>();
+            services.AddScoped<PlanetProtocol, PlanetService>();
+            services.AddScoped<SexProtocol, SexService>();
+            //Area: CMSCore
+            services.AddScoped<UserProtocol, UserService>();
+            services.AddScoped<MenuProtocol, MenuService>();
+            services.AddScoped<RoleMenuProtocol, RoleMenuService>();
+            services.AddScoped<RoleProtocol, RoleService>();
+
+            //Session configuration
+            services.AddMvc();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
+            
+            //Captcha configuration
+            services.AddSixLabCaptcha(x =>
+            {
+                x.DrawLines = 4;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,7 +84,10 @@ namespace FiyiRequirements
                 app.UseHsts();
             }
 
+            app.UseSession();
+
             app.UseHttpsRedirection();
+            
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -50,6 +97,7 @@ namespace FiyiRequirements
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }

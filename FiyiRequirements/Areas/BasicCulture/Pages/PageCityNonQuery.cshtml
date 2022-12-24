@@ -1,0 +1,358 @@
+@page
+@using FiyiRequirements.Areas.BasicCulture.Models
+@model FiyiRequirements.Areas.BasicCulture.Pages.PageCityNonQueryModel
+@{
+    Layout = "_LayoutDashboard";
+
+    string NonQueryText = "";
+    string NonQueryIcon = "";
+
+    int CityId;
+    string Name;
+    string GeographicalCoordinates;
+    string Code;
+    int ProvinceId;
+    string ProvinceName;
+
+    if(HttpContext.Request.QueryString.Value.Contains("?CityId=0"))
+    {
+        NonQueryText = "Add";
+        NonQueryIcon = "fas fa-plus";
+
+        CityId = 0;
+        Name = "";
+        GeographicalCoordinates = "";
+        Code = "";
+        ProvinceId = 0;
+        ProvinceName = "Choose a value";
+    }
+    else
+    {
+        NonQueryText = "Edit";
+        NonQueryIcon = "fas fa-pen";
+
+        CityModel CityModel = new CityModel().Select1ByCityIdToModel
+        (Convert.ToInt32(HttpContext.Request.QueryString.Value.Replace("?CityId=","")));
+
+        CityId = CityModel.CityId;
+        Name = CityModel.Name;
+        GeographicalCoordinates = CityModel.GeographicalCoordinates;
+        Code = CityModel.Code;
+        ProvinceId = CityModel.ProvinceId;
+
+        ProvinceModel ProvinceModel = new ProvinceModel(CityModel.ProvinceId);
+        ProvinceName = ProvinceModel.Name;
+    }
+
+    List<ProvinceModel> lstProvinceModel = new ProvinceModel().SelectAllToList();
+
+/*
+ * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
+ * 
+ * Coded by fiyistack.com
+ * Copyright © 2022
+ * 
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ * 
+ */
+    
+//Stack: 11
+//Last modification on: 21/12/2022 9:41:41
+
+}
+<!-- Header -->
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <!-- Header body -->
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <!-- Title -->
+                    <h2 id="basicculture-city-title-page" class="h2 text-white d-inline-block mb-0">@NonQueryText city</h2>
+                    <input id="basicculture-city-cityid-input" type="hidden" value="@CityId" />
+                    <!-- Breadcrumb -->
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item">
+                                <a href="/CMSCore/DashboardIndex">
+                                    <i class="fas fa-home"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)">
+                                    BasicCulture
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)">
+                                    City
+                                 </a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <i class="@NonQueryIcon"></i>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-lg-6 col-5 text-right">
+                    <!-- XL Screens -->
+                    <div class="d-none d-xl-inline">
+                        <a href="/BasicCulture/PageCityQuery" class="btn btn-secondary">
+                            <i class="fas fa-angle-left"></i> Go back
+                        </a>
+                    </div>
+                    <!-- Other Screens -->
+                    <div class="d-inline d-sm-inline d-md-inline d-lg-inline d-xl-none">
+                        <a href="/BasicCulture/PageCityQuery" class="btn btn-secondary">
+                            <i class="fas fa-angle-left"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--6">
+<div class="row">
+    <div class="col">
+            <!-- Card -->
+            <div class="card">
+                <!-- Card body -->
+                <div class="card-body">
+                    <form role="form" class="needs-validation" novalidate>
+                        <!-- CityId -->
+                        <div class="form-group mb-3">
+                            <label for="basicculture-city-cityId-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                <i class="fas fa-key"></i> City ID
+                            </label>
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                    <span class="input-group-text">
+                                        <strong>
+                                            <i class="fas fa-key"></i> City ID
+                                        </strong>
+                                    </span>
+                                </div>
+                                <input type="hidden" id="basicculture-city-cityid-input" value="@CityId"/>
+                                <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="bottom" title="@CityId"  type="button" value="CityId">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Name -->
+                        <div class="form-group mb-3">
+                            <label for="basicculture-city-name-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                <i class="fas fa-font"></i> Name
+                            </label>
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                    <span class="input-group-text ">
+                                        <strong>
+                                            <i class="fas fa-font"></i> Name
+                                        </strong>
+                                    </span>
+                                </div>
+                                <input class="form-control" min="1" max="500" type="text" id="basicculture-city-name-input" value="@Name" >
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="name-info">
+                                        <i class="fas fa-info"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- GeographicalCoordinates -->
+                        <div class="form-group mb-3">
+                            <label for="basicculture-city-geographicalcoordinates-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                <i class="fas fa-font"></i> Geographical Coordinates
+                            </label>
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                    <span class="input-group-text ">
+                                        <strong>
+                                            <i class="fas fa-font"></i> Geographical Coordinates
+                                        </strong>
+                                    </span>
+                                </div>
+                                <input class="form-control" min="1" max="200" type="text" id="basicculture-city-geographicalcoordinates-input" value="@GeographicalCoordinates" >
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="geographicalcoordinates-info">
+                                        <i class="fas fa-info"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Code -->
+                        <div class="form-group mb-3">
+                            <label for="basicculture-city-code-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                <i class="fas fa-font"></i> Code
+                            </label>
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                    <span class="input-group-text ">
+                                        <strong>
+                                            <i class="fas fa-font"></i> Code
+                                        </strong>
+                                    </span>
+                                </div>
+                                <input class="form-control" min="1" max="100" type="text" id="basicculture-city-code-input" value="@Code" >
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="code-info">
+                                        <i class="fas fa-info"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ProvinceId -->
+                        <div class="form-group mb-3">
+                            <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                <i class="fas fa-hashtag"></i> Province ID
+                            </label>
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend input-group-text">
+                                    <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                        <strong>
+                                            <i class="fas fa-hashtag"></i> Province ID
+                                        </strong>
+                                    </span>
+                                </div>
+                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector"><i class="fas fa-hashtag"></i></button>
+                                <ul id="basicculture-city-provinceid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-text-1-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
+                                            @ProvinceName
+                                        </a>
+                                        <input type="hidden" id="basicculture-city-provinceid-input" value="@ProvinceId"/>
+                                    </li>
+                                </ul>
+                                <div class="input-group-append">
+                                    <button class="btn btn-danger border-0 ml-2" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="provinceid-info">
+                                        <i class="fas fa-info"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Buttons -->
+                        <div class="row justify-content-between">
+                            <button id="basicculture-city-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="@NonQueryIcon"></i> @NonQueryText</button>
+                            <button id="basicculture-city-insert-or-update-message" data-toggle="modal" data-target="#basicculture-city-error-message-modal" class="btn mt-4" type="button"></button>
+                            <a href="/BasicCulture/PageCityQuery" class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
+                                <i class="fas fa-angle-left"></i> Go back
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Card footer -->
+            <div class="card-footer py-2">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error message in modal style -->
+<div class="row">
+    <div class="col-md-4 px-0">
+        <div class="modal fade" id="basicculture-city-error-message-modal" tabindex="-1" role="dialog" aria-labelledby="basicculture-city-error-message-modal" aria-hidden="true">
+            <div class="modal-dialog modal-secondary modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-danger">
+                    <!-- Modal title -->
+                    <div class="modal-header">
+                        <h6 class="modal-title text-white">
+                            Error <i class="fas fa-exclamation-triangle"></i>
+                        </h6>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="py-3 text-center">
+                            <h4 id="/basicculture-city-error-message-title" class="heading mt-4 text-white"></h4>
+                            <p class="text-white text-truncate" id="basicculture-city-error-message-text"></p>
+                        </div>
+                    </div>
+                    <!-- Close button -->
+                    <div class="modal-footer pt-4">
+                        <button type="button" class="btn btn-white ml-auto" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Province selector in Modal style -->
+<div class="row">
+    <div class="col-md-4">
+        <!-- Modal -->
+        <div class="modal fade" id="modal-foreign-key-code-selector" tabindex="-1" role="dialog" aria-labelledby="modal-foreign-key-selector" aria-hidden="true">
+            <div class="modal-dialog modal-secondary modal-dialog-centered modal-" role="document">
+                <!-- Modal content -->
+                <div class="modal-content bg-gradient-secondary">
+                    <div class="modal-header">
+                        <h6 class="modal-title text-primary">
+                            Choose a province <i class="fas fa-hashtag"></i>
+                         </h6>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <div class="input-group input-group-merge input-group-alternative">
+                                    <select id="basicculture-city-provinceid-select" class="form-control" data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Choose value" data-allow-reset="true">
+                                        <option value="0"></option> <!--This must be empty-->
+                                        @{
+                                            foreach (ProvinceModel ProvinceModel in lstProvinceModel)
+                                            {
+                                                <option value="@ProvinceModel.ProvinceId" >@ProvinceModel.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary ml-auto" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Phone code Selector in Modal style -->
+<div class="row">
+    <div class="col-md-4">
+        <div class="modal fade" id="modal-phone-code-selector" tabindex="-1" role="dialog" aria-labelledby="modal-phone-code-selector" aria-hidden="true">
+            <div class="modal-dialog modal-secondary modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-secondary">
+                    <div class="modal-header">
+                        <h6 class="modal-title text-primary">Choose your phone code <i class="fas fa-globe-americas"></i></h6>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <div class="input-group input-group-merge input-group-alternative">
+                                    <select class="form-control" data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Country (+Code)" data-allow-reset="true">
+                                        <option></option> <!--This must be empty-->
+                                        <option>Argentina (+54)</option>
+                                        <option>USA (+1)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary ml-auto" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/BasicCore/jquery-3.6.1.min.js"></script>
+<script src="/assets/vendor/quill/dist/quill.min.js"></script>
+<script src="/js/BasicCulture/City/jQuery/CityNonQuery_jQuery.js"></script>

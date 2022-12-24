@@ -1,0 +1,35 @@
+﻿@page
+@using Microsoft.AspNetCore.Http;
+@using FiyiRequirements.Areas.CMSCore.Models;
+@model FiyiRequirements.Areas.CMSCore.Pages.DashboardIndexModel
+@{
+    Layout = "_LayoutDashboard";
+
+    int UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
+    UserModel UserModel = new UserModel().Select1ByUserIdToModel(UserId);
+    string FantasyName = UserModel.FantasyName;
+
+    string Menues = new RoleMenuModel().SelectMenuesByRoleIdToStringForDashboardIndex(UserModel.RoleId); 
+}
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card bg-gradient-success">
+                <div class="card-header bg-transparent">
+                  <h1 class="mb-0 text-center">Welcome, @FantasyName!</h1>
+                </div>
+                <div class="card-body">
+                    @Html.Raw(@Menues)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
