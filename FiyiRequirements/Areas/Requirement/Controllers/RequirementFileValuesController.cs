@@ -223,10 +223,10 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     {
                         if (File.Length > 0)
                         {
-                            var FileName = HttpContext.Request.Form.Files[i].FileName;
-                            var FilePath = $@"{_WebHostEnvironment.WebRootPath}/Uploads/Requirement/RequirementFile/";
+                            var FileName1 = HttpContext.Request.Form.Files[i].FileName;
+                            var FilePath1 = $@"{_WebHostEnvironment.WebRootPath}/Uploads/Requirement/RequirementFile/";
 
-                            using (var FileStream = new FileStream($@"{FilePath}{FileName}", FileMode.Create))
+                            using (var FileStream = new FileStream($@"{FilePath1}{FileName1}", FileMode.Create))
                             {
                                 
                                 await File.CopyToAsync(FileStream); // Read file to stream
