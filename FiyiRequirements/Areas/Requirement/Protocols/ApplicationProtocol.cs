@@ -14,7 +14,7 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 24/12/2022 6:47:27
+//Last modification on: 25/12/2022 12:07:25
 
 namespace FiyiRequirements.Areas.Requirement.Protocols
 {
@@ -24,7 +24,7 @@ namespace FiyiRequirements.Areas.Requirement.Protocols
     /// Function:          This protocol/interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 24/12/2022 6:47:27
+    /// Last modification: 25/12/2022 12:07:25
     /// </summary>
     public partial interface ApplicationProtocol
     {

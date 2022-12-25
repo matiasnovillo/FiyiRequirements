@@ -27,8 +27,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
     /// Fields:            9 <br/> 
-    /// Dependencies:      1 models <br/>
-    /// Last modification: 24/12/2022 6:47:27
+    /// Sub-models:      1 models <br/>
+    /// Last modification: 25/12/2022 12:07:25
     /// </summary>
     [Serializable]
     public partial class ApplicationModel
@@ -79,7 +79,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         public int TechnologyId { get; set; }
         #endregion
 
-        #region Models that depend on this model
+        #region Sub-lists
         public virtual List<ClientApplicationModel> lstClientApplicationModel { get; set; } //Foreign Key name: ApplicationId 
         #endregion
 
@@ -94,7 +94,14 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// </summary>
         public ApplicationModel()
         {
-            try { ApplicationId = 0; }
+            try 
+            {
+                ApplicationId = 0;
+
+                //Initialize sub-lists
+                lstClientApplicationModel = new List<ClientApplicationModel>();
+                
+            }
             catch (Exception ex) { throw ex; }
         }
 
@@ -110,6 +117,11 @@ namespace FiyiRequirements.Areas.Requirement.Models
             try
             {
                 List<ApplicationModel> lstApplicationModel = new List<ApplicationModel>();
+
+                //Initialize sub-lists
+                lstClientApplicationModel = new List<ClientApplicationModel>();
+                
+                
                 DynamicParameters dp = new DynamicParameters();
 
                 dp.Add("ApplicationId", ApplicationId, DbType.Int32, ParameterDirection.Input);
@@ -153,6 +165,10 @@ namespace FiyiRequirements.Areas.Requirement.Models
         {
             try
             {
+                //Initialize sub-lists
+                lstClientApplicationModel = new List<ClientApplicationModel>();
+                
+
                 this.ApplicationId = ApplicationId;
 				this.Active = Active;
 				this.DateTimeCreation = DateTimeCreation;
@@ -177,6 +193,10 @@ namespace FiyiRequirements.Areas.Requirement.Models
         {
             try
             {
+                //Initialize sub-lists
+                lstClientApplicationModel = new List<ClientApplicationModel>();
+                
+
                 ApplicationId = application.ApplicationId;
 				Active = application.Active;
 				DateTimeCreation = application.DateTimeCreation;
@@ -340,6 +360,26 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 }
 
                 applicationModelQuery.TotalPages = Library.Math.Divide(applicationModelQuery.TotalRows, applicationModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+
+                //Loop through lists and sublists
+                for (int i = 0; i < applicationModelQuery.lstApplicationModel.Count; i++)
+                {
+                    DynamicParameters dpForClientApplicationModel = new DynamicParameters();
+                    dpForClientApplicationModel.Add("ApplicationId", applicationModelQuery.lstApplicationModel[i].ApplicationId, DbType.Int32, ParameterDirection.Input);
+                    using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
+                    {
+                        List<ClientApplicationModel> lstClientApplicationModel = new List<ClientApplicationModel>();
+                        lstClientApplicationModel = (List<ClientApplicationModel>)sqlConnection.Query<ClientApplicationModel>("[dbo].[Requirement.ClientApplication.SelectAllByApplicationIdCustom]", dpForClientApplicationModel, commandType: CommandType.StoredProcedure);
+                        
+                        //Add list item inside another list
+                        foreach (var ClientApplicationModel in lstClientApplicationModel)
+                        {
+                            applicationModelQuery.lstApplicationModel[i].lstClientApplicationModel.Add(ClientApplicationModel);
+                        }
+                    }
+                }
+                
+                
 
                 return applicationModelQuery;
             }

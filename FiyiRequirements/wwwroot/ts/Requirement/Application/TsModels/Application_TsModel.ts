@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { ClientApplicationModel } from "../../ClientApplication/TsModels/ClientApplication_TsModel";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -13,7 +14,7 @@ import { Ajax } from "../../../Library/Ajax";
  * 
 */
 
-//9 fields | Last modification on: 24/12/2022 6:47:27 | Stack: 9
+//9 fields | Sub-models: 1 models  | Last modification on: 25/12/2022 12:07:25 | Stack: 9
 
 export class ApplicationModel {
 
@@ -27,6 +28,8 @@ export class ApplicationModel {
 	Name?: string | string[] | number | undefined;
 	Description?: string | string[] | number | undefined;
 	TechnologyId?: number;
+    lstClientApplicationModel?: ClientApplicationModel[] | undefined;
+    
 
     //Queries
     static Select1ByApplicationId(ApplicationId: number) {
