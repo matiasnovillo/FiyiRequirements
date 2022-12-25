@@ -27,8 +27,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
     /// Fields:            11 <br/> 
-    /// Dependencies:      2 models <br/>
-    /// Last modification: 24/12/2022 6:47:32
+    /// Sub-models:      2 models <br/>
+    /// Last modification: 25/12/2022 12:12:07
     /// </summary>
     [Serializable]
     public partial class ClientModel
@@ -85,7 +85,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         public string Email { get; set; }
         #endregion
 
-        #region Models that depend on this model
+        #region Sub-lists
         public virtual List<ClientApplicationModel> lstClientApplicationModel { get; set; } //Foreign Key name: ClientId 
 		public virtual List<RequirementModel> lstRequirementModel { get; set; } //Foreign Key name: ClientId 
         #endregion
@@ -101,7 +101,15 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// </summary>
         public ClientModel()
         {
-            try { ClientId = 0; }
+            try 
+            {
+                ClientId = 0;
+
+                //Initialize sub-lists
+                lstClientApplicationModel = new List<ClientApplicationModel>();
+                lstRequirementModel = new List<RequirementModel>();
+                
+            }
             catch (Exception ex) { throw ex; }
         }
 
@@ -117,6 +125,12 @@ namespace FiyiRequirements.Areas.Requirement.Models
             try
             {
                 List<ClientModel> lstClientModel = new List<ClientModel>();
+
+                //Initialize sub-lists
+                lstClientApplicationModel = new List<ClientApplicationModel>();
+                lstRequirementModel = new List<RequirementModel>();
+                
+                
                 DynamicParameters dp = new DynamicParameters();
 
                 dp.Add("ClientId", ClientId, DbType.Int32, ParameterDirection.Input);
@@ -162,6 +176,11 @@ namespace FiyiRequirements.Areas.Requirement.Models
         {
             try
             {
+                //Initialize sub-lists
+                lstClientApplicationModel = new List<ClientApplicationModel>();
+                lstRequirementModel = new List<RequirementModel>();
+                
+
                 this.ClientId = ClientId;
 				this.Active = Active;
 				this.DateTimeCreation = DateTimeCreation;
@@ -188,6 +207,11 @@ namespace FiyiRequirements.Areas.Requirement.Models
         {
             try
             {
+                //Initialize sub-lists
+                lstClientApplicationModel = new List<ClientApplicationModel>();
+                lstRequirementModel = new List<RequirementModel>();
+                
+
                 ClientId = client.ClientId;
 				Active = client.Active;
 				DateTimeCreation = client.DateTimeCreation;
@@ -355,6 +379,44 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 }
 
                 clientModelQuery.TotalPages = Library.Math.Divide(clientModelQuery.TotalRows, clientModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+
+                //Loop through lists and sublists
+                for (int i = 0; i < clientModelQuery.lstClientModel.Count; i++)
+                {
+                    DynamicParameters dpForClientApplicationModel = new DynamicParameters();
+                    dpForClientApplicationModel.Add("ClientId", clientModelQuery.lstClientModel[i].ClientId, DbType.Int32, ParameterDirection.Input);
+                    using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
+                    {
+                        List<ClientApplicationModel> lstClientApplicationModel = new List<ClientApplicationModel>();
+                        lstClientApplicationModel = (List<ClientApplicationModel>)sqlConnection.Query<ClientApplicationModel>("[dbo].[Requirement.ClientApplication.SelectAllByClientIdCustom]", dpForClientApplicationModel, commandType: CommandType.StoredProcedure);
+                        
+                        //Add list item inside another list
+                        foreach (var ClientApplicationModel in lstClientApplicationModel)
+                        {
+                            clientModelQuery.lstClientModel[i].lstClientApplicationModel.Add(ClientApplicationModel);
+                        }
+                    }
+                }
+                
+                //Loop through lists and sublists
+                for (int i = 0; i < clientModelQuery.lstClientModel.Count; i++)
+                {
+                    DynamicParameters dpForRequirementModel = new DynamicParameters();
+                    dpForRequirementModel.Add("ClientId", clientModelQuery.lstClientModel[i].ClientId, DbType.Int32, ParameterDirection.Input);
+                    using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
+                    {
+                        List<RequirementModel> lstRequirementModel = new List<RequirementModel>();
+                        lstRequirementModel = (List<RequirementModel>)sqlConnection.Query<RequirementModel>("[dbo].[Requirement.Requirement.SelectAllByClientIdCustom]", dpForRequirementModel, commandType: CommandType.StoredProcedure);
+                        
+                        //Add list item inside another list
+                        foreach (var RequirementModel in lstRequirementModel)
+                        {
+                            clientModelQuery.lstClientModel[i].lstRequirementModel.Add(RequirementModel);
+                        }
+                    }
+                }
+                
+                
 
                 return clientModelQuery;
             }

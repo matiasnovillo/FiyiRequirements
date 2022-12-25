@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { ClientApplicationModel } from "../../ClientApplication/TsModels/ClientApplication_TsModel";import { RequirementModel } from "../../Requirement/TsModels/Requirement_TsModel";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -13,7 +14,7 @@ import { Ajax } from "../../../Library/Ajax";
  * 
 */
 
-//11 fields | Last modification on: 24/12/2022 6:47:32 | Stack: 9
+//11 fields | Sub-models: 2 models  | Last modification on: 25/12/2022 12:12:08 | Stack: 9
 
 export class ClientModel {
 
@@ -29,6 +30,9 @@ export class ClientModel {
 	BusinessName?: string | string[] | number | undefined;
 	PhoneNumber?: string | string[] | number | undefined;
 	Email?: string | string[] | number | undefined;
+    lstClientApplicationModel?: ClientApplicationModel[] | undefined;
+    lstRequirementModel?: RequirementModel[] | undefined;
+    
 
     //Queries
     static Select1ByClientId(ClientId: number) {

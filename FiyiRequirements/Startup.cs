@@ -12,6 +12,8 @@ using System;
 using SixLaborsCaptcha.Mvc.Core;
 using FiyiRequirements.Areas.BasicCulture.Services;
 using FiyiRequirements.Areas.BasicCulture.Protocols;
+using FiyiRequirements.Areas.Requirement.Protocols;
+using FiyiRequirements.Areas.Requirement.Services;
 
 namespace FiyiRequirements
 {
@@ -56,6 +58,9 @@ namespace FiyiRequirements
             services.AddScoped<MenuProtocol, MenuService>();
             services.AddScoped<RoleMenuProtocol, RoleMenuService>();
             services.AddScoped<RoleProtocol, RoleService>();
+            //Area: Requirements
+            services.AddScoped<ApplicationProtocol, ApplicationService>();
+            services.AddScoped<ClientProtocol, ClientService>();
 
             //Session configuration
             services.AddMvc();
