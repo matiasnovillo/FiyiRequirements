@@ -2,6 +2,7 @@ import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
 
+
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
@@ -13,7 +14,7 @@ import { Ajax } from "../../../Library/Ajax";
  * 
 */
 
-//9 fields | Last modification on: 24/12/2022 6:48:16 | Stack: 9
+//9 fields | Sub-models: 0 models  | Last modification on: 25/12/2022 18:05:38 | Stack: 9
 
 export class RequirementFileModel {
 
@@ -27,6 +28,7 @@ export class RequirementFileModel {
 	RequirementId?: number;
 	FileName?: string | string[] | number | undefined;
 	FilePath?: string | string[] | number | undefined;
+    
 
     //Queries
     static Select1ByRequirementFileId(RequirementFileId: number) {
