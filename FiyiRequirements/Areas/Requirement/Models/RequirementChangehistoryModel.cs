@@ -27,8 +27,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
     /// Fields:            9 <br/> 
-    /// Dependencies:      0 models <br/>
-    /// Last modification: 24/12/2022 6:48:12
+    /// Sub-models:      0 models <br/>
+    /// Last modification: 25/12/2022 18:01:44
     /// </summary>
     [Serializable]
     public partial class RequirementChangehistoryModel
@@ -79,7 +79,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         public int RequirementPriorityId { get; set; }
         #endregion
 
-        #region Models that depend on this model
+        #region Sub-lists
         
         #endregion
 
@@ -94,7 +94,13 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// </summary>
         public RequirementChangehistoryModel()
         {
-            try { RequirementChangehistoryId = 0; }
+            try 
+            {
+                RequirementChangehistoryId = 0;
+
+                //Initialize sub-lists
+                
+            }
             catch (Exception ex) { throw ex; }
         }
 
@@ -110,6 +116,10 @@ namespace FiyiRequirements.Areas.Requirement.Models
             try
             {
                 List<RequirementChangehistoryModel> lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
+
+                //Initialize sub-lists
+                
+                
                 DynamicParameters dp = new DynamicParameters();
 
                 dp.Add("RequirementChangehistoryId", RequirementChangehistoryId, DbType.Int32, ParameterDirection.Input);
@@ -153,6 +163,9 @@ namespace FiyiRequirements.Areas.Requirement.Models
         {
             try
             {
+                //Initialize sub-lists
+                
+
                 this.RequirementChangehistoryId = RequirementChangehistoryId;
 				this.Active = Active;
 				this.DateTimeCreation = DateTimeCreation;
@@ -177,6 +190,9 @@ namespace FiyiRequirements.Areas.Requirement.Models
         {
             try
             {
+                //Initialize sub-lists
+                
+
                 RequirementChangehistoryId = requirementchangehistory.RequirementChangehistoryId;
 				Active = requirementchangehistory.Active;
 				DateTimeCreation = requirementchangehistory.DateTimeCreation;
@@ -340,6 +356,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 }
 
                 requirementchangehistoryModelQuery.TotalPages = Library.Math.Divide(requirementchangehistoryModelQuery.TotalRows, requirementchangehistoryModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+
+                
 
                 return requirementchangehistoryModelQuery;
             }

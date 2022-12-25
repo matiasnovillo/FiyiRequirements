@@ -63,6 +63,7 @@ namespace FiyiRequirements
             services.AddScoped<ClientProtocol, ClientService>();
             services.AddScoped<ClientApplicationProtocol, ClientApplicationService>();
             services.AddScoped<RequirementProtocol, RequirementService>();
+            services.AddScoped<RequirementChangehistoryProtocol, RequirementChangehistoryService>();
 
             //Session configuration
             services.AddMvc();
