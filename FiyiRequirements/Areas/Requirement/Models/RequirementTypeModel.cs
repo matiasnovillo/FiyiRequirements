@@ -27,8 +27,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
     /// Fields:            8 <br/> 
-    /// Dependencies:      1 models <br/>
-    /// Last modification: 24/12/2022 6:47:16
+    /// Sub-models:      1 models <br/>
+    /// Last modification: 25/12/2022 18:23:28
     /// </summary>
     [Serializable]
     public partial class RequirementTypeModel
@@ -76,7 +76,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         public string Description { get; set; }
         #endregion
 
-        #region Models that depend on this model
+        #region Sub-lists
         public virtual List<RequirementModel> lstRequirementModel { get; set; } //Foreign Key name: RequirementTypeId 
         #endregion
 
@@ -91,7 +91,14 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// </summary>
         public RequirementTypeModel()
         {
-            try { RequirementTypeId = 0; }
+            try 
+            {
+                RequirementTypeId = 0;
+
+                //Initialize sub-lists
+                lstRequirementModel = new List<RequirementModel>();
+                
+            }
             catch (Exception ex) { throw ex; }
         }
 
@@ -107,6 +114,11 @@ namespace FiyiRequirements.Areas.Requirement.Models
             try
             {
                 List<RequirementTypeModel> lstRequirementTypeModel = new List<RequirementTypeModel>();
+
+                //Initialize sub-lists
+                lstRequirementModel = new List<RequirementModel>();
+                
+                
                 DynamicParameters dp = new DynamicParameters();
 
                 dp.Add("RequirementTypeId", RequirementTypeId, DbType.Int32, ParameterDirection.Input);
@@ -149,6 +161,10 @@ namespace FiyiRequirements.Areas.Requirement.Models
         {
             try
             {
+                //Initialize sub-lists
+                lstRequirementModel = new List<RequirementModel>();
+                
+
                 this.RequirementTypeId = RequirementTypeId;
 				this.Active = Active;
 				this.DateTimeCreation = DateTimeCreation;
@@ -172,6 +188,10 @@ namespace FiyiRequirements.Areas.Requirement.Models
         {
             try
             {
+                //Initialize sub-lists
+                lstRequirementModel = new List<RequirementModel>();
+                
+
                 RequirementTypeId = requirementtype.RequirementTypeId;
 				Active = requirementtype.Active;
 				DateTimeCreation = requirementtype.DateTimeCreation;
@@ -333,6 +353,26 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 }
 
                 requirementtypeModelQuery.TotalPages = Library.Math.Divide(requirementtypeModelQuery.TotalRows, requirementtypeModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+
+                //Loop through lists and sublists
+                for (int i = 0; i < requirementtypeModelQuery.lstRequirementTypeModel.Count; i++)
+                {
+                    DynamicParameters dpForRequirementModel = new DynamicParameters();
+                    dpForRequirementModel.Add("RequirementTypeId", requirementtypeModelQuery.lstRequirementTypeModel[i].RequirementTypeId, DbType.Int32, ParameterDirection.Input);
+                    using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
+                    {
+                        List<RequirementModel> lstRequirementModel = new List<RequirementModel>();
+                        lstRequirementModel = (List<RequirementModel>)sqlConnection.Query<RequirementModel>("[dbo].[Requirement.Requirement.SelectAllByRequirementTypeIdCustom]", dpForRequirementModel, commandType: CommandType.StoredProcedure);
+                        
+                        //Add list item inside another list
+                        foreach (var RequirementModel in lstRequirementModel)
+                        {
+                            requirementtypeModelQuery.lstRequirementTypeModel[i].lstRequirementModel.Add(RequirementModel);
+                        }
+                    }
+                }
+                
+                
 
                 return requirementtypeModelQuery;
             }

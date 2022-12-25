@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { RequirementModel } from "../../Requirement/TsModels/Requirement_TsModel";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -13,7 +14,7 @@ import { Ajax } from "../../../Library/Ajax";
  * 
 */
 
-//8 fields | Last modification on: 24/12/2022 6:47:16 | Stack: 9
+//8 fields | Sub-models: 1 models  | Last modification on: 25/12/2022 18:23:28 | Stack: 9
 
 export class RequirementTypeModel {
 
@@ -26,6 +27,8 @@ export class RequirementTypeModel {
 	UserLastModificationId?: number;
 	Name?: string | string[] | number | undefined;
 	Description?: string | string[] | number | undefined;
+    lstRequirementModel?: RequirementModel[] | undefined;
+    
 
     //Queries
     static Select1ByRequirementTypeId(RequirementTypeId: number) {
