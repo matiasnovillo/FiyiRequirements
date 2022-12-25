@@ -99,7 +99,9 @@
          requirementstatetsmodel: ["./wwwroot/ts/Requirement/RequirementState/TsModels/RequirementState_TsModel"],
          requirementstatejquery: ["./wwwroot/ts/Requirement/RequirementState/jQuery/RequirementStateQuery_jQuery"],
          requirementtypetsmodel: ["./wwwroot/ts/Requirement/RequirementType/TsModels/RequirementType_TsModel"],
-         requirementtypejquery: ["./wwwroot/ts/Requirement/RequirementType/jQuery/RequirementTypeQuery_jQuery"]
+         requirementtypejquery: ["./wwwroot/ts/Requirement/RequirementType/jQuery/RequirementTypeQuery_jQuery"],
+         technologytsmodel: ["./wwwroot/ts/Requirement/Technology/TsModels/Technology_TsModel"],
+         technologyjquery: ["./wwwroot/ts/Requirement/Technology/jQuery/TechnologyQuery_jQuery"]
      },
      output: {
          filename: "[name].bundle.js",                       //Path to save bundles: __dirname + "/wwwroot/dist" (__dirname is a Node.js variable)

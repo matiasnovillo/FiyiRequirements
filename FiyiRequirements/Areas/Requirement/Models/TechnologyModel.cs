@@ -27,8 +27,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
     /// Fields:            8 <br/> 
-    /// Dependencies:      1 models <br/>
-    /// Last modification: 24/12/2022 6:47:20
+    /// Sub-models:      1 models <br/>
+    /// Last modification: 25/12/2022 18:26:04
     /// </summary>
     [Serializable]
     public partial class TechnologyModel
@@ -76,7 +76,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         public string Description { get; set; }
         #endregion
 
-        #region Models that depend on this model
+        #region Sub-lists
         public virtual List<ApplicationModel> lstApplicationModel { get; set; } //Foreign Key name: TechnologyId 
         #endregion
 
@@ -91,7 +91,14 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// </summary>
         public TechnologyModel()
         {
-            try { TechnologyId = 0; }
+            try 
+            {
+                TechnologyId = 0;
+
+                //Initialize sub-lists
+                lstApplicationModel = new List<ApplicationModel>();
+                
+            }
             catch (Exception ex) { throw ex; }
         }
 
@@ -107,6 +114,11 @@ namespace FiyiRequirements.Areas.Requirement.Models
             try
             {
                 List<TechnologyModel> lstTechnologyModel = new List<TechnologyModel>();
+
+                //Initialize sub-lists
+                lstApplicationModel = new List<ApplicationModel>();
+                
+                
                 DynamicParameters dp = new DynamicParameters();
 
                 dp.Add("TechnologyId", TechnologyId, DbType.Int32, ParameterDirection.Input);
@@ -149,6 +161,10 @@ namespace FiyiRequirements.Areas.Requirement.Models
         {
             try
             {
+                //Initialize sub-lists
+                lstApplicationModel = new List<ApplicationModel>();
+                
+
                 this.TechnologyId = TechnologyId;
 				this.Active = Active;
 				this.DateTimeCreation = DateTimeCreation;
@@ -172,6 +188,10 @@ namespace FiyiRequirements.Areas.Requirement.Models
         {
             try
             {
+                //Initialize sub-lists
+                lstApplicationModel = new List<ApplicationModel>();
+                
+
                 TechnologyId = technology.TechnologyId;
 				Active = technology.Active;
 				DateTimeCreation = technology.DateTimeCreation;
@@ -333,6 +353,26 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 }
 
                 technologyModelQuery.TotalPages = Library.Math.Divide(technologyModelQuery.TotalRows, technologyModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+
+                //Loop through lists and sublists
+                for (int i = 0; i < technologyModelQuery.lstTechnologyModel.Count; i++)
+                {
+                    DynamicParameters dpForApplicationModel = new DynamicParameters();
+                    dpForApplicationModel.Add("TechnologyId", technologyModelQuery.lstTechnologyModel[i].TechnologyId, DbType.Int32, ParameterDirection.Input);
+                    using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
+                    {
+                        List<ApplicationModel> lstApplicationModel = new List<ApplicationModel>();
+                        lstApplicationModel = (List<ApplicationModel>)sqlConnection.Query<ApplicationModel>("[dbo].[Requirement.Application.SelectAllByTechnologyIdCustom]", dpForApplicationModel, commandType: CommandType.StoredProcedure);
+                        
+                        //Add list item inside another list
+                        foreach (var ApplicationModel in lstApplicationModel)
+                        {
+                            technologyModelQuery.lstTechnologyModel[i].lstApplicationModel.Add(ApplicationModel);
+                        }
+                    }
+                }
+                
+                
 
                 return technologyModelQuery;
             }
