@@ -18,7 +18,7 @@ import { Ajax } from "../../../Library/Ajax";
 
 //Stack: 10
 
-//Last modification on: 24/12/2022 6:48:02
+//Last modification on: 25/12/2022 13:30:52
 
 //Set default values
 let LastTopDistance: number = 0;

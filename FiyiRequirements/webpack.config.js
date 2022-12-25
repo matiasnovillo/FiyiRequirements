@@ -85,7 +85,9 @@
          clienttsmodel: ["./wwwroot/ts/Requirement/Client/TsModels/Client_TsModel"],
          clientjquery: ["./wwwroot/ts/Requirement/Client/jQuery/ClientQuery_jQuery"],
          clientapplicationtsmodel: ["./wwwroot/ts/Requirement/ClientApplication/TsModels/ClientApplication_TsModel"],
-         clientapplicationjquery: ["./wwwroot/ts/Requirement/ClientApplication/jQuery/ClientApplicationQuery_jQuery"]
+         clientapplicationjquery: ["./wwwroot/ts/Requirement/ClientApplication/jQuery/ClientApplicationQuery_jQuery"],
+         requirementtsmodel: ["./wwwroot/ts/Requirement/Requirement/TsModels/Requirement_TsModel"],
+         requirementjquery: ["./wwwroot/ts/Requirement/Requirement/jQuery/RequirementQuery_jQuery"]
      },
      output: {
          filename: "[name].bundle.js",                       //Path to save bundles: __dirname + "/wwwroot/dist" (__dirname is a Node.js variable)

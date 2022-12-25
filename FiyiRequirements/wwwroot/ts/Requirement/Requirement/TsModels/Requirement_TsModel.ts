@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { RequirementChangehistoryModel } from "../../RequirementChangehistory/TsModels/RequirementChangehistory_TsModel";import { RequirementFileModel } from "../../RequirementFile/TsModels/RequirementFile_TsModel";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -13,7 +14,7 @@ import { Ajax } from "../../../Library/Ajax";
  * 
 */
 
-//13 fields | Last modification on: 24/12/2022 6:48:02 | Stack: 9
+//13 fields | Sub-models: 2 models  | Last modification on: 25/12/2022 13:30:52 | Stack: 9
 
 export class RequirementModel {
 
@@ -31,6 +32,9 @@ export class RequirementModel {
 	RequirementTypeId?: number;
 	RequirementPriorityId?: number;
 	UserProgrammerId?: number;
+    lstRequirementChangehistoryModel?: RequirementChangehistoryModel[] | undefined;
+    lstRequirementFileModel?: RequirementFileModel[] | undefined;
+    
 
     //Queries
     static Select1ByRequirementId(RequirementId: number) {
