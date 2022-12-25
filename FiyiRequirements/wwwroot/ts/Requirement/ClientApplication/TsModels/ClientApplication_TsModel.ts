@@ -2,6 +2,7 @@ import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
 
+
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
@@ -13,7 +14,7 @@ import { Ajax } from "../../../Library/Ajax";
  * 
 */
 
-//8 fields | Last modification on: 24/12/2022 6:47:42 | Stack: 9
+//8 fields | Sub-models: 0 models  | Last modification on: 25/12/2022 13:27:06 | Stack: 9
 
 export class ClientApplicationModel {
 
@@ -26,6 +27,7 @@ export class ClientApplicationModel {
 	UserLastModificationId?: number;
 	ClientId?: number;
 	ApplicationId?: number;
+    
 
     //Queries
     static Select1ByClientApplicationId(ClientApplicationId: number) {

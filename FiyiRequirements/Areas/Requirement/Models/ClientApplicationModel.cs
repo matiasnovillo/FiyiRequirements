@@ -27,8 +27,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
     /// Fields:            8 <br/> 
-    /// Dependencies:      0 models <br/>
-    /// Last modification: 24/12/2022 6:47:42
+    /// Sub-models:      0 models <br/>
+    /// Last modification: 25/12/2022 13:27:06
     /// </summary>
     [Serializable]
     public partial class ClientApplicationModel
@@ -76,7 +76,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         public int ApplicationId { get; set; }
         #endregion
 
-        #region Models that depend on this model
+        #region Sub-lists
         
         #endregion
 
@@ -91,7 +91,13 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// </summary>
         public ClientApplicationModel()
         {
-            try { ClientApplicationId = 0; }
+            try 
+            {
+                ClientApplicationId = 0;
+
+                //Initialize sub-lists
+                
+            }
             catch (Exception ex) { throw ex; }
         }
 
@@ -107,6 +113,10 @@ namespace FiyiRequirements.Areas.Requirement.Models
             try
             {
                 List<ClientApplicationModel> lstClientApplicationModel = new List<ClientApplicationModel>();
+
+                //Initialize sub-lists
+                
+                
                 DynamicParameters dp = new DynamicParameters();
 
                 dp.Add("ClientApplicationId", ClientApplicationId, DbType.Int32, ParameterDirection.Input);
@@ -149,6 +159,9 @@ namespace FiyiRequirements.Areas.Requirement.Models
         {
             try
             {
+                //Initialize sub-lists
+                
+
                 this.ClientApplicationId = ClientApplicationId;
 				this.Active = Active;
 				this.DateTimeCreation = DateTimeCreation;
@@ -172,6 +185,9 @@ namespace FiyiRequirements.Areas.Requirement.Models
         {
             try
             {
+                //Initialize sub-lists
+                
+
                 ClientApplicationId = clientapplication.ClientApplicationId;
 				Active = clientapplication.Active;
 				DateTimeCreation = clientapplication.DateTimeCreation;
@@ -333,6 +349,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 }
 
                 clientapplicationModelQuery.TotalPages = Library.Math.Divide(clientapplicationModelQuery.TotalRows, clientapplicationModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+
+                
 
                 return clientapplicationModelQuery;
             }
