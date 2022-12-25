@@ -65,6 +65,7 @@ namespace FiyiRequirements
             services.AddScoped<RequirementProtocol, RequirementService>();
             services.AddScoped<RequirementChangehistoryProtocol, RequirementChangehistoryService>();
             services.AddScoped<RequirementFileProtocol, RequirementFileService>();
+            services.AddScoped<RequirementNoteProtocol, RequirementNoteService>();
 
             //Session configuration
             services.AddMvc();

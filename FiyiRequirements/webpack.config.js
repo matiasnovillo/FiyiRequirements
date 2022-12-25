@@ -91,7 +91,9 @@
          requirementchangehistorytsmodel: ["./wwwroot/ts/Requirement/RequirementChangehistory/TsModels/RequirementChangehistory_TsModel"],
          requirementchangehistoryjquery: ["./wwwroot/ts/Requirement/RequirementChangehistory/jQuery/RequirementChangehistoryQuery_jQuery"],
          requirementfiletsmodel: ["./wwwroot/ts/Requirement/RequirementFile/TsModels/RequirementFile_TsModel"],
-         requirementfilejquery: ["./wwwroot/ts/Requirement/RequirementFile/jQuery/RequirementFileQuery_jQuery"]
+         requirementfilejquery: ["./wwwroot/ts/Requirement/RequirementFile/jQuery/RequirementFileQuery_jQuery"],
+         requirementnotetsmodel: ["./wwwroot/ts/Requirement/RequirementNote/TsModels/RequirementNote_TsModel"],
+         requirementnotejquery: ["./wwwroot/ts/Requirement/RequirementNote/jQuery/RequirementNoteQuery_jQuery"]
      },
      output: {
          filename: "[name].bundle.js",                       //Path to save bundles: __dirname + "/wwwroot/dist" (__dirname is a Node.js variable)

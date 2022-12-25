@@ -2,6 +2,7 @@ import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
 
+
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
@@ -13,7 +14,7 @@ import { Ajax } from "../../../Library/Ajax";
  * 
 */
 
-//8 fields | Last modification on: 24/12/2022 6:47:58 | Stack: 9
+//8 fields | Sub-models: 0 models  | Last modification on: 25/12/2022 18:10:07 | Stack: 9
 
 export class RequirementNoteModel {
 
@@ -26,6 +27,7 @@ export class RequirementNoteModel {
 	UserLastModificationId?: number;
 	Title?: string | string[] | number | undefined;
 	Body?: string | string[] | number | undefined;
+    
 
     //Queries
     static Select1ByRequirementNoteId(RequirementNoteId: number) {
