@@ -27,8 +27,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
     /// Fields:            7 <br/> 
-    /// Dependencies:      2 models <br/>
-    /// Last modification: 24/12/2022 6:47:04
+    /// Sub-models:      2 models <br/>
+    /// Last modification: 25/12/2022 18:16:36
     /// </summary>
     [Serializable]
     public partial class RequirementStateModel
@@ -73,7 +73,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         public string Name { get; set; }
         #endregion
 
-        #region Models that depend on this model
+        #region Sub-lists
         public virtual List<RequirementModel> lstRequirementModel { get; set; } //Foreign Key name: RequirementStateId 
 		public virtual List<RequirementChangehistoryModel> lstRequirementChangehistoryModel { get; set; } //Foreign Key name: RequirementStateId 
         #endregion
@@ -89,7 +89,15 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// </summary>
         public RequirementStateModel()
         {
-            try { RequirementStateId = 0; }
+            try 
+            {
+                RequirementStateId = 0;
+
+                //Initialize sub-lists
+                lstRequirementModel = new List<RequirementModel>();
+                lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
+                
+            }
             catch (Exception ex) { throw ex; }
         }
 
@@ -105,6 +113,12 @@ namespace FiyiRequirements.Areas.Requirement.Models
             try
             {
                 List<RequirementStateModel> lstRequirementStateModel = new List<RequirementStateModel>();
+
+                //Initialize sub-lists
+                lstRequirementModel = new List<RequirementModel>();
+                lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
+                
+                
                 DynamicParameters dp = new DynamicParameters();
 
                 dp.Add("RequirementStateId", RequirementStateId, DbType.Int32, ParameterDirection.Input);
@@ -146,6 +160,11 @@ namespace FiyiRequirements.Areas.Requirement.Models
         {
             try
             {
+                //Initialize sub-lists
+                lstRequirementModel = new List<RequirementModel>();
+                lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
+                
+
                 this.RequirementStateId = RequirementStateId;
 				this.Active = Active;
 				this.DateTimeCreation = DateTimeCreation;
@@ -168,6 +187,11 @@ namespace FiyiRequirements.Areas.Requirement.Models
         {
             try
             {
+                //Initialize sub-lists
+                lstRequirementModel = new List<RequirementModel>();
+                lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
+                
+
                 RequirementStateId = requirementstate.RequirementStateId;
 				Active = requirementstate.Active;
 				DateTimeCreation = requirementstate.DateTimeCreation;
@@ -327,6 +351,44 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 }
 
                 requirementstateModelQuery.TotalPages = Library.Math.Divide(requirementstateModelQuery.TotalRows, requirementstateModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+
+                //Loop through lists and sublists
+                for (int i = 0; i < requirementstateModelQuery.lstRequirementStateModel.Count; i++)
+                {
+                    DynamicParameters dpForRequirementModel = new DynamicParameters();
+                    dpForRequirementModel.Add("RequirementStateId", requirementstateModelQuery.lstRequirementStateModel[i].RequirementStateId, DbType.Int32, ParameterDirection.Input);
+                    using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
+                    {
+                        List<RequirementModel> lstRequirementModel = new List<RequirementModel>();
+                        lstRequirementModel = (List<RequirementModel>)sqlConnection.Query<RequirementModel>("[dbo].[Requirement.Requirement.SelectAllByRequirementStateIdCustom]", dpForRequirementModel, commandType: CommandType.StoredProcedure);
+                        
+                        //Add list item inside another list
+                        foreach (var RequirementModel in lstRequirementModel)
+                        {
+                            requirementstateModelQuery.lstRequirementStateModel[i].lstRequirementModel.Add(RequirementModel);
+                        }
+                    }
+                }
+                
+                //Loop through lists and sublists
+                for (int i = 0; i < requirementstateModelQuery.lstRequirementStateModel.Count; i++)
+                {
+                    DynamicParameters dpForRequirementChangehistoryModel = new DynamicParameters();
+                    dpForRequirementChangehistoryModel.Add("RequirementStateId", requirementstateModelQuery.lstRequirementStateModel[i].RequirementStateId, DbType.Int32, ParameterDirection.Input);
+                    using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
+                    {
+                        List<RequirementChangehistoryModel> lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
+                        lstRequirementChangehistoryModel = (List<RequirementChangehistoryModel>)sqlConnection.Query<RequirementChangehistoryModel>("[dbo].[Requirement.RequirementChangehistory.SelectAllByRequirementStateIdCustom]", dpForRequirementChangehistoryModel, commandType: CommandType.StoredProcedure);
+                        
+                        //Add list item inside another list
+                        foreach (var RequirementChangehistoryModel in lstRequirementChangehistoryModel)
+                        {
+                            requirementstateModelQuery.lstRequirementStateModel[i].lstRequirementChangehistoryModel.Add(RequirementChangehistoryModel);
+                        }
+                    }
+                }
+                
+                
 
                 return requirementstateModelQuery;
             }
