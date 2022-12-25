@@ -2,19 +2,6 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-/*
- * GUID:E6C09DFE-3A3E-461B-B3F9-734AEE05FC7B
- * Licensed to a unique person with this Token:(Token)
- * 
- * Coded by fiyistack.com
- * Copyright © 2021
- * 
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Software.
- * 
- * Auto generated code. It should not be modified from here. 
- */
-
 namespace FiyiRequirements.Library
 {
     public static class Validator

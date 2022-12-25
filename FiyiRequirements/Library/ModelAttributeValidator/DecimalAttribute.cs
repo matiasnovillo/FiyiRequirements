@@ -9,7 +9,7 @@ namespace FiyiRequirements.Library.ModelAttributeValidator
         private decimal _MinimumDecimalNumber;
         private decimal _MaximumDecimalNumber;
         private bool _Required;
-        public DecimalAttribute(string PropertyName, bool Required, double DecimalMin = (double)Constant.DecimalMINValue, double DecimalMax = (double)Constant.DecimalMAXValue)
+        public DecimalAttribute(string PropertyName, bool Required, double DecimalMin = (double)decimal.MinValue, double DecimalMax = (double)decimal.MaxValue)
         {
             try
             {
@@ -19,11 +19,11 @@ namespace FiyiRequirements.Library.ModelAttributeValidator
 
                 _PropertyName = PropertyName;
 
-                if (DecimalMin < (double)Constant.DecimalMINValue || DecimalMin > (double)Constant.DecimalMAXValue)
+                if (DecimalMin < (double)decimal.MinValue || DecimalMin > (double)decimal.MaxValue)
                 {
                     throw new Exception("The validator MinimumDecimalNumber must be inside decimalDBMin and decimalDBMax");
                 }
-                if (DecimalMax < (double)Constant.DecimalMINValue || DecimalMax > (double)Constant.DecimalMAXValue)
+                if (DecimalMax < (double)decimal.MinValue || DecimalMax > (double)decimal.MaxValue)
                 {
                     throw new Exception("The validator MaximumDecimalNumber must be inside decimalDBMin and decimalDBMax");
                 }
@@ -45,7 +45,7 @@ namespace FiyiRequirements.Library.ModelAttributeValidator
                 }
                 if (objDecimal.GetType() != typeof(decimal)) { throw new Exception($"{_PropertyName} is not a valid decimal number"); }
 
-                if ((decimal)objDecimal < Constant.DecimalMINValue || (decimal)objDecimal > Constant.DecimalMAXValue)
+                if ((decimal)objDecimal < decimal.MinValue || (decimal)objDecimal > decimal.MaxValue)
                 {
                     throw new Exception($"{_PropertyName} must be inside decimalDBMin and decimalDBMax");
                 }

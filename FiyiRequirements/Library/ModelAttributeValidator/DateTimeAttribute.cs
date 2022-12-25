@@ -22,8 +22,8 @@ namespace FiyiRequirements.Library.ModelAttributeValidator
                 if (DateTimeMinValue == null) { throw new Exception("The minimum DateTime validator is empty"); }
                 if (DateTimeMaxValue == null) { throw new Exception("The maximum DateTime validator is empty"); }
 
-                if (DateTimeMinValue != "") { _MinimumDateTime = Convert.ToDateTime(DateTimeMinValue); }
-                if (DateTimeMaxValue != "") { _MaximumDateTime = Convert.ToDateTime(DateTimeMaxValue); }
+                _MinimumDateTime = System.Convert.ToDateTime(DateTimeMinValue);
+                _MaximumDateTime = System.Convert.ToDateTime(DateTimeMaxValue);
 
                 _Required = Required;
             }

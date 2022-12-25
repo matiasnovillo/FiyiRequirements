@@ -2,19 +2,6 @@
 using System.Security.Cryptography;
 using System.Text;
 
-/*
- * GUID:E6C09DFE-3A3E-461B-B3F9-734AEE05FC7B
- * Licensed to a unique person with this Token:(Token)
- * 
- * Coded by fiyistack.com
- * Copyright © 2021
- * 
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Software.
- * 
- * Auto generated code. It should not be modified from here. 
- */
-
 namespace FiyiRequirements.Library
 {
     public static class Security
@@ -58,8 +45,8 @@ namespace FiyiRequirements.Library
             }
         }
 
-        public enum EWaterMarkFor { MSSQLServer, CSharp, TypeScript };
-        public static string WaterMark(EWaterMarkFor EWaterMarkFor, string GUID, string Token, string Owner, string CopyrightYear)
+        public enum EWaterMarkFor { MSSQLServer, CSharp, TypeScriptAndJavaScript };
+        public static string WaterMark(EWaterMarkFor EWaterMarkFor, string GUID)
         {
             string WaterMark = "";
             switch (EWaterMarkFor)
@@ -67,43 +54,37 @@ namespace FiyiRequirements.Library
                 case EWaterMarkFor.MSSQLServer:
                     WaterMark = $@"/*
  * GUID:{GUID}
- * Licensed to a unique person with this Token:{Token}
  * 
- * Coded by {Owner}
- * Copyright © {CopyrightYear}
+ * Coded by fiyistack.com
+ * Copyright © {DateTime.Now.Year}
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
- * Auto generated code. It should not be modified from here.
  */";
                     break;
                 case EWaterMarkFor.CSharp:
                     WaterMark = $@"/*
  * GUID:{GUID}
- * Licensed to a unique person with this Token:{Token}
  * 
- * Coded by {Owner}
- * Copyright © {CopyrightYear}
+ * Coded by fiyistack.com
+ * Copyright © {DateTime.Now.Year}
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
- * Auto generated code. Add your custom code after the last line of auto generation
  */";
                     break;
-                case EWaterMarkFor.TypeScript:
+                case EWaterMarkFor.TypeScriptAndJavaScript:
                     WaterMark = $@"/*
  * GUID:{GUID}
- * Licensed to a unique person with this Token:{Token}
  * 
- * Coded by {Owner}
- * Copyright © {CopyrightYear}
+ * Coded by fiyistack.com
+ * Copyright © {DateTime.Now.Year}
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
- * Auto generated code. Add your custom code after the last line of auto generation
 */";
                     break;
                 default:

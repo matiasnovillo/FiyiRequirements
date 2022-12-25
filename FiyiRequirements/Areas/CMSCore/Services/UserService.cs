@@ -261,7 +261,7 @@ html {{ -webkit-text-size-adjust: none; -ms-text-size-adjust: none;}}
                            </font>
                            <div style=""height: 25px; line-height: 25px; font-size: 23px;"">&nbsp;</div>
                            <font class=""mob_title2"" face=""'Source Sans Pro', sans-serif"" color=""#5e5e5e"" style=""font-size: 36px; line-height: 45px; font-weight: 300; letter-spacing: -1px;"">
-                              <span class=""mob_title2"" style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #5e5e5e; font-size: 28px; line-height: 45px; font-weight: 300; letter-spacing: -1px;"">One more step away from entering FiyiStack, what are you waiting for?</span>
+                              <span class=""mob_title2"" style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #5e5e5e; font-size: 28px; line-height: 45px; font-weight: 300; letter-spacing: -1px;"">One more step away from entering FiyiRequirements, what are you waiting for?</span>
                            </font>
                            <div style=""height: 38px; line-height: 38px; font-size: 36px;"">&nbsp;</div>
                            <table class=""mob_btn"" cellpadding=""0"" cellspacing=""0"" border=""0"" style=""background: #27cbcc; border-radius: 4px;"">
@@ -300,7 +300,7 @@ html {{ -webkit-text-size-adjust: none; -ms-text-size-adjust: none;}}
                                  <td align=""center"" valign=""top"">
                                     <div style=""height: 34px; line-height: 34px; font-size: 32px;"">&nbsp;</div>
                                     <font face=""'Source Sans Pro', sans-serif"" color=""#868686"" style=""font-size: 17px; line-height: 20px;"">
-                                       <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #868686; font-size: 17px; line-height: 20px;"">Copyright &copy; {DateTime.Now.Year} FiyiStack. All&nbsp;Rights&nbsp;Reserved. Thanks!</span>
+                                       <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #868686; font-size: 17px; line-height: 20px;"">Copyright &copy; {DateTime.Now.Year} FiyiRequirements. All&nbsp;Rights&nbsp;Reserved. Thanks!</span>
                                     </font>
                                     <div style=""height: 3px; line-height: 3px; font-size: 1px;"">&nbsp;</div>
                                     <font face=""'Source Sans Pro', sans-serif"" color=""#1a1a1a"" style=""font-size: 17px; line-height: 20px;"">
@@ -349,7 +349,7 @@ html {{ -webkit-text-size-adjust: none; -ms-text-size-adjust: none;}}
                 MailMessage.BodyEncoding = Encoding.UTF8;
                 MailMessage.IsBodyHtml = true;
                 MailMessage.SubjectEncoding = Encoding.UTF8;
-                MailMessage.From = new MailAddress(Address, "FiyiStack");
+                MailMessage.From = new MailAddress(Address, "FiyiRequirements");
 
                 SmtpClient.Credentials = new NetworkCredential(Address, fPassword);
                 SmtpClient.Host = Host;//Server from which the mail is sent
@@ -385,7 +385,7 @@ html {{ -webkit-text-size-adjust: none; -ms-text-size-adjust: none;}}
 <html>
 <head>
 <meta http-equiv=""Content-Type"" content=""text/html; charset=utf-8"" >
-<title>Recover password - FiyiStack</title>
+<title>Recover password - FiyiRequirements</title>
 <link href=""https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700"" rel=""stylesheet"">
 <style type=""text/css"">
 html {{ -webkit-text-size-adjust: none; -ms-text-size-adjust: none;}}
@@ -550,7 +550,7 @@ html {{ -webkit-text-size-adjust: none; -ms-text-size-adjust: none;}}
                 MailMessage.BodyEncoding = Encoding.UTF8;
                 MailMessage.IsBodyHtml = true;
                 MailMessage.SubjectEncoding = Encoding.UTF8;
-                MailMessage.From = new MailAddress(Address, "FiyiStack");
+                MailMessage.From = new MailAddress(Address, "FiyiRequirements");
 
                 SmtpClient.Credentials = new NetworkCredential(Address, Password);
                 SmtpClient.Host = Host;//Server from which the mail is sent
