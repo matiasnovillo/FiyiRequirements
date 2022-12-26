@@ -24,7 +24,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 25/12/2022 18:05:38
+//Last modification on: 25/12/2022 22:01:41
 
 namespace FiyiRequirements.Areas.Requirement.Controllers
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 25/12/2022 18:05:38
+    /// Last modification: 25/12/2022 22:01:41
     /// </summary>
     [ApiController]
     [RequirementFileFilter]
@@ -70,8 +70,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -102,8 +102,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -134,8 +134,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -223,10 +223,10 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     {
                         if (File.Length > 0)
                         {
-                            var FileName1 = HttpContext.Request.Form.Files[i].FileName;
-                            var FilePath1 = $@"{_WebHostEnvironment.WebRootPath}/Uploads/Requirement/RequirementFile/";
+                            var FileName = HttpContext.Request.Form.Files[i].FileName;
+                            var FilePath = $@"{_WebHostEnvironment.WebRootPath}/Uploads/Requirement/RequirementFile/";
 
-                            using (var FileStream = new FileStream($@"{FilePath1}{FileName1}", FileMode.Create))
+                            using (var FileStream = new FileStream($@"{FilePath}{FileName}", FileMode.Create))
                             {
                                 
                                 await File.CopyToAsync(FileStream); // Read file to stream
@@ -261,8 +261,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -294,8 +294,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -328,8 +328,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -362,8 +362,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -403,8 +403,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -439,8 +439,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -473,8 +473,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -507,8 +507,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
