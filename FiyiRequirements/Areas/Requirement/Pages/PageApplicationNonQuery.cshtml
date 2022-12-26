@@ -11,7 +11,8 @@
     string Name;
     string Description;
     int TechnologyId;
-    
+    string TechnologyName;
+
 
     if(HttpContext.Request.QueryString.Value.Contains("?ApplicationId=0"))
     {
@@ -22,6 +23,7 @@
         Name = "";
         Description = "";
         TechnologyId = 0;
+        TechnologyName = "Choose a value";
     }
     else
     {
@@ -35,8 +37,12 @@
         Name = ApplicationModel.Name;
         Description = ApplicationModel.Description;
         TechnologyId = ApplicationModel.TechnologyId;
-        
+
+        TechnologyModel TechnologyModel = new TechnologyModel(ApplicationModel.TechnologyId);
+        TechnologyName = TechnologyModel.Name;
     }
+
+    List<TechnologyModel> lstTechnologyModel = new TechnologyModel().SelectAllToList();
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -116,13 +122,13 @@
                         <!-- ApplicationId -->
                         <div class="form-group mb-3">
                             <label for="requirement-application-applicationId-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-key"></i> ApplicationId
+                                <i class="fas fa-key"></i> Application ID
                             </label>
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
                                     <span class="input-group-text">
                                         <strong>
-                                            <i class="fas fa-key"></i> ApplicationId
+                                            <i class="fas fa-key"></i> Application ID
                                         </strong>
                                     </span>
                                 </div>
@@ -179,13 +185,13 @@
                         <!-- TechnologyId -->
                         <div class="form-group mb-3">
                             <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-hashtag"></i> TechnologyId
+                                <i class="fas fa-hashtag"></i> Technology ID
                             </label>
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend input-group-text">
                                     <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
                                         <strong>
-                                            <i class="fas fa-hashtag"></i> TechnologyId
+                                            <i class="fas fa-hashtag"></i> Technology ID
                                         </strong>
                                     </span>
                                 </div>
@@ -193,7 +199,7 @@
                                 <ul id="requirement-application-technologyid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
-                                            Choose a value
+                                            @TechnologyName
                                         </a>
                                         <input type="hidden" id="requirement-application-technologyid-input" value="@TechnologyId"/>
                                     </li>
@@ -255,7 +261,7 @@
     </div>
 </div>
 
-<!-- ForeignKeyDropDown selector in Modal style -->
+<!-- Technology selector in Modal style -->
 <div class="row">
     <div class="col-md-4">
         <!-- Modal -->
@@ -265,15 +271,21 @@
                 <div class="modal-content bg-gradient-secondary">
                     <div class="modal-header">
                         <h6 class="modal-title text-primary">
-                            Choose a ForeignKeyDropDown value <i class="fas fa-hashtag"></i>
+                            Choose a technology <i class="fas fa-hashtag"></i>
                          </h6>
                     </div>
                     <div class="modal-body">
                         <form role="form">
                             <div class="form-group">
                                 <div class="input-group input-group-merge input-group-alternative">
-                                    <select id="requirement-application-foreignkeydropdown-select" class="form-control" data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Choose value" data-allow-reset="true">
+                                    <select id="requirement-application-technologyid-select" class="form-control" data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Choose value" data-allow-reset="true">
                                         <option value="0"></option> <!--This must be empty-->
+                                        @{
+                                            foreach (TechnologyModel TechnologyModel in lstTechnologyModel)
+                                            {
+                                                <option value="@TechnologyModel.TechnologyId" >@TechnologyModel.Name</option>
+                                            }
+                                        }
                                     </select>
                                 </div>
                             </div>

@@ -29,6 +29,9 @@ export class ApplicationModel {
 	Description?: string | string[] | number | undefined;
 	TechnologyId?: number;
     lstClientApplicationModel?: ClientApplicationModel[] | undefined;
+    UserCreationIdFantasyName?: string | string[] | number | undefined;
+    UserLastModificationIdFantasyName?: string | string[] | number | undefined;
+    TechnologyIdName?: string | string[] | number | undefined;
     
 
     //Queries

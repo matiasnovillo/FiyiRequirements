@@ -16,7 +16,15 @@
 //Last modification on: 25/12/2022 12:07:25
 
 $(document).ready(function () {
-
+    //Technology select tag
+    $("#requirement-application-technologyid-select").on("change", function (e) {
+        $("#requirement-application-technologyid-list").html(`<li class="nav-item">
+            <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-text-1-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
+                ${$("#requirement-application-technologyid-select option:selected").text()}
+            </a>
+            <input type="hidden" id="requirement-application-technologyid-input" value="${$("#requirement-application-technologyid-select option:selected").val()}"/>
+        </li>`);
+    });
 });
 
 //Used for Quill Editor
