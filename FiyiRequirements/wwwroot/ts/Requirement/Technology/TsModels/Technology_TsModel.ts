@@ -28,7 +28,8 @@ export class TechnologyModel {
 	Name?: string | string[] | number | undefined;
 	Description?: string | string[] | number | undefined;
     lstApplicationModel?: ApplicationModel[] | undefined;
-    
+    UserCreationIdFantasyName?: string | string[] | number | undefined;
+    UserLastModificationIdFantasyName?: string | string[] | number | undefined;
 
     //Queries
     static Select1ByTechnologyId(TechnologyId: number) {

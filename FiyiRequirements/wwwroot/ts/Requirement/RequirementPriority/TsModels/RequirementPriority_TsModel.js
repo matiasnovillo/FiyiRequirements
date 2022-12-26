@@ -13,7 +13,7 @@ var ajax_1 = require("rxjs/ajax");
  * in all copies or substantial portions of the Software.
  *
 */
-//8 fields | Last modification on: 24/12/2022 6:47:08 | Stack: 9
+//8 fields | Sub-models: 2 models  | Last modification on: 25/12/2022 18:13:11 | Stack: 9
 var RequirementPriorityModel = /** @class */ (function () {
     function RequirementPriorityModel() {
     }

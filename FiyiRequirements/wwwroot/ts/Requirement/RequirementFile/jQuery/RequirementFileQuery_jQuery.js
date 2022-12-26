@@ -16,7 +16,7 @@ var ajax_1 = require("rxjs/ajax");
  *
 */
 //Stack: 10
-//Last modification on: 24/12/2022 6:48:16
+//Last modification on: 25/12/2022 18:05:38
 //Set default values
 var LastTopDistance = 0;
 var QueryString = "";

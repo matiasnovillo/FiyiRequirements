@@ -74,6 +74,10 @@ namespace FiyiRequirements.Areas.Requirement.Models
 
         [Library.ModelAttributeValidator.String("Description", false, 1, 2000, "")]
         public string Description { get; set; }
+
+        public string UserCreationIdFantasyName { get; set; }
+
+        public string UserLastModificationIdFantasyName { get; set;}
         #endregion
 
         #region Sub-lists
@@ -348,7 +352,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    technologyModelQuery.lstTechnologyModel = (List<TechnologyModel>)sqlConnection.Query<TechnologyModel>("[dbo].[Requirement.Technology.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
+                    technologyModelQuery.lstTechnologyModel = (List<TechnologyModel>)sqlConnection.Query<TechnologyModel>("[dbo].[Requirement.Technology.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
                     technologyModelQuery.TotalRows = dp.Get<int>("TotalRows");
                 }
 
