@@ -13,7 +13,7 @@
 
 //Stack: 10
 
-//Last modification on: 27/12/2022 12:39:43
+//Last modification on: 27/12/2022 17:32:21
 
 $(document).ready(function () {
 requirementrequirementbodyquill.root.innerHTML = $("#requirement-requirement-body-hidden-value").val();
@@ -55,7 +55,6 @@ $("#requirement-requirement-insert-or-update-button").on("click", function (e) {
     formData.append("requirement-requirement-title-page", $("#requirement-requirement-title-page").html());
     formData.append("requirement-requirement-requirementid-input", $("#requirement-requirement-requirementid-input").val());
 
-    formData.append("requirement-requirement-clientid-input", $("#requirement-requirement-clientid-input").val());
     formData.append("requirement-requirement-title-input", $("#requirement-requirement-title-input").val());
     formData.append("requirement-requirement-body-input", requirementrequirementbodyquill.root.innerHTML);
     formData.append("requirement-requirement-requirementstateid-input", $("#requirement-requirement-requirementstateid-input").val());

@@ -5,12 +5,12 @@
     "DateTimeLastModification" : "1753-01-01T00:00:00.001Z",
     "UserCreationId" : 1,
     "UserLastModificationId" : 1,
-    "ClientId" : 1,
     "Title" : "PutTitle",
     "Body" : "PutBody",
     "RequirementStateId" : 1,
     "RequirementPriorityId" : 1,
     "UserProgrammerId" : 1
+}rProgrammerId" : 1
 }
     "UserProgrammerId" : 1
 }

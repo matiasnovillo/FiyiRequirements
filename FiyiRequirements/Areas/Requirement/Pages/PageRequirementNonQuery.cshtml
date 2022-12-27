@@ -8,7 +8,6 @@
     string NonQueryIcon = "";
 
     int RequirementId;
-    int ClientId;
     string Title;
     string Body;
     int RequirementStateId;
@@ -22,7 +21,7 @@
         NonQueryIcon = "fas fa-plus";
 
         RequirementId = 0;
-        ClientId = 0;Title = "";
+        Title = "";
         Body = "";
         RequirementStateId = 0;RequirementPriorityId = 0;UserProgrammerId = 0;
     }
@@ -35,7 +34,6 @@
         (Convert.ToInt32(HttpContext.Request.QueryString.Value.Replace("?RequirementId=","")));
 
         RequirementId = RequirementModel.RequirementId;
-        ClientId = RequirementModel.ClientId;
         Title = RequirementModel.Title;
         Body = RequirementModel.Body;
         RequirementStateId = RequirementModel.RequirementStateId;
@@ -56,7 +54,7 @@
  */
     
 //Stack: 11
-//Last modification on: 27/12/2022 12:39:43
+//Last modification on: 27/12/2022 17:32:21
 
 }
 <!-- Header -->
@@ -136,35 +134,6 @@
                                 <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="bottom" title="@RequirementId"  type="button" value="RequirementId">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                            </div>
-                        </div>
-                        <!-- ClientId -->
-                        <div class="form-group mb-3">
-                            <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-hashtag"></i> ClientId
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend input-group-text">
-                                    <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                        <strong>
-                                            <i class="fas fa-hashtag"></i> ClientId
-                                        </strong>
-                                    </span>
-                                </div>
-                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector"><i class="fas fa-hashtag"></i></button>
-                                <ul id="requirement-requirement-clientid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
-                                            Choose a value
-                                        </a>
-                                        <input type="hidden" id="requirement-requirement-clientid-input" value="@ClientId"/>
-                                    </li>
-                                </ul>
-                                <div class="input-group-append">
-                                    <button class="btn btn-danger border-0 ml-2" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="clientid-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
                             </div>
                         </div>
                         <!-- Title -->

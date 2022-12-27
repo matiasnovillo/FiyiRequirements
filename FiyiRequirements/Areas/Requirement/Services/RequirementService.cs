@@ -22,7 +22,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 27/12/2022 12:39:43
+//Last modification on: 27/12/2022 17:32:21
 
 namespace FiyiRequirements.Areas.Requirement.Services
 {
@@ -31,7 +31,7 @@ namespace FiyiRequirements.Areas.Requirement.Services
     /// Name:              C# Service. <br/>
     /// Function:          Allow you to separate data contract stored in C# model from business with your clients. <br/>
     /// Also, allow dependency injection inside controllers/web apis<br/>
-    /// Last modification: 27/12/2022 12:39:43
+    /// Last modification: 27/12/2022 17:32:21
     /// </summary>
     public partial class RequirementService : RequirementProtocol
     {
@@ -212,11 +212,6 @@ namespace FiyiRequirements.Areas.Requirement.Services
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">ClientId&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
                 <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Title&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
@@ -298,11 +293,6 @@ namespace FiyiRequirements.Areas.Requirement.Services
                     dtColumnUserLastModificationIdFordtRequirementCopy.DataType = typeof(string);
                     dtColumnUserLastModificationIdFordtRequirementCopy.ColumnName = "UserLastModificationId";
                     dtRequirementCopy.Columns.Add(dtColumnUserLastModificationIdFordtRequirementCopy);
-
-                    DataColumn dtColumnClientIdFordtRequirementCopy = new DataColumn();
-                    dtColumnClientIdFordtRequirementCopy.DataType = typeof(string);
-                    dtColumnClientIdFordtRequirementCopy.ColumnName = "ClientId";
-                    dtRequirementCopy.Columns.Add(dtColumnClientIdFordtRequirementCopy);
 
                     DataColumn dtColumnTitleFordtRequirementCopy = new DataColumn();
                     dtColumnTitleFordtRequirementCopy.DataType = typeof(string);
@@ -387,11 +377,6 @@ namespace FiyiRequirements.Areas.Requirement.Services
                     dtColumnUserLastModificationIdFordtRequirementCopy.DataType = typeof(string);
                     dtColumnUserLastModificationIdFordtRequirementCopy.ColumnName = "UserLastModificationId";
                     dtRequirementCopy.Columns.Add(dtColumnUserLastModificationIdFordtRequirementCopy);
-
-                    DataColumn dtColumnClientIdFordtRequirementCopy = new DataColumn();
-                    dtColumnClientIdFordtRequirementCopy.DataType = typeof(string);
-                    dtColumnClientIdFordtRequirementCopy.ColumnName = "ClientId";
-                    dtRequirementCopy.Columns.Add(dtColumnClientIdFordtRequirementCopy);
 
                     DataColumn dtColumnTitleFordtRequirementCopy = new DataColumn();
                     dtColumnTitleFordtRequirementCopy.DataType = typeof(string);

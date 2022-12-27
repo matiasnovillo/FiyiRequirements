@@ -24,7 +24,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 27/12/2022 12:39:43
+//Last modification on: 27/12/2022 17:32:21
 
 namespace FiyiRequirements.Areas.Requirement.Controllers
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 27/12/2022 12:39:43
+    /// Last modification: 27/12/2022 17:32:21
     /// </summary>
     [ApiController]
     [RequirementFilter]
@@ -162,13 +162,6 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 //Add or edit value
                 string AddOrEdit = HttpContext.Request.Form["requirement-requirement-title-page"];
 
-                int ClientId = 0; 
-                if (Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-clientid-input"]) != 0)
-                {
-                    ClientId = Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-clientid-input"]);
-                }
-                else
-                { return StatusCode(400, "It's not allowed to save zero values in ClientId"); }
                 string Title = HttpContext.Request.Form["requirement-requirement-title-input"];
                 string Body = HttpContext.Request.Form["requirement-requirement-body-input"];
                 int RequirementStateId = 0; 
@@ -207,7 +200,6 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                         UserLastModificationId = UserId,
                         DateTimeCreation = DateTime.Now,
                         DateTimeLastModification = DateTime.Now,
-                        ClientId = ClientId,
                         Title = Title,
                         Body = Body,
                         RequirementStateId = RequirementStateId,
@@ -226,7 +218,6 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     
                     RequirementModel.UserLastModificationId = UserId;
                     RequirementModel.DateTimeLastModification = DateTime.Now;
-                    RequirementModel.ClientId = ClientId;
                     RequirementModel.Title = Title;
                     RequirementModel.Body = Body;
                     RequirementModel.RequirementStateId = RequirementStateId;
