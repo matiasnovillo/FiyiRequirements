@@ -74,10 +74,14 @@ namespace FiyiRequirements.Areas.Requirement.Models
 
         [Library.ModelAttributeValidator.String("Description", false, 1, 2000, "")]
         public string Description { get; set; }
-        #endregion
 
-        #region Sub-lists
-        public virtual List<RequirementModel> lstRequirementModel { get; set; } //Foreign Key name: RequirementPriorityId 
+        public string UserCreationIdFantasyName { get; set; }
+
+        public string UserLastModificationIdFantasyName { get; set; }
+    #endregion
+
+    #region Sub-lists
+    public virtual List<RequirementModel> lstRequirementModel { get; set; } //Foreign Key name: RequirementPriorityId 
 		public virtual List<RequirementChangehistoryModel> lstRequirementChangehistoryModel { get; set; } //Foreign Key name: RequirementPriorityId 
         #endregion
 
@@ -353,7 +357,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    requirementpriorityModelQuery.lstRequirementPriorityModel = (List<RequirementPriorityModel>)sqlConnection.Query<RequirementPriorityModel>("[dbo].[Requirement.RequirementPriority.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
+                    requirementpriorityModelQuery.lstRequirementPriorityModel = (List<RequirementPriorityModel>)sqlConnection.Query<RequirementPriorityModel>("[dbo].[Requirement.RequirementPriority.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
                     requirementpriorityModelQuery.TotalRows = dp.Get<int>("TotalRows");
                 }
 
