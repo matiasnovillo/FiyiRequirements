@@ -71,6 +71,10 @@ namespace FiyiRequirements.Areas.Requirement.Models
 
         [Library.ModelAttributeValidator.String("Name", false, 1, 100, "")]
         public string Name { get; set; }
+
+        public string UserCreationIdFantasyName { get; set; }
+
+        public string UserLastModificationIdFantasyName { get; set; }
         #endregion
 
         #region Sub-lists
@@ -346,7 +350,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    requirementstateModelQuery.lstRequirementStateModel = (List<RequirementStateModel>)sqlConnection.Query<RequirementStateModel>("[dbo].[Requirement.RequirementState.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
+                    requirementstateModelQuery.lstRequirementStateModel = (List<RequirementStateModel>)sqlConnection.Query<RequirementStateModel>("[dbo].[Requirement.RequirementState.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
                     requirementstateModelQuery.TotalRows = dp.Get<int>("TotalRows");
                 }
 

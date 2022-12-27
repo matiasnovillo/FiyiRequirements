@@ -28,7 +28,8 @@ export class RequirementStateModel {
 	Name?: string | string[] | number | undefined;
     lstRequirementModel?: RequirementModel[] | undefined;
     lstRequirementChangehistoryModel?: RequirementChangehistoryModel[] | undefined;
-    
+    UserCreationIdFantasyName?: string | string[] | number | undefined;
+    UserLastModificationIdFantasyName?: string | string[] | number | undefined;
 
     //Queries
     static Select1ByRequirementStateId(RequirementStateId: number) {
