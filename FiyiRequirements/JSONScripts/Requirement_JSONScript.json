@@ -9,7 +9,8 @@
     "Title" : "PutTitle",
     "Body" : "PutBody",
     "RequirementStateId" : 1,
-    "RequirementTypeId" : 1,
     "RequirementPriorityId" : 1,
+    "UserProgrammerId" : 1
+}
     "UserProgrammerId" : 1
 }

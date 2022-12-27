@@ -18,7 +18,7 @@ import { Ajax } from "../../../Library/Ajax";
 
 //Stack: 10
 
-//Last modification on: 25/12/2022 13:30:52
+//Last modification on: 27/12/2022 12:39:43
 
 //Set default values
 let LastTopDistance: number = 0;
@@ -93,11 +93,6 @@ class RequirementQuery {
         <th scope="col">
             <button value="RequirementStateId" class="btn btn-outline-secondary btn-sm" type="button">
                 RequirementStateId
-            </button>
-        </th>
-        <th scope="col">
-            <button value="RequirementTypeId" class="btn btn-outline-secondary btn-sm" type="button">
-                RequirementTypeId
             </button>
         </th>
         <th scope="col">
@@ -230,11 +225,6 @@ class RequirementQuery {
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.RequirementTypeId}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong>
             <i class="fas fa-key"></i> ${row.RequirementPriorityId}
         </strong>
     </td>
@@ -316,10 +306,6 @@ class RequirementQuery {
                         <br/>
                         <span class="text-white mb-4">
                            RequirementStateId <i class="fas fa-key"></i> ${row.RequirementStateId}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                           RequirementTypeId <i class="fas fa-key"></i> ${row.RequirementTypeId}
                         </span>
                         <br/>
                         <span class="text-white mb-4">

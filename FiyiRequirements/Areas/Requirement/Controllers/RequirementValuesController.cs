@@ -24,7 +24,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 25/12/2022 22:01:26
+//Last modification on: 27/12/2022 12:39:43
 
 namespace FiyiRequirements.Areas.Requirement.Controllers
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 25/12/2022 22:01:26
+    /// Last modification: 27/12/2022 12:39:43
     /// </summary>
     [ApiController]
     [RequirementFilter]
@@ -178,13 +178,6 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 }
                 else
                 { return StatusCode(400, "It's not allowed to save zero values in RequirementStateId"); }
-                int RequirementTypeId = 0; 
-                if (Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-requirementtypeid-input"]) != 0)
-                {
-                    RequirementTypeId = Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-requirementtypeid-input"]);
-                }
-                else
-                { return StatusCode(400, "It's not allowed to save zero values in RequirementTypeId"); }
                 int RequirementPriorityId = 0; 
                 if (Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-requirementpriorityid-input"]) != 0)
                 {
@@ -218,7 +211,6 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                         Title = Title,
                         Body = Body,
                         RequirementStateId = RequirementStateId,
-                        RequirementTypeId = RequirementTypeId,
                         RequirementPriorityId = RequirementPriorityId,
                         UserProgrammerId = UserProgrammerId,
                         
@@ -238,7 +230,6 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     RequirementModel.Title = Title;
                     RequirementModel.Body = Body;
                     RequirementModel.RequirementStateId = RequirementStateId;
-                    RequirementModel.RequirementTypeId = RequirementTypeId;
                     RequirementModel.RequirementPriorityId = RequirementPriorityId;
                     RequirementModel.UserProgrammerId = UserProgrammerId;
                                        

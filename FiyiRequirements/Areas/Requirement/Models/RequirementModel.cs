@@ -26,9 +26,9 @@ namespace FiyiRequirements.Areas.Requirement.Models
     /// Function:          Allow you to manipulate information from database using stored procedures.
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
-    /// Fields:            13 <br/> 
+    /// Fields:            12 <br/> 
     /// Sub-models:      2 models <br/>
-    /// Last modification: 25/12/2022 13:30:52
+    /// Last modification: 27/12/2022 12:39:43
     /// </summary>
     [Serializable]
     public partial class RequirementModel
@@ -81,9 +81,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
         [Library.ModelAttributeValidator.Key("RequirementStateId")]
         public int RequirementStateId { get; set; }
 
-        [Library.ModelAttributeValidator.Key("RequirementTypeId")]
-        public int RequirementTypeId { get; set; }
-
         [Library.ModelAttributeValidator.Key("RequirementPriorityId")]
         public int RequirementPriorityId { get; set; }
 
@@ -102,7 +99,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Function:     Create fastly this model with field RequirementId = 0 <br/>
         /// Note 1:       Generally used to have fast access to functions of object. <br/>
         /// Note 2:       Need construction with [new] reserved word, as all constructors. <br/>
-        /// Fields:       13 <br/> 
+        /// Fields:       12 <br/> 
         /// Dependencies: 2 models depend on this model <br/>
         /// </summary>
         public RequirementModel()
@@ -123,7 +120,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Stack:        3 <br/>
         /// Function:     Create this model with stored information in database using RequirementId <br/>
         /// Note:         Raise exception on duplicated IDs <br/>
-        /// Fields:       13 <br/> 
+        /// Fields:       12 <br/> 
         /// Dependencies: 2 models depend on this model <br/>
         /// </summary>
         public RequirementModel(int RequirementId)
@@ -164,7 +161,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 					this.Title = requirement.Title;
 					this.Body = requirement.Body;
 					this.RequirementStateId = requirement.RequirementStateId;
-					this.RequirementTypeId = requirement.RequirementTypeId;
 					this.RequirementPriorityId = requirement.RequirementPriorityId;
 					this.UserProgrammerId = requirement.UserProgrammerId;
                 }
@@ -177,10 +173,10 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Stack:        3 <br/>
         /// Function:     Create this model with filled parameters <br/>
         /// Note:         Raise exception on duplicated IDs <br/>
-        /// Fields:       13 <br/> 
+        /// Fields:       12 <br/> 
         /// Dependencies: 2 models depend on this model <br/>
         /// </summary>
-        public RequirementModel(int RequirementId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int ClientId, string Title, string Body, int RequirementStateId, int RequirementTypeId, int RequirementPriorityId, int UserProgrammerId)
+        public RequirementModel(int RequirementId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int ClientId, string Title, string Body, int RequirementStateId, int RequirementPriorityId, int UserProgrammerId)
         {
             try
             {
@@ -199,7 +195,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				this.Title = Title;
 				this.Body = Body;
 				this.RequirementStateId = RequirementStateId;
-				this.RequirementTypeId = RequirementTypeId;
 				this.RequirementPriorityId = RequirementPriorityId;
 				this.UserProgrammerId = UserProgrammerId;
             }
@@ -210,7 +205,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Stack:        3 <br/>
         /// Function:     Create this model (copy) using the given model (original), requirement, passed by parameter. <br/>
         /// Note:         This constructor is generally used to execute functions using the copied fields <br/>
-        /// Fields:       13 <br/> 
+        /// Fields:       12 <br/> 
         /// Dependencies: 2 models depend on this model <br/>
         /// </summary>
         public RequirementModel(RequirementModel requirement)
@@ -232,7 +227,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				Title = requirement.Title;
 				Body = requirement.Body;
 				RequirementStateId = requirement.RequirementStateId;
-				RequirementTypeId = requirement.RequirementTypeId;
 				RequirementPriorityId = requirement.RequirementPriorityId;
 				UserProgrammerId = requirement.UserProgrammerId;
             }
@@ -346,7 +340,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 					RequirementModel.Title = requirement.Title;
 					RequirementModel.Body = requirement.Body;
 					RequirementModel.RequirementStateId = requirement.RequirementStateId;
-					RequirementModel.RequirementTypeId = requirement.RequirementTypeId;
 					RequirementModel.RequirementPriorityId = requirement.RequirementPriorityId;
 					RequirementModel.UserProgrammerId = requirement.UserProgrammerId;
                 }
@@ -460,7 +453,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("Title", Title, DbType.String, ParameterDirection.Input);
 				dp.Add("Body", Body, DbType.String, ParameterDirection.Input);
 				dp.Add("RequirementStateId", RequirementStateId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("RequirementTypeId", RequirementTypeId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementPriorityId", RequirementPriorityId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserProgrammerId", UserProgrammerId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
@@ -500,7 +492,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("Title", requirement.Title, DbType.String, ParameterDirection.Input);
 				dp.Add("Body", requirement.Body, DbType.String, ParameterDirection.Input);
 				dp.Add("RequirementStateId", requirement.RequirementStateId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("RequirementTypeId", requirement.RequirementTypeId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementPriorityId", requirement.RequirementPriorityId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserProgrammerId", requirement.UserProgrammerId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
@@ -523,7 +514,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
         /// <returns>The ID of the last registry inserted in Requirement table</returns>
-        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int ClientId, string Title, string Body, int RequirementStateId, int RequirementTypeId, int RequirementPriorityId, int UserProgrammerId)
+        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int ClientId, string Title, string Body, int RequirementStateId, int RequirementPriorityId, int UserProgrammerId)
         {
             try
             {
@@ -540,7 +531,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("Title", Title, DbType.String, ParameterDirection.Input);
 				dp.Add("Body", Body, DbType.String, ParameterDirection.Input);
 				dp.Add("RequirementStateId", RequirementStateId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("RequirementTypeId", RequirementTypeId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementPriorityId", RequirementPriorityId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserProgrammerId", UserProgrammerId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
@@ -581,7 +571,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("Title", Title, DbType.String, ParameterDirection.Input);
 				dp.Add("Body", Body, DbType.String, ParameterDirection.Input);
 				dp.Add("RequirementStateId", RequirementStateId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("RequirementTypeId", RequirementTypeId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementPriorityId", RequirementPriorityId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserProgrammerId", UserProgrammerId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
@@ -622,7 +611,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("Title", requirement.Title, DbType.String, ParameterDirection.Input);
 				dp.Add("Body", requirement.Body, DbType.String, ParameterDirection.Input);
 				dp.Add("RequirementStateId", requirement.RequirementStateId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("RequirementTypeId", requirement.RequirementTypeId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementPriorityId", requirement.RequirementPriorityId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserProgrammerId", requirement.UserProgrammerId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
@@ -645,7 +633,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
         /// <returns>The number of rows updated in Requirement table</returns>
-        public int UpdateByRequirementId(int RequirementId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int ClientId, string Title, string Body, int RequirementStateId, int RequirementTypeId, int RequirementPriorityId, int UserProgrammerId)
+        public int UpdateByRequirementId(int RequirementId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int ClientId, string Title, string Body, int RequirementStateId, int RequirementPriorityId, int UserProgrammerId)
         {
             try
             {
@@ -663,7 +651,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("Title", Title, DbType.String, ParameterDirection.Input);
 				dp.Add("Body", Body, DbType.String, ParameterDirection.Input);
 				dp.Add("RequirementStateId", RequirementStateId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("RequirementTypeId", RequirementTypeId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementPriorityId", RequirementPriorityId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserProgrammerId", UserProgrammerId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
@@ -796,7 +783,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				$"Title: {Title}, " +
 				$"Body: {Body}, " +
 				$"RequirementStateId: {RequirementStateId}, " +
-				$"RequirementTypeId: {RequirementTypeId}, " +
 				$"RequirementPriorityId: {RequirementPriorityId}, " +
 				$"UserProgrammerId: {UserProgrammerId}";
         }
@@ -862,12 +848,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
             <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{RequirementStateId}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{RequirementTypeId}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td><td align=""left"" valign=""top"">

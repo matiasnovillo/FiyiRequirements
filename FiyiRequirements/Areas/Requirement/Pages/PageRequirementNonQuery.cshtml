@@ -12,7 +12,6 @@
     string Title;
     string Body;
     int RequirementStateId;
-    int RequirementTypeId;
     int RequirementPriorityId;
     int UserProgrammerId;
     
@@ -25,7 +24,7 @@
         RequirementId = 0;
         ClientId = 0;Title = "";
         Body = "";
-        RequirementStateId = 0;RequirementTypeId = 0;RequirementPriorityId = 0;UserProgrammerId = 0;
+        RequirementStateId = 0;RequirementPriorityId = 0;UserProgrammerId = 0;
     }
     else
     {
@@ -40,7 +39,6 @@
         Title = RequirementModel.Title;
         Body = RequirementModel.Body;
         RequirementStateId = RequirementModel.RequirementStateId;
-        RequirementTypeId = RequirementModel.RequirementTypeId;
         RequirementPriorityId = RequirementModel.RequirementPriorityId;
         UserProgrammerId = RequirementModel.UserProgrammerId;
         
@@ -58,7 +56,7 @@
  */
     
 //Stack: 11
-//Last modification on: 25/12/2022 13:30:52
+//Last modification on: 27/12/2022 12:39:43
 
 }
 <!-- Header -->
@@ -222,35 +220,6 @@
                                 </ul>
                                 <div class="input-group-append">
                                     <button class="btn btn-danger border-0 ml-2" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="requirementstateid-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- RequirementTypeId -->
-                        <div class="form-group mb-3">
-                            <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-hashtag"></i> RequirementTypeId
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend input-group-text">
-                                    <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                        <strong>
-                                            <i class="fas fa-hashtag"></i> RequirementTypeId
-                                        </strong>
-                                    </span>
-                                </div>
-                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector"><i class="fas fa-hashtag"></i></button>
-                                <ul id="requirement-requirement-requirementtypeid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
-                                            Choose a value
-                                        </a>
-                                        <input type="hidden" id="requirement-requirement-requirementtypeid-input" value="@RequirementTypeId"/>
-                                    </li>
-                                </ul>
-                                <div class="input-group-append">
-                                    <button class="btn btn-danger border-0 ml-2" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="requirementtypeid-info">
                                         <i class="fas fa-info"></i>
                                     </button>
                                 </div>

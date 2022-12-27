@@ -13,7 +13,7 @@
 
 //Stack: 10
 
-//Last modification on: 25/12/2022 13:30:52
+//Last modification on: 27/12/2022 12:39:43
 
 $(document).ready(function () {
 requirementrequirementbodyquill.root.innerHTML = $("#requirement-requirement-body-hidden-value").val();
@@ -59,7 +59,6 @@ $("#requirement-requirement-insert-or-update-button").on("click", function (e) {
     formData.append("requirement-requirement-title-input", $("#requirement-requirement-title-input").val());
     formData.append("requirement-requirement-body-input", requirementrequirementbodyquill.root.innerHTML);
     formData.append("requirement-requirement-requirementstateid-input", $("#requirement-requirement-requirementstateid-input").val());
-    formData.append("requirement-requirement-requirementtypeid-input", $("#requirement-requirement-requirementtypeid-input").val());
     formData.append("requirement-requirement-requirementpriorityid-input", $("#requirement-requirement-requirementpriorityid-input").val());
     formData.append("requirement-requirement-userprogrammerid-input", $("#requirement-requirement-userprogrammerid-input").val());
     

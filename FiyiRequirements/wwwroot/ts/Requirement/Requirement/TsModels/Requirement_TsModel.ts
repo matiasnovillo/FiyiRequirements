@@ -14,7 +14,7 @@ import { RequirementChangehistoryModel } from "../../RequirementChangehistory/Ts
  * 
 */
 
-//13 fields | Sub-models: 2 models  | Last modification on: 25/12/2022 13:30:52 | Stack: 9
+//12 fields | Sub-models: 2 models  | Last modification on: 27/12/2022 12:39:43 | Stack: 9
 
 export class RequirementModel {
 
@@ -29,7 +29,6 @@ export class RequirementModel {
 	Title?: string | string[] | number | undefined;
 	Body?: string | string[] | number | undefined;
 	RequirementStateId?: number;
-	RequirementTypeId?: number;
 	RequirementPriorityId?: number;
 	UserProgrammerId?: number;
     lstRequirementChangehistoryModel?: RequirementChangehistoryModel[] | undefined;
