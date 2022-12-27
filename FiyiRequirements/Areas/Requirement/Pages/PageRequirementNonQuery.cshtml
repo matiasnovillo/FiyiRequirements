@@ -1,5 +1,6 @@
 @page
 @using FiyiRequirements.Areas.Requirement.Models
+@using FiyiRequirements.Areas.CMSCore.Models
 @model FiyiRequirements.Areas.Requirement.Pages.PageRequirementNonQueryModel
 @{
     Layout = "_LayoutDashboard";
@@ -13,7 +14,10 @@
     int RequirementStateId;
     int RequirementPriorityId;
     int UserProgrammerId;
-    
+    string RequirementStateName;
+    string RequirementPriorityName;
+    string UserProgrammerName;
+
 
     if(HttpContext.Request.QueryString.Value.Contains("?RequirementId=0"))
     {
@@ -23,7 +27,13 @@
         RequirementId = 0;
         Title = "";
         Body = "";
-        RequirementStateId = 0;RequirementPriorityId = 0;UserProgrammerId = 0;
+        RequirementStateId = 0;
+        RequirementPriorityId = 0;
+        UserProgrammerId = 0;
+
+        RequirementStateName = "Choose a value";
+        RequirementPriorityName = "Choose a value";
+        UserProgrammerName = "Choose a value";
     }
     else
     {
@@ -39,8 +49,21 @@
         RequirementStateId = RequirementModel.RequirementStateId;
         RequirementPriorityId = RequirementModel.RequirementPriorityId;
         UserProgrammerId = RequirementModel.UserProgrammerId;
-        
+
+        RequirementStateModel RequirementStateModel = new RequirementStateModel(RequirementModel.RequirementStateId);
+        RequirementStateName = RequirementStateModel.Name;
+
+        RequirementPriorityModel RequirementPriorityModel = new RequirementPriorityModel(RequirementModel.RequirementPriorityId);
+        RequirementPriorityName = RequirementPriorityModel.Name;
+
+        UserModel UserModel = new UserModel(RequirementModel.UserProgrammerId);
+        UserProgrammerName = UserModel.FantasyName;
+
     }
+
+    List<RequirementStateModel> lstRequirementStateModel = new RequirementStateModel().SelectAllToList();
+    List<RequirementPriorityModel> lstRequirementPriorityModel = new RequirementPriorityModel().SelectAllToList();
+    List<UserModel> lstUserEmployeeModel = new UserModel().SelectAllByEmployeeRoleToList(3); //Role 3: Employee
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -168,21 +191,21 @@
                         <!-- RequirementStateId -->
                         <div class="form-group mb-3">
                             <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-hashtag"></i> RequirementStateId
+                                <i class="fas fa-hashtag"></i> State ID
                             </label>
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend input-group-text">
                                     <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
                                         <strong>
-                                            <i class="fas fa-hashtag"></i> RequirementStateId
+                                            <i class="fas fa-hashtag"></i> State ID
                                         </strong>
                                     </span>
                                 </div>
-                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector"><i class="fas fa-hashtag"></i></button>
+                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector-requirementstateid"><i class="fas fa-hashtag"></i></button>
                                 <ul id="requirement-requirement-requirementstateid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
-                                            Choose a value
+                                            @RequirementStateName
                                         </a>
                                         <input type="hidden" id="requirement-requirement-requirementstateid-input" value="@RequirementStateId"/>
                                     </li>
@@ -197,21 +220,21 @@
                         <!-- RequirementPriorityId -->
                         <div class="form-group mb-3">
                             <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-hashtag"></i> RequirementPriorityId
+                                <i class="fas fa-hashtag"></i> Priority ID
                             </label>
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend input-group-text">
                                     <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
                                         <strong>
-                                            <i class="fas fa-hashtag"></i> RequirementPriorityId
+                                            <i class="fas fa-hashtag"></i> Priority ID
                                         </strong>
                                     </span>
                                 </div>
-                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector"><i class="fas fa-hashtag"></i></button>
+                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector-requirementpriorityid"><i class="fas fa-hashtag"></i></button>
                                 <ul id="requirement-requirement-requirementpriorityid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
-                                            Choose a value
+                                            @RequirementPriorityName
                                         </a>
                                         <input type="hidden" id="requirement-requirement-requirementpriorityid-input" value="@RequirementPriorityId"/>
                                     </li>
@@ -223,26 +246,26 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- UserProgrammerId -->
+                        <!-- UserEmployeeId -->
                         <div class="form-group mb-3">
                             <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-hashtag"></i> UserProgrammerId
+                                <i class="fas fa-hashtag"></i> Employee ID
                             </label>
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend input-group-text">
                                     <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
                                         <strong>
-                                            <i class="fas fa-hashtag"></i> UserProgrammerId
+                                            <i class="fas fa-hashtag"></i> Employee ID
                                         </strong>
                                     </span>
                                 </div>
-                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector"><i class="fas fa-hashtag"></i></button>
-                                <ul id="requirement-requirement-userprogrammerid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
+                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector-userprogrammerid"><i class="fas fa-hashtag"></i></button>
+                                <ul id="requirement-requirement-useremployeeid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
-                                            Choose a value
+                                            @UserProgrammerName
                                         </a>
-                                        <input type="hidden" id="requirement-requirement-userprogrammerid-input" value="@UserProgrammerId"/>
+                                        <input type="hidden" id="requirement-requirement-useremployeeid-input" value="@UserProgrammerId"/>
                                     </li>
                                 </ul>
                                 <div class="input-group-append">
@@ -302,25 +325,109 @@
     </div>
 </div>
 
-<!-- ForeignKeyDropDown selector in Modal style -->
+<!-- RequirementState selector in Modal style -->
 <div class="row">
     <div class="col-md-4">
         <!-- Modal -->
-        <div class="modal fade" id="modal-foreign-key-code-selector" tabindex="-1" role="dialog" aria-labelledby="modal-foreign-key-selector" aria-hidden="true">
+        <div class="modal fade" id="modal-foreign-key-code-selector-requirementstateid" tabindex="-1" role="dialog" aria-labelledby="modal-foreign-key-selector" aria-hidden="true">
             <div class="modal-dialog modal-secondary modal-dialog-centered modal-" role="document">
                 <!-- Modal content -->
                 <div class="modal-content bg-gradient-secondary">
                     <div class="modal-header">
                         <h6 class="modal-title text-primary">
-                            Choose a ForeignKeyDropDown value <i class="fas fa-hashtag"></i>
+                            Choose a state <i class="fas fa-hashtag"></i>
                          </h6>
                     </div>
                     <div class="modal-body">
                         <form role="form">
                             <div class="form-group">
                                 <div class="input-group input-group-merge input-group-alternative">
-                                    <select id="requirement-requirement-foreignkeydropdown-select" class="form-control" data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Choose value" data-allow-reset="true">
+                                    <select id="requirement-requirement-requirementstateid-select" class="form-control" data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Choose value" data-allow-reset="true">
                                         <option value="0"></option> <!--This must be empty-->
+                                        @{
+                                            foreach (RequirementStateModel RequirementStateModel in lstRequirementStateModel)
+                                            {
+                                                <option value="@RequirementStateModel.RequirementStateId" >@RequirementStateModel.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary ml-auto" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- RequirementPriority selector in Modal style -->
+<div class="row">
+    <div class="col-md-4">
+        <!-- Modal -->
+        <div class="modal fade" id="modal-foreign-key-code-selector-requirementpriorityid" tabindex="-1" role="dialog" aria-labelledby="modal-foreign-key-selector" aria-hidden="true">
+            <div class="modal-dialog modal-secondary modal-dialog-centered modal-" role="document">
+                <!-- Modal content -->
+                <div class="modal-content bg-gradient-secondary">
+                    <div class="modal-header">
+                        <h6 class="modal-title text-primary">
+                            Choose a priority <i class="fas fa-hashtag"></i>
+                         </h6>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <div class="input-group input-group-merge input-group-alternative">
+                                    <select id="requirement-requirement-requirementpriorityid-select" class="form-control" data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Choose value" data-allow-reset="true">
+                                        <option value="0"></option> <!--This must be empty-->
+                                        @{
+                                            foreach (RequirementPriorityModel RequirementPriorityModel in lstRequirementPriorityModel)
+                                            {
+                                                <option value="@RequirementPriorityModel.RequirementPriorityId" >@RequirementPriorityModel.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary ml-auto" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- UserEmployee selector in Modal style -->
+<div class="row">
+    <div class="col-md-4">
+        <!-- Modal -->
+        <div class="modal fade" id="modal-foreign-key-code-selector-userprogrammerid" tabindex="-1" role="dialog" aria-labelledby="modal-foreign-key-selector" aria-hidden="true">
+            <div class="modal-dialog modal-secondary modal-dialog-centered modal-" role="document">
+                <!-- Modal content -->
+                <div class="modal-content bg-gradient-secondary">
+                    <div class="modal-header">
+                        <h6 class="modal-title text-primary">
+                            Choose an employee <i class="fas fa-hashtag"></i>
+                         </h6>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <div class="input-group input-group-merge input-group-alternative">
+                                    <select id="requirement-requirement-useremployeeid-select" class="form-control" data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Choose value" data-allow-reset="true">
+                                        <option value="0"></option> <!--This must be empty-->
+                                        @{
+                                            foreach (UserModel UserModel in lstUserEmployeeModel)
+                                            {
+                                                <option value="@UserModel.UserId" >@UserModel.FantasyName</option>
+                                            }
+                                        }
                                     </select>
                                 </div>
                             </div>

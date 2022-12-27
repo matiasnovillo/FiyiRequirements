@@ -16,8 +16,38 @@
 //Last modification on: 27/12/2022 17:32:21
 
 $(document).ready(function () {
-requirementrequirementbodyquill.root.innerHTML = $("#requirement-requirement-body-hidden-value").val();
-    
+    requirementrequirementbodyquill.root.innerHTML = $("#requirement-requirement-body-hidden-value").val();
+
+    //RequirementState select tag
+    $("#requirement-requirement-requirementstateid-select").on("change", function (e) {
+        $("#requirement-requirement-requirementstateid-list").html(`<li class="nav-item">
+            <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-text-1-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
+                ${$("#requirement-requirement-requirementstateid-select option:selected").text()}
+            </a>
+            <input type="hidden" id="requirement-requirement-requirementstateid-input" value="${$("#requirement-requirement-requirementstateid-select option:selected").val()}"/>
+        </li>`);
+    });
+
+    //RequirementPriority select tag
+    $("#requirement-requirement-requirementpriorityid-select").on("change", function (e) {
+        $("#requirement-requirement-requirementpriorityid-list").html(`<li class="nav-item">
+            <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-text-1-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
+                ${$("#requirement-requirement-requirementpriorityid-select option:selected").text()}
+            </a>
+            <input type="hidden" id="requirement-requirement-requirementpriorityid-input" value="${$("#requirement-requirement-requirementpriorityid-select option:selected").val()}"/>
+        </li>`);
+    });
+
+    //UserProgrammer select tag
+    $("#requirement-requirement-useremployeeid-select").on("change", function (e) {
+        $("#requirement-requirement-useremployeeid-list").html(`<li class="nav-item">
+            <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-text-1-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
+                ${$("#requirement-requirement-useremployeeid-select option:selected").text()}
+            </a>
+            <input type="hidden" id="requirement-requirement-useremployeeid-input" value="${$("#requirement-requirement-useremployeeid-select option:selected").val()}"/>
+        </li>`);
+    });
+
 });
 
 //Used for Quill Editor

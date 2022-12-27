@@ -325,6 +325,24 @@ namespace FiyiRequirements.Areas.CMSCore.Models
             catch (Exception ex) { throw ex; }
         }
 
+        public List<UserModel> SelectAllByEmployeeRoleToList(int EmployeeRoleId)
+        {
+            try
+            {
+                List<UserModel> lstUserModel = new List<UserModel>();
+                DynamicParameters dp = new DynamicParameters();
+                dp.Add("EmployeeRoleId", EmployeeRoleId, DbType.Int32, ParameterDirection.Input);
+
+                using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
+                {
+                    lstUserModel = (List<UserModel>)sqlConnection.Query<UserModel>("[dbo].[CMSCore.User.SelectAllByEmployeeRoleIdCustom]", dp, commandType: CommandType.StoredProcedure);
+                }
+
+                return lstUserModel;
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
         public userModelQuery SelectAllPagedToModel(userModelQuery userModelQuery)
         {
             try
