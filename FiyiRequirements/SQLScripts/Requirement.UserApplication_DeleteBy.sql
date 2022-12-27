@@ -1,6 +1,6 @@
-CREATE PROCEDURE [dbo].[Requirement.Application.DeleteByApplicationId]
+CREATE PROCEDURE [dbo].[Requirement.UserApplication.DeleteByUserApplicationId]
 (
-    @ApplicationId INT,
+    @UserApplicationId INT,
     @RowsAffected INT OUTPUT
 )
 
@@ -21,19 +21,19 @@ AS
  * Execute this stored procedure with the next script as example
  *
 DECLARE	@RowsAffected INT
-EXEC [dbo].[Requirement.Application.DeleteByApplicationId]
-    @ApplicationId = 1,
+EXEC [dbo].[Requirement.UserApplication.DeleteByUserApplicationId]
+    @UserApplicationId = 1,
     @RowsAffected = @RowsAffected OUTPUT
 SELECT @RowsAffected AS N'@RowsAffected'
  *
  */
 
---Last modification on: 27/12/2022 16:53:13
+--Last modification on: 27/12/2022 16:32:18
 
 DELETE FROM 
-    [Requirement.Application]
+    [Requirement.UserApplication]
 WHERE 
     1 = 1
-    AND [Requirement.Application].[ApplicationId] = @ApplicationId
+    AND [Requirement.UserApplication].[UserApplicationId] = @UserApplicationId
 
 SELECT @RowsAffected = @@ROWCOUNT

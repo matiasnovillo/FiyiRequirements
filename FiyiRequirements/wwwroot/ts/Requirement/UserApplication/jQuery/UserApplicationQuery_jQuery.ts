@@ -1,5 +1,5 @@
 //Import libraries to use
-import { ApplicationModel, applicationmodelQuery } from "../../Application/TsModels/Application_TsModel";
+import { UserApplicationModel, userapplicationmodelQuery } from "../../UserApplication/TsModels/UserApplication_TsModel";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -18,7 +18,7 @@ import { Ajax } from "../../../Library/Ajax";
 
 //Stack: 10
 
-//Last modification on: 27/12/2022 16:53:13
+//Last modification on: 27/12/2022 16:32:18
 
 //Set default values
 let LastTopDistance: number = 0;
@@ -32,8 +32,8 @@ let TotalRows: number = 0;
 let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
-class ApplicationQuery {
-    static SelectAllPagedToHTML(request_applicationmodelQuery: applicationmodelQuery) {
+class UserApplicationQuery {
+    static SelectAllPagedToHTML(request_userapplicationmodelQuery: userapplicationmodelQuery) {
         //Used for list view
         $(window).off("scroll");
 
@@ -42,12 +42,12 @@ class ApplicationQuery {
     <tr>
         <th scope="col">
             <div>
-                <input id="application-table-check-all" type="checkbox">
+                <input id="userapplication-table-check-all" type="checkbox">
             </div>
         </th>
         <th scope="col">
-            <button value="ApplicationId" class="btn btn-outline-secondary btn-sm" type="button">
-                Application ID
+            <button value="UserApplicationId" class="btn btn-outline-secondary btn-sm" type="button">
+                UserApplicationId
             </button>
         </th>
         <th scope="col">
@@ -57,37 +57,32 @@ class ApplicationQuery {
         </th>
         <th scope="col">
             <button value="DateTimeCreation" class="btn btn-outline-secondary btn-sm" type="button">
-                Date Time Creation
+                DateTimeCreation
             </button>
         </th>
         <th scope="col">
             <button value="DateTimeLastModification" class="btn btn-outline-secondary btn-sm" type="button">
-                Date Time Last Modification
+                DateTimeLastModification
             </button>
         </th>
         <th scope="col">
             <button value="UserCreationId" class="btn btn-outline-secondary btn-sm" type="button">
-                User Creation
+                UserCreationId
             </button>
         </th>
         <th scope="col">
             <button value="UserLastModificationId" class="btn btn-outline-secondary btn-sm" type="button">
-                User Last Modification
+                UserLastModificationId
             </button>
         </th>
         <th scope="col">
-            <button value="Name" class="btn btn-outline-secondary btn-sm" type="button">
-                Name
+            <button value="ApplicationId" class="btn btn-outline-secondary btn-sm" type="button">
+                ApplicationId
             </button>
         </th>
         <th scope="col">
-            <button value="Description" class="btn btn-outline-secondary btn-sm" type="button">
-                Description
-            </button>
-        </th>
-        <th scope="col">
-            <button value="TechnologyId" class="btn btn-outline-secondary btn-sm" type="button">
-                Technology
+            <button value="UserId" class="btn btn-outline-secondary btn-sm" type="button">
+                UserId
             </button>
         </th>
         
@@ -98,72 +93,72 @@ class ApplicationQuery {
 
         var ListContent: string = ``;
 
-        ApplicationModel.SelectAllPaged(request_applicationmodelQuery).subscribe(
+        UserApplicationModel.SelectAllPaged(request_userapplicationmodelQuery).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_applicationQuery = newrow.response as applicationmodelQuery;
+                        const response_userapplicationQuery = newrow.response as userapplicationmodelQuery;
 
                         //Set to default values if they are null
-                        QueryString = response_applicationQuery.QueryString ?? "";
-                        ActualPageNumber = response_applicationQuery.ActualPageNumber ?? 0;
-                        RowsPerPage = response_applicationQuery.RowsPerPage ?? 0;
-                        SorterColumn = response_applicationQuery.SorterColumn ?? "";
-                        SortToggler = response_applicationQuery.SortToggler ?? false;
-                        TotalRows = response_applicationQuery.TotalRows ?? 0;
-                        TotalPages = response_applicationQuery.TotalPages ?? 0;
+                        QueryString = response_userapplicationQuery.QueryString ?? "";
+                        ActualPageNumber = response_userapplicationQuery.ActualPageNumber ?? 0;
+                        RowsPerPage = response_userapplicationQuery.RowsPerPage ?? 0;
+                        SorterColumn = response_userapplicationQuery.SorterColumn ?? "";
+                        SortToggler = response_userapplicationQuery.SortToggler ?? false;
+                        TotalRows = response_userapplicationQuery.TotalRows ?? 0;
+                        TotalPages = response_userapplicationQuery.TotalPages ?? 0;
 
                         //Query string
-                        $("#requirement-application-query-string").attr("placeholder", `Search... (${TotalRows} applications)`);
+                        $("#requirement-userapplication-query-string").attr("placeholder", `Search... (${TotalRows} records)`);
                         //Total pages of pagination
-                        $("#requirement-application-total-pages-lg, #requirement-application-total-pages").html(TotalPages.toString());
+                        $("#requirement-userapplication-total-pages-lg, #requirement-userapplication-total-pages").html(TotalPages.toString());
                         //Actual page number of pagination
-                        $("#requirement-application-actual-page-number-lg, #requirement-application-actual-page-number").html(ActualPageNumber.toString());
+                        $("#requirement-userapplication-actual-page-number-lg, #requirement-userapplication-actual-page-number").html(ActualPageNumber.toString());
                         //If we are at the final of book disable next and last buttons in pagination
                         if (ActualPageNumber === TotalPages) {
-                            $("#requirement-application-lnk-next-page-lg, #requirement-application-lnk-next-page").attr("disabled", "disabled");
-                            $("#requirement-application-lnk-last-page-lg, #requirement-application-lnk-last-page").attr("disabled", "disabled");
-                            $("#requirement-application-search-more-button-in-list").html("");
+                            $("#requirement-userapplication-lnk-next-page-lg, #requirement-userapplication-lnk-next-page").attr("disabled", "disabled");
+                            $("#requirement-userapplication-lnk-last-page-lg, #requirement-userapplication-lnk-last-page").attr("disabled", "disabled");
+                            $("#requirement-userapplication-search-more-button-in-list").html("");
                         }
                         else {
-                            $("#requirement-application-lnk-next-page-lg, #requirement-application-lnk-next-page").removeAttr("disabled");
-                            $("#requirement-application-lnk-last-page-lg, #requirement-application-lnk-last-page").removeAttr("disabled");
+                            $("#requirement-userapplication-lnk-next-page-lg, #requirement-userapplication-lnk-next-page").removeAttr("disabled");
+                            $("#requirement-userapplication-lnk-last-page-lg, #requirement-userapplication-lnk-last-page").removeAttr("disabled");
                             //Scroll arrow for list view
-                            $("#requirement-application-search-more-button-in-list").html("<i class='fas fa-2x fa-chevron-down'></i>");
+                            $("#requirement-userapplication-search-more-button-in-list").html("<i class='fas fa-2x fa-chevron-down'></i>");
                         }
                         //If we are at the begining of the book disable previous and first buttons in pagination
                         if (ActualPageNumber === 1) {
-                            $("#requirement-application-lnk-previous-page-lg, #requirement-application-lnk-previous-page").attr("disabled", "disabled");
-                            $("#requirement-application-lnk-first-page-lg, #requirement-application-lnk-first-page").attr("disabled", "disabled");
+                            $("#requirement-userapplication-lnk-previous-page-lg, #requirement-userapplication-lnk-previous-page").attr("disabled", "disabled");
+                            $("#requirement-userapplication-lnk-first-page-lg, #requirement-userapplication-lnk-first-page").attr("disabled", "disabled");
                         }
                         else {
-                            $("#requirement-application-lnk-previous-page-lg, #requirement-application-lnk-previous-page").removeAttr("disabled");
-                            $("#requirement-application-lnk-first-page-lg, #requirement-application-lnk-first-page").removeAttr("disabled");
+                            $("#requirement-userapplication-lnk-previous-page-lg, #requirement-userapplication-lnk-previous-page").removeAttr("disabled");
+                            $("#requirement-userapplication-lnk-first-page-lg, #requirement-userapplication-lnk-first-page").removeAttr("disabled");
                         }
                         //If book is empty set to default pagination values
-                        if (response_applicationQuery?.lstApplicationModel?.length === 0) {
-                            $("#requirement-application-lnk-previous-page-lg, #requirement-application-lnk-previous-page").attr("disabled", "disabled");
-                            $("#requirement-application-lnk-first-page-lg, #requirement-application-lnk-first-page").attr("disabled", "disabled");
-                            $("#requirement-application-lnk-next-page-lg, #requirement-application-lnk-next-page").attr("disabled", "disabled");
-                            $("#requirement-application-lnk-last-page-lg, #requirement-application-lnk-last-page").attr("disabled", "disabled");
-                            $("#requirement-application-total-pages-lg, #requirement-application-total-pages").html("1");
-                            $("#requirement-application-actual-page-number-lg, #requirement-application-actual-page-number").html("1");
+                        if (response_userapplicationQuery?.lstUserApplicationModel?.length === 0) {
+                            $("#requirement-userapplication-lnk-previous-page-lg, #requirement-userapplication-lnk-previous-page").attr("disabled", "disabled");
+                            $("#requirement-userapplication-lnk-first-page-lg, #requirement-userapplication-lnk-first-page").attr("disabled", "disabled");
+                            $("#requirement-userapplication-lnk-next-page-lg, #requirement-userapplication-lnk-next-page").attr("disabled", "disabled");
+                            $("#requirement-userapplication-lnk-last-page-lg, #requirement-userapplication-lnk-last-page").attr("disabled", "disabled");
+                            $("#requirement-userapplication-total-pages-lg, #requirement-userapplication-total-pages").html("1");
+                            $("#requirement-userapplication-actual-page-number-lg, #requirement-userapplication-actual-page-number").html("1");
                         }
                         //Read data book
-                        response_applicationQuery?.lstApplicationModel?.forEach(row => {
+                        response_userapplicationQuery?.lstUserApplicationModel?.forEach(row => {
 
                             TableContent += `<tr>
     <!-- Checkbox -->
     <td>
         <div>
-            <input class="application-table-checkbox-for-row" value="${row.ApplicationId}" type="checkbox">
+            <input class="userapplication-table-checkbox-for-row" value="${row.UserApplicationId}" type="checkbox">
         </div>
     </td>
     <!-- Data -->
     <td class="text-left text-light">
-        <i class="fas fa-key"></i> ${row.ApplicationId}
+        <i class="fas fa-key"></i> ${row.UserApplicationId}
     </td>
     <td class="text-left">
         <strong>
@@ -182,33 +177,28 @@ class ApplicationQuery {
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
+            <i class="fas fa-key"></i> ${row.UserCreationId}
         </strong>
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong><i class="fas fa-font">
-            </i> ${row.Name}
+            <i class="fas fa-key"></i> ${row.UserLastModificationId}
         </strong>
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-font"></i> ${row.Description}
+            <i class="fas fa-key"></i> ${row.ApplicationId}
         </strong>
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.TechnologyIdName}
+            <i class="fas fa-key"></i> ${row.UserId}
         </strong>
     </td>
     
     <!-- Actions -->
     <td class="text-right">
-        <a class="btn btn-icon-only text-primary" href="/Requirement/PageApplicationNonQuery?ApplicationId=${row.ApplicationId}" role="button" data-toggle="tooltip" data-original-title="Edit">
+        <a class="btn btn-icon-only text-primary" href="/Requirement/PageUserApplicationNonQuery?UserApplicationId=${row.UserApplicationId}" role="button" data-toggle="tooltip" data-original-title="Edit">
             <i class="fas fa-edit"></i>
         </a>
         <div class="dropdown">
@@ -216,7 +206,7 @@ class ApplicationQuery {
                 <i class="fas fa-trash"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                <button class="dropdown-item text-danger requirement-application-table-delete-button" value="${row.ApplicationId}" type="button">
+                <button class="dropdown-item text-danger requirement-userapplication-table-delete-button" value="${row.UserApplicationId}" type="button">
                     <i class="fas fa-exclamation-triangle"></i> Yes, delete
                 </button>
             </div>
@@ -226,7 +216,7 @@ class ApplicationQuery {
                 <i class="fas fa-ellipsis-v"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                <button type="button" class="dropdown-item requirement-application-table-copy-button" value="${row.ApplicationId}">
+                <button type="button" class="dropdown-item requirement-userapplication-table-copy-button" value="${row.UserApplicationId}">
                     <i class="fas fa-copy text-primary"></i>&nbsp;Copy
                 </button>
             </div>
@@ -241,7 +231,7 @@ class ApplicationQuery {
                 <div class="row">
                     <div class="col text-truncate">
                         <span class="text-white text-light mb-4">
-                           Application ID <i class="fas fa-key"></i> ${row.ApplicationId}
+                           UserApplicationId <i class="fas fa-key"></i> ${row.UserApplicationId}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
@@ -249,31 +239,27 @@ class ApplicationQuery {
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           Date Time Creation <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
+                           DateTimeCreation <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           Date Time Last Modification <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
+                           DateTimeLastModification <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           User Creation <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
+                           UserCreationId <i class="fas fa-key"></i> ${row.UserCreationId}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           User Last Modification <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
+                           UserLastModificationId <i class="fas fa-key"></i> ${row.UserLastModificationId}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           Name <i class="fas fa-font"></i> ${row.Name}
+                           ApplicationId <i class="fas fa-key"></i> ${row.ApplicationId}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           Description <i class="fas fa-font"></i> ${row.Description}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                           Technology <i class="fas fa-key"></i> ${row.TechnologyIdName}
+                           UserId <i class="fas fa-key"></i> ${row.UserId}
                         </span>
                         <br/>
                         
@@ -285,13 +271,13 @@ class ApplicationQuery {
                 <div class="row">
                     <div class="col">
                         <div class="justify-content-end text-right mt-2">
-                            <div class="requirement-application-checkbox-list list-row-unchecked mb-2">
+                            <div class="requirement-userapplication-checkbox-list list-row-unchecked mb-2">
                                 <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="check">
                                     <i class="fas fa-circle text-white"></i>
                                 </a>
                             </div>
-                            <input type="hidden" value="${row.ApplicationId}"/>
-                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/Requirement/PageApplicationNonQuery?ApplicationId=${row.ApplicationId}" role="button" data-toggle="tooltip" data-original-title="edit">
+                            <input type="hidden" value="${row.UserApplicationId}"/>
+                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/Requirement/PageUserApplicationNonQuery?UserApplicationId=${row.UserApplicationId}" role="button" data-toggle="tooltip" data-original-title="edit">
                                 <i class="fas fa-edit text-primary"></i>
                             </a>
                             <div class="dropup">
@@ -299,10 +285,10 @@ class ApplicationQuery {
                                     <i class="fas fa-ellipsis-v"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                    <button value="${row.ApplicationId}" class="dropdown-item text-primary requirement-application-list-copy-button" type="button">
+                                    <button value="${row.UserApplicationId}" class="dropdown-item text-primary requirement-userapplication-list-copy-button" type="button">
                                         <i class="fas fa-copy"></i>&nbsp;Copy
                                     </button>
-                                    <button value="${row.ApplicationId}" class="dropdown-item text-danger requirement-application-list-delete-button" type="button">
+                                    <button value="${row.UserApplicationId}" class="dropdown-item text-danger requirement-userapplication-list-delete-button" type="button">
                                         <i class="fas fa-trash"></i>&nbsp;Delete
                                     </button>
                                 </div>
@@ -318,27 +304,27 @@ class ApplicationQuery {
 
                         //If view table is activated, clear table view, if not, clear list view
                         if (ViewToggler === "Table") {
-                            $("#requirement-application-body-and-head-table").html("");
-                            $("#requirement-application-body-and-head-table").html(TableContent);
+                            $("#requirement-userapplication-body-and-head-table").html("");
+                            $("#requirement-userapplication-body-and-head-table").html(TableContent);
                         }
                         else {
                             //Used for list view
                             if (ScrollDownNSearchFlag) {
-                                $("#requirement-application-body-list").append(ListContent);
+                                $("#requirement-userapplication-body-list").append(ListContent);
                                 ScrollDownNSearchFlag = false;
                             }
                             else {
                                 //Clear list view
-                                $("#requirement-application-body-list").html("");
-                                $("#requirement-application-body-list").html(ListContent);
+                                $("#requirement-userapplication-body-list").html("");
+                                $("#requirement-userapplication-body-list").html(ListContent);
                             }
                             }
                     }
                     else {
                         //Show error message
-                        $("#requirement-application-error-message-title").html("No registers found");
-                        $("#requirement-application-error-message-text").html("The server did not found any register. HTTP code 204");
-                        $("#requirement-application-button-error-message-in-card").show();
+                        $("#requirement-userapplication-error-message-title").html("No registers found");
+                        $("#requirement-userapplication-error-message-text").html("The server did not found any register. HTTP code 204");
+                        $("#requirement-userapplication-button-error-message-in-card").show();
                     }
                 },
                 complete: () => {
@@ -350,7 +336,7 @@ class ApplicationQuery {
                                 </table>`;
 
                     //Check button inside list view
-                    $(".requirement-application-checkbox-list").on("click", function (e) {
+                    $(".requirement-userapplication-checkbox-list").on("click", function (e) {
                         //Toggler
                         if ($(this).hasClass("list-row-checked")) {
                             $(this).html(`<a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="check">
@@ -367,13 +353,13 @@ class ApplicationQuery {
                     });
 
                     //Check all button inside table
-                    $("#application-table-check-all").on("click", function (e) { 
+                    $("#userapplication-table-check-all").on("click", function (e) { 
                         //Toggler
-                        if ($("tr td div input.application-table-checkbox-for-row").is(":checked")) {
-                            $("tr td div input.application-table-checkbox-for-row").removeAttr("checked");
+                        if ($("tr td div input.userapplication-table-checkbox-for-row").is(":checked")) {
+                            $("tr td div input.userapplication-table-checkbox-for-row").removeAttr("checked");
                         }
                         else {
-                            $("tr td div input.application-table-checkbox-for-row").attr("checked", "checked");
+                            $("tr td div input.userapplication-table-checkbox-for-row").attr("checked", "checked");
                         }
                     });
 
@@ -393,65 +379,65 @@ class ApplicationQuery {
                     });
 
                     //Hide error message
-                    $("#requirement-application-error-message-title").html("");
-                    $("#requirement-application-error-message-text").html("");
-                    $("#requirement-application-button-error-message-in-card").hide();
+                    $("#requirement-userapplication-error-message-title").html("");
+                    $("#requirement-userapplication-error-message-text").html("");
+                    $("#requirement-userapplication-button-error-message-in-card").hide();
 
                     //Delete button in table and list
-                    $("div.dropdown-menu button.requirement-application-table-delete-button, div.dropdown-menu button.requirement-application-list-delete-button").on("click", function (e) {
-                        let ApplicationId = $(this).val();
-                        ApplicationModel.DeleteByApplicationId(ApplicationId).subscribe({
+                    $("div.dropdown-menu button.requirement-userapplication-table-delete-button, div.dropdown-menu button.requirement-userapplication-list-delete-button").on("click", function (e) {
+                        let UserApplicationId = $(this).val();
+                        UserApplicationModel.DeleteByUserApplicationId(UserApplicationId).subscribe({
                             next: newrow => {
                             },
                             complete: () => {
                                 ValidateAndSearch();
 
                                 //Show OK message
-                                $("#requirement-application-button-error-message-in-card").hide();
-                                $("#requirement-application-button-ok-message-in-card").html(`<strong>
+                                $("#requirement-userapplication-button-error-message-in-card").hide();
+                                $("#requirement-userapplication-button-ok-message-in-card").html(`<strong>
                                                                     <i class="fas fa-check"></i>
                                                                 </strong> Row deleted successfully`);
-                                $("#requirement-application-button-ok-message-in-card").show();
+                                $("#requirement-userapplication-button-ok-message-in-card").show();
                             },
                             error: err => {
                                 //Related to error message
-                                $("#requirement-application-error-message-title").html("ApplicationModel.DeleteByApplicationId(ApplicationId).subscribe(...)");
-                                $("#requirement-application-error-message-text").html(err);
-                                $("#requirement-application-button-error-message-in-card").show();
+                                $("#requirement-userapplication-error-message-title").html("UserApplicationModel.DeleteByUserApplicationId(UserApplicationId).subscribe(...)");
+                                $("#requirement-userapplication-error-message-text").html(err);
+                                $("#requirement-userapplication-button-error-message-in-card").show();
                             }
                         });
                     });
 
                     //Copy button in table and list
-                    $("div.dropdown-menu button.requirement-application-table-copy-button, div.dropdown-menu button.requirement-application-list-copy-button").on("click", function (e) {
-                        let ApplicationId = $(this).val();
-                        ApplicationModel.CopyByApplicationId(ApplicationId).subscribe({
+                    $("div.dropdown-menu button.requirement-userapplication-table-copy-button, div.dropdown-menu button.requirement-userapplication-list-copy-button").on("click", function (e) {
+                        let UserApplicationId = $(this).val();
+                        UserApplicationModel.CopyByUserApplicationId(UserApplicationId).subscribe({
                             next: newrow => {
                             },
                             complete: () => {
                                 ValidateAndSearch();
 
                                 //Show OK message
-                                $("#requirement-application-button-error-message-in-card").hide();
-                                $("#requirement-application-button-ok-message-in-card").html(`<strong>
+                                $("#requirement-userapplication-button-error-message-in-card").hide();
+                                $("#requirement-userapplication-button-ok-message-in-card").html(`<strong>
                                                                     <i class="fas fa-check"></i>
                                                                 </strong> Row copied successfully`);
-                                $("#requirement-application-button-ok-message-in-card").show();
+                                $("#requirement-userapplication-button-ok-message-in-card").show();
                             },
                             error: err => {
                                 //Show error message
-                                $("#requirement-application-error-message-title").html("ApplicationModel.CopyByApplicationId(ApplicationId).subscribe(...)");
-                                $("#requirement-application-error-message-text").html(err);
-                                $("#requirement-application-button-error-message-in-card").show();
+                                $("#requirement-userapplication-error-message-title").html("UserApplicationModel.CopyByUserApplicationId(UserApplicationId).subscribe(...)");
+                                $("#requirement-userapplication-error-message-text").html(err);
+                                $("#requirement-userapplication-button-error-message-in-card").show();
                             }
                         });
                     });
                 },
                 error: err => {
                     //Show error message
-                    $("#requirement-application-error-message-title").html("ApplicationModel.SelectAllPaged(request_applicationmodelQ).subscribe(...)");
-                    $("#requirement-application-error-message-text").html(err);
-                    $("#requirement-application-button-error-message-in-card").show();
+                    $("#requirement-userapplication-error-message-title").html("UserApplicationModel.SelectAllPaged(request_userapplicationmodelQ).subscribe(...)");
+                    $("#requirement-userapplication-error-message-text").html(err);
+                    $("#requirement-userapplication-button-error-message-in-card").show();
                 }
             });
     }
@@ -460,10 +446,10 @@ class ApplicationQuery {
 function ValidateAndSearch() {
 
     //Hide error and OK message button
-    $("#requirement-application-button-error-message-in-card").hide();
-    $("#requirement-application-button-ok-message-in-card").hide();
+    $("#requirement-userapplication-button-error-message-in-card").hide();
+    $("#requirement-userapplication-button-ok-message-in-card").hide();
 
-    var _applicationmodelQuery: applicationmodelQuery = {
+    var _userapplicationmodelQuery: userapplicationmodelQuery = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -473,86 +459,86 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    ApplicationQuery.SelectAllPagedToHTML(_applicationmodelQuery);
+    UserApplicationQuery.SelectAllPagedToHTML(_userapplicationmodelQuery);
 }
 
 //LOAD EVENT
-if ($("#requirement-application-title-page").html().includes("Query application")) {
+if ($("#requirement-userapplication-title-page").html().includes("Query userapplication")) {
     //Set to default values
     QueryString = "";
     ActualPageNumber = 1;
     RowsPerPage = 50;
-    SorterColumn = "ApplicationId";
+    SorterColumn = "UserApplicationId";
     SortToggler = false;
     TotalRows = 0;
     TotalPages = 0;
     ViewToggler = "List";
     //Disable first and previous links in pagination
-    $("#requirement-application-lnk-first-page-lg, #requirement-application-lnk-first-page").attr("disabled", "disabled");
-    $("#requirement-application-lnk-previous-page-lg, #requirement-application-lnk-previous-page").attr("disabled", "disabled");
+    $("#requirement-userapplication-lnk-first-page-lg, #requirement-userapplication-lnk-first-page").attr("disabled", "disabled");
+    $("#requirement-userapplication-lnk-previous-page-lg, #requirement-userapplication-lnk-previous-page").attr("disabled", "disabled");
     //Hide messages
-    $("#requirement-application-export-message").html("");
-    $("#requirement-application-button-error-message-in-card").hide();
-    $("#requirement-application-button-ok-message-in-card").hide();
+    $("#requirement-userapplication-export-message").html("");
+    $("#requirement-userapplication-button-error-message-in-card").hide();
+    $("#requirement-userapplication-button-ok-message-in-card").hide();
 
     ValidateAndSearch();
 }
 //CLICK, SCROLL AND KEYBOARD EVENTS
 //Search button
-$($("#requirement-application-search-button")).on("click", function () {
+$($("#requirement-userapplication-search-button")).on("click", function () {
     ValidateAndSearch();
 });
 
 //Query string
-$("#requirement-application-query-string").on("change keyup input", function (e) {
+$("#requirement-userapplication-query-string").on("change keyup input", function (e) {
     //If undefined, set QueryString to "" value
     QueryString = ($(this).val()?.toString()) ?? "" ;
     ValidateAndSearch();
 });
 
 //First page link in pagination
-$("#requirement-application-lnk-first-page-lg, #requirement-application-lnk-first-page").on("click", function (e) {
+$("#requirement-userapplication-lnk-first-page-lg, #requirement-userapplication-lnk-first-page").on("click", function (e) {
     ActualPageNumber = 1;
     ValidateAndSearch();
 });
 
 //Previous page link in pagination
-$("#requirement-application-lnk-previous-page-lg, #requirement-application-lnk-previous-page").on("click", function (e) {
+$("#requirement-userapplication-lnk-previous-page-lg, #requirement-userapplication-lnk-previous-page").on("click", function (e) {
     ActualPageNumber -= 1;
     ValidateAndSearch();
 });
 
 //Next page link in pagination
-$("#requirement-application-lnk-next-page-lg, #requirement-application-lnk-next-page").on("click", function (e) {
+$("#requirement-userapplication-lnk-next-page-lg, #requirement-userapplication-lnk-next-page").on("click", function (e) {
     ActualPageNumber += 1;
     ValidateAndSearch();
 });
 
 //Last page link in pagination
-$("#requirement-application-lnk-last-page-lg, #requirement-application-lnk-last-page").on("click", function (e) {
+$("#requirement-userapplication-lnk-last-page-lg, #requirement-userapplication-lnk-last-page").on("click", function (e) {
     ActualPageNumber = TotalPages;
     ValidateAndSearch();
 });
 
 //Table view button
-$("#requirement-application-table-view-button").on("click", function (e) {
-    $("#requirement-application-view-toggler").val("Table");
+$("#requirement-userapplication-table-view-button").on("click", function (e) {
+    $("#requirement-userapplication-view-toggler").val("Table");
     ViewToggler = "Table";
     //Reset some values to default
     ActualPageNumber = 1;
     //Clear table view
-    $("#requirement-application-body-and-head-table").html("");
+    $("#requirement-userapplication-body-and-head-table").html("");
     ValidateAndSearch();
 });
 
 //List view button
-$("#requirement-application-list-view-button").on("click", function (e) {
-    $("#requirement-application-view-toggler").val("List");
+$("#requirement-userapplication-list-view-button").on("click", function (e) {
+    $("#requirement-userapplication-view-toggler").val("List");
     ViewToggler = "List";
     //Reset some values to default
     ActualPageNumber = 1;
     //Clear list view
-    $("#requirement-application-body-list").html("");
+    $("#requirement-userapplication-body-list").html("");
     ValidateAndSearch();
 });
 
@@ -560,8 +546,8 @@ $("#requirement-application-list-view-button").on("click", function (e) {
 function ScrollDownNSearch() {
     let WindowsTopDistance: number = $(window).scrollTop() ?? 0;
     let WindowsBottomDistance: number = ($(window).scrollTop() ?? 0) + ($(window).innerHeight() ?? 0);
-    let CardsFooterTopPosition: number = $("#requirement-application-search-more-button-in-list").offset()?.top ?? 0;
-    let CardsFooterBottomPosition: number = ($("#requirement-application-search-more-button-in-list").offset()?.top ?? 0) + ($("#requirement-application-search-more-button-in-list").outerHeight() ?? 0);
+    let CardsFooterTopPosition: number = $("#requirement-userapplication-search-more-button-in-list").offset()?.top ?? 0;
+    let CardsFooterBottomPosition: number = ($("#requirement-userapplication-search-more-button-in-list").offset()?.top ?? 0) + ($("#requirement-userapplication-search-more-button-in-list").outerHeight() ?? 0);
 
     if (WindowsTopDistance > LastTopDistance) {
         //Scroll down
@@ -583,7 +569,7 @@ function ScrollDownNSearch() {
 $(window).on("scroll", ScrollDownNSearch);
 
 //Export as PDF button
-$("#requirement-application-export-as-pdf").on("click", function (e) {
+$("#requirement-userapplication-export-as-pdf").on("click", function (e) {
     //There are two exportation types, All and JustChecked
     let ExportationType: string = "";
     let DateTimeNow: Ajax;
@@ -594,7 +580,7 @@ $("#requirement-application-export-as-pdf").on("click", function (e) {
         'Content-Type': 'application/json; charset=utf-8'
     };
 
-    if ($("#requirement-application-export-rows-all-checkbox").is(":checked")) {
+    if ($("#requirement-userapplication-export-rows-all-checkbox").is(":checked")) {
         ExportationType = "All";
     }
     else{
@@ -602,7 +588,7 @@ $("#requirement-application-export-as-pdf").on("click", function (e) {
         let CheckedRows = new Array();
 
         if (ViewToggler == "Table") {
-            $("tr td div input.application-table-checkbox-for-row:checked").each(function () {
+            $("tr td div input.userapplication-table-checkbox-for-row:checked").each(function () {
                 CheckedRows.push($(this).val());
             });
 
@@ -622,35 +608,35 @@ $("#requirement-application-export-as-pdf").on("click", function (e) {
         }
     }
 
-    Rx.from(ajax.post("/api/Requirement/Application/1/ExportAsPDF/" + ExportationType, Body, Header)).subscribe({
+    Rx.from(ajax.post("/api/Requirement/UserApplication/1/ExportAsPDF/" + ExportationType, Body, Header)).subscribe({
         next: newrow => {
-            $("#requirement-application-export-message").html("<strong>Exporting as PDF</strong>");
+            $("#requirement-userapplication-export-message").html("<strong>Exporting as PDF</strong>");
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
             //Show download button for PDF file
-            $("#requirement-application-export-message").html(`<a class="btn btn-icon btn-success" href="/PDFFiles/Requirement/Application/Application_${DateTimeNow.AjaxForString}.pdf" type="button" download>
+            $("#requirement-userapplication-export-message").html(`<a class="btn btn-icon btn-success" href="/PDFFiles/Requirement/UserApplication/UserApplication_${DateTimeNow.AjaxForString}.pdf" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-pdf"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
 
             //Show OK message
-            $("#requirement-application-button-ok-message-in-card").html(`<strong>
+            $("#requirement-userapplication-button-ok-message-in-card").html(`<strong>
                                                                     <i class="fas fa-check"></i>
                                                                 </strong> Conversion completed`);
-            $("#requirement-application-button-ok-message-in-card").show();
+            $("#requirement-userapplication-button-ok-message-in-card").show();
         },
         error: err => {
             //Show error message
-            $("#requirement-application-error-message-title").html("Rx.from(ajax.post('/api/Requirement/Application/1/ExportAsPDF/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#requirement-application-error-message-text").html(err);
-            $("#requirement-application-button-error-message-in-card").show();
+            $("#requirement-userapplication-error-message-title").html("Rx.from(ajax.post('/api/Requirement/UserApplication/1/ExportAsPDF/' + ExportationType, Body, Header)).subscribe(...)");
+            $("#requirement-userapplication-error-message-text").html(err);
+            $("#requirement-userapplication-button-error-message-in-card").show();
         }
     });
 });
 
 //Export as Excel button
-$("#requirement-application-export-as-excel").on("click", function (e) {
+$("#requirement-userapplication-export-as-excel").on("click", function (e) {
     //There are two exportation types, All and JustChecked
     let ExportationType: string = "";
     let DateTimeNow: Ajax;
@@ -661,7 +647,7 @@ $("#requirement-application-export-as-excel").on("click", function (e) {
         'Content-Type': 'application/json; charset=utf-8'
     };
 
-    if ($("#requirement-application-export-rows-all-checkbox").is(":checked")) {
+    if ($("#requirement-userapplication-export-rows-all-checkbox").is(":checked")) {
         ExportationType = "All";
     }
     else {
@@ -669,7 +655,7 @@ $("#requirement-application-export-as-excel").on("click", function (e) {
         let CheckedRows = new Array();
 
         if (ViewToggler == "Table") {
-            $("tr td div input.application-table-checkbox-for-row:checked").each(function () {
+            $("tr td div input.userapplication-table-checkbox-for-row:checked").each(function () {
                 CheckedRows.push($(this).val());
             });
 
@@ -689,35 +675,35 @@ $("#requirement-application-export-as-excel").on("click", function (e) {
         }
     }
 
-    Rx.from(ajax.post("/api/Requirement/Application/1/ExportAsExcel/" + ExportationType, Body, Header)).subscribe({
+    Rx.from(ajax.post("/api/Requirement/UserApplication/1/ExportAsExcel/" + ExportationType, Body, Header)).subscribe({
         next: newrow => {
-            $("#requirement-application-export-message").html("<strong>Exporting as Excel</strong>");
+            $("#requirement-userapplication-export-message").html("<strong>Exporting as Excel</strong>");
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
             //Show download button for Excel file
-            $("#requirement-application-export-message").html(`<a class="btn btn-icon btn-success" href="/ExcelFiles/Requirement/Application/Application_${DateTimeNow.AjaxForString}.xlsx" type="button" download>
+            $("#requirement-userapplication-export-message").html(`<a class="btn btn-icon btn-success" href="/ExcelFiles/Requirement/UserApplication/UserApplication_${DateTimeNow.AjaxForString}.xlsx" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-excel"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
 
             //Show OK message
-            $("#requirement-application-button-ok-message-in-card").html(`<strong>
+            $("#requirement-userapplication-button-ok-message-in-card").html(`<strong>
                                                                     <i class="fas fa-check"></i>
                                                                 </strong> Conversion completed`);
-            $("#requirement-application-button-ok-message-in-card").show();
+            $("#requirement-userapplication-button-ok-message-in-card").show();
         },
         error: err => {
             //Show error message
-            $("#requirement-application-error-message-title").html("Rx.from(ajax.post('/api/Requirement/Application/1/ExportAsExcel/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#requirement-application-error-message-text").html(err);
-            $("#requirement-application-button-error-message-in-card").show();
+            $("#requirement-userapplication-error-message-title").html("Rx.from(ajax.post('/api/Requirement/UserApplication/1/ExportAsExcel/' + ExportationType, Body, Header)).subscribe(...)");
+            $("#requirement-userapplication-error-message-text").html(err);
+            $("#requirement-userapplication-button-error-message-in-card").show();
         }
     });
 });
 
 //Export as CSV button
-$("#requirement-application-export-as-csv").on("click", function (e) {
+$("#requirement-userapplication-export-as-csv").on("click", function (e) {
     //There are two exportation types, All and JustChecked
     let ExportationType: string = "";
     let DateTimeNow: Ajax;
@@ -728,7 +714,7 @@ $("#requirement-application-export-as-csv").on("click", function (e) {
         'Content-Type': 'application/json; charset=utf-8'
     };
 
-    if ($("#requirement-application-export-rows-all-checkbox").is(":checked")) {
+    if ($("#requirement-userapplication-export-rows-all-checkbox").is(":checked")) {
         ExportationType = "All";
     }
     else {
@@ -736,7 +722,7 @@ $("#requirement-application-export-as-csv").on("click", function (e) {
         let CheckedRows = new Array();
 
         if (ViewToggler == "Table") {
-            $("tr td div input.application-table-checkbox-for-row:checked").each(function () {
+            $("tr td div input.userapplication-table-checkbox-for-row:checked").each(function () {
                 CheckedRows.push($(this).val());
             });
 
@@ -756,45 +742,45 @@ $("#requirement-application-export-as-csv").on("click", function (e) {
         }
     }
 
-    Rx.from(ajax.post("/api/Requirement/Application/1/ExportAsCSV/" + ExportationType, Body, Header)).subscribe({
+    Rx.from(ajax.post("/api/Requirement/UserApplication/1/ExportAsCSV/" + ExportationType, Body, Header)).subscribe({
         next: newrow => {
-            $("#requirement-application-export-message").html("<strong>Exporting as CSV</strong>");
+            $("#requirement-userapplication-export-message").html("<strong>Exporting as CSV</strong>");
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
             //Show download button for CSV file
-            $("#requirement-application-export-message").html(`<a class="btn btn-icon btn-success" href="/CSVFiles/Requirement/Application/Application_${DateTimeNow.AjaxForString}.csv" type="button" download>
+            $("#requirement-userapplication-export-message").html(`<a class="btn btn-icon btn-success" href="/CSVFiles/Requirement/UserApplication/UserApplication_${DateTimeNow.AjaxForString}.csv" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-csv"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
 
             //Show OK message
-            $("#requirement-application-button-ok-message-in-card").html(`<strong>
+            $("#requirement-userapplication-button-ok-message-in-card").html(`<strong>
                                                                     <i class="fas fa-check"></i>
                                                                 </strong> Conversion completed`);
-            $("#requirement-application-button-ok-message-in-card").show();
+            $("#requirement-userapplication-button-ok-message-in-card").show();
         },
         error: err => {
             //Show error message
-            $("#requirement-application-error-message-title").html("Rx.from(ajax.post('/api/Requirement/Application/1/ExportAsCSV/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#requirement-application-error-message-text").html(err);
-            $("#requirement-application-button-error-message-in-card").show();
+            $("#requirement-userapplication-error-message-title").html("Rx.from(ajax.post('/api/Requirement/UserApplication/1/ExportAsCSV/' + ExportationType, Body, Header)).subscribe(...)");
+            $("#requirement-userapplication-error-message-text").html(err);
+            $("#requirement-userapplication-button-error-message-in-card").show();
         }
     });
 });
 
 //Export close button in modal
-$("#requirement-application-export-close-button").on("click", function (e) {
-    $("#requirement-application-export-message").html("");
+$("#requirement-userapplication-export-close-button").on("click", function (e) {
+    $("#requirement-userapplication-export-message").html("");
 });
 
 //Massive action Copy
-$("#requirement-application-massive-action-copy").on("click", function (e) {
+$("#requirement-userapplication-massive-action-copy").on("click", function (e) {
     //There are two deletion types, All and JustChecked
     let CopyType: string = "";
     let Body: Ajax = {};
 
-    if ($("#requirement-application-copy-rows-all-checkbox").is(":checked")) {
+    if ($("#requirement-userapplication-copy-rows-all-checkbox").is(":checked")) {
         CopyType = "All";
     }
     else {
@@ -802,7 +788,7 @@ $("#requirement-application-massive-action-copy").on("click", function (e) {
         let CheckedRows = new Array();
 
         if (ViewToggler == "Table") {
-            $("tr td div input.application-table-checkbox-for-row:checked").each(function () {
+            $("tr td div input.userapplication-table-checkbox-for-row:checked").each(function () {
                 CheckedRows.push($(this).val());
             });
         }
@@ -817,34 +803,34 @@ $("#requirement-application-massive-action-copy").on("click", function (e) {
         };
     }
 
-    ApplicationModel.CopyManyOrAll(CopyType, Body).subscribe({
+    UserApplicationModel.CopyManyOrAll(CopyType, Body).subscribe({
         next: newrow => {
         },
         complete: () => {
             ValidateAndSearch();
 
             //Show OK message
-            $("#requirement-application-button-ok-message-in-card").html(`<strong>
+            $("#requirement-userapplication-button-ok-message-in-card").html(`<strong>
                                                                     <i class="fas fa-check"></i>
                                                                 </strong> Rows copied successfully`);
-            $("#requirement-application-button-ok-message-in-card").show();
+            $("#requirement-userapplication-button-ok-message-in-card").show();
         },
         error: err => {
             //Show error message
-            $("#requirement-application-error-message-title").html("ApplicationModel.Copy(CopyType).subscribe(...)");
-            $("#requirement-application-error-message-text").html(err);
-            $("#requirement-application-button-error-message-in-card").show();
+            $("#requirement-userapplication-error-message-title").html("UserApplicationModel.Copy(CopyType).subscribe(...)");
+            $("#requirement-userapplication-error-message-text").html(err);
+            $("#requirement-userapplication-button-error-message-in-card").show();
         }
     });
 });
 
 //Massive action Delete
-$("#requirement-application-massive-action-delete").on("click", function (e) {
+$("#requirement-userapplication-massive-action-delete").on("click", function (e) {
     //There are two deletion types, All and JustChecked
     let DeleteType: string = "";
     let Body: Ajax = {};
 
-    if ($("#requirement-application-copy-rows-all-checkbox").is(":checked")) {
+    if ($("#requirement-userapplication-copy-rows-all-checkbox").is(":checked")) {
         DeleteType = "All";
     }
     else {
@@ -852,7 +838,7 @@ $("#requirement-application-massive-action-delete").on("click", function (e) {
         let CheckedRows = new Array();
 
         if (ViewToggler == "Table") {
-            $("tr td div input.application-table-checkbox-for-row:checked").each(function () {
+            $("tr td div input.userapplication-table-checkbox-for-row:checked").each(function () {
                 CheckedRows.push($(this).val());
             });
         }
@@ -867,23 +853,23 @@ $("#requirement-application-massive-action-delete").on("click", function (e) {
         };
     }
 
-    ApplicationModel.DeleteManyOrAll(DeleteType, Body).subscribe({
+    UserApplicationModel.DeleteManyOrAll(DeleteType, Body).subscribe({
         next: newrow => {
         },
         complete: () => {
             ValidateAndSearch();
 
             //Show OK message
-            $("#requirement-application-button-ok-message-in-card").html(`<strong>
+            $("#requirement-userapplication-button-ok-message-in-card").html(`<strong>
                                                                     <i class="fas fa-check"></i>
                                                                 </strong> Rows deleted successfully`);
-            $("#requirement-application-button-ok-message-in-card").show();
+            $("#requirement-userapplication-button-ok-message-in-card").show();
         },
         error: err => {
             //Show error message
-            $("#requirement-application-error-message-title").html("ApplicationModel.Copy(CopyType).subscribe(...)");
-            $("#requirement-application-error-message-text").html(err);
-            $("#requirement-application-button-error-message-in-card").show();
+            $("#requirement-userapplication-error-message-title").html("UserApplicationModel.Copy(CopyType).subscribe(...)");
+            $("#requirement-userapplication-error-message-text").html(err);
+            $("#requirement-userapplication-button-error-message-in-card").show();
         }
     });
 });

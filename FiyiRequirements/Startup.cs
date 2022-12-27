@@ -60,8 +60,6 @@ namespace FiyiRequirements
             services.AddScoped<RoleProtocol, RoleService>();
             //Area: Requirements
             services.AddScoped<ApplicationProtocol, ApplicationService>();
-            services.AddScoped<ClientProtocol, ClientService>();
-            services.AddScoped<ClientApplicationProtocol, ClientApplicationService>();
             services.AddScoped<RequirementProtocol, RequirementService>();
             services.AddScoped<RequirementChangehistoryProtocol, RequirementChangehistoryService>();
             services.AddScoped<RequirementFileProtocol, RequirementFileService>();
@@ -69,6 +67,7 @@ namespace FiyiRequirements
             services.AddScoped<RequirementPriorityProtocol, RequirementPriorityService>();
             services.AddScoped<RequirementStateProtocol, RequirementStateService>();
             services.AddScoped<TechnologyProtocol, TechnologyService>();
+            services.AddScoped<UserApplicationProtocol,UserApplicationService>();
 
             //Session configuration
             services.AddMvc();

@@ -1,7 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
-import { ClientApplicationModel } from "../../ClientApplication/TsModels/ClientApplication_TsModel";
+import { UserApplicationModel } from "../../UserApplication/TsModels/UserApplication_TsModel";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -28,7 +28,7 @@ export class ApplicationModel {
 	Name?: string | string[] | number | undefined;
 	Description?: string | string[] | number | undefined;
 	TechnologyId?: number;
-    lstClientApplicationModel?: ClientApplicationModel[] | undefined;
+    lstUserApplicationModel?: UserApplicationModel[] | undefined;
     UserCreationIdFantasyName?: string | string[] | number | undefined;
     UserLastModificationIdFantasyName?: string | string[] | number | undefined;
     TechnologyIdName?: string | string[] | number | undefined;

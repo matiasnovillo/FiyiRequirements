@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[Requirement.Application.Count]
+CREATE PROCEDURE [dbo].[Requirement.UserApplication.DeleteAll]
 
 AS
 
@@ -16,17 +16,10 @@ AS
 /*
  * Execute this stored procedure with the next script as example
  *
-DECLARE	@Counter int
-
-EXEC	@Counter = [dbo].[Requirement.Application.Count]
-
-SELECT	'Counter' = @Counter
+EXEC [dbo].[Requirement.UserApplication.DeleteAll]
  *
  */
 
---Last modification on: 27/12/2022 16:53:13
+--Last modification on: 27/12/2022 16:32:18
 
-SELECT 
-	COUNT(*)
-FROM 
-	[Requirement.Application]
+DELETE FROM [Requirement.UserApplication]

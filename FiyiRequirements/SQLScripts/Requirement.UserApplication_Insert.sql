@@ -1,13 +1,12 @@
-CREATE PROCEDURE [dbo].[Requirement.Application.Insert] 
+CREATE PROCEDURE [dbo].[Requirement.UserApplication.Insert] 
 (
     @Active TINYINT,
     @DateTimeCreation DATETIME,
     @DateTimeLastModification DATETIME,
     @UserCreationId INT,
     @UserLastModificationId INT,
-    @Name VARCHAR(100),
-    @Description VARCHAR(2000),
-    @TechnologyId INT,
+    @ApplicationId INT,
+    @UserId INT,
 
     @NewEnteredId INT OUTPUT
 )
@@ -29,16 +28,15 @@ AS
  * Execute this stored procedure with the next script as example
  *
 DECLARE	@NewEnteredId INT
-EXEC [dbo].[Requirement.Application.Insert]
+EXEC [dbo].[Requirement.UserApplication.Insert]
 
     @Active = 1,
     @DateTimeCreation = N'01/01/1753 0:00:00.001',
     @DateTimeLastModification = N'01/01/1753 0:00:00.001',
     @UserCreationId = 1,
     @UserLastModificationId = 1,
-    @Name = N'PutName',
-    @Description = N'PutDescription',
-     @TechnologyId = 1,
+     @ApplicationId = 1,
+     @UserId = 1,
 
 @NewEnteredId = @NewEnteredId OUTPUT
 
@@ -46,18 +44,17 @@ SELECT @NewEnteredId AS N'@NewEnteredId'
  *
  */
 
---Last modification on: 27/12/2022 16:53:13
+--Last modification on: 27/12/2022 16:32:18
 
-INSERT INTO [Requirement.Application]
+INSERT INTO [Requirement.UserApplication]
 (
     [Active],
     [DateTimeCreation],
     [DateTimeLastModification],
     [UserCreationId],
     [UserLastModificationId],
-    [Name],
-    [Description],
-    [TechnologyId]
+    [ApplicationId],
+    [UserId]
 )
 VALUES
 (
@@ -66,9 +63,8 @@ VALUES
     @DateTimeLastModification,
     @UserCreationId,
     @UserLastModificationId,
-    @Name,
-    @Description,
-    @TechnologyId
+    @ApplicationId,
+    @UserId
 )
 
 SELECT @NewEnteredId = @@IDENTITY

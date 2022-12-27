@@ -26,19 +26,19 @@ namespace FiyiRequirements.Areas.Requirement.Models
     /// Function:          Allow you to manipulate information from database using stored procedures.
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
-    /// Fields:            9 <br/> 
-    /// Sub-models:      1 models <br/>
-    /// Last modification: 27/12/2022 16:53:13
+    /// Fields:            8 <br/> 
+    /// Sub-models:      0 models <br/>
+    /// Last modification: 27/12/2022 16:32:18
     /// </summary>
     [Serializable]
-    public partial class ApplicationModel
+    public partial class UserApplicationModel
     {
         [NotMapped]
         private string _ConnectionString = "data source =.; initial catalog = fiyistack_FiyiRequirements; Integrated Security = SSPI; MultipleActiveResultSets=True;Pooling=false;Persist Security Info=True;App=EntityFramework;TrustServerCertificate=True";
 
         #region Fields
-        [Library.ModelAttributeValidator.Key("ApplicationId")]
-        public int ApplicationId { get; set; }
+        [Library.ModelAttributeValidator.Key("UserApplicationId")]
+        public int UserApplicationId { get; set; }
 
         ///<summary>
         /// For auditing purposes
@@ -69,43 +69,33 @@ namespace FiyiRequirements.Areas.Requirement.Models
         [Library.ModelAttributeValidator.Key("UserLastModificationId")]
         public int UserLastModificationId { get; set; }
 
-        [Library.ModelAttributeValidator.String("Name", false, 1, 100, "")]
-        public string Name { get; set; }
+        [Library.ModelAttributeValidator.Key("ApplicationId")]
+        public int ApplicationId { get; set; }
 
-        [Library.ModelAttributeValidator.String("Description", false, 1, 2000, "")]
-        public string Description { get; set; }
-
-        [Library.ModelAttributeValidator.Key("TechnologyId")]
-        public int TechnologyId { get; set; }
-
-        public string UserCreationIdFantasyName { get; set; }
-
-        public string UserLastModificationIdFantasyName { get; set; }
-
-        public string TechnologyIdName { get; set; }
+        [Library.ModelAttributeValidator.Key("UserId")]
+        public int UserId { get; set; }
         #endregion
 
         #region Sub-lists
-        public virtual List<UserApplicationModel> lstUserApplicationModel { get; set; } //Foreign Key name: ApplicationId 
+        
         #endregion
 
         #region Constructors
         /// <summary>
         /// Stack:        3 <br/>
-        /// Function:     Create fastly this model with field ApplicationId = 0 <br/>
+        /// Function:     Create fastly this model with field UserApplicationId = 0 <br/>
         /// Note 1:       Generally used to have fast access to functions of object. <br/>
         /// Note 2:       Need construction with [new] reserved word, as all constructors. <br/>
-        /// Fields:       9 <br/> 
-        /// Dependencies: 1 models depend on this model <br/>
+        /// Fields:       8 <br/> 
+        /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
-        public ApplicationModel()
+        public UserApplicationModel()
         {
             try 
             {
-                ApplicationId = 0;
+                UserApplicationId = 0;
 
                 //Initialize sub-lists
-                lstUserApplicationModel = new List<UserApplicationModel>();
                 
             }
             catch (Exception ex) { throw ex; }
@@ -113,47 +103,45 @@ namespace FiyiRequirements.Areas.Requirement.Models
 
         /// <summary>
         /// Stack:        3 <br/>
-        /// Function:     Create this model with stored information in database using ApplicationId <br/>
+        /// Function:     Create this model with stored information in database using UserApplicationId <br/>
         /// Note:         Raise exception on duplicated IDs <br/>
-        /// Fields:       9 <br/> 
-        /// Dependencies: 1 models depend on this model <br/>
+        /// Fields:       8 <br/> 
+        /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
-        public ApplicationModel(int ApplicationId)
+        public UserApplicationModel(int UserApplicationId)
         {
             try
             {
-                List<ApplicationModel> lstApplicationModel = new List<ApplicationModel>();
+                List<UserApplicationModel> lstUserApplicationModel = new List<UserApplicationModel>();
 
                 //Initialize sub-lists
-                lstUserApplicationModel = new List<UserApplicationModel>();
                 
                 
                 DynamicParameters dp = new DynamicParameters();
 
-                dp.Add("ApplicationId", ApplicationId, DbType.Int32, ParameterDirection.Input);
+                dp.Add("UserApplicationId", UserApplicationId, DbType.Int32, ParameterDirection.Input);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    //In case of not finding anything, Dapper return a List<ApplicationModel>
-                    lstApplicationModel = (List<ApplicationModel>)sqlConnection.Query<ApplicationModel>("[dbo].[Requirement.Application.Select1ByApplicationId]", dp, commandType: CommandType.StoredProcedure);
+                    //In case of not finding anything, Dapper return a List<UserApplicationModel>
+                    lstUserApplicationModel = (List<UserApplicationModel>)sqlConnection.Query<UserApplicationModel>("[dbo].[Requirement.UserApplication.Select1ByUserApplicationId]", dp, commandType: CommandType.StoredProcedure);
                 }
 
-                if (lstApplicationModel.Count > 1)
+                if (lstUserApplicationModel.Count > 1)
                 {
-                    throw new Exception("The stored procedure [dbo].[Requirement.Application.Select1ByApplicationId] returned more than one register/row");
+                    throw new Exception("The stored procedure [dbo].[Requirement.UserApplication.Select1ByUserApplicationId] returned more than one register/row");
                 }
         
-                foreach (ApplicationModel application in lstApplicationModel)
+                foreach (UserApplicationModel userapplication in lstUserApplicationModel)
                 {
-                    this.ApplicationId = application.ApplicationId;
-					this.Active = application.Active;
-					this.DateTimeCreation = application.DateTimeCreation;
-					this.DateTimeLastModification = application.DateTimeLastModification;
-					this.UserCreationId = application.UserCreationId;
-					this.UserLastModificationId = application.UserLastModificationId;
-					this.Name = application.Name;
-					this.Description = application.Description;
-					this.TechnologyId = application.TechnologyId;
+                    this.UserApplicationId = userapplication.UserApplicationId;
+					this.Active = userapplication.Active;
+					this.DateTimeCreation = userapplication.DateTimeCreation;
+					this.DateTimeLastModification = userapplication.DateTimeLastModification;
+					this.UserCreationId = userapplication.UserCreationId;
+					this.UserLastModificationId = userapplication.UserLastModificationId;
+					this.ApplicationId = userapplication.ApplicationId;
+					this.UserId = userapplication.UserId;
                 }
             }
             catch (Exception ex) { throw ex; }
@@ -164,54 +152,50 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Stack:        3 <br/>
         /// Function:     Create this model with filled parameters <br/>
         /// Note:         Raise exception on duplicated IDs <br/>
-        /// Fields:       9 <br/> 
-        /// Dependencies: 1 models depend on this model <br/>
+        /// Fields:       8 <br/> 
+        /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
-        public ApplicationModel(int ApplicationId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Name, string Description, int TechnologyId)
+        public UserApplicationModel(int UserApplicationId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int ApplicationId, int UserId)
         {
             try
             {
                 //Initialize sub-lists
-                lstUserApplicationModel = new List<UserApplicationModel>();
                 
 
-                this.ApplicationId = ApplicationId;
+                this.UserApplicationId = UserApplicationId;
 				this.Active = Active;
 				this.DateTimeCreation = DateTimeCreation;
 				this.DateTimeLastModification = DateTimeLastModification;
 				this.UserCreationId = UserCreationId;
 				this.UserLastModificationId = UserLastModificationId;
-				this.Name = Name;
-				this.Description = Description;
-				this.TechnologyId = TechnologyId;
+				this.ApplicationId = ApplicationId;
+				this.UserId = UserId;
             }
             catch (Exception ex) { throw ex; }
         }
 
         /// <summary>
         /// Stack:        3 <br/>
-        /// Function:     Create this model (copy) using the given model (original), application, passed by parameter. <br/>
+        /// Function:     Create this model (copy) using the given model (original), userapplication, passed by parameter. <br/>
         /// Note:         This constructor is generally used to execute functions using the copied fields <br/>
-        /// Fields:       9 <br/> 
-        /// Dependencies: 1 models depend on this model <br/>
+        /// Fields:       8 <br/> 
+        /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
-        public ApplicationModel(ApplicationModel application)
+        public UserApplicationModel(UserApplicationModel userapplication)
         {
             try
             {
                 //Initialize sub-lists
-                lstUserApplicationModel = new List<UserApplicationModel>();
                 
 
-                ApplicationId = application.ApplicationId;
-				Active = application.Active;
-				DateTimeCreation = application.DateTimeCreation;
-				DateTimeLastModification = application.DateTimeLastModification;
-				UserCreationId = application.UserCreationId;
-				UserLastModificationId = application.UserLastModificationId;
-				Name = application.Name;
-				Description = application.Description;
-				TechnologyId = application.TechnologyId;
+                UserApplicationId = userapplication.UserApplicationId;
+				Active = userapplication.Active;
+				DateTimeCreation = userapplication.DateTimeCreation;
+				DateTimeLastModification = userapplication.DateTimeLastModification;
+				UserCreationId = userapplication.UserCreationId;
+				UserLastModificationId = userapplication.UserLastModificationId;
+				ApplicationId = userapplication.ApplicationId;
+				UserId = userapplication.UserId;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -220,7 +204,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>The number of rows inside Application</returns>
+        /// <returns>The number of rows inside UserApplication</returns>
         public int Count()
         {
             try
@@ -230,7 +214,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.Application.Count]", commandType: CommandType.StoredProcedure, param: dp);
+                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.UserApplication.Count]", commandType: CommandType.StoredProcedure, param: dp);
                     DataTable.Load(dataReader);
                 }
 
@@ -245,24 +229,24 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// <summary>
         /// Note: Raise exception when the query find duplicated IDs
         /// </summary>
-        public DataTable Select1ByApplicationIdToDataTable(int ApplicationId)
+        public DataTable Select1ByUserApplicationIdToDataTable(int UserApplicationId)
         {
             try
             {
                 DataTable DataTable = new DataTable();
                 DynamicParameters dp = new DynamicParameters();
 
-                dp.Add("ApplicationId", ApplicationId, DbType.Int32, ParameterDirection.Input);
+                dp.Add("UserApplicationId", UserApplicationId, DbType.Int32, ParameterDirection.Input);
                 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.Application.Select1ByApplicationId]", commandType: CommandType.StoredProcedure, param: dp);
+                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.UserApplication.Select1ByUserApplicationId]", commandType: CommandType.StoredProcedure, param: dp);
 
                     DataTable.Load(dataReader);
                 }
 
                 if (DataTable.Rows.Count > 1)
-                { throw new Exception("The stored procedure [dbo].[Requirement.Application.Select1ByApplicationId] returned more than one register/row"); }
+                { throw new Exception("The stored procedure [dbo].[Requirement.UserApplication.Select1ByUserApplicationId] returned more than one register/row"); }
 
                 return DataTable;
             }
@@ -278,7 +262,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.Application.SelectAll]", commandType: CommandType.StoredProcedure, param: dp);
+                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.UserApplication.SelectAll]", commandType: CommandType.StoredProcedure, param: dp);
 
                     DataTable.Load(dataReader);
                 }
@@ -293,101 +277,82 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// <summary>
         /// Note: Raise exception when the query find duplicated IDs
         /// </summary>
-        public ApplicationModel Select1ByApplicationIdToModel(int ApplicationId)
+        public UserApplicationModel Select1ByUserApplicationIdToModel(int UserApplicationId)
         {
             try
             {
-                ApplicationModel ApplicationModel = new ApplicationModel();
-                List<ApplicationModel> lstApplicationModel = new List<ApplicationModel>();
+                UserApplicationModel UserApplicationModel = new UserApplicationModel();
+                List<UserApplicationModel> lstUserApplicationModel = new List<UserApplicationModel>();
                 DynamicParameters dp = new DynamicParameters();
 
-                dp.Add("ApplicationId", ApplicationId, DbType.Int32, ParameterDirection.Input);
+                dp.Add("UserApplicationId", UserApplicationId, DbType.Int32, ParameterDirection.Input);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    lstApplicationModel = (List<ApplicationModel>)sqlConnection.Query<ApplicationModel>("[dbo].[Requirement.Application.Select1ByApplicationId]", dp, commandType: CommandType.StoredProcedure);
+                    lstUserApplicationModel = (List<UserApplicationModel>)sqlConnection.Query<UserApplicationModel>("[dbo].[Requirement.UserApplication.Select1ByUserApplicationId]", dp, commandType: CommandType.StoredProcedure);
                 }
         
-                if (lstApplicationModel.Count > 1)
-                { throw new Exception("The stored procedure [dbo].[Requirement.Application.Select1ByApplicationId] returned more than one register/row"); }
+                if (lstUserApplicationModel.Count > 1)
+                { throw new Exception("The stored procedure [dbo].[Requirement.UserApplication.Select1ByUserApplicationId] returned more than one register/row"); }
 
-                foreach (ApplicationModel application in lstApplicationModel)
+                foreach (UserApplicationModel userapplication in lstUserApplicationModel)
                 {
-                    ApplicationModel.ApplicationId = application.ApplicationId;
-					ApplicationModel.Active = application.Active;
-					ApplicationModel.DateTimeCreation = application.DateTimeCreation;
-					ApplicationModel.DateTimeLastModification = application.DateTimeLastModification;
-					ApplicationModel.UserCreationId = application.UserCreationId;
-					ApplicationModel.UserLastModificationId = application.UserLastModificationId;
-					ApplicationModel.Name = application.Name;
-					ApplicationModel.Description = application.Description;
-					ApplicationModel.TechnologyId = application.TechnologyId;
+                    UserApplicationModel.UserApplicationId = userapplication.UserApplicationId;
+					UserApplicationModel.Active = userapplication.Active;
+					UserApplicationModel.DateTimeCreation = userapplication.DateTimeCreation;
+					UserApplicationModel.DateTimeLastModification = userapplication.DateTimeLastModification;
+					UserApplicationModel.UserCreationId = userapplication.UserCreationId;
+					UserApplicationModel.UserLastModificationId = userapplication.UserLastModificationId;
+					UserApplicationModel.ApplicationId = userapplication.ApplicationId;
+					UserApplicationModel.UserId = userapplication.UserId;
                 }
 
-                return ApplicationModel;
+                return UserApplicationModel;
             }
             catch (Exception ex) { throw ex; }
         }
 
-        public List<ApplicationModel> SelectAllToList()
+        public List<UserApplicationModel> SelectAllToList()
         {
             try
             {
-                List<ApplicationModel> lstApplicationModel = new List<ApplicationModel>();
+                List<UserApplicationModel> lstUserApplicationModel = new List<UserApplicationModel>();
                 DynamicParameters dp = new DynamicParameters();
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    lstApplicationModel = (List<ApplicationModel>)sqlConnection.Query<ApplicationModel>("[dbo].[Requirement.Application.SelectAll]", dp, commandType: CommandType.StoredProcedure);
+                    lstUserApplicationModel = (List<UserApplicationModel>)sqlConnection.Query<UserApplicationModel>("[dbo].[Requirement.UserApplication.SelectAll]", dp, commandType: CommandType.StoredProcedure);
                 }
 
-                return lstApplicationModel;
+                return lstUserApplicationModel;
             }
             catch (Exception ex) { throw ex; }
         }
 
-        public applicationModelQuery SelectAllPagedToModel(applicationModelQuery applicationModelQuery)
+        public userapplicationModelQuery SelectAllPagedToModel(userapplicationModelQuery userapplicationModelQuery)
         {
             try
             {
-                applicationModelQuery.lstApplicationModel = new List<ApplicationModel>();
+                userapplicationModelQuery.lstUserApplicationModel = new List<UserApplicationModel>();
                 DynamicParameters dp = new DynamicParameters();
-                dp.Add("QueryString", applicationModelQuery.QueryString, DbType.String, ParameterDirection.Input);
-                dp.Add("ActualPageNumber", applicationModelQuery.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
-                dp.Add("RowsPerPage", applicationModelQuery.RowsPerPage, DbType.Int32, ParameterDirection.Input);
-                dp.Add("SorterColumn", applicationModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
-                dp.Add("SortToggler", applicationModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
-                dp.Add("TotalRows", applicationModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
+                dp.Add("QueryString", userapplicationModelQuery.QueryString, DbType.String, ParameterDirection.Input);
+                dp.Add("ActualPageNumber", userapplicationModelQuery.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
+                dp.Add("RowsPerPage", userapplicationModelQuery.RowsPerPage, DbType.Int32, ParameterDirection.Input);
+                dp.Add("SorterColumn", userapplicationModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
+                dp.Add("SortToggler", userapplicationModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
+                dp.Add("TotalRows", userapplicationModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    applicationModelQuery.lstApplicationModel = (List<ApplicationModel>)sqlConnection.Query<ApplicationModel>("[dbo].[Requirement.Application.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
-                    applicationModelQuery.TotalRows = dp.Get<int>("TotalRows");
+                    userapplicationModelQuery.lstUserApplicationModel = (List<UserApplicationModel>)sqlConnection.Query<UserApplicationModel>("[dbo].[Requirement.UserApplication.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
+                    userapplicationModelQuery.TotalRows = dp.Get<int>("TotalRows");
                 }
 
-                applicationModelQuery.TotalPages = Library.Math.Divide(applicationModelQuery.TotalRows, applicationModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+                userapplicationModelQuery.TotalPages = Library.Math.Divide(userapplicationModelQuery.TotalRows, userapplicationModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
 
-                //Loop through lists and sublists
-                for (int i = 0; i < applicationModelQuery.lstApplicationModel.Count; i++)
-                {
-                    DynamicParameters dpForUserApplicationModel = new DynamicParameters();
-                    dpForUserApplicationModel.Add("ApplicationId", applicationModelQuery.lstApplicationModel[i].ApplicationId, DbType.Int32, ParameterDirection.Input);
-                    using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
-                    {
-                        List<UserApplicationModel> lstUserApplicationModel = new List<UserApplicationModel>();
-                        lstUserApplicationModel = (List<UserApplicationModel>)sqlConnection.Query<UserApplicationModel>("[dbo].[Requirement.UserApplication.SelectAllByApplicationIdCustom]", dpForUserApplicationModel, commandType: CommandType.StoredProcedure);
-                        
-                        //Add list item inside another list
-                        foreach (var UserApplicationModel in lstUserApplicationModel)
-                        {
-                            applicationModelQuery.lstApplicationModel[i].lstUserApplicationModel.Add(UserApplicationModel);
-                        }
-                    }
-                }
-                
                 
 
-                return applicationModelQuery;
+                return userapplicationModelQuery;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -397,7 +362,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <returns>NewEnteredId: The ID of the last registry inserted in Application table</returns>
+        /// <returns>NewEnteredId: The ID of the last registry inserted in UserApplication table</returns>
         public int Insert()
         {
             try
@@ -411,14 +376,13 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
-				dp.Add("Description", Description, DbType.String, ParameterDirection.Input);
-				dp.Add("TechnologyId", TechnologyId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("ApplicationId", ApplicationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserId", UserId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.Application.Insert]", commandType: CommandType.StoredProcedure, param: dp);
+                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.UserApplication.Insert]", commandType: CommandType.StoredProcedure, param: dp);
                     DataTable.Load(dataReader);
                     NewEnteredId = dp.Get<int>("NewEnteredId");
                 }
@@ -433,8 +397,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <returns>The ID of the last registry inserted in Application table</returns>
-        public int Insert(ApplicationModel application)
+        /// <returns>The ID of the last registry inserted in UserApplication table</returns>
+        public int Insert(UserApplicationModel userapplication)
         {
             try
             {
@@ -442,19 +406,18 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
 
-                dp.Add("Active", application.Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", application.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", application.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("UserCreationId", application.UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", application.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Name", application.Name, DbType.String, ParameterDirection.Input);
-				dp.Add("Description", application.Description, DbType.String, ParameterDirection.Input);
-				dp.Add("TechnologyId", application.TechnologyId, DbType.Int32, ParameterDirection.Input);
+                dp.Add("Active", userapplication.Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", userapplication.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", userapplication.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", userapplication.UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", userapplication.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("ApplicationId", userapplication.ApplicationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserId", userapplication.UserId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
                 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.Application.Insert]", commandType: CommandType.StoredProcedure, param: dp);
+                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.UserApplication.Insert]", commandType: CommandType.StoredProcedure, param: dp);
                     DataTable.Load(dataReader);
                     NewEnteredId = dp.Get<int>("NewEnteredId");
                 }
@@ -469,8 +432,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <returns>The ID of the last registry inserted in Application table</returns>
-        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Name, string Description, int TechnologyId)
+        /// <returns>The ID of the last registry inserted in UserApplication table</returns>
+        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int ApplicationId, int UserId)
         {
             try
             {
@@ -483,14 +446,13 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
-				dp.Add("Description", Description, DbType.String, ParameterDirection.Input);
-				dp.Add("TechnologyId", TechnologyId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("ApplicationId", ApplicationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserId", UserId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.Application.Insert]", commandType: CommandType.StoredProcedure, param: dp);
+                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.UserApplication.Insert]", commandType: CommandType.StoredProcedure, param: dp);
                     DataTable.Load(dataReader);
                     NewEnteredId = dp.Get<int>("NewEnteredId");
                 }
@@ -505,8 +467,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <returns>The number of rows updated in Application table</returns>
-        public int UpdateByApplicationId()
+        /// <returns>The number of rows updated in UserApplication table</returns>
+        public int UpdateByUserApplicationId()
         {
             try
             {
@@ -514,20 +476,19 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
 
-                dp.Add("ApplicationId", ApplicationId, DbType.Int32, ParameterDirection.Input);
+                dp.Add("UserApplicationId", UserApplicationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
 				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
-				dp.Add("Description", Description, DbType.String, ParameterDirection.Input);
-				dp.Add("TechnologyId", TechnologyId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("ApplicationId", ApplicationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserId", UserId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.Application.UpdateByApplicationId]", commandType: CommandType.StoredProcedure, param: dp);
+                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.UserApplication.UpdateByUserApplicationId]", commandType: CommandType.StoredProcedure, param: dp);
                     DataTable.Load(dataReader);
                     RowsAffected = dp.Get<int>("RowsAffected");
                 }
@@ -542,8 +503,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <returns>The number of rows updated in Application table</returns>
-        public int UpdateByApplicationId(ApplicationModel application)
+        /// <returns>The number of rows updated in UserApplication table</returns>
+        public int UpdateByUserApplicationId(UserApplicationModel userapplication)
         {
             try
             {
@@ -551,20 +512,19 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
 
-                dp.Add("ApplicationId", application.ApplicationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Active", application.Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", application.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", application.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("UserCreationId", application.UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", application.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Name", application.Name, DbType.String, ParameterDirection.Input);
-				dp.Add("Description", application.Description, DbType.String, ParameterDirection.Input);
-				dp.Add("TechnologyId", application.TechnologyId, DbType.Int32, ParameterDirection.Input);
+                dp.Add("UserApplicationId", userapplication.UserApplicationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Active", userapplication.Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", userapplication.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", userapplication.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", userapplication.UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", userapplication.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("ApplicationId", userapplication.ApplicationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserId", userapplication.UserId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.Application.UpdateByApplicationId]", commandType: CommandType.StoredProcedure, param: dp);
+                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.UserApplication.UpdateByUserApplicationId]", commandType: CommandType.StoredProcedure, param: dp);
                     DataTable.Load(dataReader);
                     RowsAffected = dp.Get<int>("RowsAffected");
                 }
@@ -579,8 +539,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <returns>The number of rows updated in Application table</returns>
-        public int UpdateByApplicationId(int ApplicationId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Name, string Description, int TechnologyId)
+        /// <returns>The number of rows updated in UserApplication table</returns>
+        public int UpdateByUserApplicationId(int UserApplicationId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int ApplicationId, int UserId)
         {
             try
             {
@@ -588,20 +548,19 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
 
-                dp.Add("ApplicationId", ApplicationId, DbType.Int32, ParameterDirection.Input);
+                dp.Add("UserApplicationId", UserApplicationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
 				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
-				dp.Add("Description", Description, DbType.String, ParameterDirection.Input);
-				dp.Add("TechnologyId", TechnologyId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("ApplicationId", ApplicationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserId", UserId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.Application.UpdateByApplicationId]", commandType: CommandType.StoredProcedure, param: dp);
+                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.UserApplication.UpdateByUserApplicationId]", commandType: CommandType.StoredProcedure, param: dp);
                     DataTable.Load(dataReader);
                     RowsAffected = dp.Get<int>("RowsAffected");
                 }
@@ -626,7 +585,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.Application.DeleteAll]", commandType: CommandType.StoredProcedure, param: dp);
+                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.UserApplication.DeleteAll]", commandType: CommandType.StoredProcedure, param: dp);
                     DataTable.Load(dataReader);
                 }
             }
@@ -636,8 +595,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull deletion in database
         /// </summary>
-        /// <returns>The number of rows deleted in Application table</returns>
-        public int DeleteByApplicationId()
+        /// <returns>The number of rows deleted in UserApplication table</returns>
+        public int DeleteByUserApplicationId()
         {
             try
             {
@@ -645,12 +604,12 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
         
-                dp.Add("ApplicationId", ApplicationId, DbType.Int32, ParameterDirection.Input);        
+                dp.Add("UserApplicationId", UserApplicationId, DbType.Int32, ParameterDirection.Input);        
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.Application.DeleteByApplicationId]", commandType: CommandType.StoredProcedure, param: dp);
+                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.UserApplication.DeleteByUserApplicationId]", commandType: CommandType.StoredProcedure, param: dp);
                     DataTable.Load(dataReader);
                     RowsAffected = dp.Get<int>("RowsAffected");
                 }
@@ -665,8 +624,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull deletion in database
         /// </summary>
-        /// <returns>The number of rows affected in Application table</returns>
-        public int DeleteByApplicationId(int ApplicationId)
+        /// <returns>The number of rows affected in UserApplication table</returns>
+        public int DeleteByUserApplicationId(int UserApplicationId)
         {
             try
             {
@@ -674,12 +633,12 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
         
-                dp.Add("ApplicationId", ApplicationId, DbType.Int32, ParameterDirection.Input);        
+                dp.Add("UserApplicationId", UserApplicationId, DbType.Int32, ParameterDirection.Input);        
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.Application.DeleteByApplicationId]", commandType: CommandType.StoredProcedure, param: dp);
+                    var dataReader = sqlConnection.ExecuteReader("[dbo].[Requirement.UserApplication.DeleteByUserApplicationId]", commandType: CommandType.StoredProcedure, param: dp);
                     DataTable.Load(dataReader);
                     RowsAffected = dp.Get<int>("RowsAffected");
                 }
@@ -697,16 +656,16 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Note 1:   Similar to a decryptor function. <br/>
         /// Note 2:   The model need the [Serializable] decorator in model definition. <br/>
         /// </summary>
-        public ApplicationModel ByteArrayToApplicationModel<T>(byte[] arrApplicationModel)
+        public UserApplicationModel ByteArrayToUserApplicationModel<T>(byte[] arrUserApplicationModel)
         {
             try
             {
-                if (arrApplicationModel == null)
-                { return new ApplicationModel(); }
+                if (arrUserApplicationModel == null)
+                { return new UserApplicationModel(); }
                 BinaryFormatter BinaryFormatter = new BinaryFormatter();
-                using MemoryStream MemoryStream = new MemoryStream(arrApplicationModel);
+                using MemoryStream MemoryStream = new MemoryStream(arrUserApplicationModel);
                 object Object = BinaryFormatter.Deserialize(MemoryStream);
-                return (ApplicationModel)Object;
+                return (UserApplicationModel)Object;
             }
             catch (Exception ex)
             { throw ex; }
@@ -717,15 +676,14 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// </summary>
         public override string ToString()
         {
-            return $"ApplicationId: {ApplicationId}, " +
+            return $"UserApplicationId: {UserApplicationId}, " +
 				$"Active: {Active}, " +
 				$"DateTimeCreation: {DateTimeCreation}, " +
 				$"DateTimeLastModification: {DateTimeLastModification}, " +
 				$"UserCreationId: {UserCreationId}, " +
 				$"UserLastModificationId: {UserLastModificationId}, " +
-				$"Name: {Name}, " +
-				$"Description: {Description}, " +
-				$"TechnologyId: {TechnologyId}";
+				$"ApplicationId: {ApplicationId}, " +
+				$"UserId: {UserId}";
         }
 
         public string ToStringOnlyValuesForHTML()
@@ -734,7 +692,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 <td align=""left"" valign=""top"">
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{ApplicationId}</span>
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserApplicationId}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td><td align=""left"" valign=""top"">
@@ -770,19 +728,13 @@ namespace FiyiRequirements.Areas.Requirement.Models
     </td><td align=""left"" valign=""top"">
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Name}</span>
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{ApplicationId}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td><td align=""left"" valign=""top"">
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Description}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{TechnologyId}</span>
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserId}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td>
@@ -791,9 +743,9 @@ namespace FiyiRequirements.Areas.Requirement.Models
     }
 
     /// <summary>
-    /// Virtual model used for [dbo].[Requirement.Application.SelectAllPaged] stored procedure
+    /// Virtual model used for [dbo].[Requirement.UserApplication.SelectAllPaged] stored procedure
     /// </summary>
-    public partial class applicationModelQuery 
+    public partial class userapplicationModelQuery 
     {
         public string QueryString { get; set; }
         public int ActualPageNumber { get; set; }
@@ -802,6 +754,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
         public bool SortToggler { get; set; }
         public int TotalRows { get; set; }
         public int TotalPages { get; set; }
-        public List<ApplicationModel> lstApplicationModel { get; set; }
+        public List<UserApplicationModel> lstUserApplicationModel { get; set; }
     }
 }

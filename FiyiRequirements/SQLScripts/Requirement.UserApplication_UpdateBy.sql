@@ -1,14 +1,13 @@
-CREATE PROCEDURE [dbo].[Requirement.Application.UpdateByApplicationId]
+CREATE PROCEDURE [dbo].[Requirement.UserApplication.UpdateByUserApplicationId]
 (
-    @ApplicationId INT,
+    @UserApplicationId INT,
     @Active TINYINT,
     @DateTimeCreation DATETIME,
     @DateTimeLastModification DATETIME,
     @UserCreationId INT,
     @UserLastModificationId INT,
-    @Name VARCHAR(100),
-    @Description VARCHAR(2000),
-    @TechnologyId INT,
+    @ApplicationId INT,
+    @UserId INT,
 
     @RowsAffected INT OUTPUT
 )
@@ -30,26 +29,25 @@ AS
  * Execute this stored procedure with the next script as example
  *
 DECLARE	@RowsAffected int
-EXEC [dbo].[Requirement.Application.UpdateByApplicationId]
-    @ApplicationId = 1,
+EXEC [dbo].[Requirement.UserApplication.UpdateByUserApplicationId]
+    @UserApplicationId = 1,
     @RowsAffected = @RowsAffected OUTPUT
 SELECT @RowsAffected AS N'@RowsAffected'
  *
  */
 
---Last modification on: 27/12/2022 16:53:13
+--Last modification on: 27/12/2022 16:32:18
 
-UPDATE [Requirement.Application] SET
+UPDATE [Requirement.UserApplication] SET
     [Active] = @Active,
     [DateTimeCreation] = @DateTimeCreation,
     [DateTimeLastModification] = @DateTimeLastModification,
     [UserCreationId] = @UserCreationId,
     [UserLastModificationId] = @UserLastModificationId,
-    [Name] = @Name,
-    [Description] = @Description,
-    [TechnologyId] = @TechnologyId
+    [ApplicationId] = @ApplicationId,
+    [UserId] = @UserId
 WHERE 
     1 = 1 
-    AND [Requirement.Application].[ApplicationId] = @ApplicationId 
+    AND [Requirement.UserApplication].[UserApplicationId] = @UserApplicationId 
 
 SELECT @RowsAffected = @@ROWCOUNT

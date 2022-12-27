@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[Requirement.Application.Count]
+CREATE PROCEDURE [dbo].[Requirement.UserApplication.Count]
 
 AS
 
@@ -18,15 +18,15 @@ AS
  *
 DECLARE	@Counter int
 
-EXEC	@Counter = [dbo].[Requirement.Application.Count]
+EXEC	@Counter = [dbo].[Requirement.UserApplication.Count]
 
 SELECT	'Counter' = @Counter
  *
  */
 
---Last modification on: 27/12/2022 16:53:13
+--Last modification on: 27/12/2022 16:32:18
 
 SELECT 
 	COUNT(*)
 FROM 
-	[Requirement.Application]
+	[Requirement.UserApplication]

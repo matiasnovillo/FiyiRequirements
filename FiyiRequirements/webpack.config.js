@@ -82,10 +82,8 @@
 
          applicationtsmodel: ["./wwwroot/ts/Requirement/Application/TsModels/Application_TsModel"],
          applicationjquery: ["./wwwroot/ts/Requirement/Application/jQuery/ApplicationQuery_jQuery"],
-         clienttsmodel: ["./wwwroot/ts/Requirement/Client/TsModels/Client_TsModel"],
-         clientjquery: ["./wwwroot/ts/Requirement/Client/jQuery/ClientQuery_jQuery"],
-         clientapplicationtsmodel: ["./wwwroot/ts/Requirement/ClientApplication/TsModels/ClientApplication_TsModel"],
-         clientapplicationjquery: ["./wwwroot/ts/Requirement/ClientApplication/jQuery/ClientApplicationQuery_jQuery"],
+         userapplicationtsmodel: ["./wwwroot/ts/Requirement/UserApplication/TsModels/UserApplication_TsModel"],
+         userapplicationjquery: ["./wwwroot/ts/Requirement/UserApplication/jQuery/UserApplicationQuery_jQuery"],
          requirementtsmodel: ["./wwwroot/ts/Requirement/Requirement/TsModels/Requirement_TsModel"],
          requirementjquery: ["./wwwroot/ts/Requirement/Requirement/jQuery/RequirementQuery_jQuery"],
          requirementchangehistorytsmodel: ["./wwwroot/ts/Requirement/RequirementChangehistory/TsModels/RequirementChangehistory_TsModel"],
