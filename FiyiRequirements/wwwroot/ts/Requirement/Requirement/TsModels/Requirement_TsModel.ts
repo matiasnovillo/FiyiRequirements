@@ -32,6 +32,11 @@ export class RequirementModel {
 	UserEmployeeId?: number;
     lstRequirementChangehistoryModel?: RequirementChangehistoryModel[] | undefined;
     lstRequirementFileModel?: RequirementFileModel[] | undefined;
+    UserCreationIdFantasyName?: string | string[] | number | undefined;
+    UserLastModificationIdFantasyName?: string | string[] | number | undefined;
+    RequirementStateIdName?: string | string[] | number | undefined;
+    RequirementPriorityIdName?: string | string[] | number | undefined;
+    UserEmployeeIdFantasyName?: string | string[] | number | undefined;
     
 
     //Queries

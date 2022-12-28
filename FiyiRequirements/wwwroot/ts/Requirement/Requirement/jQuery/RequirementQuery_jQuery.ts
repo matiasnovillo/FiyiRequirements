@@ -47,7 +47,7 @@ class RequirementQuery {
         </th>
         <th scope="col">
             <button value="RequirementId" class="btn btn-outline-secondary btn-sm" type="button">
-                RequirementId
+                Requirement ID
             </button>
         </th>
         <th scope="col">
@@ -57,22 +57,22 @@ class RequirementQuery {
         </th>
         <th scope="col">
             <button value="DateTimeCreation" class="btn btn-outline-secondary btn-sm" type="button">
-                DateTimeCreation
+                Date Time Creation
             </button>
         </th>
         <th scope="col">
             <button value="DateTimeLastModification" class="btn btn-outline-secondary btn-sm" type="button">
-                DateTimeLastModification
+                Date Time Last Modification
             </button>
         </th>
         <th scope="col">
             <button value="UserCreationId" class="btn btn-outline-secondary btn-sm" type="button">
-                UserCreationId
+                User Creation
             </button>
         </th>
         <th scope="col">
             <button value="UserLastModificationId" class="btn btn-outline-secondary btn-sm" type="button">
-                UserLastModificationId
+                User Last Modification
             </button>
         </th>
         <th scope="col">
@@ -87,17 +87,17 @@ class RequirementQuery {
         </th>
         <th scope="col">
             <button value="RequirementStateId" class="btn btn-outline-secondary btn-sm" type="button">
-                RequirementStateId
+                State
             </button>
         </th>
         <th scope="col">
             <button value="RequirementPriorityId" class="btn btn-outline-secondary btn-sm" type="button">
-                RequirementPriorityId
+                Priority
             </button>
         </th>
         <th scope="col">
             <button value="UserEmployeeId" class="btn btn-outline-secondary btn-sm" type="button">
-                UserEmployeeId
+                Employee
             </button>
         </th>
         
@@ -126,7 +126,7 @@ class RequirementQuery {
                         TotalPages = response_requirementQuery.TotalPages ?? 0;
 
                         //Query string
-                        $("#requirement-requirement-query-string").attr("placeholder", `Search... (${TotalRows} records)`);
+                        $("#requirement-requirement-query-string").attr("placeholder", `Search... (${TotalRows} requirements)`);
                         //Total pages of pagination
                         $("#requirement-requirement-total-pages-lg, #requirement-requirement-total-pages").html(TotalPages.toString());
                         //Actual page number of pagination
@@ -192,12 +192,12 @@ class RequirementQuery {
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.UserCreationId}
+            <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
         </strong>
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.UserLastModificationId}
+            <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
         </strong>
     </td>
     <td class="text-left">
@@ -210,17 +210,17 @@ class RequirementQuery {
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.RequirementStateId}
+            <i class="fas fa-key"></i> ${row.RequirementStateIdName}
         </strong>
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.RequirementPriorityId}
+            <i class="fas fa-key"></i> ${row.RequirementPriorityIdName}
         </strong>
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.UserEmployeeId}
+            <i class="fas fa-key"></i> ${row.UserEmployeeIdFantasyName}
         </strong>
     </td>
     
@@ -259,7 +259,7 @@ class RequirementQuery {
                 <div class="row">
                     <div class="col text-truncate">
                         <span class="text-white text-light mb-4">
-                           RequirementId <i class="fas fa-key"></i> ${row.RequirementId}
+                           Requirement ID <i class="fas fa-key"></i> ${row.RequirementId}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
@@ -267,19 +267,19 @@ class RequirementQuery {
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           DateTimeCreation <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
+                           Date Time Creation <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           DateTimeLastModification <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
+                           Date Time Last Modification <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           UserCreationId <i class="fas fa-key"></i> ${row.UserCreationId}
+                           User Creation <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           UserLastModificationId <i class="fas fa-key"></i> ${row.UserLastModificationId}
+                           User Last Modification <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
@@ -291,15 +291,15 @@ class RequirementQuery {
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           RequirementStateId <i class="fas fa-key"></i> ${row.RequirementStateId}
+                           State <i class="fas fa-key"></i> ${row.RequirementStateIdName}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           RequirementPriorityId <i class="fas fa-key"></i> ${row.RequirementPriorityId}
+                           Priority <i class="fas fa-key"></i> ${row.RequirementPriorityIdName}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           UserEmployeeId <i class="fas fa-key"></i> ${row.UserEmployeeId}
+                           Employee <i class="fas fa-key"></i> ${row.UserEmployeeIdFantasyName}
                         </span>
                         <br/>
                         

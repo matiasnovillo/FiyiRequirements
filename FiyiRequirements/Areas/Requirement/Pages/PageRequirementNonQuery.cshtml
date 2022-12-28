@@ -8,6 +8,7 @@
     string NonQueryText = "";
     string NonQueryIcon = "";
 
+    //Requirement
     int RequirementId;
     string Title;
     string Body;
@@ -17,7 +18,10 @@
     string RequirementStateName;
     string RequirementPriorityName;
     string UserEmployeeName;
-    
+
+    //Validations
+    bool NavLinksEnabled;
+    bool RequirementStateIdEnabledButton;
 
     if(HttpContext.Request.QueryString.Value.Contains("?RequirementId=0"))
     {
@@ -27,13 +31,16 @@
         RequirementId = 0;
         Title = "";
         Body = "";
-        RequirementStateId = 0;
+        RequirementStateId = 1; //For a new requirement, StateId is 1: Pending assignment
         RequirementPriorityId = 0;
         UserEmployeeId = 0;
-
-        RequirementStateName = "Choose a value";
+        RequirementStateName = "Pending assignment"; //For a new requirement, StateId is 1: Pending assignment
         RequirementPriorityName = "Choose a value";
         UserEmployeeName = "Choose a value";
+
+        //Validations
+        NavLinksEnabled = false;
+        RequirementStateIdEnabledButton = false;
     }
     else
     {
@@ -49,7 +56,7 @@
         RequirementStateId = RequirementModel.RequirementStateId;
         RequirementPriorityId = RequirementModel.RequirementPriorityId;
         UserEmployeeId = RequirementModel.UserEmployeeId;
-        
+
         RequirementStateModel RequirementStateModel = new RequirementStateModel(RequirementModel.RequirementStateId);
         RequirementStateName = RequirementStateModel.Name;
 
@@ -58,6 +65,10 @@
 
         UserModel UserModel = new UserModel(RequirementModel.UserEmployeeId);
         UserEmployeeName = UserModel.FantasyName;
+
+        //Validations
+        NavLinksEnabled = true;
+        RequirementStateIdEnabledButton = true;
 
     }
 
@@ -135,161 +146,250 @@
 <div class="container-fluid mt--6">
 <div class="row">
     <div class="col">
-            <!-- Card -->
-            <div class="card">
-                <!-- Card body -->
-                <div class="card-body">
-                    <form role="form" class="needs-validation" novalidate>
-                        <!-- RequirementId -->
-                        <div class="form-group mb-3">
-                            <label for="requirement-requirement-requirementId-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-key"></i> RequirementId
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text">
-                                        <strong>
-                                            <i class="fas fa-key"></i> RequirementId
-                                        </strong>
-                                    </span>
+        <div class="nav-wrapper">
+            <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true">
+                        <i class="fas fa-list mr-2"></i>
+                        Requirement
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mb-sm-3 mb-md-0 @(NavLinksEnabled == true ? "" : "disabled")" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false">
+                        <i class="fas fa-comment mr-2" ></i>
+                        Notes
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mb-sm-3 mb-md-0 @(NavLinksEnabled == true ? "" : "disabled")" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false">
+                        <i class="ni ni-cloud-upload-96 mr-2"></i>
+                        Files
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mb-sm-3 mb-md-0 @(NavLinksEnabled == true ? "" : "disabled")" id="tabs-icons-text-4-tab" data-toggle="tab" href="#tabs-icons-text-4" role="tab" aria-controls="tabs-icons-text-4" aria-selected="false">
+                        <i class="ni ni-calendar-grid-58 mr-2"></i>
+                        Change history
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                        <form role="form" class="needs-validation" novalidate>
+                                <!-- RequirementId -->
+                                <div class="form-group mb-3">
+                                    <label for="requirement-requirement-requirementId-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                        <i class="fas fa-key"></i> Requirement ID
+                                    </label>
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                            <span class="input-group-text">
+                                                <strong>
+                                                    <i class="fas fa-key"></i> Requirement ID
+                                                </strong>
+                                            </span>
+                                        </div>
+                                        <input type="hidden" id="requirement-requirement-requirementid-input" value="@RequirementId"/>
+                                        <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="bottom" title="@RequirementId"  type="button" value="RequirementId">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <input type="hidden" id="requirement-requirement-requirementid-input" value="@RequirementId"/>
-                                <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="bottom" title="@RequirementId"  type="button" value="RequirementId">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <!-- Title -->
-                        <div class="form-group mb-3">
-                            <label for="requirement-requirement-title-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-font"></i> Title
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Title
-                                        </strong>
-                                    </span>
+                                <!-- Title -->
+                                <div class="form-group mb-3">
+                                    <label for="requirement-requirement-title-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                        <i class="fas fa-font"></i> Title
+                                    </label>
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                            <span class="input-group-text ">
+                                                <strong>
+                                                    <i class="fas fa-font"></i> Title
+                                                </strong>
+                                            </span>
+                                        </div>
+                                        <input class="form-control" min="1" max="100" type="text" id="requirement-requirement-title-input" value="@Title" >
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="title-info">
+                                                <i class="fas fa-info"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <input class="form-control" min="1" max="100" type="text" id="requirement-requirement-title-input" value="@Title" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="title-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
+                                <!-- Body -->
+                                <label for="requirement-requirement-body-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                    <i class="fas fa-font"></i> Body
+                                </label>
+                                <div id="requirement-requirement-body-input">
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Body -->
-                        <label for="requirement-requirement-body-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                            <i class="fas fa-font"></i> Body
-                        </label>
-                        <div id="requirement-requirement-body-input">
-                        </div>
-                        <input type="hidden" value="@Body" id="requirement-requirement-body-hidden-value">
-                        <div class="mb-3"></div>
-                        <!-- RequirementStateId -->
-                        <div class="form-group mb-3">
-                            <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-hashtag"></i> State ID
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend input-group-text">
-                                    <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                        <strong>
-                                            <i class="fas fa-hashtag"></i> State ID
-                                        </strong>
-                                    </span>
+                                <input type="hidden" value="@Body" id="requirement-requirement-body-hidden-value">
+                                <div class="mb-3"></div>
+                                <!-- RequirementStateId -->
+                                <div class="form-group mb-3">
+                                    <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                        <i class="fas fa-hashtag"></i> State ID
+                                    </label>
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <div class="input-group-prepend input-group-text">
+                                            <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                                <strong>
+                                                    <i class="fas fa-hashtag"></i> State ID
+                                                </strong>
+                                            </span>
+                                        </div>
+                                        @{
+                                            if(RequirementStateIdEnabledButton)
+                                            {
+                                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector-requirementstateid">
+                                                    <i class="fas fa-hashtag"></i>
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-outline-primary border-0 invisible" data-toggle="modal" data-target="#modal-foreign-key-code-selector-requirementstateid">
+                                                    <i class="fas fa-hashtag"></i>
+                                                </button>
+                                            }
+                                        }
+                                        <ul id="requirement-requirement-requirementstateid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
+                                                    @RequirementStateName
+                                                </a>
+                                                <input type="hidden" id="requirement-requirement-requirementstateid-input" value="@RequirementStateId"/>
+                                            </li>
+                                        </ul>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-danger border-0 ml-2" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="requirementstateid-info">
+                                                <i class="fas fa-info"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector-requirementstateid"><i class="fas fa-hashtag"></i></button>
-                                <ul id="requirement-requirement-requirementstateid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
-                                            @RequirementStateName
-                                        </a>
-                                        <input type="hidden" id="requirement-requirement-requirementstateid-input" value="@RequirementStateId"/>
-                                    </li>
-                                </ul>
-                                <div class="input-group-append">
-                                    <button class="btn btn-danger border-0 ml-2" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="requirementstateid-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
+                                <!-- RequirementPriorityId -->
+                                <div class="form-group mb-3">
+                                    <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                        <i class="fas fa-hashtag"></i> Priority ID
+                                    </label>
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <div class="input-group-prepend input-group-text">
+                                            <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                                <strong>
+                                                    <i class="fas fa-hashtag"></i> Priority ID
+                                                </strong>
+                                            </span>
+                                        </div>
+                                        <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector-requirementpriorityid"><i class="fas fa-hashtag"></i></button>
+                                        <ul id="requirement-requirement-requirementpriorityid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
+                                                    @RequirementPriorityName
+                                                </a>
+                                                <input type="hidden" id="requirement-requirement-requirementpriorityid-input" value="@RequirementPriorityId"/>
+                                            </li>
+                                        </ul>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-danger border-0 ml-2" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="requirementpriorityid-info">
+                                                <i class="fas fa-info"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- RequirementPriorityId -->
-                        <div class="form-group mb-3">
-                            <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-hashtag"></i> Priority ID
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend input-group-text">
-                                    <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                        <strong>
-                                            <i class="fas fa-hashtag"></i> Priority ID
-                                        </strong>
-                                    </span>
+                                <!-- UserEmployeeId -->
+                                <div class="form-group mb-3">
+                                    <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                        <i class="fas fa-hashtag"></i> Employee ID
+                                    </label>
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <div class="input-group-prepend input-group-text">
+                                            <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                                <strong>
+                                                    <i class="fas fa-hashtag"></i> Employee ID
+                                                </strong>
+                                            </span>
+                                        </div>
+                                        <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector-userprogrammerid"><i class="fas fa-hashtag"></i></button>
+                                        <ul id="requirement-requirement-useremployeeid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
+                                                    @UserEmployeeName
+                                                </a>
+                                                <input type="hidden" id="requirement-requirement-useremployeeid-input" value="@UserEmployeeId"/>
+                                            </li>
+                                        </ul>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-danger border-0 ml-2" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="userprogrammerid-info">
+                                                <i class="fas fa-info"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector-requirementpriorityid"><i class="fas fa-hashtag"></i></button>
-                                <ul id="requirement-requirement-requirementpriorityid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
-                                            @RequirementPriorityName
-                                        </a>
-                                        <input type="hidden" id="requirement-requirement-requirementpriorityid-input" value="@RequirementPriorityId"/>
-                                    </li>
-                                </ul>
-                                <div class="input-group-append">
-                                    <button class="btn btn-danger border-0 ml-2" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="requirementpriorityid-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- UserEmployeeId -->
-                        <div class="form-group mb-3">
-                            <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-hashtag"></i> Employee ID
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend input-group-text">
-                                    <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                        <strong>
-                                            <i class="fas fa-hashtag"></i> Employee ID
-                                        </strong>
-                                    </span>
-                                </div>
-                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector-userprogrammerid"><i class="fas fa-hashtag"></i></button>
-                                <ul id="requirement-requirement-useremployeeid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
-                                            @UserEmployeeName
-                                        </a>
-                                        <input type="hidden" id="requirement-requirement-useremployeeid-input" value="@UserEmployeeId"/>
-                                    </li>
-                                </ul>
-                                <div class="input-group-append">
-                                    <button class="btn btn-danger border-0 ml-2" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="userprogrammerid-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                         
-                        <!-- Buttons -->
-                        <div class="row justify-content-between">
-                            <button id="requirement-requirement-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="@NonQueryIcon"></i> @NonQueryText</button>
-                            <button id="requirement-requirement-insert-or-update-message" data-toggle="modal" data-target="#requirement-requirement-error-message-modal" class="btn mt-4" type="button"></button>
-                            <a href="/Requirement/PageRequirementQuery" class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
-                                <i class="fas fa-angle-left"></i> Go back
-                            </a>
-                        </div>
-                    </form>
+                                <!-- Buttons -->
+                                <div class="row justify-content-between">
+                                    <button id="requirement-requirement-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="@NonQueryIcon"></i> @NonQueryText</button>
+                                    <button id="requirement-requirement-insert-or-update-message" data-toggle="modal" data-target="#requirement-requirement-error-message-modal" class="btn mt-4" type="button"></button>
+                                    <a href="/Requirement/PageRequirementQuery" class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
+                                        <i class="fas fa-angle-left"></i> Go back
+                                    </a>
+                                </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                        <!-- Note -->
+                        <form role="form" class="needs-validation" novalidate>
+                            <!-- Title -->
+                            <div class="form-group mb-3">
+                                <label for="requirement-requirementnote-title-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                    <i class="fas fa-font"></i> Title
+                                </label>
+                                <div class="input-group input-group-merge input-group-alternative">
+                                    <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                        <span class="input-group-text ">
+                                            <strong>
+                                                <i class="fas fa-font"></i> Title
+                                            </strong>
+                                        </span>
+                                    </div>
+                                    <input class="form-control" min="1" max="100" type="text" id="requirement-requirementnote-title-input" value="" >
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="title-info">
+                                            <i class="fas fa-info"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Body -->
+                            <label for="requirement-requirementnote-body-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                <i class="fas fa-font"></i> Body
+                            </label>
+                            <div id="requirement-requirementnote-body-input">
+                            </div>
+                            <div class="mb-3"></div>
+                        
+                            <!-- Buttons -->
+                            <div class="row justify-content-between">
+                                <button id="requirement-requirementnote-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="@NonQueryIcon"></i> @NonQueryText</button>
+                                <button id="requirement-requirementnote-insert-or-update-message" data-toggle="modal" data-target="#requirement-requirementnote-error-message-modal" class="btn mt-4" type="button"></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
+                        <p class="description">
+                            Files
+                        </p>
+                    </div>
+                    <div class="tab-pane fade" id="tabs-icons-text-4" role="tabpanel" aria-labelledby="tabs-icons-text-4-tab">
+                        <p class="description">
+                            Change history
+                        </p>
+                    </div>
                 </div>
             </div>
-            <!-- Card footer -->
-            <div class="card-footer py-2">
-            </div>
+        </div>
         </div>
     </div>
 </div>
@@ -476,3 +576,4 @@
 <script src="/js/BasicCore/jquery-3.6.1.min.js"></script>
 <script src="/assets/vendor/quill/dist/quill.min.js"></script>
 <script src="/js/Requirement/Requirement/jQuery/RequirementNonQuery_jQuery.js"></script>
+<script src="/js/Requirement/RequirementNote/jQuery/RequirementNoteNonQuery_jQuery.js"></script>
