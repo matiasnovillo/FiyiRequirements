@@ -9,8 +9,5 @@
     "Body" : "PutBody",
     "RequirementStateId" : 1,
     "RequirementPriorityId" : 1,
-    "UserProgrammerId" : 1
-}rProgrammerId" : 1
-}
-    "UserProgrammerId" : 1
+    "UserEmployeeId" : 1
 }

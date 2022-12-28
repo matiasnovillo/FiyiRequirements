@@ -20,7 +20,7 @@ EXEC [dbo].[Requirement.Requirement.SelectAll]
  *
  */
 
---Last modification on: 24/12/2022 6:48:02
+--Last modification on: 27/12/2022 20:52:58
 
 SET DATEFORMAT DMY
 
@@ -31,16 +31,16 @@ SELECT
     [Requirement.Requirement].[DateTimeLastModification],
     [Requirement.Requirement].[UserCreationId],
     [Requirement.Requirement].[UserLastModificationId],
-    [Requirement.Requirement].[ClientId],
     [Requirement.Requirement].[Title],
     [Requirement.Requirement].[Body],
     [Requirement.Requirement].[RequirementStateId],
-    [Requirement.Requirement].[RequirementTypeId],
     [Requirement.Requirement].[RequirementPriorityId],
-    [Requirement.Requirement].[UserProgrammerId]
+    [Requirement.Requirement].[UserEmployeeId]
 FROM 
     [Requirement.Requirement]
     LEFT OUTER JOIN [CMSCore.User] AS [CMSCore.User.UserCreationId] ON [Requirement.Requirement].[UserCreationId] = [CMSCore.User.UserCreationId].[UserId]
 	LEFT OUTER JOIN [CMSCore.User] AS [CMSCore.User.UserLastModificationId] ON [Requirement.Requirement].[UserLastModificationId] = [CMSCore.User.UserLastModificationId].[UserId]
+ORDER BY 
+    [Requirement.Requirement].[RequirementId].User.UserLastModificationId].[UserId]
 ORDER BY 
     [Requirement.Requirement].[RequirementId]

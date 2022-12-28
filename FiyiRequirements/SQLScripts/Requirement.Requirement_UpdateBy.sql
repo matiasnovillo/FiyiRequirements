@@ -6,13 +6,11 @@ CREATE PROCEDURE [dbo].[Requirement.Requirement.UpdateByRequirementId]
     @DateTimeLastModification DATETIME,
     @UserCreationId INT,
     @UserLastModificationId INT,
-    @ClientId INT,
     @Title VARCHAR(100),
     @Body VARCHAR(8000),
     @RequirementStateId INT,
-    @RequirementTypeId INT,
     @RequirementPriorityId INT,
-    @UserProgrammerId INT,
+    @UserEmployeeId INT,
 
     @RowsAffected INT OUTPUT
 )
@@ -41,7 +39,7 @@ SELECT @RowsAffected AS N'@RowsAffected'
  *
  */
 
---Last modification on: 24/12/2022 6:48:02
+--Last modification on: 27/12/2022 20:52:57
 
 UPDATE [Requirement.Requirement] SET
     [Active] = @Active,
@@ -49,13 +47,16 @@ UPDATE [Requirement.Requirement] SET
     [DateTimeLastModification] = @DateTimeLastModification,
     [UserCreationId] = @UserCreationId,
     [UserLastModificationId] = @UserLastModificationId,
-    [ClientId] = @ClientId,
     [Title] = @Title,
     [Body] = @Body,
     [RequirementStateId] = @RequirementStateId,
-    [RequirementTypeId] = @RequirementTypeId,
     [RequirementPriorityId] = @RequirementPriorityId,
-    [UserProgrammerId] = @UserProgrammerId
+    [UserEmployeeId] = @UserEmployeeId
+WHERE 
+    1 = 1 
+    AND [Requirement.Requirement].[RequirementId] = @RequirementId 
+
+SELECT @RowsAffected = @@ROWCOUNTerId
 WHERE 
     1 = 1 
     AND [Requirement.Requirement].[RequirementId] = @RequirementId 

@@ -13,11 +13,11 @@
     string Body;
     int RequirementStateId;
     int RequirementPriorityId;
-    int UserProgrammerId;
+    int UserEmployeeId;
     string RequirementStateName;
     string RequirementPriorityName;
-    string UserProgrammerName;
-
+    string UserEmployeeName;
+    
 
     if(HttpContext.Request.QueryString.Value.Contains("?RequirementId=0"))
     {
@@ -29,11 +29,11 @@
         Body = "";
         RequirementStateId = 0;
         RequirementPriorityId = 0;
-        UserProgrammerId = 0;
+        UserEmployeeId = 0;
 
         RequirementStateName = "Choose a value";
         RequirementPriorityName = "Choose a value";
-        UserProgrammerName = "Choose a value";
+        UserEmployeeName = "Choose a value";
     }
     else
     {
@@ -48,16 +48,16 @@
         Body = RequirementModel.Body;
         RequirementStateId = RequirementModel.RequirementStateId;
         RequirementPriorityId = RequirementModel.RequirementPriorityId;
-        UserProgrammerId = RequirementModel.UserProgrammerId;
-
+        UserEmployeeId = RequirementModel.UserEmployeeId;
+        
         RequirementStateModel RequirementStateModel = new RequirementStateModel(RequirementModel.RequirementStateId);
         RequirementStateName = RequirementStateModel.Name;
 
         RequirementPriorityModel RequirementPriorityModel = new RequirementPriorityModel(RequirementModel.RequirementPriorityId);
         RequirementPriorityName = RequirementPriorityModel.Name;
 
-        UserModel UserModel = new UserModel(RequirementModel.UserProgrammerId);
-        UserProgrammerName = UserModel.FantasyName;
+        UserModel UserModel = new UserModel(RequirementModel.UserEmployeeId);
+        UserEmployeeName = UserModel.FantasyName;
 
     }
 
@@ -77,7 +77,7 @@
  */
     
 //Stack: 11
-//Last modification on: 27/12/2022 17:32:21
+//Last modification on: 27/12/2022 20:52:58
 
 }
 <!-- Header -->
@@ -263,9 +263,9 @@
                                 <ul id="requirement-requirement-useremployeeid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
-                                            @UserProgrammerName
+                                            @UserEmployeeName
                                         </a>
-                                        <input type="hidden" id="requirement-requirement-useremployeeid-input" value="@UserProgrammerId"/>
+                                        <input type="hidden" id="requirement-requirement-useremployeeid-input" value="@UserEmployeeId"/>
                                     </li>
                                 </ul>
                                 <div class="input-group-append">

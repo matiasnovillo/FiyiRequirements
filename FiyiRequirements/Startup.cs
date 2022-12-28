@@ -59,15 +59,12 @@ namespace FiyiRequirements
             services.AddScoped<RoleMenuProtocol, RoleMenuService>();
             services.AddScoped<RoleProtocol, RoleService>();
             //Area: Requirements
-            services.AddScoped<ApplicationProtocol, ApplicationService>();
             services.AddScoped<RequirementProtocol, RequirementService>();
             services.AddScoped<RequirementChangehistoryProtocol, RequirementChangehistoryService>();
             services.AddScoped<RequirementFileProtocol, RequirementFileService>();
             services.AddScoped<RequirementNoteProtocol, RequirementNoteService>();
             services.AddScoped<RequirementPriorityProtocol, RequirementPriorityService>();
             services.AddScoped<RequirementStateProtocol, RequirementStateService>();
-            services.AddScoped<TechnologyProtocol, TechnologyService>();
-            services.AddScoped<UserApplicationProtocol,UserApplicationService>();
 
             //Session configuration
             services.AddMvc();

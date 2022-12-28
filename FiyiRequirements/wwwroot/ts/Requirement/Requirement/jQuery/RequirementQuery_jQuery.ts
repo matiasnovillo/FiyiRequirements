@@ -18,7 +18,7 @@ import { Ajax } from "../../../Library/Ajax";
 
 //Stack: 10
 
-//Last modification on: 27/12/2022 17:32:21
+//Last modification on: 27/12/2022 20:52:58
 
 //Set default values
 let LastTopDistance: number = 0;
@@ -96,8 +96,8 @@ class RequirementQuery {
             </button>
         </th>
         <th scope="col">
-            <button value="UserProgrammerId" class="btn btn-outline-secondary btn-sm" type="button">
-                UserProgrammerId
+            <button value="UserEmployeeId" class="btn btn-outline-secondary btn-sm" type="button">
+                UserEmployeeId
             </button>
         </th>
         
@@ -220,7 +220,7 @@ class RequirementQuery {
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.UserProgrammerId}
+            <i class="fas fa-key"></i> ${row.UserEmployeeId}
         </strong>
     </td>
     
@@ -299,7 +299,7 @@ class RequirementQuery {
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           UserProgrammerId <i class="fas fa-key"></i> ${row.UserProgrammerId}
+                           UserEmployeeId <i class="fas fa-key"></i> ${row.UserEmployeeId}
                         </span>
                         <br/>
                         

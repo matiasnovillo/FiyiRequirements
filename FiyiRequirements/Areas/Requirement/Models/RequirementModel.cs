@@ -28,7 +28,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
     ///                    make temporal copies with random data. <br/>
     /// Fields:            11 <br/> 
     /// Sub-models:      2 models <br/>
-    /// Last modification: 27/12/2022 17:32:21
+    /// Last modification: 27/12/2022 20:52:58
     /// </summary>
     [Serializable]
     public partial class RequirementModel
@@ -81,8 +81,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
         [Library.ModelAttributeValidator.Key("RequirementPriorityId")]
         public int RequirementPriorityId { get; set; }
 
-        [Library.ModelAttributeValidator.Key("UserProgrammerId")]
-        public int UserProgrammerId { get; set; }
+        [Library.ModelAttributeValidator.Key("UserEmployeeId")]
+        public int UserEmployeeId { get; set; }
         #endregion
 
         #region Sub-lists
@@ -158,7 +158,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 					this.Body = requirement.Body;
 					this.RequirementStateId = requirement.RequirementStateId;
 					this.RequirementPriorityId = requirement.RequirementPriorityId;
-					this.UserProgrammerId = requirement.UserProgrammerId;
+					this.UserEmployeeId = requirement.UserEmployeeId;
                 }
             }
             catch (Exception ex) { throw ex; }
@@ -172,7 +172,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Fields:       11 <br/> 
         /// Dependencies: 2 models depend on this model <br/>
         /// </summary>
-        public RequirementModel(int RequirementId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Title, string Body, int RequirementStateId, int RequirementPriorityId, int UserProgrammerId)
+        public RequirementModel(int RequirementId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Title, string Body, int RequirementStateId, int RequirementPriorityId, int UserEmployeeId)
         {
             try
             {
@@ -191,7 +191,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				this.Body = Body;
 				this.RequirementStateId = RequirementStateId;
 				this.RequirementPriorityId = RequirementPriorityId;
-				this.UserProgrammerId = UserProgrammerId;
+				this.UserEmployeeId = UserEmployeeId;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -222,7 +222,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				Body = requirement.Body;
 				RequirementStateId = requirement.RequirementStateId;
 				RequirementPriorityId = requirement.RequirementPriorityId;
-				UserProgrammerId = requirement.UserProgrammerId;
+				UserEmployeeId = requirement.UserEmployeeId;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -334,7 +334,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 					RequirementModel.Body = requirement.Body;
 					RequirementModel.RequirementStateId = requirement.RequirementStateId;
 					RequirementModel.RequirementPriorityId = requirement.RequirementPriorityId;
-					RequirementModel.UserProgrammerId = requirement.UserProgrammerId;
+					RequirementModel.UserEmployeeId = requirement.UserEmployeeId;
                 }
 
                 return RequirementModel;
@@ -446,7 +446,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("Body", Body, DbType.String, ParameterDirection.Input);
 				dp.Add("RequirementStateId", RequirementStateId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementPriorityId", RequirementPriorityId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserProgrammerId", UserProgrammerId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserEmployeeId", UserEmployeeId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -484,7 +484,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("Body", requirement.Body, DbType.String, ParameterDirection.Input);
 				dp.Add("RequirementStateId", requirement.RequirementStateId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementPriorityId", requirement.RequirementPriorityId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserProgrammerId", requirement.UserProgrammerId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserEmployeeId", requirement.UserEmployeeId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
                 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -505,7 +505,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
         /// <returns>The ID of the last registry inserted in Requirement table</returns>
-        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Title, string Body, int RequirementStateId, int RequirementPriorityId, int UserProgrammerId)
+        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Title, string Body, int RequirementStateId, int RequirementPriorityId, int UserEmployeeId)
         {
             try
             {
@@ -522,7 +522,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("Body", Body, DbType.String, ParameterDirection.Input);
 				dp.Add("RequirementStateId", RequirementStateId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementPriorityId", RequirementPriorityId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserProgrammerId", UserProgrammerId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserEmployeeId", UserEmployeeId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -561,7 +561,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("Body", Body, DbType.String, ParameterDirection.Input);
 				dp.Add("RequirementStateId", RequirementStateId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementPriorityId", RequirementPriorityId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserProgrammerId", UserProgrammerId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserEmployeeId", UserEmployeeId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -600,7 +600,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("Body", requirement.Body, DbType.String, ParameterDirection.Input);
 				dp.Add("RequirementStateId", requirement.RequirementStateId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementPriorityId", requirement.RequirementPriorityId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserProgrammerId", requirement.UserProgrammerId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserEmployeeId", requirement.UserEmployeeId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -621,7 +621,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
         /// <returns>The number of rows updated in Requirement table</returns>
-        public int UpdateByRequirementId(int RequirementId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Title, string Body, int RequirementStateId, int RequirementPriorityId, int UserProgrammerId)
+        public int UpdateByRequirementId(int RequirementId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Title, string Body, int RequirementStateId, int RequirementPriorityId, int UserEmployeeId)
         {
             try
             {
@@ -639,7 +639,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("Body", Body, DbType.String, ParameterDirection.Input);
 				dp.Add("RequirementStateId", RequirementStateId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementPriorityId", RequirementPriorityId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserProgrammerId", UserProgrammerId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserEmployeeId", UserEmployeeId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -770,7 +770,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				$"Body: {Body}, " +
 				$"RequirementStateId: {RequirementStateId}, " +
 				$"RequirementPriorityId: {RequirementPriorityId}, " +
-				$"UserProgrammerId: {UserProgrammerId}";
+				$"UserEmployeeId: {UserEmployeeId}";
         }
 
         public string ToStringOnlyValuesForHTML()
@@ -839,7 +839,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
     </td><td align=""left"" valign=""top"">
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserProgrammerId}</span>
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserEmployeeId}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td>

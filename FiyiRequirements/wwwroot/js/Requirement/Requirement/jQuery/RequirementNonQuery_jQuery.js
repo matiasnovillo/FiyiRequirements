@@ -13,7 +13,7 @@
 
 //Stack: 10
 
-//Last modification on: 27/12/2022 17:32:21
+//Last modification on: 27/12/2022 20:52:58
 
 $(document).ready(function () {
     requirementrequirementbodyquill.root.innerHTML = $("#requirement-requirement-body-hidden-value").val();
@@ -47,7 +47,6 @@ $(document).ready(function () {
             <input type="hidden" id="requirement-requirement-useremployeeid-input" value="${$("#requirement-requirement-useremployeeid-select option:selected").val()}"/>
         </li>`);
     });
-
 });
 
 //Used for Quill Editor
@@ -89,7 +88,7 @@ $("#requirement-requirement-insert-or-update-button").on("click", function (e) {
     formData.append("requirement-requirement-body-input", requirementrequirementbodyquill.root.innerHTML);
     formData.append("requirement-requirement-requirementstateid-input", $("#requirement-requirement-requirementstateid-input").val());
     formData.append("requirement-requirement-requirementpriorityid-input", $("#requirement-requirement-requirementpriorityid-input").val());
-    formData.append("requirement-requirement-userprogrammerid-input", $("#requirement-requirement-userprogrammerid-input").val());
+    formData.append("requirement-requirement-useremployeeid-input", $("#requirement-requirement-useremployeeid-input").val());
     
 
     //Setup request

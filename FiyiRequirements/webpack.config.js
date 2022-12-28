@@ -80,11 +80,7 @@
          rolemenutsmodel: ["./wwwroot/ts/CMSCore/RoleMenu/TsModels/RoleMenu_TsModel"],
          rolemenujquery: ["./wwwroot/ts/CMSCore/RoleMenu/jQuery/RoleMenuQuery_jQuery"],
 
-         applicationtsmodel: ["./wwwroot/ts/Requirement/Application/TsModels/Application_TsModel"],
-         applicationjquery: ["./wwwroot/ts/Requirement/Application/jQuery/ApplicationQuery_jQuery"],
-         userapplicationtsmodel: ["./wwwroot/ts/Requirement/UserApplication/TsModels/UserApplication_TsModel"],
-         userapplicationjquery: ["./wwwroot/ts/Requirement/UserApplication/jQuery/UserApplicationQuery_jQuery"],
-         requirementtsmodel: ["./wwwroot/ts/Requirement/Requirement/TsModels/Requirement_TsModel"],
+         requirementtsmodel: ["./wwwroot/ts/Requirement/Requirement/TsModels/Requirement_TsModel"], //Area: Requirement
          requirementjquery: ["./wwwroot/ts/Requirement/Requirement/jQuery/RequirementQuery_jQuery"],
          requirementchangehistorytsmodel: ["./wwwroot/ts/Requirement/RequirementChangehistory/TsModels/RequirementChangehistory_TsModel"],
          requirementchangehistoryjquery: ["./wwwroot/ts/Requirement/RequirementChangehistory/jQuery/RequirementChangehistoryQuery_jQuery"],
@@ -95,9 +91,7 @@
          requirementprioritytsmodel: ["./wwwroot/ts/Requirement/RequirementPriority/TsModels/RequirementPriority_TsModel"],
          requirementpriorityjquery: ["./wwwroot/ts/Requirement/RequirementPriority/jQuery/RequirementPriorityQuery_jQuery"],
          requirementstatetsmodel: ["./wwwroot/ts/Requirement/RequirementState/TsModels/RequirementState_TsModel"],
-         requirementstatejquery: ["./wwwroot/ts/Requirement/RequirementState/jQuery/RequirementStateQuery_jQuery"],
-         technologytsmodel: ["./wwwroot/ts/Requirement/Technology/TsModels/Technology_TsModel"],
-         technologyjquery: ["./wwwroot/ts/Requirement/Technology/jQuery/TechnologyQuery_jQuery"]
+         requirementstatejquery: ["./wwwroot/ts/Requirement/RequirementState/jQuery/RequirementStateQuery_jQuery"]
      },
      output: {
          filename: "[name].bundle.js",                       //Path to save bundles: __dirname + "/wwwroot/dist" (__dirname is a Node.js variable)

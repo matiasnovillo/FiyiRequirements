@@ -36,7 +36,7 @@ EXEC [dbo].[Requirement.Requirement.SelectAllPaged]
 SELECT @TotalRows AS N'@TotalRows'
 */
 
---Last modification on: 24/12/2022 6:48:02
+--Last modification on: 27/12/2022 20:52:58
 
 SET DATEFORMAT DMY
 SET NOCOUNT ON
@@ -48,13 +48,11 @@ SELECT
     [Requirement.Requirement].[DateTimeLastModification],
     [Requirement.Requirement].[UserCreationId],
     [Requirement.Requirement].[UserLastModificationId],
-    [Requirement.Requirement].[ClientId],
     [Requirement.Requirement].[Title],
     [Requirement.Requirement].[Body],
     [Requirement.Requirement].[RequirementStateId],
-    [Requirement.Requirement].[RequirementTypeId],
     [Requirement.Requirement].[RequirementPriorityId],
-    [Requirement.Requirement].[UserProgrammerId]
+    [Requirement.Requirement].[UserEmployeeId]
 FROM 
     [Requirement.Requirement]
     LEFT OUTER JOIN [CMSCore.User] AS [CMSCore.User.UserCreationId] ON [Requirement.Requirement].[UserCreationId] = [CMSCore.User.UserCreationId].[UserId]
@@ -68,13 +66,11 @@ WHERE
         OR ([Requirement.Requirement].[DateTimeLastModification] LIKE  '%' + @QueryString + '%')
         OR ([Requirement.Requirement].[UserCreationId] LIKE  '%' + @QueryString + '%')
         OR ([Requirement.Requirement].[UserLastModificationId] LIKE  '%' + @QueryString + '%')
-        OR ([Requirement.Requirement].[ClientId] LIKE  '%' + @QueryString + '%')
         OR ([Requirement.Requirement].[Title] LIKE  '%' + @QueryString + '%')
         OR ([Requirement.Requirement].[Body] LIKE  '%' + @QueryString + '%')
         OR ([Requirement.Requirement].[RequirementStateId] LIKE  '%' + @QueryString + '%')
-        OR ([Requirement.Requirement].[RequirementTypeId] LIKE  '%' + @QueryString + '%')
         OR ([Requirement.Requirement].[RequirementPriorityId] LIKE  '%' + @QueryString + '%')
-        OR ([Requirement.Requirement].[UserProgrammerId] LIKE  '%' + @QueryString + '%')
+        OR ([Requirement.Requirement].[UserEmployeeId] LIKE  '%' + @QueryString + '%')
 
     )
 ORDER BY 
@@ -90,16 +86,20 @@ ORDER BY
     CASE WHEN (@SorterColumn = 'UserCreationId' AND @SortToggler = 1) THEN [Requirement.Requirement].[UserCreationId] END DESC,
     CASE WHEN (@SorterColumn = 'UserLastModificationId' AND @SortToggler = 0) THEN [Requirement.Requirement].[UserLastModificationId] END ASC,
     CASE WHEN (@SorterColumn = 'UserLastModificationId' AND @SortToggler = 1) THEN [Requirement.Requirement].[UserLastModificationId] END DESC,
-    CASE WHEN (@SorterColumn = 'ClientId' AND @SortToggler = 0) THEN [Requirement.Requirement].[ClientId] END ASC,
-    CASE WHEN (@SorterColumn = 'ClientId' AND @SortToggler = 1) THEN [Requirement.Requirement].[ClientId] END DESC,
     CASE WHEN (@SorterColumn = 'Title' AND @SortToggler = 0) THEN [Requirement.Requirement].[Title] END ASC,
     CASE WHEN (@SorterColumn = 'Title' AND @SortToggler = 1) THEN [Requirement.Requirement].[Title] END DESC,
     CASE WHEN (@SorterColumn = 'Body' AND @SortToggler = 0) THEN [Requirement.Requirement].[Body] END ASC,
     CASE WHEN (@SorterColumn = 'Body' AND @SortToggler = 1) THEN [Requirement.Requirement].[Body] END DESC,
     CASE WHEN (@SorterColumn = 'RequirementStateId' AND @SortToggler = 0) THEN [Requirement.Requirement].[RequirementStateId] END ASC,
     CASE WHEN (@SorterColumn = 'RequirementStateId' AND @SortToggler = 1) THEN [Requirement.Requirement].[RequirementStateId] END DESC,
-    CASE WHEN (@SorterColumn = 'RequirementTypeId' AND @SortToggler = 0) THEN [Requirement.Requirement].[RequirementTypeId] END ASC,
-    CASE WHEN (@SorterColumn = 'RequirementTypeId' AND @SortToggler = 1) THEN [Requirement.Requirement].[RequirementTypeId] END DESC,
+    CASE WHEN (@SorterColumn = 'RequirementPriorityId' AND @SortToggler = 0) THEN [Requirement.Requirement].[RequirementPriorityId] END ASC,
+    CASE WHEN (@SorterColumn = 'RequirementPriorityId' AND @SortToggler = 1) THEN [Requirement.Requirement].[RequirementPriorityId] END DESC,
+    CASE WHEN (@SorterColumn = 'UserEmployeeId' AND @SortToggler = 0) THEN [Requirement.Requirement].[UserEmployeeId] END ASC,
+    CASE WHEN (@SorterColumn = 'UserEmployeeId' AND @SortToggler = 1) THEN [Requirement.Requirement].[UserEmployeeId] END DESC
+
+OFFSET (@ActualPageNumber - 1) * @RowsPerPage ROWS
+FETCH NEXT @RowsPerPage ROWS ONLY
+SELECT @TotalRows = COUNT(*) FROM [Requirement.Requirement]AND @SortToggler = 1) THEN [Requirement.Requirement].[RequirementTypeId] END DESC,
     CASE WHEN (@SorterColumn = 'RequirementPriorityId' AND @SortToggler = 0) THEN [Requirement.Requirement].[RequirementPriorityId] END ASC,
     CASE WHEN (@SorterColumn = 'RequirementPriorityId' AND @SortToggler = 1) THEN [Requirement.Requirement].[RequirementPriorityId] END DESC,
     CASE WHEN (@SorterColumn = 'UserProgrammerId' AND @SortToggler = 0) THEN [Requirement.Requirement].[UserProgrammerId] END ASC,

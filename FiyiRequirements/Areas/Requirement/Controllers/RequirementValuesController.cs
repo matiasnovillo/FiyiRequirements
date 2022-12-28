@@ -24,7 +24,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 27/12/2022 17:32:21
+//Last modification on: 27/12/2022 20:52:58
 
 namespace FiyiRequirements.Areas.Requirement.Controllers
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 27/12/2022 17:32:21
+    /// Last modification: 27/12/2022 20:52:58
     /// </summary>
     [ApiController]
     [RequirementFilter]
@@ -178,13 +178,13 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 }
                 else
                 { return StatusCode(400, "It's not allowed to save zero values in RequirementPriorityId"); }
-                int UserProgrammerId = 0; 
-                if (Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-userprogrammerid-input"]) != 0)
+                int UserEmployeeId = 0; 
+                if (Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-useremployeeid-input"]) != 0)
                 {
-                    UserProgrammerId = Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-userprogrammerid-input"]);
+                    UserEmployeeId = Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-useremployeeid-input"]);
                 }
                 else
-                { return StatusCode(400, "It's not allowed to save zero values in UserProgrammerId"); }
+                { return StatusCode(400, "It's not allowed to save zero values in UserEmployeeId"); }
                 
 
                 int NewEnteredId = 0;
@@ -204,7 +204,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                         Body = Body,
                         RequirementStateId = RequirementStateId,
                         RequirementPriorityId = RequirementPriorityId,
-                        UserProgrammerId = UserProgrammerId,
+                        UserEmployeeId = UserEmployeeId,
                         
                     };
                     
@@ -222,7 +222,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     RequirementModel.Body = Body;
                     RequirementModel.RequirementStateId = RequirementStateId;
                     RequirementModel.RequirementPriorityId = RequirementPriorityId;
-                    RequirementModel.UserProgrammerId = UserProgrammerId;
+                    RequirementModel.UserEmployeeId = UserEmployeeId;
                                        
 
                     RowsAffected = _RequirementProtocol.UpdateByRequirementId(RequirementModel);

@@ -5,13 +5,11 @@ CREATE PROCEDURE [dbo].[Requirement.Requirement.Insert]
     @DateTimeLastModification DATETIME,
     @UserCreationId INT,
     @UserLastModificationId INT,
-    @ClientId INT,
     @Title VARCHAR(100),
     @Body VARCHAR(8000),
     @RequirementStateId INT,
-    @RequirementTypeId INT,
     @RequirementPriorityId INT,
-    @UserProgrammerId INT,
+    @UserEmployeeId INT,
 
     @NewEnteredId INT OUTPUT
 )
@@ -40,13 +38,11 @@ EXEC [dbo].[Requirement.Requirement.Insert]
     @DateTimeLastModification = N'01/01/1753 0:00:00.001',
     @UserCreationId = 1,
     @UserLastModificationId = 1,
-     @ClientId = 1,
     @Title = N'PutTitle',
     @Body = N'PutBody',
      @RequirementStateId = 1,
-     @RequirementTypeId = 1,
      @RequirementPriorityId = 1,
-     @UserProgrammerId = 1,
+     @UserEmployeeId = 1,
 
 @NewEnteredId = @NewEnteredId OUTPUT
 
@@ -54,7 +50,7 @@ SELECT @NewEnteredId AS N'@NewEnteredId'
  *
  */
 
---Last modification on: 24/12/2022 6:48:02
+--Last modification on: 27/12/2022 20:52:57
 
 INSERT INTO [Requirement.Requirement]
 (
@@ -63,13 +59,11 @@ INSERT INTO [Requirement.Requirement]
     [DateTimeLastModification],
     [UserCreationId],
     [UserLastModificationId],
-    [ClientId],
     [Title],
     [Body],
     [RequirementStateId],
-    [RequirementTypeId],
     [RequirementPriorityId],
-    [UserProgrammerId]
+    [UserEmployeeId]
 )
 VALUES
 (
@@ -78,6 +72,14 @@ VALUES
     @DateTimeLastModification,
     @UserCreationId,
     @UserLastModificationId,
+    @Title,
+    @Body,
+    @RequirementStateId,
+    @RequirementPriorityId,
+    @UserEmployeeId
+)
+
+SELECT @NewEnteredId = @@IDENTITYtionId,
     @ClientId,
     @Title,
     @Body,
