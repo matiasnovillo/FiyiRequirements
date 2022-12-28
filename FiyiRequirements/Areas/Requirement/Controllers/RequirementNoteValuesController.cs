@@ -112,15 +112,15 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
-        [HttpPut("~/api/Requirement/RequirementNote/1/SelectAllPagedToJSON")]
-        public requirementnoteModelQuery SelectAllPagedToJSON([FromBody] requirementnoteModelQuery requirementnoteModelQuery)
+        [HttpPut("~/api/Requirement/RequirementNote/1/SelectAllPagedToJSON/{RequirementId:int}")]
+        public requirementnoteModelQuery SelectAllPagedToJSON([FromBody] requirementnoteModelQuery requirementnoteModelQuery, int RequirementId)
         {
             try
             {
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _RequirementNoteProtocol.SelectAllPagedToModel(requirementnoteModelQuery);
+                 return _RequirementNoteProtocol.SelectAllPagedToModel(requirementnoteModelQuery, RequirementId);
             }
             catch (Exception ex)
             {

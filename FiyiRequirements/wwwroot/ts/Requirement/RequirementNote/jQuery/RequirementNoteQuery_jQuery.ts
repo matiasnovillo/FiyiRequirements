@@ -98,7 +98,7 @@ class RequirementNoteQuery {
 
         var ListContent: string = ``;
 
-        RequirementNoteModel.SelectAllPaged(request_requirementnotemodelQuery).subscribe(
+        RequirementNoteModel.SelectAllPaged(request_requirementnotemodelQuery, $("#requirement-requirement-requirementid-input").val()).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available

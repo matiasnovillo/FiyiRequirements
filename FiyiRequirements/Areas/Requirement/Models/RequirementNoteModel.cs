@@ -340,7 +340,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
             catch (Exception ex) { throw ex; }
         }
 
-        public requirementnoteModelQuery SelectAllPagedToModel(requirementnoteModelQuery requirementnoteModelQuery)
+        public requirementnoteModelQuery SelectAllPagedToModel(requirementnoteModelQuery requirementnoteModelQuery, int RequirementId)
         {
             try
             {
@@ -352,6 +352,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 dp.Add("SorterColumn", requirementnoteModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
                 dp.Add("SortToggler", requirementnoteModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
                 dp.Add("TotalRows", requirementnoteModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
+
+                dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {

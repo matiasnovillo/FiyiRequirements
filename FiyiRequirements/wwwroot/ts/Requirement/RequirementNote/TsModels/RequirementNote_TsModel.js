@@ -26,8 +26,8 @@ var RequirementNoteModel = /** @class */ (function () {
         var URL = "/api/Requirement/RequirementNote/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    RequirementNoteModel.SelectAllPaged = function (requirementnotemodelQuery) {
-        var URL = "/api/Requirement/RequirementNote/1/SelectAllPagedToJSON";
+    RequirementNoteModel.SelectAllPaged = function (requirementnotemodelQuery, RequirementId) {
+        var URL = "/api/Requirement/RequirementNote/1/SelectAllPagedToJSON/" + RequirementId;
         var Body = {
             QueryString: requirementnotemodelQuery.QueryString,
             ActualPageNumber: requirementnotemodelQuery.ActualPageNumber,

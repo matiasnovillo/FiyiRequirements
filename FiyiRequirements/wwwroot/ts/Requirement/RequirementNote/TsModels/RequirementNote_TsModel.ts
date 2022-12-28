@@ -42,8 +42,8 @@ export class RequirementNoteModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(requirementnotemodelQuery: requirementnotemodelQuery) {
-        let URL = "/api/Requirement/RequirementNote/1/SelectAllPagedToJSON";
+    static SelectAllPaged(requirementnotemodelQuery: requirementnotemodelQuery, RequirementId: any) {
+        let URL = "/api/Requirement/RequirementNote/1/SelectAllPagedToJSON/" + RequirementId;
         let Body = {
             QueryString: requirementnotemodelQuery.QueryString,
             ActualPageNumber: requirementnotemodelQuery.ActualPageNumber,
