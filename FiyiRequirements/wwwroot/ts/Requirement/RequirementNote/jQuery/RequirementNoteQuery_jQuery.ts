@@ -18,7 +18,7 @@ import { Ajax } from "../../../Library/Ajax";
 
 //Stack: 10
 
-//Last modification on: 25/12/2022 18:10:07
+//Last modification on: 28/12/2022 17:28:12
 
 //Set default values
 let LastTopDistance: number = 0;
@@ -47,7 +47,7 @@ class RequirementNoteQuery {
         </th>
         <th scope="col">
             <button value="RequirementNoteId" class="btn btn-outline-secondary btn-sm" type="button">
-                RequirementNoteId
+                Note ID
             </button>
         </th>
         <th scope="col">
@@ -57,22 +57,22 @@ class RequirementNoteQuery {
         </th>
         <th scope="col">
             <button value="DateTimeCreation" class="btn btn-outline-secondary btn-sm" type="button">
-                DateTimeCreation
+                Date Time Creation
             </button>
         </th>
         <th scope="col">
             <button value="DateTimeLastModification" class="btn btn-outline-secondary btn-sm" type="button">
-                DateTimeLastModification
+                Date Time Last Modification
             </button>
         </th>
         <th scope="col">
             <button value="UserCreationId" class="btn btn-outline-secondary btn-sm" type="button">
-                UserCreationId
+                User Creation
             </button>
         </th>
         <th scope="col">
             <button value="UserLastModificationId" class="btn btn-outline-secondary btn-sm" type="button">
-                UserLastModificationId
+                User Last Modification
             </button>
         </th>
         <th scope="col">
@@ -83,6 +83,11 @@ class RequirementNoteQuery {
         <th scope="col">
             <button value="Body" class="btn btn-outline-secondary btn-sm" type="button">
                 Body
+            </button>
+        </th>
+        <th scope="col">
+            <button value="RequirementId" class="btn btn-outline-secondary btn-sm" type="button">
+                Requirement ID
             </button>
         </th>
         
@@ -177,12 +182,12 @@ class RequirementNoteQuery {
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.UserCreationId}
+            <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
         </strong>
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.UserLastModificationId}
+            <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
         </strong>
     </td>
     <td class="text-left">
@@ -192,6 +197,11 @@ class RequirementNoteQuery {
     </td>
     <td class="text-left">
         <i class="fas fa-font"></i> ${row.Body}
+    </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-key"></i> ${row.RequirementId}
+        </strong>
     </td>
     
     <!-- Actions -->
@@ -229,7 +239,7 @@ class RequirementNoteQuery {
                 <div class="row">
                     <div class="col text-truncate">
                         <span class="text-white text-light mb-4">
-                           RequirementNoteId <i class="fas fa-key"></i> ${row.RequirementNoteId}
+                           Note ID <i class="fas fa-key"></i> ${row.RequirementNoteId}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
@@ -237,19 +247,19 @@ class RequirementNoteQuery {
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           DateTimeCreation <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
+                           Date Time Creation <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           DateTimeLastModification <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
+                           Date Time Last Modification <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           UserCreationId <i class="fas fa-key"></i> ${row.UserCreationId}
+                           User Creation <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           UserLastModificationId <i class="fas fa-key"></i> ${row.UserLastModificationId}
+                           User Last Modification <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
@@ -258,6 +268,10 @@ class RequirementNoteQuery {
                         <br/>
                         <span class="text-white mb-4">
                            Body <i class="fas fa-font"></i> ${row.Body}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           Requirement ID <i class="fas fa-key"></i> ${row.RequirementId}
                         </span>
                         <br/>
                         
@@ -461,7 +475,7 @@ function ValidateAndSearch() {
 }
 
 //LOAD EVENT
-if ($("#requirement-requirementnote-title-page").html().includes("Query requirementnote")) {
+if ($("#requirement-requirement-title-page").html().includes("Edit requirement")) {
     //Set to default values
     QueryString = "";
     ActualPageNumber = 1;

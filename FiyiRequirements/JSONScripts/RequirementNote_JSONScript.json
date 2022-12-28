@@ -6,5 +6,6 @@
     "UserCreationId" : 1,
     "UserLastModificationId" : 1,
     "Title" : "PutTitle",
-    "Body" : "PutBody"
+    "Body" : "PutBody",
+    "RequirementId" : 1
 }

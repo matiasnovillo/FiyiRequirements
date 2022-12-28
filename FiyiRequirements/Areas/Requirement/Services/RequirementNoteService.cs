@@ -22,7 +22,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 25/12/2022 18:10:07
+//Last modification on: 28/12/2022 17:28:12
 
 namespace FiyiRequirements.Areas.Requirement.Services
 {
@@ -31,7 +31,7 @@ namespace FiyiRequirements.Areas.Requirement.Services
     /// Name:              C# Service. <br/>
     /// Function:          Allow you to separate data contract stored in C# model from business with your clients. <br/>
     /// Also, allow dependency injection inside controllers/web apis<br/>
-    /// Last modification: 25/12/2022 18:10:07
+    /// Last modification: 28/12/2022 17:28:12
     /// </summary>
     public partial class RequirementNoteService : RequirementNoteProtocol
     {
@@ -220,6 +220,11 @@ namespace FiyiRequirements.Areas.Requirement.Services
                 <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Body&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">RequirementId&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th>
     </tr>
     {RowsAsHTML}
@@ -289,6 +294,11 @@ namespace FiyiRequirements.Areas.Requirement.Services
                     dtColumnBodyFordtRequirementNoteCopy.ColumnName = "Body";
                     dtRequirementNoteCopy.Columns.Add(dtColumnBodyFordtRequirementNoteCopy);
 
+                    DataColumn dtColumnRequirementIdFordtRequirementNoteCopy = new DataColumn();
+                    dtColumnRequirementIdFordtRequirementNoteCopy.DataType = typeof(string);
+                    dtColumnRequirementIdFordtRequirementNoteCopy.ColumnName = "RequirementId";
+                    dtRequirementNoteCopy.Columns.Add(dtColumnRequirementIdFordtRequirementNoteCopy);
+
                     
                 #endregion
 
@@ -357,6 +367,11 @@ namespace FiyiRequirements.Areas.Requirement.Services
                     dtColumnBodyFordtRequirementNoteCopy.DataType = typeof(string);
                     dtColumnBodyFordtRequirementNoteCopy.ColumnName = "Body";
                     dtRequirementNoteCopy.Columns.Add(dtColumnBodyFordtRequirementNoteCopy);
+
+                    DataColumn dtColumnRequirementIdFordtRequirementNoteCopy = new DataColumn();
+                    dtColumnRequirementIdFordtRequirementNoteCopy.DataType = typeof(string);
+                    dtColumnRequirementIdFordtRequirementNoteCopy.ColumnName = "RequirementId";
+                    dtRequirementNoteCopy.Columns.Add(dtColumnRequirementIdFordtRequirementNoteCopy);
 
                     
                     #endregion

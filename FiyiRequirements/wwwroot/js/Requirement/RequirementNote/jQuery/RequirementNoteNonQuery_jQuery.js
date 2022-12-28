@@ -13,10 +13,9 @@
 
 //Stack: 10
 
-//Last modification on: 25/12/2022 18:10:07
+//Last modification on: 28/12/2022 17:28:12
 
 $(document).ready(function () {
-    
 });
 
 //Used for Quill Editor
@@ -51,11 +50,12 @@ $("#requirement-requirementnote-insert-or-update-button").on("click", function (
     e.preventDefault();
 
     //Add or edit value
-    formData.append("requirement-requirementnote-title-page", $("#requirement-requirementnote-title-page").html());
+    formData.append("requirement-requirementnote-insert-or-update-button", $("#requirement-requirementnote-insert-or-update-button").html());
     formData.append("requirement-requirementnote-requirementnoteid-input", $("#requirement-requirementnote-requirementnoteid-input").val());
 
     formData.append("requirement-requirementnote-title-input", $("#requirement-requirementnote-title-input").val());
     formData.append("requirement-requirementnote-body-input", requirementrequirementnotebodyquill.root.innerHTML);
+    formData.append("requirement-requirement-requirementid-input", $("#requirement-requirement-requirementid-input").val());
     
 
     //Setup request

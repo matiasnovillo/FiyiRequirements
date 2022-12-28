@@ -26,9 +26,9 @@ namespace FiyiRequirements.Areas.Requirement.Models
     /// Function:          Allow you to manipulate information from database using stored procedures.
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
-    /// Fields:            8 <br/> 
+    /// Fields:            9 <br/> 
     /// Sub-models:      0 models <br/>
-    /// Last modification: 25/12/2022 18:10:07
+    /// Last modification: 28/12/2022 17:28:12
     /// </summary>
     [Serializable]
     public partial class RequirementNoteModel
@@ -74,22 +74,29 @@ namespace FiyiRequirements.Areas.Requirement.Models
 
         [Library.ModelAttributeValidator.String("Body", false, 1, 8000, "")]
         public string Body { get; set; }
-        #endregion
+
+        [Library.ModelAttributeValidator.Key("RequirementId")]
+        public int RequirementId { get; set; }
+
+        public string UserCreationIdFantasyName { get; set; }
+
+        public string UserLastModificationIdFantasyName { get; set; }
+    #endregion
 
         #region Sub-lists
-        
-        #endregion
+
+    #endregion
 
         #region Constructors
-        /// <summary>
-        /// Stack:        3 <br/>
-        /// Function:     Create fastly this model with field RequirementNoteId = 0 <br/>
-        /// Note 1:       Generally used to have fast access to functions of object. <br/>
-        /// Note 2:       Need construction with [new] reserved word, as all constructors. <br/>
-        /// Fields:       8 <br/> 
-        /// Dependencies: 0 models depend on this model <br/>
-        /// </summary>
-        public RequirementNoteModel()
+    /// <summary>
+    /// Stack:        3 <br/>
+    /// Function:     Create fastly this model with field RequirementNoteId = 0 <br/>
+    /// Note 1:       Generally used to have fast access to functions of object. <br/>
+    /// Note 2:       Need construction with [new] reserved word, as all constructors. <br/>
+    /// Fields:       9 <br/> 
+    /// Dependencies: 0 models depend on this model <br/>
+    /// </summary>
+    public RequirementNoteModel()
         {
             try 
             {
@@ -105,7 +112,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Stack:        3 <br/>
         /// Function:     Create this model with stored information in database using RequirementNoteId <br/>
         /// Note:         Raise exception on duplicated IDs <br/>
-        /// Fields:       8 <br/> 
+        /// Fields:       9 <br/> 
         /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
         public RequirementNoteModel(int RequirementNoteId)
@@ -142,6 +149,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 					this.UserLastModificationId = requirementnote.UserLastModificationId;
 					this.Title = requirementnote.Title;
 					this.Body = requirementnote.Body;
+					this.RequirementId = requirementnote.RequirementId;
                 }
             }
             catch (Exception ex) { throw ex; }
@@ -152,10 +160,10 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Stack:        3 <br/>
         /// Function:     Create this model with filled parameters <br/>
         /// Note:         Raise exception on duplicated IDs <br/>
-        /// Fields:       8 <br/> 
+        /// Fields:       9 <br/> 
         /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
-        public RequirementNoteModel(int RequirementNoteId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Title, string Body)
+        public RequirementNoteModel(int RequirementNoteId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Title, string Body, int RequirementId)
         {
             try
             {
@@ -170,6 +178,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				this.UserLastModificationId = UserLastModificationId;
 				this.Title = Title;
 				this.Body = Body;
+				this.RequirementId = RequirementId;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -178,7 +187,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Stack:        3 <br/>
         /// Function:     Create this model (copy) using the given model (original), requirementnote, passed by parameter. <br/>
         /// Note:         This constructor is generally used to execute functions using the copied fields <br/>
-        /// Fields:       8 <br/> 
+        /// Fields:       9 <br/> 
         /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
         public RequirementNoteModel(RequirementNoteModel requirementnote)
@@ -196,6 +205,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				UserLastModificationId = requirementnote.UserLastModificationId;
 				Title = requirementnote.Title;
 				Body = requirementnote.Body;
+				RequirementId = requirementnote.RequirementId;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -305,6 +315,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 					RequirementNoteModel.UserLastModificationId = requirementnote.UserLastModificationId;
 					RequirementNoteModel.Title = requirementnote.Title;
 					RequirementNoteModel.Body = requirementnote.Body;
+					RequirementNoteModel.RequirementId = requirementnote.RequirementId;
                 }
 
                 return RequirementNoteModel;
@@ -344,7 +355,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    requirementnoteModelQuery.lstRequirementNoteModel = (List<RequirementNoteModel>)sqlConnection.Query<RequirementNoteModel>("[dbo].[Requirement.RequirementNote.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
+                    requirementnoteModelQuery.lstRequirementNoteModel = (List<RequirementNoteModel>)sqlConnection.Query<RequirementNoteModel>("[dbo].[Requirement.RequirementNote.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
                     requirementnoteModelQuery.TotalRows = dp.Get<int>("TotalRows");
                 }
 
@@ -378,6 +389,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Title", Title, DbType.String, ParameterDirection.Input);
 				dp.Add("Body", Body, DbType.String, ParameterDirection.Input);
+				dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -413,6 +425,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("UserLastModificationId", requirementnote.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Title", requirementnote.Title, DbType.String, ParameterDirection.Input);
 				dp.Add("Body", requirementnote.Body, DbType.String, ParameterDirection.Input);
+				dp.Add("RequirementId", requirementnote.RequirementId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
                 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -433,7 +446,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
         /// <returns>The ID of the last registry inserted in RequirementNote table</returns>
-        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Title, string Body)
+        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Title, string Body, int RequirementId)
         {
             try
             {
@@ -448,6 +461,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Title", Title, DbType.String, ParameterDirection.Input);
 				dp.Add("Body", Body, DbType.String, ParameterDirection.Input);
+				dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -484,6 +498,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Title", Title, DbType.String, ParameterDirection.Input);
 				dp.Add("Body", Body, DbType.String, ParameterDirection.Input);
+				dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -520,6 +535,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("UserLastModificationId", requirementnote.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Title", requirementnote.Title, DbType.String, ParameterDirection.Input);
 				dp.Add("Body", requirementnote.Body, DbType.String, ParameterDirection.Input);
+				dp.Add("RequirementId", requirementnote.RequirementId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -540,7 +556,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
         /// <returns>The number of rows updated in RequirementNote table</returns>
-        public int UpdateByRequirementNoteId(int RequirementNoteId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Title, string Body)
+        public int UpdateByRequirementNoteId(int RequirementNoteId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Title, string Body, int RequirementId)
         {
             try
             {
@@ -556,6 +572,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Title", Title, DbType.String, ParameterDirection.Input);
 				dp.Add("Body", Body, DbType.String, ParameterDirection.Input);
+				dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -683,7 +700,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				$"UserCreationId: {UserCreationId}, " +
 				$"UserLastModificationId: {UserLastModificationId}, " +
 				$"Title: {Title}, " +
-				$"Body: {Body}";
+				$"Body: {Body}, " +
+				$"RequirementId: {RequirementId}";
         }
 
         public string ToStringOnlyValuesForHTML()
@@ -735,6 +753,12 @@ namespace FiyiRequirements.Areas.Requirement.Models
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
             <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Body}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{RequirementId}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td>

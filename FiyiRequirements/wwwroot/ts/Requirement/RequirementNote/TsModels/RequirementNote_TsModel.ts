@@ -14,7 +14,7 @@ import { Ajax } from "../../../Library/Ajax";
  * 
 */
 
-//8 fields | Sub-models: 0 models  | Last modification on: 25/12/2022 18:10:07 | Stack: 9
+//9 fields | Sub-models: 0 models  | Last modification on: 28/12/2022 17:28:12 | Stack: 9
 
 export class RequirementNoteModel {
 
@@ -27,7 +27,9 @@ export class RequirementNoteModel {
 	UserLastModificationId?: number;
 	Title?: string | string[] | number | undefined;
 	Body?: string | string[] | number | undefined;
-    
+	RequirementId?: number;
+    UserCreationIdFantasyName?: string | string[] | number | undefined;
+    UserLastModificationIdFantasyName?: string | string[] | number | undefined;
 
     //Queries
     static Select1ByRequirementNoteId(RequirementNoteId: number) {

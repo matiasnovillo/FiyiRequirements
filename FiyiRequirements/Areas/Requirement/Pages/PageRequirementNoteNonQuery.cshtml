@@ -10,6 +10,7 @@
     int RequirementNoteId;
     string Title;
     string Body;
+    int RequirementId;
     
 
     if(HttpContext.Request.QueryString.Value.Contains("?RequirementNoteId=0"))
@@ -20,7 +21,7 @@
         RequirementNoteId = 0;
         Title = "";
         Body = "";
-        
+        RequirementId = 0;
     }
     else
     {
@@ -33,6 +34,7 @@
         RequirementNoteId = RequirementNoteModel.RequirementNoteId;
         Title = RequirementNoteModel.Title;
         Body = RequirementNoteModel.Body;
+        RequirementId = RequirementNoteModel.RequirementId;
         
     }
 
@@ -48,7 +50,7 @@
  */
     
 //Stack: 11
-//Last modification on: 25/12/2022 18:10:07
+//Last modification on: 28/12/2022 17:28:12
 
 }
 <!-- Header -->
@@ -159,6 +161,35 @@
                         </div>
                         <input type="hidden" value="@Body" id="requirement-requirementnote-body-hidden-value">
                         <div class="mb-3"></div>
+                        <!-- RequirementId -->
+                        <div class="form-group mb-3">
+                            <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                <i class="fas fa-hashtag"></i> RequirementId
+                            </label>
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend input-group-text">
+                                    <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                        <strong>
+                                            <i class="fas fa-hashtag"></i> RequirementId
+                                        </strong>
+                                    </span>
+                                </div>
+                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector"><i class="fas fa-hashtag"></i></button>
+                                <ul id="requirement-requirementnote-requirementid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
+                                            Choose a value
+                                        </a>
+                                        <input type="hidden" id="requirement-requirementnote-requirementid-input" value="@RequirementId"/>
+                                    </li>
+                                </ul>
+                                <div class="input-group-append">
+                                    <button class="btn btn-danger border-0 ml-2" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="requirementid-info">
+                                        <i class="fas fa-info"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                         
                         <!-- Buttons -->
                         <div class="row justify-content-between">

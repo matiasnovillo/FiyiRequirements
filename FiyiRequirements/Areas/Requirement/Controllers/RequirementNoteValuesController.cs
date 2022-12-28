@@ -24,7 +24,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 25/12/2022 22:01:52
+//Last modification on: 28/12/2022 17:28:12
 
 namespace FiyiRequirements.Areas.Requirement.Controllers
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 25/12/2022 22:01:52
+    /// Last modification: 28/12/2022 17:28:12
     /// </summary>
     [ApiController]
     [RequirementNoteFilter]
@@ -160,16 +160,23 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 }
 
                 //Add or edit value
-                string AddOrEdit = HttpContext.Request.Form["requirement-requirementnote-title-page"];
+                string AddOrEdit = HttpContext.Request.Form["requirement-requirementnote-insert-or-update-button"];
 
                 string Title = HttpContext.Request.Form["requirement-requirementnote-title-input"];
                 string Body = HttpContext.Request.Form["requirement-requirementnote-body-input"];
+                int RequirementId = 0; 
+                if (Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-requirementid-input"]) != 0)
+                {
+                    RequirementId = Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-requirementid-input"]);
+                }
+                else
+                { return StatusCode(400, "It's not allowed to save zero values in RequirementId"); }
                 
 
                 int NewEnteredId = 0;
                 int RowsAffected = 0;
 
-                if (AddOrEdit.StartsWith("Add"))
+                if (AddOrEdit.Contains("Add"))
                 {
                     //Add
                     RequirementNoteModel RequirementNoteModel = new RequirementNoteModel()
@@ -181,6 +188,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                         DateTimeLastModification = DateTime.Now,
                         Title = Title,
                         Body = Body,
+                        RequirementId = RequirementId,
                         
                     };
                     
@@ -196,6 +204,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     RequirementNoteModel.DateTimeLastModification = DateTime.Now;
                     RequirementNoteModel.Title = Title;
                     RequirementNoteModel.Body = Body;
+                    RequirementNoteModel.RequirementId = RequirementId;
                                        
 
                     RowsAffected = _RequirementNoteProtocol.UpdateByRequirementNoteId(RequirementNoteModel);
