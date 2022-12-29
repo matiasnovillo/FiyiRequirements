@@ -4,6 +4,7 @@ using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.Requirement.Models;
 using FiyiRequirements.Areas.Requirement.Protocols;
+using FiyiRequirements.Areas.CMSCore.Models;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -53,9 +54,11 @@ namespace FiyiRequirements.Areas.Requirement.Services
             return new RequirementModel().SelectAllToList();
         }
 
-        public requirementModelQuery SelectAllPagedToModel(requirementModelQuery requirementModelQuery)
+        public requirementModelQuery SelectAllPagedToModel(requirementModelQuery requirementModelQuery, int UserId)
         {
-            return new RequirementModel().SelectAllPagedToModel(requirementModelQuery);
+            UserModel UserModel = new UserModel(UserId);
+
+            return new RequirementModel().SelectAllPagedToModel(requirementModelQuery, UserId, UserModel.RoleId);
         } 
         #endregion
 

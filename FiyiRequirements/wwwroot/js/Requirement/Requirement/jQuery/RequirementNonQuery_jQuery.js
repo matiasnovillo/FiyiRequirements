@@ -87,7 +87,7 @@ $("#requirement-requirement-insert-or-update-button").on("click", function (e) {
     formData.append("requirement-requirement-title-input", $("#requirement-requirement-title-input").val());
     formData.append("requirement-requirement-body-input", requirementrequirementbodyquill.root.innerHTML);
     formData.append("requirement-requirement-requirementstateid-input", $("#requirement-requirement-requirementstateid-input").val());
-    formData.append("requirement-requirement-requirementpriorityid-input", $("#requirement-requirement-requirementid-input").val());
+    formData.append("requirement-requirement-requirementpriorityid-input", $("#requirement-requirement-requirementpriorityid-input").val());
     formData.append("requirement-requirement-useremployeeid-input", $("#requirement-requirement-useremployeeid-input").val());
     
 
@@ -157,7 +157,7 @@ $("#requirement-requirement-insert-or-update-button").on("click", function (e) {
 
             changehistoryformData.append("requirement-requirementchangehistory-requirementid-input", $("#requirement-requirement-requirementid-input").val());
             changehistoryformData.append("requirement-requirementchangehistory-requirementstateid-input", $("#requirement-requirement-requirementstateid-input").val());
-            changehistoryformData.append("requirement-requirementchangehistory-requirementpriorityid-input", $("#requirement-requirement-requirementid-input").val());
+            changehistoryformData.append("requirement-requirementchangehistory-requirementpriorityid-input", $("#requirement-requirement-requirementpriorityid-input").val());
 
 
             //Setup request

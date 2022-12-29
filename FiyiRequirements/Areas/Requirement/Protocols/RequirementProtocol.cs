@@ -38,7 +38,7 @@ namespace FiyiRequirements.Areas.Requirement.Protocols
 
         List<RequirementModel> SelectAllToList();
 
-        requirementModelQuery SelectAllPagedToModel(requirementModelQuery requirementModelQuery);
+        requirementModelQuery SelectAllPagedToModel(requirementModelQuery requirementModelQuery, int UserId);
         #endregion
 
         #region Non-Queries

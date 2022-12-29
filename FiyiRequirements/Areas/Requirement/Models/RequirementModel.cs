@@ -369,7 +369,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
             catch (Exception ex) { throw ex; }
         }
 
-        public requirementModelQuery SelectAllPagedToModel(requirementModelQuery requirementModelQuery)
+        public requirementModelQuery SelectAllPagedToModel(requirementModelQuery requirementModelQuery, int UserId, int RoleId)
         {
             try
             {
@@ -381,6 +381,9 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 dp.Add("SorterColumn", requirementModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
                 dp.Add("SortToggler", requirementModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
                 dp.Add("TotalRows", requirementModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
+
+                dp.Add("UserId", UserId, DbType.Int32, ParameterDirection.Input);
+                dp.Add("RoleId", RoleId, DbType.Int32, ParameterDirection.Input);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {

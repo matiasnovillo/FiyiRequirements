@@ -120,7 +120,15 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _RequirementProtocol.SelectAllPagedToModel(requirementModelQuery);
+                //Get UserId from Session
+                int UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
+
+                if (UserId == 0)
+                {
+                    return null;
+                }
+
+                return _RequirementProtocol.SelectAllPagedToModel(requirementModelQuery, UserId);
             }
             catch (Exception ex)
             {
