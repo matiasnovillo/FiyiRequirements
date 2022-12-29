@@ -38,7 +38,7 @@ namespace FiyiRequirements.Areas.Requirement.Protocols
 
         List<RequirementChangehistoryModel> SelectAllToList();
 
-        requirementchangehistoryModelQuery SelectAllPagedToModel(requirementchangehistoryModelQuery requirementchangehistoryModelQuery);
+        requirementchangehistoryModelQuery SelectAllPagedToModel(requirementchangehistoryModelQuery requirementchangehistoryModelQuery, int RequirementId);
         #endregion
 
         #region Non-Queries

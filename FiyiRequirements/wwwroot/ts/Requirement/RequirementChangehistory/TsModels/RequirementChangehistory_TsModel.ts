@@ -27,7 +27,11 @@ export class RequirementChangehistoryModel {
 	UserLastModificationId?: number;
 	RequirementId?: number;
 	RequirementStateId?: number;
-	RequirementPriorityId?: number;
+    RequirementPriorityId?: number;
+    UserCreationIdFantasyName?: string | string[] | number | undefined;
+    UserLastModificationIdFantasyName?: string | string[] | number | undefined;
+    RequirementStateIdName?: string | string[] | number | undefined;
+    RequirementPriorityIdName?: string | string[] | number | undefined;
     
 
     //Queries
@@ -41,16 +45,16 @@ export class RequirementChangehistoryModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(requirementchangehistorymodelQuery: requirementchangehistorymodelQuery) {
-        let URL = "/api/Requirement/RequirementChangehistory/1/SelectAllPagedToJSON";
+    static SelectAllPaged(requirementchangehistorymodelQuery: requirementchangehistorymodelQuery, RequirementId: any) {
+        let URL = "/api/Requirement/RequirementChangehistory/1/SelectAllPagedToJSON/" + RequirementId;
         let Body = {
-            QueryString: requirementchangehistorymodelQuery.QueryString,
-            ActualPageNumber: requirementchangehistorymodelQuery.ActualPageNumber,
-            RowsPerPage: requirementchangehistorymodelQuery.RowsPerPage,
-            SorterColumn: requirementchangehistorymodelQuery.SorterColumn,
-            SortToggler: requirementchangehistorymodelQuery.SortToggler,
-            RowCount: requirementchangehistorymodelQuery.TotalRows,
-            TotalPages: requirementchangehistorymodelQuery.TotalPages,
+            requirementchangehistoryQueryString: requirementchangehistorymodelQuery.requirementchangehistoryQueryString,
+            requirementchangehistoryActualPageNumber: requirementchangehistorymodelQuery.requirementchangehistoryActualPageNumber,
+            requirementchangehistoryRowsPerPage: requirementchangehistorymodelQuery.requirementchangehistoryRowsPerPage,
+            requirementchangehistorySorterColumn: requirementchangehistorymodelQuery.requirementchangehistorySorterColumn,
+            requirementchangehistorySortToggler: requirementchangehistorymodelQuery.requirementchangehistorySortToggler,
+            requirementchangehistoryRowCount: requirementchangehistorymodelQuery.requirementchangehistoryTotalRows,
+            requirementchangehistoryTotalPages: requirementchangehistorymodelQuery.requirementchangehistoryTotalPages,
             lstRequirementChangehistoryModel: requirementchangehistorymodelQuery.lstRequirementChangehistoryModel
         };
         let Header: any = {
@@ -100,12 +104,12 @@ export class RequirementChangehistoryModel {
 }
 
 export class requirementchangehistorymodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
+    requirementchangehistoryQueryString ?: string;
+    requirementchangehistoryActualPageNumber?: number;
+    requirementchangehistoryRowsPerPage?: number;
+    requirementchangehistorySorterColumn?: string;
+    requirementchangehistorySortToggler?: boolean;
+    requirementchangehistoryTotalRows?: number;
+    requirementchangehistoryTotalPages?: number;
     lstRequirementChangehistoryModel?: RequirementChangehistoryModel[] | undefined;
 }

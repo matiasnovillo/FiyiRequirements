@@ -77,6 +77,14 @@ namespace FiyiRequirements.Areas.Requirement.Models
 
         [Library.ModelAttributeValidator.Key("RequirementPriorityId")]
         public int RequirementPriorityId { get; set; }
+
+        public string UserCreationIdFantasyName { get; set; }
+
+        public string UserLastModificationIdFantasyName { get; set; }
+
+        public string RequirementStateIdName { get; set; }
+
+        public string RequirementPriorityIdName { get; set; }
         #endregion
 
         #region Sub-lists
@@ -336,26 +344,28 @@ namespace FiyiRequirements.Areas.Requirement.Models
             catch (Exception ex) { throw ex; }
         }
 
-        public requirementchangehistoryModelQuery SelectAllPagedToModel(requirementchangehistoryModelQuery requirementchangehistoryModelQuery)
+        public requirementchangehistoryModelQuery SelectAllPagedToModel(requirementchangehistoryModelQuery requirementchangehistoryModelQuery, int RequirementId)
         {
             try
             {
                 requirementchangehistoryModelQuery.lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
                 DynamicParameters dp = new DynamicParameters();
-                dp.Add("QueryString", requirementchangehistoryModelQuery.QueryString, DbType.String, ParameterDirection.Input);
-                dp.Add("ActualPageNumber", requirementchangehistoryModelQuery.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
-                dp.Add("RowsPerPage", requirementchangehistoryModelQuery.RowsPerPage, DbType.Int32, ParameterDirection.Input);
-                dp.Add("SorterColumn", requirementchangehistoryModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
-                dp.Add("SortToggler", requirementchangehistoryModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
-                dp.Add("TotalRows", requirementchangehistoryModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
+                dp.Add("QueryString", requirementchangehistoryModelQuery.requirementchangehistoryQueryString, DbType.String, ParameterDirection.Input);
+                dp.Add("ActualPageNumber", requirementchangehistoryModelQuery.requirementchangehistoryActualPageNumber, DbType.Int32, ParameterDirection.Input);
+                dp.Add("RowsPerPage", requirementchangehistoryModelQuery.requirementchangehistoryRowsPerPage, DbType.Int32, ParameterDirection.Input);
+                dp.Add("SorterColumn", requirementchangehistoryModelQuery.requirementchangehistorySorterColumn, DbType.String, ParameterDirection.Input);
+                dp.Add("SortToggler", requirementchangehistoryModelQuery.requirementchangehistorySortToggler, DbType.Boolean, ParameterDirection.Input);
+                dp.Add("TotalRows", requirementchangehistoryModelQuery.requirementchangehistoryTotalRows, DbType.Int32, ParameterDirection.Output);
+
+                dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    requirementchangehistoryModelQuery.lstRequirementChangehistoryModel = (List<RequirementChangehistoryModel>)sqlConnection.Query<RequirementChangehistoryModel>("[dbo].[Requirement.RequirementChangehistory.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
-                    requirementchangehistoryModelQuery.TotalRows = dp.Get<int>("TotalRows");
+                    requirementchangehistoryModelQuery.lstRequirementChangehistoryModel = (List<RequirementChangehistoryModel>)sqlConnection.Query<RequirementChangehistoryModel>("[dbo].[Requirement.RequirementChangehistory.SelectAllPagedByRequirementIdCustom]", dp, commandType: CommandType.StoredProcedure);
+                    requirementchangehistoryModelQuery.requirementchangehistoryTotalRows = dp.Get<int>("TotalRows");
                 }
 
-                requirementchangehistoryModelQuery.TotalPages = Library.Math.Divide(requirementchangehistoryModelQuery.TotalRows, requirementchangehistoryModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+                requirementchangehistoryModelQuery.requirementchangehistoryTotalPages = Library.Math.Divide(requirementchangehistoryModelQuery.requirementchangehistoryTotalRows, requirementchangehistoryModelQuery.requirementchangehistoryRowsPerPage, Library.Math.RoundType.RoundUp);
 
                 
 
@@ -767,13 +777,13 @@ namespace FiyiRequirements.Areas.Requirement.Models
     /// </summary>
     public partial class requirementchangehistoryModelQuery 
     {
-        public string QueryString { get; set; }
-        public int ActualPageNumber { get; set; }
-        public int RowsPerPage { get; set; }
-        public string SorterColumn { get; set; }
-        public bool SortToggler { get; set; }
-        public int TotalRows { get; set; }
-        public int TotalPages { get; set; }
+        public string requirementchangehistoryQueryString { get; set; }
+        public int requirementchangehistoryActualPageNumber { get; set; }
+        public int requirementchangehistoryRowsPerPage { get; set; }
+        public string requirementchangehistorySorterColumn { get; set; }
+        public bool requirementchangehistorySortToggler { get; set; }
+        public int requirementchangehistoryTotalRows { get; set; }
+        public int requirementchangehistoryTotalPages { get; set; }
         public List<RequirementChangehistoryModel> lstRequirementChangehistoryModel { get; set; }
     }
 }

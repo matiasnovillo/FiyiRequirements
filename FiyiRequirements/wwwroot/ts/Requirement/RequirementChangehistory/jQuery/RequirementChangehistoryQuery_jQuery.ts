@@ -21,16 +21,16 @@ import { Ajax } from "../../../Library/Ajax";
 //Last modification on: 25/12/2022 18:01:44
 
 //Set default values
-let LastTopDistance: number = 0;
-let QueryString: string = "";
-let ActualPageNumber: number = 1;
-let RowsPerPage: number = 50;
-let SorterColumn: string | undefined = "";
-let SortToggler: boolean = false;
-let TotalPages: number = 0;
-let TotalRows: number = 0;
-let ViewToggler: string = "List";
-let ScrollDownNSearchFlag: boolean = false;
+let requirementchangehistoryLastTopDistance: number = 0;
+let requirementchangehistoryQueryString: string = "";
+let requirementchangehistoryActualPageNumber: number = 1;
+let requirementchangehistoryRowsPerPage: number = 50;
+let requirementchangehistorySorterColumn: string | undefined = "";
+let requirementchangehistorySortToggler: boolean = false;
+let requirementchangehistoryTotalPages: number = 0;
+let requirementchangehistoryTotalRows: number = 0;
+let requirementchangehistoryViewToggler: string = "List";
+let requirementchangehistoryScrollDownNSearchFlag: boolean = false;
 
 class RequirementChangehistoryQuery {
     static SelectAllPagedToHTML(request_requirementchangehistorymodelQuery: requirementchangehistorymodelQuery) {
@@ -47,7 +47,7 @@ class RequirementChangehistoryQuery {
         </th>
         <th scope="col">
             <button value="RequirementChangehistoryId" class="btn btn-outline-secondary btn-sm" type="button">
-                RequirementChangehistoryId
+                Change history ID
             </button>
         </th>
         <th scope="col">
@@ -57,37 +57,37 @@ class RequirementChangehistoryQuery {
         </th>
         <th scope="col">
             <button value="DateTimeCreation" class="btn btn-outline-secondary btn-sm" type="button">
-                DateTimeCreation
+                Date Time Creation
             </button>
         </th>
         <th scope="col">
             <button value="DateTimeLastModification" class="btn btn-outline-secondary btn-sm" type="button">
-                DateTimeLastModification
+                Date Time Last Modification
             </button>
         </th>
         <th scope="col">
             <button value="UserCreationId" class="btn btn-outline-secondary btn-sm" type="button">
-                UserCreationId
+                User Creation
             </button>
         </th>
         <th scope="col">
             <button value="UserLastModificationId" class="btn btn-outline-secondary btn-sm" type="button">
-                UserLastModificationId
+                User Last Modification
             </button>
         </th>
         <th scope="col">
             <button value="RequirementId" class="btn btn-outline-secondary btn-sm" type="button">
-                RequirementId
+                Requirement ID
             </button>
         </th>
         <th scope="col">
             <button value="RequirementStateId" class="btn btn-outline-secondary btn-sm" type="button">
-                RequirementStateId
+                State
             </button>
         </th>
         <th scope="col">
             <button value="RequirementPriorityId" class="btn btn-outline-secondary btn-sm" type="button">
-                RequirementPriorityId
+                Priority
             </button>
         </th>
         
@@ -98,7 +98,7 @@ class RequirementChangehistoryQuery {
 
         var ListContent: string = ``;
 
-        RequirementChangehistoryModel.SelectAllPaged(request_requirementchangehistorymodelQuery).subscribe(
+        RequirementChangehistoryModel.SelectAllPaged(request_requirementchangehistorymodelQuery, $("#requirement-requirement-requirementid-input").val()).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
@@ -107,22 +107,22 @@ class RequirementChangehistoryQuery {
                         const response_requirementchangehistoryQuery = newrow.response as requirementchangehistorymodelQuery;
 
                         //Set to default values if they are null
-                        QueryString = response_requirementchangehistoryQuery.QueryString ?? "";
-                        ActualPageNumber = response_requirementchangehistoryQuery.ActualPageNumber ?? 0;
-                        RowsPerPage = response_requirementchangehistoryQuery.RowsPerPage ?? 0;
-                        SorterColumn = response_requirementchangehistoryQuery.SorterColumn ?? "";
-                        SortToggler = response_requirementchangehistoryQuery.SortToggler ?? false;
-                        TotalRows = response_requirementchangehistoryQuery.TotalRows ?? 0;
-                        TotalPages = response_requirementchangehistoryQuery.TotalPages ?? 0;
+                        requirementchangehistoryQueryString = response_requirementchangehistoryQuery.requirementchangehistoryQueryString ?? "";
+                        requirementchangehistoryActualPageNumber = response_requirementchangehistoryQuery.requirementchangehistoryActualPageNumber ?? 0;
+                        requirementchangehistoryRowsPerPage = response_requirementchangehistoryQuery.requirementchangehistoryRowsPerPage ?? 0;
+                        requirementchangehistorySorterColumn = response_requirementchangehistoryQuery.requirementchangehistorySorterColumn ?? "";
+                        requirementchangehistorySortToggler = response_requirementchangehistoryQuery.requirementchangehistorySortToggler ?? false;
+                        requirementchangehistoryTotalRows = response_requirementchangehistoryQuery.requirementchangehistoryTotalRows ?? 0;
+                        requirementchangehistoryTotalPages = response_requirementchangehistoryQuery.requirementchangehistoryTotalPages ?? 0;
 
                         //Query string
-                        $("#requirement-requirementchangehistory-query-string").attr("placeholder", `Search... (${TotalRows} records)`);
+                        $("#requirement-requirementchangehistory-query-string").attr("placeholder", `Search... (${requirementchangehistoryTotalRows} records)`);
                         //Total pages of pagination
-                        $("#requirement-requirementchangehistory-total-pages-lg, #requirement-requirementchangehistory-total-pages").html(TotalPages.toString());
+                        $("#requirement-requirementchangehistory-total-pages-lg, #requirement-requirementchangehistory-total-pages").html(requirementchangehistoryTotalPages.toString());
                         //Actual page number of pagination
-                        $("#requirement-requirementchangehistory-actual-page-number-lg, #requirement-requirementchangehistory-actual-page-number").html(ActualPageNumber.toString());
+                        $("#requirement-requirementchangehistory-actual-page-number-lg, #requirement-requirementchangehistory-actual-page-number").html(requirementchangehistoryActualPageNumber.toString());
                         //If we are at the final of book disable next and last buttons in pagination
-                        if (ActualPageNumber === TotalPages) {
+                        if (requirementchangehistoryActualPageNumber === requirementchangehistoryTotalPages) {
                             $("#requirement-requirementchangehistory-lnk-next-page-lg, #requirement-requirementchangehistory-lnk-next-page").attr("disabled", "disabled");
                             $("#requirement-requirementchangehistory-lnk-last-page-lg, #requirement-requirementchangehistory-lnk-last-page").attr("disabled", "disabled");
                             $("#requirement-requirementchangehistory-search-more-button-in-list").html("");
@@ -134,7 +134,7 @@ class RequirementChangehistoryQuery {
                             $("#requirement-requirementchangehistory-search-more-button-in-list").html("<i class='fas fa-2x fa-chevron-down'></i>");
                         }
                         //If we are at the begining of the book disable previous and first buttons in pagination
-                        if (ActualPageNumber === 1) {
+                        if (requirementchangehistoryActualPageNumber === 1) {
                             $("#requirement-requirementchangehistory-lnk-previous-page-lg, #requirement-requirementchangehistory-lnk-previous-page").attr("disabled", "disabled");
                             $("#requirement-requirementchangehistory-lnk-first-page-lg, #requirement-requirementchangehistory-lnk-first-page").attr("disabled", "disabled");
                         }
@@ -182,12 +182,12 @@ class RequirementChangehistoryQuery {
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.UserCreationId}
+            <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
         </strong>
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.UserLastModificationId}
+            <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
         </strong>
     </td>
     <td class="text-left">
@@ -197,40 +197,13 @@ class RequirementChangehistoryQuery {
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.RequirementStateId}
+            <i class="fas fa-key"></i> ${row.RequirementStateIdName}
         </strong>
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.RequirementPriorityId}
+            <i class="fas fa-key"></i> ${row.RequirementPriorityIdName}
         </strong>
-    </td>
-    
-    <!-- Actions -->
-    <td class="text-right">
-        <a class="btn btn-icon-only text-primary" href="/Requirement/PageRequirementChangehistoryNonQuery?RequirementChangehistoryId=${row.RequirementChangehistoryId}" role="button" data-toggle="tooltip" data-original-title="Edit">
-            <i class="fas fa-edit"></i>
-        </a>
-        <div class="dropdown">
-            <button class="btn btn-icon-only text-danger" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-trash"></i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                <button class="dropdown-item text-danger requirement-requirementchangehistory-table-delete-button" value="${row.RequirementChangehistoryId}" type="button">
-                    <i class="fas fa-exclamation-triangle"></i> Yes, delete
-                </button>
-            </div>
-        </div>
-        <div class="dropdown">
-            <button class="btn btn-sm btn-icon-only text-primary" href="#" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-ellipsis-v"></i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                <button type="button" class="dropdown-item requirement-requirementchangehistory-table-copy-button" value="${row.RequirementChangehistoryId}">
-                    <i class="fas fa-copy text-primary"></i>&nbsp;Copy
-                </button>
-            </div>
-        </div>
     </td>
 </tr>`;
 
@@ -241,7 +214,7 @@ class RequirementChangehistoryQuery {
                 <div class="row">
                     <div class="col text-truncate">
                         <span class="text-white text-light mb-4">
-                           RequirementChangehistoryId <i class="fas fa-key"></i> ${row.RequirementChangehistoryId}
+                           Change history ID <i class="fas fa-key"></i> ${row.RequirementChangehistoryId}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
@@ -249,65 +222,36 @@ class RequirementChangehistoryQuery {
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           DateTimeCreation <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
+                           Date Time Creation <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           DateTimeLastModification <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
+                           Date Time Last Modification <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           UserCreationId <i class="fas fa-key"></i> ${row.UserCreationId}
+                           User Creation <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           UserLastModificationId <i class="fas fa-key"></i> ${row.UserLastModificationId}
+                           User Last Modification <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           RequirementId <i class="fas fa-key"></i> ${row.RequirementId}
+                           Requirement ID <i class="fas fa-key"></i> ${row.RequirementId}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           RequirementStateId <i class="fas fa-key"></i> ${row.RequirementStateId}
+                           State <i class="fas fa-key"></i> ${row.RequirementStateIdName}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           RequirementPriorityId <i class="fas fa-key"></i> ${row.RequirementPriorityId}
+                           Priority <i class="fas fa-key"></i> ${row.RequirementPriorityIdName}
                         </span>
                         <br/>
                         
                     </div>
                     <div class="col-auto">
-                    </div>
-                </div>
-                <!-- Actions -->
-                <div class="row">
-                    <div class="col">
-                        <div class="justify-content-end text-right mt-2">
-                            <div class="requirement-requirementchangehistory-checkbox-list list-row-unchecked mb-2">
-                                <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="check">
-                                    <i class="fas fa-circle text-white"></i>
-                                </a>
-                            </div>
-                            <input type="hidden" value="${row.RequirementChangehistoryId}"/>
-                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/Requirement/PageRequirementChangehistoryNonQuery?RequirementChangehistoryId=${row.RequirementChangehistoryId}" role="button" data-toggle="tooltip" data-original-title="edit">
-                                <i class="fas fa-edit text-primary"></i>
-                            </a>
-                            <div class="dropup">
-                                <a class="icon icon-shape bg-white icon-sm text-primary rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                    <button value="${row.RequirementChangehistoryId}" class="dropdown-item text-primary requirement-requirementchangehistory-list-copy-button" type="button">
-                                        <i class="fas fa-copy"></i>&nbsp;Copy
-                                    </button>
-                                    <button value="${row.RequirementChangehistoryId}" class="dropdown-item text-danger requirement-requirementchangehistory-list-delete-button" type="button">
-                                        <i class="fas fa-trash"></i>&nbsp;Delete
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -317,15 +261,15 @@ class RequirementChangehistoryQuery {
                         })
 
                         //If view table is activated, clear table view, if not, clear list view
-                        if (ViewToggler === "Table") {
+                        if (requirementchangehistoryViewToggler === "Table") {
                             $("#requirement-requirementchangehistory-body-and-head-table").html("");
                             $("#requirement-requirementchangehistory-body-and-head-table").html(TableContent);
                         }
                         else {
                             //Used for list view
-                            if (ScrollDownNSearchFlag) {
+                            if (requirementchangehistoryScrollDownNSearchFlag) {
                                 $("#requirement-requirementchangehistory-body-list").append(ListContent);
-                                ScrollDownNSearchFlag = false;
+                                requirementchangehistoryScrollDownNSearchFlag = false;
                             }
                             else {
                                 //Clear list view
@@ -343,7 +287,7 @@ class RequirementChangehistoryQuery {
                 },
                 complete: () => {
                     //Execute ScrollDownNSearch function when the user scroll the page
-                    $(window).on("scroll", ScrollDownNSearch);
+                    $(window).on("scroll", requirementchangehistoryScrollDownNSearch);
 
                     //Add final content to TableContent
                     TableContent += `</tbody>
@@ -380,16 +324,16 @@ class RequirementChangehistoryQuery {
                     //Buttons inside head of table
                     $("tr th button").one("click", function (e) {
                         //Toggler
-                        if (SorterColumn == $(this).attr("value")) {
-                            SorterColumn = "";
-                            SortToggler = true;
+                        if (requirementchangehistorySorterColumn == $(this).attr("value")) {
+                            requirementchangehistorySorterColumn = "";
+                            requirementchangehistorySortToggler = true;
                         }
                         else {
-                            SorterColumn = $(this).attr("value");
-                            SortToggler = false;
+                            requirementchangehistorySorterColumn = $(this).attr("value");
+                            requirementchangehistorySortToggler = false;
                         }
 
-                        ValidateAndSearch();
+                        requirementchangehistoryValidateAndSearch();
                     });
 
                     //Hide error message
@@ -404,7 +348,7 @@ class RequirementChangehistoryQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                requirementchangehistoryValidateAndSearch();
 
                                 //Show OK message
                                 $("#requirement-requirementchangehistory-button-error-message-in-card").hide();
@@ -429,7 +373,7 @@ class RequirementChangehistoryQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                requirementchangehistoryValidateAndSearch();
 
                                 //Show OK message
                                 $("#requirement-requirementchangehistory-button-error-message-in-card").hide();
@@ -457,36 +401,36 @@ class RequirementChangehistoryQuery {
     }
 }
 
-function ValidateAndSearch() {
+function requirementchangehistoryValidateAndSearch() {
 
     //Hide error and OK message button
     $("#requirement-requirementchangehistory-button-error-message-in-card").hide();
     $("#requirement-requirementchangehistory-button-ok-message-in-card").hide();
 
     var _requirementchangehistorymodelQuery: requirementchangehistorymodelQuery = {
-        QueryString,
-        ActualPageNumber,
-        RowsPerPage,
-        SorterColumn,
-        SortToggler,
-        TotalRows,
-        TotalPages
+        requirementchangehistoryQueryString,
+        requirementchangehistoryActualPageNumber,
+        requirementchangehistoryRowsPerPage,
+        requirementchangehistorySorterColumn,
+        requirementchangehistorySortToggler,
+        requirementchangehistoryTotalRows,
+        requirementchangehistoryTotalPages
     };
 
     RequirementChangehistoryQuery.SelectAllPagedToHTML(_requirementchangehistorymodelQuery);
 }
 
 //LOAD EVENT
-if ($("#requirement-requirementchangehistory-title-page").html().includes("Query requirementchangehistory")) {
+if ($("#requirement-requirement-title-page").html().includes("Edit requirement")) {
     //Set to default values
-    QueryString = "";
-    ActualPageNumber = 1;
-    RowsPerPage = 50;
-    SorterColumn = "RequirementChangehistoryId";
-    SortToggler = false;
-    TotalRows = 0;
-    TotalPages = 0;
-    ViewToggler = "List";
+    requirementchangehistoryQueryString = "";
+    requirementchangehistoryActualPageNumber = 1;
+    requirementchangehistoryRowsPerPage = 50;
+    requirementchangehistorySorterColumn = "RequirementChangehistoryId";
+    requirementchangehistorySortToggler = false;
+    requirementchangehistoryTotalRows = 0;
+    requirementchangehistoryTotalPages = 0;
+    requirementchangehistoryViewToggler = "List";
     //Disable first and previous links in pagination
     $("#requirement-requirementchangehistory-lnk-first-page-lg, #requirement-requirementchangehistory-lnk-first-page").attr("disabled", "disabled");
     $("#requirement-requirementchangehistory-lnk-previous-page-lg, #requirement-requirementchangehistory-lnk-previous-page").attr("disabled", "disabled");
@@ -495,395 +439,89 @@ if ($("#requirement-requirementchangehistory-title-page").html().includes("Query
     $("#requirement-requirementchangehistory-button-error-message-in-card").hide();
     $("#requirement-requirementchangehistory-button-ok-message-in-card").hide();
 
-    ValidateAndSearch();
+    requirementchangehistoryValidateAndSearch();
 }
 //CLICK, SCROLL AND KEYBOARD EVENTS
 //Search button
 $($("#requirement-requirementchangehistory-search-button")).on("click", function () {
-    ValidateAndSearch();
+    requirementchangehistoryValidateAndSearch();
 });
 
 //Query string
 $("#requirement-requirementchangehistory-query-string").on("change keyup input", function (e) {
     //If undefined, set QueryString to "" value
-    QueryString = ($(this).val()?.toString()) ?? "" ;
-    ValidateAndSearch();
+    requirementchangehistoryQueryString = ($(this).val()?.toString()) ?? "" ;
+    requirementchangehistoryValidateAndSearch();
 });
 
 //First page link in pagination
 $("#requirement-requirementchangehistory-lnk-first-page-lg, #requirement-requirementchangehistory-lnk-first-page").on("click", function (e) {
-    ActualPageNumber = 1;
-    ValidateAndSearch();
+    requirementchangehistoryActualPageNumber = 1;
+    requirementchangehistoryValidateAndSearch();
 });
 
 //Previous page link in pagination
 $("#requirement-requirementchangehistory-lnk-previous-page-lg, #requirement-requirementchangehistory-lnk-previous-page").on("click", function (e) {
-    ActualPageNumber -= 1;
-    ValidateAndSearch();
+    requirementchangehistoryActualPageNumber -= 1;
+    requirementchangehistoryValidateAndSearch();
 });
 
 //Next page link in pagination
 $("#requirement-requirementchangehistory-lnk-next-page-lg, #requirement-requirementchangehistory-lnk-next-page").on("click", function (e) {
-    ActualPageNumber += 1;
-    ValidateAndSearch();
+    requirementchangehistoryActualPageNumber += 1;
+    requirementchangehistoryValidateAndSearch();
 });
 
 //Last page link in pagination
 $("#requirement-requirementchangehistory-lnk-last-page-lg, #requirement-requirementchangehistory-lnk-last-page").on("click", function (e) {
-    ActualPageNumber = TotalPages;
-    ValidateAndSearch();
+    requirementchangehistoryActualPageNumber = requirementchangehistoryTotalPages;
+    requirementchangehistoryValidateAndSearch();
 });
 
 //Table view button
 $("#requirement-requirementchangehistory-table-view-button").on("click", function (e) {
     $("#requirement-requirementchangehistory-view-toggler").val("Table");
-    ViewToggler = "Table";
+    requirementchangehistoryViewToggler = "Table";
     //Reset some values to default
-    ActualPageNumber = 1;
+    requirementchangehistoryActualPageNumber = 1;
     //Clear table view
     $("#requirement-requirementchangehistory-body-and-head-table").html("");
-    ValidateAndSearch();
+    requirementchangehistoryValidateAndSearch();
 });
 
 //List view button
 $("#requirement-requirementchangehistory-list-view-button").on("click", function (e) {
     $("#requirement-requirementchangehistory-view-toggler").val("List");
-    ViewToggler = "List";
+    requirementchangehistoryViewToggler = "List";
     //Reset some values to default
-    ActualPageNumber = 1;
+    requirementchangehistoryActualPageNumber = 1;
     //Clear list view
     $("#requirement-requirementchangehistory-body-list").html("");
-    ValidateAndSearch();
+    requirementchangehistoryValidateAndSearch();
 });
 
 //Used to list view
-function ScrollDownNSearch() {
+function requirementchangehistoryScrollDownNSearch() {
     let WindowsTopDistance: number = $(window).scrollTop() ?? 0;
     let WindowsBottomDistance: number = ($(window).scrollTop() ?? 0) + ($(window).innerHeight() ?? 0);
     let CardsFooterTopPosition: number = $("#requirement-requirementchangehistory-search-more-button-in-list").offset()?.top ?? 0;
     let CardsFooterBottomPosition: number = ($("#requirement-requirementchangehistory-search-more-button-in-list").offset()?.top ?? 0) + ($("#requirement-requirementchangehistory-search-more-button-in-list").outerHeight() ?? 0);
 
-    if (WindowsTopDistance > LastTopDistance) {
+    if (WindowsTopDistance > requirementchangehistoryLastTopDistance) {
         //Scroll down
         if ((WindowsBottomDistance > CardsFooterTopPosition) && (WindowsTopDistance < CardsFooterBottomPosition)) {
             //Search More button visible
-            if (ActualPageNumber !== TotalPages) {
-                ScrollDownNSearchFlag = true;
-                ActualPageNumber += 1;
-                ValidateAndSearch();
+            if (requirementchangehistoryActualPageNumber !== requirementchangehistoryTotalPages) {
+                requirementchangehistoryScrollDownNSearchFlag = true;
+                requirementchangehistoryActualPageNumber += 1;
+                requirementchangehistoryValidateAndSearch();
             }
         }
         else { /*Card footer not visible*/ }
     }
     else { /*Scroll up*/ }
-    LastTopDistance = WindowsTopDistance;
+    requirementchangehistoryLastTopDistance = WindowsTopDistance;
 }
 
 //Used to list view
-$(window).on("scroll", ScrollDownNSearch);
-
-//Export as PDF button
-$("#requirement-requirementchangehistory-export-as-pdf").on("click", function (e) {
-    //There are two exportation types, All and JustChecked
-    let ExportationType: string = "";
-    let DateTimeNow: Ajax;
-    let Body: Ajax = {};
-    //Define a header for HTTP protocol with Accept (receiver data type) and Content-Type (sender data type)
-    let Header: any = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=utf-8'
-    };
-
-    if ($("#requirement-requirementchangehistory-export-rows-all-checkbox").is(":checked")) {
-        ExportationType = "All";
-    }
-    else{
-        ExportationType = "JustChecked";
-        let CheckedRows = new Array();
-
-        if (ViewToggler == "Table") {
-            $("tr td div input.requirementchangehistory-table-checkbox-for-row:checked").each(function () {
-                CheckedRows.push($(this).val());
-            });
-
-            Body = {
-                AjaxForString: CheckedRows.toString()
-            };
-        }
-        else {
-            $("div .list-row-checked").each(function () {
-                //With .next() we access to input type hidden
-                CheckedRows.push($(this).next().val());
-            });
-
-            Body = {
-                AjaxForString: CheckedRows.toString()
-            };
-        }
-    }
-
-    Rx.from(ajax.post("/api/Requirement/RequirementChangehistory/1/ExportAsPDF/" + ExportationType, Body, Header)).subscribe({
-        next: newrow => {
-            $("#requirement-requirementchangehistory-export-message").html("<strong>Exporting as PDF</strong>");
-            DateTimeNow = newrow.response as Ajax;
-        },
-        complete: () => {
-            //Show download button for PDF file
-            $("#requirement-requirementchangehistory-export-message").html(`<a class="btn btn-icon btn-success" href="/PDFFiles/Requirement/RequirementChangehistory/RequirementChangehistory_${DateTimeNow.AjaxForString}.pdf" type="button" download>
-                                            <span class="btn-inner--icon"><i class="fas fa-file-pdf"></i></span>
-                                            <span class="btn-inner--text">Download</span>
-                                        </a>`);
-
-            //Show OK message
-            $("#requirement-requirementchangehistory-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#requirement-requirementchangehistory-button-ok-message-in-card").show();
-        },
-        error: err => {
-            //Show error message
-            $("#requirement-requirementchangehistory-error-message-title").html("Rx.from(ajax.post('/api/Requirement/RequirementChangehistory/1/ExportAsPDF/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#requirement-requirementchangehistory-error-message-text").html(err);
-            $("#requirement-requirementchangehistory-button-error-message-in-card").show();
-        }
-    });
-});
-
-//Export as Excel button
-$("#requirement-requirementchangehistory-export-as-excel").on("click", function (e) {
-    //There are two exportation types, All and JustChecked
-    let ExportationType: string = "";
-    let DateTimeNow: Ajax;
-    let Body: Ajax = {};
-    //Define a header for HTTP protocol with Accept (receiver data type) and Content-Type (sender data type)
-    let Header: any = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=utf-8'
-    };
-
-    if ($("#requirement-requirementchangehistory-export-rows-all-checkbox").is(":checked")) {
-        ExportationType = "All";
-    }
-    else {
-        ExportationType = "JustChecked";
-        let CheckedRows = new Array();
-
-        if (ViewToggler == "Table") {
-            $("tr td div input.requirementchangehistory-table-checkbox-for-row:checked").each(function () {
-                CheckedRows.push($(this).val());
-            });
-
-            Body = {
-                AjaxForString: CheckedRows.toString()
-            };
-        }
-        else {
-            $("div .list-row-checked").each(function () {
-                //With .next() we access to input type hidden
-                CheckedRows.push($(this).next().val());
-            });
-
-            Body = {
-                AjaxForString: CheckedRows.toString()
-            };
-        }
-    }
-
-    Rx.from(ajax.post("/api/Requirement/RequirementChangehistory/1/ExportAsExcel/" + ExportationType, Body, Header)).subscribe({
-        next: newrow => {
-            $("#requirement-requirementchangehistory-export-message").html("<strong>Exporting as Excel</strong>");
-            DateTimeNow = newrow.response as Ajax;
-        },
-        complete: () => {
-            //Show download button for Excel file
-            $("#requirement-requirementchangehistory-export-message").html(`<a class="btn btn-icon btn-success" href="/ExcelFiles/Requirement/RequirementChangehistory/RequirementChangehistory_${DateTimeNow.AjaxForString}.xlsx" type="button" download>
-                                            <span class="btn-inner--icon"><i class="fas fa-file-excel"></i></span>
-                                            <span class="btn-inner--text">Download</span>
-                                        </a>`);
-
-            //Show OK message
-            $("#requirement-requirementchangehistory-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#requirement-requirementchangehistory-button-ok-message-in-card").show();
-        },
-        error: err => {
-            //Show error message
-            $("#requirement-requirementchangehistory-error-message-title").html("Rx.from(ajax.post('/api/Requirement/RequirementChangehistory/1/ExportAsExcel/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#requirement-requirementchangehistory-error-message-text").html(err);
-            $("#requirement-requirementchangehistory-button-error-message-in-card").show();
-        }
-    });
-});
-
-//Export as CSV button
-$("#requirement-requirementchangehistory-export-as-csv").on("click", function (e) {
-    //There are two exportation types, All and JustChecked
-    let ExportationType: string = "";
-    let DateTimeNow: Ajax;
-    let Body: Ajax = {};
-    //Define a header for HTTP protocol with Accept (receiver data type) and Content-Type (sender data type)
-    let Header: any = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json; charset=utf-8'
-    };
-
-    if ($("#requirement-requirementchangehistory-export-rows-all-checkbox").is(":checked")) {
-        ExportationType = "All";
-    }
-    else {
-        ExportationType = "JustChecked";
-        let CheckedRows = new Array();
-
-        if (ViewToggler == "Table") {
-            $("tr td div input.requirementchangehistory-table-checkbox-for-row:checked").each(function () {
-                CheckedRows.push($(this).val());
-            });
-
-            Body = {
-                AjaxForString: CheckedRows.toString()
-            };
-        }
-        else {
-            $("div .list-row-checked").each(function () {
-                //With .next() we access to input type hidden
-                CheckedRows.push($(this).next().val());
-            });
-
-            Body = {
-                AjaxForString: CheckedRows.toString()
-            };
-        }
-    }
-
-    Rx.from(ajax.post("/api/Requirement/RequirementChangehistory/1/ExportAsCSV/" + ExportationType, Body, Header)).subscribe({
-        next: newrow => {
-            $("#requirement-requirementchangehistory-export-message").html("<strong>Exporting as CSV</strong>");
-            DateTimeNow = newrow.response as Ajax;
-        },
-        complete: () => {
-            //Show download button for CSV file
-            $("#requirement-requirementchangehistory-export-message").html(`<a class="btn btn-icon btn-success" href="/CSVFiles/Requirement/RequirementChangehistory/RequirementChangehistory_${DateTimeNow.AjaxForString}.csv" type="button" download>
-                                            <span class="btn-inner--icon"><i class="fas fa-file-csv"></i></span>
-                                            <span class="btn-inner--text">Download</span>
-                                        </a>`);
-
-            //Show OK message
-            $("#requirement-requirementchangehistory-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#requirement-requirementchangehistory-button-ok-message-in-card").show();
-        },
-        error: err => {
-            //Show error message
-            $("#requirement-requirementchangehistory-error-message-title").html("Rx.from(ajax.post('/api/Requirement/RequirementChangehistory/1/ExportAsCSV/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#requirement-requirementchangehistory-error-message-text").html(err);
-            $("#requirement-requirementchangehistory-button-error-message-in-card").show();
-        }
-    });
-});
-
-//Export close button in modal
-$("#requirement-requirementchangehistory-export-close-button").on("click", function (e) {
-    $("#requirement-requirementchangehistory-export-message").html("");
-});
-
-//Massive action Copy
-$("#requirement-requirementchangehistory-massive-action-copy").on("click", function (e) {
-    //There are two deletion types, All and JustChecked
-    let CopyType: string = "";
-    let Body: Ajax = {};
-
-    if ($("#requirement-requirementchangehistory-copy-rows-all-checkbox").is(":checked")) {
-        CopyType = "All";
-    }
-    else {
-        CopyType = "JustChecked";
-        let CheckedRows = new Array();
-
-        if (ViewToggler == "Table") {
-            $("tr td div input.requirementchangehistory-table-checkbox-for-row:checked").each(function () {
-                CheckedRows.push($(this).val());
-            });
-        }
-        else {
-            $("div .list-row-checked").each(function () {
-                //With .next() we access to input type hidden
-                CheckedRows.push($(this).next().val());
-            });
-        }
-        Body = {
-            AjaxForString: CheckedRows.toString()
-        };
-    }
-
-    RequirementChangehistoryModel.CopyManyOrAll(CopyType, Body).subscribe({
-        next: newrow => {
-        },
-        complete: () => {
-            ValidateAndSearch();
-
-            //Show OK message
-            $("#requirement-requirementchangehistory-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows copied successfully`);
-            $("#requirement-requirementchangehistory-button-ok-message-in-card").show();
-        },
-        error: err => {
-            //Show error message
-            $("#requirement-requirementchangehistory-error-message-title").html("RequirementChangehistoryModel.Copy(CopyType).subscribe(...)");
-            $("#requirement-requirementchangehistory-error-message-text").html(err);
-            $("#requirement-requirementchangehistory-button-error-message-in-card").show();
-        }
-    });
-});
-
-//Massive action Delete
-$("#requirement-requirementchangehistory-massive-action-delete").on("click", function (e) {
-    //There are two deletion types, All and JustChecked
-    let DeleteType: string = "";
-    let Body: Ajax = {};
-
-    if ($("#requirement-requirementchangehistory-copy-rows-all-checkbox").is(":checked")) {
-        DeleteType = "All";
-    }
-    else {
-        DeleteType = "JustChecked";
-        let CheckedRows = new Array();
-
-        if (ViewToggler == "Table") {
-            $("tr td div input.requirementchangehistory-table-checkbox-for-row:checked").each(function () {
-                CheckedRows.push($(this).val());
-            });
-        }
-        else {
-            $("div .list-row-checked").each(function () {
-                //With .next() we access to input type hidden
-                CheckedRows.push($(this).next().val());
-            });
-        }
-        Body = {
-            AjaxForString: CheckedRows.toString()
-        };
-    }
-
-    RequirementChangehistoryModel.DeleteManyOrAll(DeleteType, Body).subscribe({
-        next: newrow => {
-        },
-        complete: () => {
-            ValidateAndSearch();
-
-            //Show OK message
-            $("#requirement-requirementchangehistory-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows deleted successfully`);
-            $("#requirement-requirementchangehistory-button-ok-message-in-card").show();
-        },
-        error: err => {
-            //Show error message
-            $("#requirement-requirementchangehistory-error-message-title").html("RequirementChangehistoryModel.Copy(CopyType).subscribe(...)");
-            $("#requirement-requirementchangehistory-error-message-text").html(err);
-            $("#requirement-requirementchangehistory-button-error-message-in-card").show();
-        }
-    });
-});
+$(window).on("scroll", requirementchangehistoryScrollDownNSearch);

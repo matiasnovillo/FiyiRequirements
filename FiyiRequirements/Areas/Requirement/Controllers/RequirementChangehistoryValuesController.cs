@@ -112,15 +112,15 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
-        [HttpPut("~/api/Requirement/RequirementChangehistory/1/SelectAllPagedToJSON")]
-        public requirementchangehistoryModelQuery SelectAllPagedToJSON([FromBody] requirementchangehistoryModelQuery requirementchangehistoryModelQuery)
+        [HttpPut("~/api/Requirement/RequirementChangehistory/1/SelectAllPagedToJSON/{RequirementId:int}")]
+        public requirementchangehistoryModelQuery SelectAllPagedToJSON([FromBody] requirementchangehistoryModelQuery requirementchangehistoryModelQuery, int RequirementId)
         {
             try
             {
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _RequirementChangehistoryProtocol.SelectAllPagedToModel(requirementchangehistoryModelQuery);
+                 return _RequirementChangehistoryProtocol.SelectAllPagedToModel(requirementchangehistoryModelQuery, RequirementId);
             }
             catch (Exception ex)
             {
@@ -159,9 +159,6 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     return StatusCode(401, "User not found in session");
                 }
 
-                //Add or edit value
-                string AddOrEdit = HttpContext.Request.Form["requirement-requirementchangehistory-title-page"];
-
                 int RequirementId = 0; 
                 if (Convert.ToInt32(HttpContext.Request.Form["requirement-requirementchangehistory-requirementid-input"]) != 0)
                 {
@@ -186,42 +183,23 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 
 
                 int NewEnteredId = 0;
-                int RowsAffected = 0;
 
-                if (AddOrEdit.StartsWith("Add"))
+                //Add
+                RequirementChangehistoryModel RequirementChangehistoryModel = new RequirementChangehistoryModel()
                 {
-                    //Add
-                    RequirementChangehistoryModel RequirementChangehistoryModel = new RequirementChangehistoryModel()
-                    {
-                        Active = true,
-                        UserCreationId = UserId,
-                        UserLastModificationId = UserId,
-                        DateTimeCreation = DateTime.Now,
-                        DateTimeLastModification = DateTime.Now,
-                        RequirementId = RequirementId,
-                        RequirementStateId = RequirementStateId,
-                        RequirementPriorityId = RequirementPriorityId,
-                        
-                    };
-                    
-                    NewEnteredId = _RequirementChangehistoryProtocol.Insert(RequirementChangehistoryModel);
-                }
-                else
-                {
-                    //Update
-                    int RequirementChangehistoryId = Convert.ToInt32(HttpContext.Request.Form["requirement-requirementchangehistory-requirementchangehistoryid-input"]);
-                    RequirementChangehistoryModel RequirementChangehistoryModel = new RequirementChangehistoryModel(RequirementChangehistoryId);
-                    
-                    RequirementChangehistoryModel.UserLastModificationId = UserId;
-                    RequirementChangehistoryModel.DateTimeLastModification = DateTime.Now;
-                    RequirementChangehistoryModel.RequirementId = RequirementId;
-                    RequirementChangehistoryModel.RequirementStateId = RequirementStateId;
-                    RequirementChangehistoryModel.RequirementPriorityId = RequirementPriorityId;
-                                       
+                    Active = true,
+                    UserCreationId = UserId,
+                    UserLastModificationId = UserId,
+                    DateTimeCreation = DateTime.Now,
+                    DateTimeLastModification = DateTime.Now,
+                    RequirementId = RequirementId,
+                    RequirementStateId = RequirementStateId,
+                    RequirementPriorityId = RequirementPriorityId,
 
-                    RowsAffected = _RequirementChangehistoryProtocol.UpdateByRequirementChangehistoryId(RequirementChangehistoryModel);
-                }
-                
+                };
+
+                NewEnteredId = _RequirementChangehistoryProtocol.Insert(RequirementChangehistoryModel);
+
 
                 //Look for sent files
                 if (HttpContext.Request.Form.Files.Count != 0)
@@ -248,14 +226,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     }
                 }
 
-                if (AddOrEdit.StartsWith("Add"))
-                {
-                    return StatusCode(200, NewEnteredId); 
-                }
-                else
-                {
-                    return StatusCode(200, RowsAffected);
-                }
+
+                return StatusCode(200, NewEnteredId);
             }
             catch (Exception ex) 
             { 

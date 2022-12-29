@@ -26,16 +26,16 @@ var RequirementChangehistoryModel = /** @class */ (function () {
         var URL = "/api/Requirement/RequirementChangehistory/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    RequirementChangehistoryModel.SelectAllPaged = function (requirementchangehistorymodelQuery) {
-        var URL = "/api/Requirement/RequirementChangehistory/1/SelectAllPagedToJSON";
+    RequirementChangehistoryModel.SelectAllPaged = function (requirementchangehistorymodelQuery, RequirementId) {
+        var URL = "/api/Requirement/RequirementChangehistory/1/SelectAllPagedToJSON/" + RequirementId;
         var Body = {
-            QueryString: requirementchangehistorymodelQuery.QueryString,
-            ActualPageNumber: requirementchangehistorymodelQuery.ActualPageNumber,
-            RowsPerPage: requirementchangehistorymodelQuery.RowsPerPage,
-            SorterColumn: requirementchangehistorymodelQuery.SorterColumn,
-            SortToggler: requirementchangehistorymodelQuery.SortToggler,
-            RowCount: requirementchangehistorymodelQuery.TotalRows,
-            TotalPages: requirementchangehistorymodelQuery.TotalPages,
+            requirementchangehistoryQueryString: requirementchangehistorymodelQuery.requirementchangehistoryQueryString,
+            requirementchangehistoryActualPageNumber: requirementchangehistorymodelQuery.requirementchangehistoryActualPageNumber,
+            requirementchangehistoryRowsPerPage: requirementchangehistorymodelQuery.requirementchangehistoryRowsPerPage,
+            requirementchangehistorySorterColumn: requirementchangehistorymodelQuery.requirementchangehistorySorterColumn,
+            requirementchangehistorySortToggler: requirementchangehistorymodelQuery.requirementchangehistorySortToggler,
+            requirementchangehistoryRowCount: requirementchangehistorymodelQuery.requirementchangehistoryTotalRows,
+            requirementchangehistoryTotalPages: requirementchangehistorymodelQuery.requirementchangehistoryTotalPages,
             lstRequirementChangehistoryModel: requirementchangehistorymodelQuery.lstRequirementChangehistoryModel
         };
         var Header = {
