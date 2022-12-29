@@ -53,9 +53,9 @@ namespace FiyiRequirements.Areas.Requirement.Services
             return new RequirementFileModel().SelectAllToList();
         }
 
-        public requirementfileModelQuery SelectAllPagedToModel(requirementfileModelQuery requirementfileModelQuery)
+        public requirementfileModelQuery SelectAllPagedToModel(requirementfileModelQuery requirementfileModelQuery, int RequirementId)
         {
-            return new RequirementFileModel().SelectAllPagedToModel(requirementfileModelQuery);
+            return new RequirementFileModel().SelectAllPagedToModel(requirementfileModelQuery, RequirementId);
         } 
         #endregion
 

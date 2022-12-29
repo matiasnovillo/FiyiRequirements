@@ -74,6 +74,10 @@ namespace FiyiRequirements.Areas.Requirement.Models
 
         [Library.ModelAttributeValidator.String("FilePath", false, 1, 8000, "")]
         public string FilePath { get; set; }
+
+        public string UserCreationIdFantasyName { get; set; }
+
+        public string UserLastModificationIdFantasyName { get; set; }
         #endregion
 
         #region Sub-lists
@@ -329,26 +333,28 @@ namespace FiyiRequirements.Areas.Requirement.Models
             catch (Exception ex) { throw ex; }
         }
 
-        public requirementfileModelQuery SelectAllPagedToModel(requirementfileModelQuery requirementfileModelQuery)
+        public requirementfileModelQuery SelectAllPagedToModel(requirementfileModelQuery requirementfileModelQuery, int RequirementId)
         {
             try
             {
                 requirementfileModelQuery.lstRequirementFileModel = new List<RequirementFileModel>();
                 DynamicParameters dp = new DynamicParameters();
-                dp.Add("QueryString", requirementfileModelQuery.QueryString, DbType.String, ParameterDirection.Input);
-                dp.Add("ActualPageNumber", requirementfileModelQuery.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
-                dp.Add("RowsPerPage", requirementfileModelQuery.RowsPerPage, DbType.Int32, ParameterDirection.Input);
-                dp.Add("SorterColumn", requirementfileModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
-                dp.Add("SortToggler", requirementfileModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
-                dp.Add("TotalRows", requirementfileModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
+                dp.Add("QueryString", requirementfileModelQuery.requirementfileQueryString, DbType.String, ParameterDirection.Input);
+                dp.Add("ActualPageNumber", requirementfileModelQuery.requirementfileActualPageNumber, DbType.Int32, ParameterDirection.Input);
+                dp.Add("RowsPerPage", requirementfileModelQuery.requirementfileRowsPerPage, DbType.Int32, ParameterDirection.Input);
+                dp.Add("SorterColumn", requirementfileModelQuery.requirementfileSorterColumn, DbType.String, ParameterDirection.Input);
+                dp.Add("SortToggler", requirementfileModelQuery.requirementfileSortToggler, DbType.Boolean, ParameterDirection.Input);
+                dp.Add("TotalRows", requirementfileModelQuery.requirementfileTotalRows, DbType.Int32, ParameterDirection.Output);
+
+                dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    requirementfileModelQuery.lstRequirementFileModel = (List<RequirementFileModel>)sqlConnection.Query<RequirementFileModel>("[dbo].[Requirement.RequirementFile.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
-                    requirementfileModelQuery.TotalRows = dp.Get<int>("TotalRows");
+                    requirementfileModelQuery.lstRequirementFileModel = (List<RequirementFileModel>)sqlConnection.Query<RequirementFileModel>("[dbo].[Requirement.RequirementFile.SelectAllPagedByRequirementIdCustom]", dp, commandType: CommandType.StoredProcedure);
+                    requirementfileModelQuery.requirementfileTotalRows = dp.Get<int>("TotalRows");
                 }
 
-                requirementfileModelQuery.TotalPages = Library.Math.Divide(requirementfileModelQuery.TotalRows, requirementfileModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+                requirementfileModelQuery.requirementfileTotalPages = Library.Math.Divide(requirementfileModelQuery.requirementfileTotalRows, requirementfileModelQuery.requirementfileRowsPerPage, Library.Math.RoundType.RoundUp);
 
                 
 
@@ -747,13 +753,13 @@ namespace FiyiRequirements.Areas.Requirement.Models
     /// </summary>
     public partial class requirementfileModelQuery 
     {
-        public string QueryString { get; set; }
-        public int ActualPageNumber { get; set; }
-        public int RowsPerPage { get; set; }
-        public string SorterColumn { get; set; }
-        public bool SortToggler { get; set; }
-        public int TotalRows { get; set; }
-        public int TotalPages { get; set; }
+        public string requirementfileQueryString { get; set; }
+        public int requirementfileActualPageNumber { get; set; }
+        public int requirementfileRowsPerPage { get; set; }
+        public string requirementfileSorterColumn { get; set; }
+        public bool requirementfileSortToggler { get; set; }
+        public int requirementfileTotalRows { get; set; }
+        public int requirementfileTotalPages { get; set; }
         public List<RequirementFileModel> lstRequirementFileModel { get; set; }
     }
 }

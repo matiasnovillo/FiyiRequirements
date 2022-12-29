@@ -20,22 +20,22 @@ var RequirementFileModel = /** @class */ (function () {
     //Queries
     RequirementFileModel.Select1ByRequirementFileId = function (RequirementFileId) {
         var URL = "/api/Requirement/RequirementFile/1/Select1ByRequirementFileIdToJSON/" + RequirementFileId;
-        return Rx.from(ajax_1.ajax(URL));
+        return Rx.from((0, ajax_1.ajax)(URL));
     };
     RequirementFileModel.SelectAll = function () {
         var URL = "/api/Requirement/RequirementFile/1/SelectAllToJSON";
-        return Rx.from(ajax_1.ajax(URL));
+        return Rx.from((0, ajax_1.ajax)(URL));
     };
-    RequirementFileModel.SelectAllPaged = function (requirementfilemodelQuery) {
-        var URL = "/api/Requirement/RequirementFile/1/SelectAllPagedToJSON";
+    RequirementFileModel.SelectAllPaged = function (requirementfilemodelQuery, RequirementId) {
+        var URL = "/api/Requirement/RequirementFile/1/SelectAllPagedToJSON/" + RequirementId;
         var Body = {
-            QueryString: requirementfilemodelQuery.QueryString,
-            ActualPageNumber: requirementfilemodelQuery.ActualPageNumber,
-            RowsPerPage: requirementfilemodelQuery.RowsPerPage,
-            SorterColumn: requirementfilemodelQuery.SorterColumn,
-            SortToggler: requirementfilemodelQuery.SortToggler,
-            RowCount: requirementfilemodelQuery.TotalRows,
-            TotalPages: requirementfilemodelQuery.TotalPages,
+            requirementfileQueryString: requirementfilemodelQuery.requirementfileQueryString,
+            requirementfileActualPageNumber: requirementfilemodelQuery.requirementfileActualPageNumber,
+            requirementfileRowsPerPage: requirementfilemodelQuery.requirementfileRowsPerPage,
+            requirementfileSorterColumn: requirementfilemodelQuery.requirementfileSorterColumn,
+            requirementfileSortToggler: requirementfilemodelQuery.requirementfileSortToggler,
+            requirementfileRowCount: requirementfilemodelQuery.requirementfileTotalRows,
+            requirementfileTotalPages: requirementfilemodelQuery.requirementfileTotalPages,
             lstRequirementFileModel: requirementfilemodelQuery.lstRequirementFileModel
         };
         var Header = {

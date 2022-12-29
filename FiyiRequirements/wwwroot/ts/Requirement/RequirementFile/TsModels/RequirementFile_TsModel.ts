@@ -26,7 +26,9 @@ export class RequirementFileModel {
 	UserCreationId?: number;
 	UserLastModificationId?: number;
 	RequirementId?: number;
-	FilePath?: string | string[] | number | undefined;
+    FilePath?: string | string[] | number | undefined;
+    UserCreationIdFantasyName?: string | string[] | number | undefined;
+    UserLastModificationIdFantasyName?: string | string[] | number | undefined;
     
 
     //Queries
@@ -40,16 +42,16 @@ export class RequirementFileModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(requirementfilemodelQuery: requirementfilemodelQuery) {
-        let URL = "/api/Requirement/RequirementFile/1/SelectAllPagedToJSON";
+    static SelectAllPaged(requirementfilemodelQuery: requirementfilemodelQuery, RequirementId: any) {
+        let URL = "/api/Requirement/RequirementFile/1/SelectAllPagedToJSON/" + RequirementId;
         let Body = {
-            QueryString: requirementfilemodelQuery.QueryString,
-            ActualPageNumber: requirementfilemodelQuery.ActualPageNumber,
-            RowsPerPage: requirementfilemodelQuery.RowsPerPage,
-            SorterColumn: requirementfilemodelQuery.SorterColumn,
-            SortToggler: requirementfilemodelQuery.SortToggler,
-            RowCount: requirementfilemodelQuery.TotalRows,
-            TotalPages: requirementfilemodelQuery.TotalPages,
+            requirementfileQueryString: requirementfilemodelQuery.requirementfileQueryString,
+            requirementfileActualPageNumber: requirementfilemodelQuery.requirementfileActualPageNumber,
+            requirementfileRowsPerPage: requirementfilemodelQuery.requirementfileRowsPerPage,
+            requirementfileSorterColumn: requirementfilemodelQuery.requirementfileSorterColumn,
+            requirementfileSortToggler: requirementfilemodelQuery.requirementfileSortToggler,
+            requirementfileRowCount: requirementfilemodelQuery.requirementfileTotalRows,
+            requirementfileTotalPages: requirementfilemodelQuery.requirementfileTotalPages,
             lstRequirementFileModel: requirementfilemodelQuery.lstRequirementFileModel
         };
         let Header: any = {
@@ -99,12 +101,12 @@ export class RequirementFileModel {
 }
 
 export class requirementfilemodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
+    requirementfileQueryString ?: string;
+    requirementfileActualPageNumber?: number;
+    requirementfileRowsPerPage?: number;
+    requirementfileSorterColumn?: string;
+    requirementfileSortToggler?: boolean;
+    requirementfileTotalRows?: number;
+    requirementfileTotalPages?: number;
     lstRequirementFileModel?: RequirementFileModel[] | undefined;
 }

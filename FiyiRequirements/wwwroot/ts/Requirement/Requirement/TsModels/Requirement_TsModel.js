@@ -20,11 +20,11 @@ var RequirementModel = /** @class */ (function () {
     //Queries
     RequirementModel.Select1ByRequirementId = function (RequirementId) {
         var URL = "/api/Requirement/Requirement/1/Select1ByRequirementIdToJSON/" + RequirementId;
-        return Rx.from(ajax_1.ajax(URL));
+        return Rx.from((0, ajax_1.ajax)(URL));
     };
     RequirementModel.SelectAll = function () {
         var URL = "/api/Requirement/Requirement/1/SelectAllToJSON";
-        return Rx.from(ajax_1.ajax(URL));
+        return Rx.from((0, ajax_1.ajax)(URL));
     };
     RequirementModel.SelectAllPaged = function (requirementmodelQuery) {
         var URL = "/api/Requirement/Requirement/1/SelectAllPagedToJSON";
