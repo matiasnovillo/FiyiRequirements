@@ -16,4 +16,12 @@
     <PackageReference Include="SixLaborsCaptcha.Mvc.Core" Version="0.2.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\CSVFiles\" />
+    <Folder Include="wwwroot\ExcelFiles\" />
+    <Folder Include="wwwroot\icons\" />
+    <Folder Include="wwwroot\PDFFiles\" />
+    <Folder Include="wwwroot\Uploads\Requirement\RequirementFile\" />
+  </ItemGroup>
+
 </Project>

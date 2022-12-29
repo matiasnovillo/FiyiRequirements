@@ -314,7 +314,7 @@
                                             </span>
                                         </div>
                                         @{
-                                            if(RequirementStateIdEnabledButton)
+                                            if(RequirementUserEmployeeIdEnabledButton)
                                             {
                                                 <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector-userprogrammerid">
                                                     <i class="fas fa-hashtag"></i>
@@ -353,8 +353,8 @@
                                 </div>
                         </form>
                     </div>
+                    <!-- Note -->
                     <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                        <!-- Note -->
                         <form role="form" class="needs-validation" novalidate>
                             <!-- Title -->
                             <div class="form-group mb-3">
@@ -521,10 +521,72 @@
                             </div>
                         </form>
                     </div>
+                    <!-- File -->
                     <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
-                        <p class="description">
-                            Files
-                        </p>
+                        <form role="form" class="needs-validation" novalidate>
+                        <!-- FileName -->
+                        <div class="form-group mb-3">
+                            <label for="requirement-requirementfile-filename-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                <i class="fas fa-font"></i> File Name
+                            </label>
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                    <span class="input-group-text ">
+                                        <strong>
+                                            <i class="fas fa-font"></i> File Name
+                                        </strong>
+                                    </span>
+                                </div>
+                                <input class="form-control" min="1" max="8000" type="text" id="requirement-requirementfile-filename-input" value="" >
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="filename-info">
+                                        <i class="fas fa-info"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FilePath -->
+                        <div class="form-group">
+                            <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                <i class="fas fa-file"></i> File Path
+                            </label>
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                    <span class="input-group-text ">
+                                        <strong>
+                                            <i class="fas fa-file"></i> File Path
+                                        </strong>
+                                    </span>
+                                </div>
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="fileinput-preview img-thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+                                    </div>
+                                    <div>
+                                        <span class="btn btn-primary btn-file">
+                                            <span class="fileinput-new">Select file</span>
+                                            <span class="fileinput-exists">Change</span>
+                                            <input type="file" min="1" max="8000" id="requirement-requirementfile-filepath-input" value="">
+                                        </span>
+                                        <a href="#" class="btn btn-outline-danger fileinput-exists" data-dismiss="fileinput">
+                                            Remove
+                                        </a>
+                                    </div>
+                                </div>
+                                <input type="hidden" min="1" max="8000" id="requirement-requirementfile-filepath-readonly" value="" />
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="FilePath-info">
+                                        <i class="fas fa-info"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Buttons -->
+                        <div class="row justify-content-between">
+                            <button id="requirement-requirementfile-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="fas fa-plus"></i> Add</button>
+                            <button id="requirement-requirementfile-insert-or-update-message" data-toggle="modal" data-target="#requirement-requirementfile-error-message-modal" class="btn mt-4 mr-3" type="button"></button>
+                        </div>
+                    </form>
                     </div>
                     <div class="tab-pane fade" id="tabs-icons-text-4" role="tabpanel" aria-labelledby="tabs-icons-text-4-tab">
                         <p class="description">
@@ -723,3 +785,5 @@
 <!-- Note -->
 <script src="/js/Requirement/RequirementNote/jQuery/RequirementNoteNonQuery_jQuery.js"></script>
 <script src="/dist/requirementnotejquery.bundle.js"></script>
+<!-- File -->
+<script src="/js/Requirement/RequirementFile/jQuery/RequirementFileNonQuery_jQuery.js"></script>

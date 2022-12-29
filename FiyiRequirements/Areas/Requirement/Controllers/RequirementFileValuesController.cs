@@ -160,12 +160,12 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 }
 
                 //Add or edit value
-                string AddOrEdit = HttpContext.Request.Form["requirement-requirementfile-title-page"];
+                string AddOrEdit = HttpContext.Request.Form["requirement-requirementfile-insert-or-update-button"];
 
                 int RequirementId = 0; 
-                if (Convert.ToInt32(HttpContext.Request.Form["requirement-requirementfile-requirementid-input"]) != 0)
+                if (Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-requirementid-input"]) != 0)
                 {
-                    RequirementId = Convert.ToInt32(HttpContext.Request.Form["requirement-requirementfile-requirementid-input"]);
+                    RequirementId = Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-requirementid-input"]);
                 }
                 else
                 { return StatusCode(400, "It's not allowed to save zero values in RequirementId"); }
@@ -180,7 +180,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 int NewEnteredId = 0;
                 int RowsAffected = 0;
 
-                if (AddOrEdit.StartsWith("Add"))
+                if (AddOrEdit.Contains("Add"))
                 {
                     //Add
                     RequirementFileModel RequirementFileModel = new RequirementFileModel()
