@@ -178,14 +178,16 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 }
                 else
                 { return StatusCode(400, "It's not allowed to save zero values in RequirementPriorityId"); }
-                int UserEmployeeId = 0; 
-                if (Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-useremployeeid-input"]) != 0)
+                int UserEmployeeId = 0;
+                if (!AddOrEdit.StartsWith("Add"))
                 {
-                    UserEmployeeId = Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-useremployeeid-input"]);
+                    if (Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-useremployeeid-input"]) != 0)
+                    {
+                        UserEmployeeId = Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-useremployeeid-input"]);
+                    }
+                    else
+                    { return StatusCode(400, "It's not allowed to save zero values in UserEmployeeId"); }
                 }
-                else
-                { return StatusCode(400, "It's not allowed to save zero values in UserEmployeeId"); }
-                
 
                 int NewEnteredId = 0;
                 int RowsAffected = 0;

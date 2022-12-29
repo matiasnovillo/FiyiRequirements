@@ -206,9 +206,6 @@ class RequirementNoteQuery {
     
     <!-- Actions -->
     <td class="text-right">
-        <a class="btn btn-icon-only text-primary" href="/Requirement/PageRequirementNoteNonQuery?RequirementNoteId=${row.RequirementNoteId}" role="button" data-toggle="tooltip" data-original-title="Edit">
-            <i class="fas fa-edit"></i>
-        </a>
         <div class="dropdown">
             <button class="btn btn-icon-only text-danger" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-trash"></i>
@@ -216,16 +213,6 @@ class RequirementNoteQuery {
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                 <button class="dropdown-item text-danger requirement-requirementnote-table-delete-button" value="${row.RequirementNoteId}" type="button">
                     <i class="fas fa-exclamation-triangle"></i> Yes, delete
-                </button>
-            </div>
-        </div>
-        <div class="dropdown">
-            <button class="btn btn-sm btn-icon-only text-primary" href="#" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-ellipsis-v"></i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                <button type="button" class="dropdown-item requirement-requirementnote-table-copy-button" value="${row.RequirementNoteId}">
-                    <i class="fas fa-copy text-primary"></i>&nbsp;Copy
                 </button>
             </div>
         </div>
@@ -283,23 +270,11 @@ class RequirementNoteQuery {
                 <div class="row">
                     <div class="col">
                         <div class="justify-content-end text-right mt-2">
-                            <div class="requirement-requirementnote-checkbox-list list-row-unchecked mb-2">
-                                <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="check">
-                                    <i class="fas fa-circle text-white"></i>
-                                </a>
-                            </div>
-                            <input type="hidden" value="${row.RequirementNoteId}"/>
-                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/Requirement/PageRequirementNoteNonQuery?RequirementNoteId=${row.RequirementNoteId}" role="button" data-toggle="tooltip" data-original-title="edit">
-                                <i class="fas fa-edit text-primary"></i>
-                            </a>
                             <div class="dropup">
                                 <a class="icon icon-shape bg-white icon-sm text-primary rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-ellipsis-v"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                    <button value="${row.RequirementNoteId}" class="dropdown-item text-primary requirement-requirementnote-list-copy-button" type="button">
-                                        <i class="fas fa-copy"></i>&nbsp;Copy
-                                    </button>
                                     <button value="${row.RequirementNoteId}" class="dropdown-item text-danger requirement-requirementnote-list-delete-button" type="button">
                                         <i class="fas fa-trash"></i>&nbsp;Delete
                                     </button>

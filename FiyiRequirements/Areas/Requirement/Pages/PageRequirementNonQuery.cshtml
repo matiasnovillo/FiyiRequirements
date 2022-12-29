@@ -22,6 +22,7 @@
     //Validations
     bool NavLinksEnabled;
     bool RequirementStateIdEnabledButton;
+    bool RequirementUserEmployeeIdEnabledButton;
 
     if(HttpContext.Request.QueryString.Value.Contains("?RequirementId=0"))
     {
@@ -33,14 +34,15 @@
         Body = "";
         RequirementStateId = 1; //For a new requirement, StateId is 1: Pending assignment
         RequirementPriorityId = 0;
-        UserEmployeeId = 0;
+        UserEmployeeId = 0; //For a new requirement, UserEmployeeName is 0: Pending assignment
         RequirementStateName = "Pending assignment"; //For a new requirement, StateId is 1: Pending assignment
         RequirementPriorityName = "Choose a value";
-        UserEmployeeName = "Choose a value";
+        UserEmployeeName = "Pending assignment"; //For a new requirement, UserEmployeeName is 0: Pending assignment
 
         //Validations
         NavLinksEnabled = false;
         RequirementStateIdEnabledButton = false;
+        RequirementUserEmployeeIdEnabledButton = false;
     }
     else
     {
@@ -69,7 +71,7 @@
         //Validations
         NavLinksEnabled = true;
         RequirementStateIdEnabledButton = true;
-
+        RequirementUserEmployeeIdEnabledButton = true;
     }
 
     List<RequirementStateModel> lstRequirementStateModel = new RequirementStateModel().SelectAllToList();
@@ -311,7 +313,20 @@
                                                 </strong>
                                             </span>
                                         </div>
-                                        <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector-userprogrammerid"><i class="fas fa-hashtag"></i></button>
+                                        @{
+                                            if(RequirementStateIdEnabledButton)
+                                            {
+                                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector-userprogrammerid">
+                                                    <i class="fas fa-hashtag"></i>
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-outline-primary border-0 invisible" data-toggle="modal" data-target="#modal-foreign-key-code-selector-userprogrammerid">
+                                                    <i class="fas fa-hashtag"></i>
+                                                </button>
+                                            }
+                                        }
                                         <ul id="requirement-requirement-useremployeeid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
                                             <li class="nav-item">
                                                 <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
@@ -373,7 +388,7 @@
                             <!-- Buttons -->
                             <div class="row justify-content-between">
                                 <button id="requirement-requirementnote-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="fas fa-plus"></i> Add</button>
-                                <button id="requirement-requirementnote-insert-or-update-message" data-toggle="modal" data-target="#requirement-requirementnote-error-message-modal" class="btn mt-4" type="button"></button>
+                                <button id="requirement-requirementnote-insert-or-update-message" data-toggle="modal" data-target="#requirement-requirementnote-error-message-modal" class="btn mt-4 mr-3" type="button"></button>
                             </div>
 
                             <div class="card shadow mt-3">
