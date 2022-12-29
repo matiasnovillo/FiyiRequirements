@@ -9,7 +9,6 @@
 
     int RequirementFileId;
     int RequirementId;
-    string FileName;
     string FilePath;
     
 
@@ -19,8 +18,7 @@
         NonQueryIcon = "fas fa-plus";
 
         RequirementFileId = 0;
-        RequirementId = 0;FileName = "";
-        FilePath = "";
+        RequirementId = 0;FilePath = "";
         
     }
     else
@@ -33,7 +31,6 @@
 
         RequirementFileId = RequirementFileModel.RequirementFileId;
         RequirementId = RequirementFileModel.RequirementId;
-        FileName = RequirementFileModel.FileName;
         FilePath = RequirementFileModel.FilePath;
         
     }
@@ -50,7 +47,7 @@
  */
     
 //Stack: 11
-//Last modification on: 25/12/2022 18:05:38
+//Last modification on: 29/12/2022 10:16:50
 
 }
 <!-- Header -->
@@ -156,27 +153,6 @@
                                 </ul>
                                 <div class="input-group-append">
                                     <button class="btn btn-danger border-0 ml-2" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="requirementid-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- FileName -->
-                        <div class="form-group mb-3">
-                            <label for="requirement-requirementfile-filename-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-font"></i> FileName
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> FileName
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" min="1" max="8000" type="text" id="requirement-requirementfile-filename-input" value="@FileName" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="filename-info">
                                         <i class="fas fa-info"></i>
                                     </button>
                                 </div>

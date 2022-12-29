@@ -20,7 +20,7 @@ EXEC [dbo].[Requirement.RequirementFile.SelectAll]
  *
  */
 
---Last modification on: 24/12/2022 6:48:16
+--Last modification on: 29/12/2022 10:16:50
 
 SET DATEFORMAT DMY
 
@@ -32,11 +32,10 @@ SELECT
     [Requirement.RequirementFile].[UserCreationId],
     [Requirement.RequirementFile].[UserLastModificationId],
     [Requirement.RequirementFile].[RequirementId],
-    [Requirement.RequirementFile].[FileName],
     [Requirement.RequirementFile].[FilePath]
 FROM 
     [Requirement.RequirementFile]
     LEFT OUTER JOIN [CMSCore.User] AS [CMSCore.User.UserCreationId] ON [Requirement.RequirementFile].[UserCreationId] = [CMSCore.User.UserCreationId].[UserId]
 	LEFT OUTER JOIN [CMSCore.User] AS [CMSCore.User.UserLastModificationId] ON [Requirement.RequirementFile].[UserLastModificationId] = [CMSCore.User.UserLastModificationId].[UserId]
 ORDER BY 
-    [Requirement.RequirementFile].[RequirementFileId]
+    [Requirement.RequirementFile].[RequirementFileId]quirement.RequirementFile].[RequirementFileId]

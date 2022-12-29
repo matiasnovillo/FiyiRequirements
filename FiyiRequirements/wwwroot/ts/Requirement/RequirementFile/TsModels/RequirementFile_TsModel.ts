@@ -14,7 +14,7 @@ import { Ajax } from "../../../Library/Ajax";
  * 
 */
 
-//9 fields | Sub-models: 0 models  | Last modification on: 25/12/2022 18:05:38 | Stack: 9
+//8 fields | Sub-models: 0 models  | Last modification on: 29/12/2022 10:16:50 | Stack: 9
 
 export class RequirementFileModel {
 
@@ -26,7 +26,6 @@ export class RequirementFileModel {
 	UserCreationId?: number;
 	UserLastModificationId?: number;
 	RequirementId?: number;
-	FileName?: string | string[] | number | undefined;
 	FilePath?: string | string[] | number | undefined;
     
 

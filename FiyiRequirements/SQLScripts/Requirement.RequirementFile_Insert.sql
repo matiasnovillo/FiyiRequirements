@@ -6,7 +6,6 @@ CREATE PROCEDURE [dbo].[Requirement.RequirementFile.Insert]
     @UserCreationId INT,
     @UserLastModificationId INT,
     @RequirementId INT,
-    @FileName VARCHAR(8000),
     @FilePath VARCHAR(8000),
 
     @NewEnteredId INT OUTPUT
@@ -37,7 +36,6 @@ EXEC [dbo].[Requirement.RequirementFile.Insert]
     @UserCreationId = 1,
     @UserLastModificationId = 1,
      @RequirementId = 1,
-    @FileName = N'PutFileName',
     @FilePath = N'PutFilePath',
 
 @NewEnteredId = @NewEnteredId OUTPUT
@@ -46,7 +44,7 @@ SELECT @NewEnteredId AS N'@NewEnteredId'
  *
  */
 
---Last modification on: 24/12/2022 6:48:16
+--Last modification on: 29/12/2022 10:16:49
 
 INSERT INTO [Requirement.RequirementFile]
 (
@@ -56,7 +54,6 @@ INSERT INTO [Requirement.RequirementFile]
     [UserCreationId],
     [UserLastModificationId],
     [RequirementId],
-    [FileName],
     [FilePath]
 )
 VALUES
@@ -66,6 +63,11 @@ VALUES
     @DateTimeLastModification,
     @UserCreationId,
     @UserLastModificationId,
+    @RequirementId,
+    @FilePath
+)
+
+SELECT @NewEnteredId = @@IDENTITYId,
     @RequirementId,
     @FileName,
     @FilePath

@@ -24,7 +24,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 25/12/2022 22:01:41
+//Last modification on: 29/12/2022 10:16:50
 
 namespace FiyiRequirements.Areas.Requirement.Controllers
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 25/12/2022 22:01:41
+    /// Last modification: 29/12/2022 10:16:50
     /// </summary>
     [ApiController]
     [RequirementFileFilter]
@@ -169,7 +169,6 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 }
                 else
                 { return StatusCode(400, "It's not allowed to save zero values in RequirementId"); }
-                string FileName = HttpContext.Request.Form["requirement-requirementfile-filename-input"];
                 string FilePath = HttpContext.Request.Form["requirement-requirementfile-filepath-input"];;
                 if (HttpContext.Request.Form.Files.Count != 0)
                 {
@@ -191,7 +190,6 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                         DateTimeCreation = DateTime.Now,
                         DateTimeLastModification = DateTime.Now,
                         RequirementId = RequirementId,
-                        FileName = FileName,
                         FilePath = FilePath,
                         
                     };
@@ -207,7 +205,6 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     RequirementFileModel.UserLastModificationId = UserId;
                     RequirementFileModel.DateTimeLastModification = DateTime.Now;
                     RequirementFileModel.RequirementId = RequirementId;
-                    RequirementFileModel.FileName = FileName;
                     RequirementFileModel.FilePath = FilePath;
                                        
 
@@ -223,10 +220,10 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     {
                         if (File.Length > 0)
                         {
-                            var FileName1 = HttpContext.Request.Form.Files[i].FileName;
+                            var FileName = HttpContext.Request.Form.Files[i].FileName;
                             var FilePath1 = $@"{_WebHostEnvironment.WebRootPath}/Uploads/Requirement/RequirementFile/";
 
-                            using (var FileStream = new FileStream($@"{FilePath1}{FileName1}", FileMode.Create))
+                            using (var FileStream = new FileStream($@"{FilePath1}{FileName}", FileMode.Create))
                             {
                                 
                                 await File.CopyToAsync(FileStream); // Read file to stream

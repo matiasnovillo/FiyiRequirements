@@ -13,7 +13,7 @@
 
 //Stack: 10
 
-//Last modification on: 25/12/2022 18:05:38
+//Last modification on: 29/12/2022 10:16:50
 
 $(document).ready(function () {
 
@@ -41,11 +41,10 @@ $("#requirement-requirementfile-insert-or-update-button").on("click", function (
     e.preventDefault();
 
     //Add or edit value
-    formData.append("requirement-requirementfile-insert-or-update-button", $("#requirement-requirementfile-insert-or-update-button").html());
+    formData.append("requirement-requirementfile-title-page", $("#requirement-requirementfile-title-page").html());
     formData.append("requirement-requirementfile-requirementfileid-input", $("#requirement-requirementfile-requirementfileid-input").val());
 
-    formData.append("requirement-requirement-requirementid-input", $("#requirement-requirement-requirementid-input").val());
-    formData.append("requirement-requirementfile-filename-input", $("#requirement-requirementfile-filename-input").val());
+    formData.append("requirement-requirementfile-requirementid-input", $("#requirement-requirementfile-requirementid-input").val());
     if (!requirementrequirementfilefilepathboolfileadded) {
     formData.append("requirement-requirementfile-filepath-input", $("#requirement-requirementfile-filepath-readonly").val());
 }

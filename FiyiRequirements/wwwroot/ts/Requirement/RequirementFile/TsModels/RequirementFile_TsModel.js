@@ -13,18 +13,18 @@ var ajax_1 = require("rxjs/ajax");
  * in all copies or substantial portions of the Software.
  *
 */
-//9 fields | Sub-models: 0 models  | Last modification on: 25/12/2022 18:05:38 | Stack: 9
+//8 fields | Sub-models: 0 models  | Last modification on: 29/12/2022 10:16:50 | Stack: 9
 var RequirementFileModel = /** @class */ (function () {
     function RequirementFileModel() {
     }
     //Queries
     RequirementFileModel.Select1ByRequirementFileId = function (RequirementFileId) {
         var URL = "/api/Requirement/RequirementFile/1/Select1ByRequirementFileIdToJSON/" + RequirementFileId;
-        return Rx.from((0, ajax_1.ajax)(URL));
+        return Rx.from(ajax_1.ajax(URL));
     };
     RequirementFileModel.SelectAll = function () {
         var URL = "/api/Requirement/RequirementFile/1/SelectAllToJSON";
-        return Rx.from((0, ajax_1.ajax)(URL));
+        return Rx.from(ajax_1.ajax(URL));
     };
     RequirementFileModel.SelectAllPaged = function (requirementfilemodelQuery) {
         var URL = "/api/Requirement/RequirementFile/1/SelectAllPagedToJSON";

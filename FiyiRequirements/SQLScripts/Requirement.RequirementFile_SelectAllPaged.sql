@@ -36,7 +36,7 @@ EXEC [dbo].[Requirement.RequirementFile.SelectAllPaged]
 SELECT @TotalRows AS N'@TotalRows'
 */
 
---Last modification on: 24/12/2022 6:48:16
+--Last modification on: 29/12/2022 10:16:50
 
 SET DATEFORMAT DMY
 SET NOCOUNT ON
@@ -49,7 +49,6 @@ SELECT
     [Requirement.RequirementFile].[UserCreationId],
     [Requirement.RequirementFile].[UserLastModificationId],
     [Requirement.RequirementFile].[RequirementId],
-    [Requirement.RequirementFile].[FileName],
     [Requirement.RequirementFile].[FilePath]
 FROM 
     [Requirement.RequirementFile]
@@ -65,7 +64,6 @@ WHERE
         OR ([Requirement.RequirementFile].[UserCreationId] LIKE  '%' + @QueryString + '%')
         OR ([Requirement.RequirementFile].[UserLastModificationId] LIKE  '%' + @QueryString + '%')
         OR ([Requirement.RequirementFile].[RequirementId] LIKE  '%' + @QueryString + '%')
-        OR ([Requirement.RequirementFile].[FileName] LIKE  '%' + @QueryString + '%')
         OR ([Requirement.RequirementFile].[FilePath] LIKE  '%' + @QueryString + '%')
 
     )
@@ -84,9 +82,12 @@ ORDER BY
     CASE WHEN (@SorterColumn = 'UserLastModificationId' AND @SortToggler = 1) THEN [Requirement.RequirementFile].[UserLastModificationId] END DESC,
     CASE WHEN (@SorterColumn = 'RequirementId' AND @SortToggler = 0) THEN [Requirement.RequirementFile].[RequirementId] END ASC,
     CASE WHEN (@SorterColumn = 'RequirementId' AND @SortToggler = 1) THEN [Requirement.RequirementFile].[RequirementId] END DESC,
-    CASE WHEN (@SorterColumn = 'FileName' AND @SortToggler = 0) THEN [Requirement.RequirementFile].[FileName] END ASC,
-    CASE WHEN (@SorterColumn = 'FileName' AND @SortToggler = 1) THEN [Requirement.RequirementFile].[FileName] END DESC,
     CASE WHEN (@SorterColumn = 'FilePath' AND @SortToggler = 0) THEN [Requirement.RequirementFile].[FilePath] END ASC,
+    CASE WHEN (@SorterColumn = 'FilePath' AND @SortToggler = 1) THEN [Requirement.RequirementFile].[FilePath] END DESC
+
+OFFSET (@ActualPageNumber - 1) * @RowsPerPage ROWS
+FETCH NEXT @RowsPerPage ROWS ONLY
+SELECT @TotalRows = COUNT(*) FROM [Requirement.RequirementFile]terColumn = 'FilePath' AND @SortToggler = 0) THEN [Requirement.RequirementFile].[FilePath] END ASC,
     CASE WHEN (@SorterColumn = 'FilePath' AND @SortToggler = 1) THEN [Requirement.RequirementFile].[FilePath] END DESC
 
 OFFSET (@ActualPageNumber - 1) * @RowsPerPage ROWS

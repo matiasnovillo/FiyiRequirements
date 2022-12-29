@@ -7,7 +7,6 @@ CREATE PROCEDURE [dbo].[Requirement.RequirementFile.UpdateByRequirementFileId]
     @UserCreationId INT,
     @UserLastModificationId INT,
     @RequirementId INT,
-    @FileName VARCHAR(8000),
     @FilePath VARCHAR(8000),
 
     @RowsAffected INT OUTPUT
@@ -37,7 +36,7 @@ SELECT @RowsAffected AS N'@RowsAffected'
  *
  */
 
---Last modification on: 24/12/2022 6:48:16
+--Last modification on: 29/12/2022 10:16:49
 
 UPDATE [Requirement.RequirementFile] SET
     [Active] = @Active,
@@ -46,10 +45,11 @@ UPDATE [Requirement.RequirementFile] SET
     [UserCreationId] = @UserCreationId,
     [UserLastModificationId] = @UserLastModificationId,
     [RequirementId] = @RequirementId,
-    [FileName] = @FileName,
     [FilePath] = @FilePath
 WHERE 
     1 = 1 
     AND [Requirement.RequirementFile].[RequirementFileId] = @RequirementFileId 
+
+SELECT @RowsAffected = @@ROWCOUNT= @RequirementFileId 
 
 SELECT @RowsAffected = @@ROWCOUNT

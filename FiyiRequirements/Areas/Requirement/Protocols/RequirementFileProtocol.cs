@@ -14,7 +14,7 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 25/12/2022 18:05:38
+//Last modification on: 29/12/2022 10:16:50
 
 namespace FiyiRequirements.Areas.Requirement.Protocols
 {
@@ -24,7 +24,7 @@ namespace FiyiRequirements.Areas.Requirement.Protocols
     /// Function:          This protocol/interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 25/12/2022 18:05:38
+    /// Last modification: 29/12/2022 10:16:50
     /// </summary>
     public partial interface RequirementFileProtocol
     {

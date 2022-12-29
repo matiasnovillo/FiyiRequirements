@@ -18,7 +18,7 @@ import { Ajax } from "../../../Library/Ajax";
 
 //Stack: 10
 
-//Last modification on: 25/12/2022 18:05:38
+//Last modification on: 29/12/2022 10:16:50
 
 //Set default values
 let LastTopDistance: number = 0;
@@ -78,11 +78,6 @@ class RequirementFileQuery {
         <th scope="col">
             <button value="RequirementId" class="btn btn-outline-secondary btn-sm" type="button">
                 RequirementId
-            </button>
-        </th>
-        <th scope="col">
-            <button value="FileName" class="btn btn-outline-secondary btn-sm" type="button">
-                FileName
             </button>
         </th>
         <th scope="col">
@@ -196,11 +191,6 @@ class RequirementFileQuery {
         </strong>
     </td>
     <td class="text-left">
-        <strong><i class="fas fa-font">
-            </i> ${row.FileName}
-        </strong>
-    </td>
-    <td class="text-left">
         <a href="${row.FilePath}">
             <strong>
                 <i class="fas fa-file"></i> ${row.FilePath}
@@ -268,10 +258,6 @@ class RequirementFileQuery {
                         <br/>
                         <span class="text-white mb-4">
                            RequirementId <i class="fas fa-key"></i> ${row.RequirementId}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                           FileName <i class="fas fa-font"></i> ${row.FileName}
                         </span>
                         <br/>
                         <span class="text-white mb-4">

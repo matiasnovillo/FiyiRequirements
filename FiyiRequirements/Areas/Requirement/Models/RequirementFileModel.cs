@@ -26,9 +26,9 @@ namespace FiyiRequirements.Areas.Requirement.Models
     /// Function:          Allow you to manipulate information from database using stored procedures.
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
-    /// Fields:            9 <br/> 
+    /// Fields:            8 <br/> 
     /// Sub-models:      0 models <br/>
-    /// Last modification: 25/12/2022 18:05:38
+    /// Last modification: 29/12/2022 10:16:50
     /// </summary>
     [Serializable]
     public partial class RequirementFileModel
@@ -72,9 +72,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
         [Library.ModelAttributeValidator.Key("RequirementId")]
         public int RequirementId { get; set; }
 
-        [Library.ModelAttributeValidator.String("FileName", false, 1, 8000, "")]
-        public string FileName { get; set; }
-
         [Library.ModelAttributeValidator.String("FilePath", false, 1, 8000, "")]
         public string FilePath { get; set; }
         #endregion
@@ -89,7 +86,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Function:     Create fastly this model with field RequirementFileId = 0 <br/>
         /// Note 1:       Generally used to have fast access to functions of object. <br/>
         /// Note 2:       Need construction with [new] reserved word, as all constructors. <br/>
-        /// Fields:       9 <br/> 
+        /// Fields:       8 <br/> 
         /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
         public RequirementFileModel()
@@ -108,7 +105,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Stack:        3 <br/>
         /// Function:     Create this model with stored information in database using RequirementFileId <br/>
         /// Note:         Raise exception on duplicated IDs <br/>
-        /// Fields:       9 <br/> 
+        /// Fields:       8 <br/> 
         /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
         public RequirementFileModel(int RequirementFileId)
@@ -144,7 +141,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 					this.UserCreationId = requirementfile.UserCreationId;
 					this.UserLastModificationId = requirementfile.UserLastModificationId;
 					this.RequirementId = requirementfile.RequirementId;
-					this.FileName = requirementfile.FileName;
 					this.FilePath = requirementfile.FilePath;
                 }
             }
@@ -156,10 +152,10 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Stack:        3 <br/>
         /// Function:     Create this model with filled parameters <br/>
         /// Note:         Raise exception on duplicated IDs <br/>
-        /// Fields:       9 <br/> 
+        /// Fields:       8 <br/> 
         /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
-        public RequirementFileModel(int RequirementFileId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int RequirementId, string FileName, string FilePath)
+        public RequirementFileModel(int RequirementFileId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int RequirementId, string FilePath)
         {
             try
             {
@@ -173,7 +169,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				this.UserCreationId = UserCreationId;
 				this.UserLastModificationId = UserLastModificationId;
 				this.RequirementId = RequirementId;
-				this.FileName = FileName;
 				this.FilePath = FilePath;
             }
             catch (Exception ex) { throw ex; }
@@ -183,7 +178,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Stack:        3 <br/>
         /// Function:     Create this model (copy) using the given model (original), requirementfile, passed by parameter. <br/>
         /// Note:         This constructor is generally used to execute functions using the copied fields <br/>
-        /// Fields:       9 <br/> 
+        /// Fields:       8 <br/> 
         /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
         public RequirementFileModel(RequirementFileModel requirementfile)
@@ -200,7 +195,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				UserCreationId = requirementfile.UserCreationId;
 				UserLastModificationId = requirementfile.UserLastModificationId;
 				RequirementId = requirementfile.RequirementId;
-				FileName = requirementfile.FileName;
 				FilePath = requirementfile.FilePath;
             }
             catch (Exception ex) { throw ex; }
@@ -310,7 +304,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 					RequirementFileModel.UserCreationId = requirementfile.UserCreationId;
 					RequirementFileModel.UserLastModificationId = requirementfile.UserLastModificationId;
 					RequirementFileModel.RequirementId = requirementfile.RequirementId;
-					RequirementFileModel.FileName = requirementfile.FileName;
 					RequirementFileModel.FilePath = requirementfile.FilePath;
                 }
 
@@ -384,7 +377,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("FileName", FileName, DbType.String, ParameterDirection.Input);
 				dp.Add("FilePath", FilePath, DbType.String, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
@@ -420,7 +412,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("UserCreationId", requirementfile.UserCreationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserLastModificationId", requirementfile.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementId", requirementfile.RequirementId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("FileName", requirementfile.FileName, DbType.String, ParameterDirection.Input);
 				dp.Add("FilePath", requirementfile.FilePath, DbType.String, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
                 
@@ -442,7 +433,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
         /// <returns>The ID of the last registry inserted in RequirementFile table</returns>
-        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int RequirementId, string FileName, string FilePath)
+        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int RequirementId, string FilePath)
         {
             try
             {
@@ -456,7 +447,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("FileName", FileName, DbType.String, ParameterDirection.Input);
 				dp.Add("FilePath", FilePath, DbType.String, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
@@ -493,7 +483,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("FileName", FileName, DbType.String, ParameterDirection.Input);
 				dp.Add("FilePath", FilePath, DbType.String, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
@@ -530,7 +519,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("UserCreationId", requirementfile.UserCreationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserLastModificationId", requirementfile.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementId", requirementfile.RequirementId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("FileName", requirementfile.FileName, DbType.String, ParameterDirection.Input);
 				dp.Add("FilePath", requirementfile.FilePath, DbType.String, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
@@ -552,7 +540,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
         /// <returns>The number of rows updated in RequirementFile table</returns>
-        public int UpdateByRequirementFileId(int RequirementFileId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int RequirementId, string FileName, string FilePath)
+        public int UpdateByRequirementFileId(int RequirementFileId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int RequirementId, string FilePath)
         {
             try
             {
@@ -567,7 +555,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("FileName", FileName, DbType.String, ParameterDirection.Input);
 				dp.Add("FilePath", FilePath, DbType.String, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
@@ -696,7 +683,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				$"UserCreationId: {UserCreationId}, " +
 				$"UserLastModificationId: {UserLastModificationId}, " +
 				$"RequirementId: {RequirementId}, " +
-				$"FileName: {FileName}, " +
 				$"FilePath: {FilePath}";
         }
 
@@ -743,12 +729,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
             <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{RequirementId}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{FileName}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td><td align=""left"" valign=""top"">

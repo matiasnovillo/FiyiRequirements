@@ -24,7 +24,7 @@ EXEC [dbo].[RequirementFile.Select1ByRequirementFileId]
  *
  */
 
---Last modification on: 24/12/2022 6:48:16
+--Last modification on: 29/12/2022 10:16:49
 
 SET DATEFORMAT DMY
 
@@ -36,7 +36,6 @@ SELECT
     [Requirement.RequirementFile].[UserCreationId],
     [Requirement.RequirementFile].[UserLastModificationId],
     [Requirement.RequirementFile].[RequirementId],
-    [Requirement.RequirementFile].[FileName],
     [Requirement.RequirementFile].[FilePath]
 FROM 
     [Requirement.RequirementFile]
@@ -46,4 +45,4 @@ WHERE
     1 = 1
     AND [Requirement.RequirementFile].[RequirementFileId] = @RequirementFileId
 ORDER BY 
-    [Requirement.RequirementFile].[RequirementFileId]
+    [Requirement.RequirementFile].[RequirementFileId]quirement.RequirementFile].[RequirementFileId]

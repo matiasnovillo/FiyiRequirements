@@ -28,7 +28,7 @@ SELECT @RowsAffected AS N'@RowsAffected'
  *
  */
 
---Last modification on: 24/12/2022 6:48:16
+--Last modification on: 29/12/2022 10:16:49
 
 DELETE FROM 
     [Requirement.RequirementFile]
