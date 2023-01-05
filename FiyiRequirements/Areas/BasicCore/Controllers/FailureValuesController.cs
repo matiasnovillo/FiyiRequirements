@@ -147,6 +147,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
 
         #region Non-Queries
         [HttpPost("~/api/BasicCore/Failure/1/InsertOrUpdateAsync")]
+        [Produces("text/plain")]
         public async Task<IActionResult> InsertOrUpdateAsync()
         {
             try
@@ -271,6 +272,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
         }
 
         [HttpDelete("~/api/BasicCore/Failure/1/DeleteByFailureId/{FailureId:int}")]
+        [Produces("text/plain")]
         public IActionResult DeleteByFailureId(int FailureId)
         {
             try
@@ -304,6 +306,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
         }
 
         [HttpPost("~/api/BasicCore/Failure/1/DeleteManyOrAll/{DeleteType}")]
+        [Produces("text/plain")]
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
             try
@@ -338,6 +341,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
         }
 
         [HttpPost("~/api/BasicCore/Failure/1/CopyByFailureId/{FailureId:int}")]
+        [Produces("text/plain")]
         public IActionResult CopyByFailureId(int FailureId)
         {
             try
@@ -372,6 +376,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
         }
 
         [HttpPost("~/api/BasicCore/Failure/1/CopyManyOrAll/{CopyType}")]
+        [Produces("text/plain")]
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
             try
@@ -415,6 +420,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
 
         #region Other actions
         [HttpPost("~/api/BasicCore/Failure/1/ExportAsPDF/{ExportationType}")]
+        [Produces("text/plain")]
         public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -449,6 +455,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
         }
 
         [HttpPost("~/api/BasicCore/Failure/1/ExportAsExcel/{ExportationType}")]
+        [Produces("text/plain")]
         public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -483,6 +490,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
         }
 
         [HttpPost("~/api/BasicCore/Failure/1/ExportAsCSV/{ExportationType}")]
+        [Produces("text/plain")]
         public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
         {
             try

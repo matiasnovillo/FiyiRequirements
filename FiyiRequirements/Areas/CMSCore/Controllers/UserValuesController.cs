@@ -148,6 +148,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
 
         #region Non-Queries
         [HttpPost("~/api/CMSCore/User/1/InsertOrUpdateAsync")]
+        [Produces("text/plain")]
         public async Task<IActionResult> InsertOrUpdateAsync()
         {
             try
@@ -276,6 +277,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpDelete("~/api/CMSCore/User/1/DeleteByUserId/{UserId:int}")]
+        [Produces("text/plain")]
         public IActionResult DeleteByUserId(int UserId)
         {
             try
@@ -309,6 +311,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPost("~/api/CMSCore/User/1/DeleteManyOrAll/{DeleteType}")]
+        [Produces("text/plain")]
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
             try
@@ -343,6 +346,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPost("~/api/CMSCore/User/1/CopyByUserId/{UserId:int}")]
+        [Produces("text/plain")]
         public IActionResult CopyByUserId(int UserId)
         {
             try
@@ -377,6 +381,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPost("~/api/CMSCore/User/1/CopyManyOrAll/{CopyType}")]
+        [Produces("text/plain")]
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
             try
@@ -418,6 +423,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPost("~/api/CMSCore/User/1/Login")]
+        [Produces("text/plain")]
         public IActionResult Login()
         {
             try
@@ -461,6 +467,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPut("~/api/CMSCore/User/1/ChangePassword")]
+        [Produces("text/plain")]
         public IActionResult ChangePassword()
         {
             try
@@ -497,6 +504,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPost("~/api/CMSCore/User/1/Register")]
+        [Produces("text/plain")]
         public IActionResult Register()
         {
             try
@@ -540,6 +548,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPut("~/api/CMSCore/User/1/RecoverPassword")]
+        [Produces("text/plain")]
         public IActionResult RecoverPassword()
         {
             try
@@ -573,6 +582,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPut("~/api/CMSCore/User/1/Logout")]
+        [Produces("text/plain")]
         public IActionResult Logout()
         {
             try
@@ -606,6 +616,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
 
         #region Other actions
         [HttpPost("~/api/CMSCore/User/1/ExportAsPDF/{ExportationType}")]
+        [Produces("text/plain")]
         public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -640,6 +651,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPost("~/api/CMSCore/User/1/ExportAsExcel/{ExportationType}")]
+        [Produces("text/plain")]
         public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -674,6 +686,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPost("~/api/CMSCore/User/1/ExportAsCSV/{ExportationType}")]
+        [Produces("text/plain")]
         public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
         {
             try
