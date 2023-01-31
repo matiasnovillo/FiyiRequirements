@@ -14,6 +14,8 @@ using FiyiRequirements.Areas.BasicCulture.Services;
 using FiyiRequirements.Areas.BasicCulture.Protocols;
 using FiyiRequirements.Areas.Requirement.Protocols;
 using FiyiRequirements.Areas.Requirement.Services;
+using FiyiRequirements.Areas.Examples.Protocols;
+using FiyiRequirements.Areas.Examples.Services;
 
 namespace FiyiRequirements
 {
@@ -65,6 +67,8 @@ namespace FiyiRequirements
             services.AddScoped<RequirementNoteProtocol, RequirementNoteService>();
             services.AddScoped<RequirementPriorityProtocol, RequirementPriorityService>();
             services.AddScoped<RequirementStateProtocol, RequirementStateService>();
+            //Area: Examples
+            services.AddScoped<ExampleProtocol, ExampleService>();
 
             //Session configuration
             services.AddMvc();

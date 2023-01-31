@@ -91,7 +91,10 @@
          requirementprioritytsmodel: ["./wwwroot/ts/Requirement/RequirementPriority/TsModels/RequirementPriority_TsModel"],
          requirementpriorityjquery: ["./wwwroot/ts/Requirement/RequirementPriority/jQuery/RequirementPriorityQuery_jQuery"],
          requirementstatetsmodel: ["./wwwroot/ts/Requirement/RequirementState/TsModels/RequirementState_TsModel"],
-         requirementstatejquery: ["./wwwroot/ts/Requirement/RequirementState/jQuery/RequirementStateQuery_jQuery"]
+         requirementstatejquery: ["./wwwroot/ts/Requirement/RequirementState/jQuery/RequirementStateQuery_jQuery"],
+
+         exampletsmodel: ["./wwwroot/ts/Examples/Example/TsModels/Example_TsModel"], //Area: Examples
+         examplejquery: ["./wwwroot/ts/Examples/Example/jQuery/ExampleQuery_jQuery"]
      },
      output: {
          filename: "[name].bundle.js",                       //Path to save bundles: __dirname + "/wwwroot/dist" (__dirname is a Node.js variable)
