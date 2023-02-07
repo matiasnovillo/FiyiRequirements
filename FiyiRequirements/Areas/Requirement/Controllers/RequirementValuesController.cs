@@ -155,7 +155,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
 
         #region Non-Queries
         [HttpPost("~/api/Requirement/Requirement/1/InsertOrUpdateAsync")]
-        [Produces("text/plain")]
+        
         public async Task<IActionResult> InsertOrUpdateAsync()
         {
             try
@@ -297,7 +297,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
         }
 
         [HttpDelete("~/api/Requirement/Requirement/1/DeleteByRequirementId/{RequirementId:int}")]
-        [Produces("text/plain")]
+        
         public IActionResult DeleteByRequirementId(int RequirementId)
         {
             try
@@ -331,7 +331,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
         }
 
         [HttpPost("~/api/Requirement/Requirement/1/DeleteManyOrAll/{DeleteType}")]
-        [Produces("text/plain")]
+        
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
             try
@@ -366,7 +366,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
         }
 
         [HttpPost("~/api/Requirement/Requirement/1/CopyByRequirementId/{RequirementId:int}")]
-        [Produces("text/plain")]
+        
         public IActionResult CopyByRequirementId(int RequirementId)
         {
             try
@@ -401,7 +401,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
         }
 
         [HttpPost("~/api/Requirement/Requirement/1/CopyManyOrAll/{CopyType}")]
-        [Produces("text/plain")]
+        
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
             try
@@ -445,7 +445,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
 
         #region Other actions
         [HttpPost("~/api/Requirement/Requirement/1/ExportAsPDF/{ExportationType}")]
-        [Produces("text/plain")]
+        
         public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -480,7 +480,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
         }
 
         [HttpPost("~/api/Requirement/Requirement/1/ExportAsExcel/{ExportationType}")]
-        [Produces("text/plain")]
+        
         public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -515,7 +515,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
         }
 
         [HttpPost("~/api/Requirement/Requirement/1/ExportAsCSV/{ExportationType}")]
-        [Produces("text/plain")]
+        
         public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
         {
             try

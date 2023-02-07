@@ -179,7 +179,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
 
         #region Non-Queries
         [HttpPost("~/api/CMSCore/RoleMenu/1/InsertOrUpdateAsync")]
-        [Produces("text/plain")]
+        
         public async Task<IActionResult> InsertOrUpdateAsync()
         {
             try
@@ -304,7 +304,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPost("~/api/CMSCore/RoleMenu/1/InsertPermissions/")]
-        [Produces("text/plain")]
+        
         public IActionResult InsertPermissions()
         {
             try
@@ -360,7 +360,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpDelete("~/api/CMSCore/RoleMenu/1/DeleteByRoleMenuId/{RoleMenuId:int}")]
-        [Produces("text/plain")]
+        
         public IActionResult DeleteByRoleMenuId(int RoleMenuId)
         {
             try
@@ -394,7 +394,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPost("~/api/CMSCore/RoleMenu/1/DeleteManyOrAll/{DeleteType}")]
-        [Produces("text/plain")]
+        
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
             try
@@ -429,7 +429,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPost("~/api/CMSCore/RoleMenu/1/CopyByRoleMenuId/{RoleMenuId:int}")]
-        [Produces("text/plain")]
+        
         public IActionResult CopyByRoleMenuId(int RoleMenuId)
         {
             try
@@ -464,7 +464,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPost("~/api/CMSCore/RoleMenu/1/CopyManyOrAll/{CopyType}")]
-        [Produces("text/plain")]
+        
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
             try
@@ -508,7 +508,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
 
         #region Other actions
         [HttpPost("~/api/CMSCore/RoleMenu/1/ExportAsPDF/{ExportationType}")]
-        [Produces("text/plain")]
+        
         public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -543,7 +543,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPost("~/api/CMSCore/RoleMenu/1/ExportAsExcel/{ExportationType}")]
-        [Produces("text/plain")]
+        
         public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -578,7 +578,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPost("~/api/CMSCore/RoleMenu/1/ExportAsCSV/{ExportationType}")]
-        [Produces("text/plain")]
+        
         public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
         {
             try

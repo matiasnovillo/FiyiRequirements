@@ -48,6 +48,10 @@
 
     }
 
+    List<RoleModel> lstRoleModel = new RoleModel().SelectAllToList();
+
+
+
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
@@ -72,7 +76,6 @@
                 <div class="col-lg-6 col-7">
                     <!-- Title -->
                     <h2 id="cmscore-user-title-page" class="h2 text-white d-inline-block mb-0">@NonQueryText user</h2>
-                    <input id="cmscore-user-userid-input" type="hidden" value="@UserId" />
                     <!-- Breadcrumb -->
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -221,7 +224,7 @@
                                 <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector"><i class="fas fa-hashtag"></i></button>
                                 <ul id="cmscore-user-roleid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-text-1-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
+                                        <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
                                             @RoleName
                                         </a>
                                         <input type="hidden" id="cmscore-user-roleid-input" value="@RoleId"/>
@@ -282,14 +285,14 @@
                 <div class="modal-content bg-gradient-danger">
                     <!-- Modal title -->
                     <div class="modal-header">
-                        <h6 class="modal-title text-white" id="modal-title-notification">
+                        <h6 class="modal-title text-white">
                             Error <i class="fas fa-exclamation-triangle"></i>
                         </h6>
                     </div>
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="py-3 text-center">
-                            <h4 id="/cmscore-user-error-message-title" class="heading mt-4 text-white"></h4>
+                            <h4 id="cmscore-user-error-message-title" class="heading mt-4 text-white"></h4>
                             <p class="text-white text-truncate" id="cmscore-user-error-message-text"></p>
                         </div>
                     </div>
@@ -305,7 +308,7 @@
     </div>
 </div>
 
-<!-- ForeignKeyDropDown selector in Modal style -->
+<!-- Role selector in Modal style -->
 <div class="row">
     <div class="col-md-4">
         <!-- Modal -->
@@ -314,16 +317,22 @@
                 <!-- Modal content -->
                 <div class="modal-content bg-gradient-secondary">
                     <div class="modal-header">
-                        <h6 class="modal-title text-primary" id="modal-title-notification">
-                            Choose a ForeignKeyDropDown value <i class="fas fa-hashtag"></i>
+                        <h6 class="modal-title text-primary">
+                            Choose a role <i class="fas fa-hashtag"></i>
                          </h6>
                     </div>
                     <div class="modal-body">
                         <form role="form">
                             <div class="form-group">
                                 <div class="input-group input-group-merge input-group-alternative">
-                                    <select id="cmscore-user-foreignkeydropdown-select" class="form-control" data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Choose value" data-allow-reset="true">
+                                    <select id="cmscore-user-roleid-select" class="form-control" data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Choose value" data-allow-reset="true">
                                         <option value="0"></option> <!--This must be empty-->
+                                        @{
+                                            foreach (RoleModel RoleModel in lstRoleModel)
+                                            {
+                                                <option value="@RoleModel.RoleId" >@RoleModel.Name</option>
+                                            }
+                                        }
                                     </select>
                                 </div>
                             </div>
@@ -332,37 +341,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-primary ml-auto" data-dismiss="modal">Close</button>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Phone code Selector in Modal style -->
-<div class="row">
-    <div class="col-md-4">
-        <div class="modal fade" id="modal-phone-code-selector" tabindex="-1" role="dialog" aria-labelledby="modal-phone-code-selector" aria-hidden="true">
-            <div class="modal-dialog modal-secondary modal-dialog-centered modal-" role="document">
-                <div class="modal-content bg-gradient-secondary">
-                    <div class="modal-header">
-                        <h6 class="modal-title text-primary" id="modal-title-notification">Choose your phone code <i class="fas fa-globe-americas"></i></h6>
-                    </div>
-                    <div class="modal-body">
-                        <form role="form">
-                            <div class="form-group">
-                                <div class="input-group input-group-merge input-group-alternative">
-                                    <select class="form-control" data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Country (+Code)" data-allow-reset="true">
-                                        <option></option> <!--This must be empty-->
-                                        <option>Argentina (+54)</option>
-                                        <option>USA (+1)</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-primary ml-auto" data-dismiss="modal">Close</button>
-                    </div>
-
                 </div>
             </div>
         </div>

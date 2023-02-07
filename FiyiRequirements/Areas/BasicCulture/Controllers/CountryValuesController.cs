@@ -147,7 +147,6 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
 
         #region Non-Queries
         [HttpPost("~/api/BasicCulture/Country/1/InsertOrUpdateAsync")]
-        [Produces("text/plain")]
         public async Task<IActionResult> InsertOrUpdateAsync()
         {
             try
@@ -272,7 +271,6 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
         }
 
         [HttpDelete("~/api/BasicCulture/Country/1/DeleteByCountryId/{CountryId:int}")]
-        [Produces("text/plain")]
         public IActionResult DeleteByCountryId(int CountryId)
         {
             try
@@ -306,7 +304,6 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
         }
 
         [HttpPost("~/api/BasicCulture/Country/1/DeleteManyOrAll/{DeleteType}")]
-        [Produces("text/plain")]
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
             try
@@ -341,7 +338,6 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
         }
 
         [HttpPost("~/api/BasicCulture/Country/1/CopyByCountryId/{CountryId:int}")]
-        [Produces("text/plain")]
         public IActionResult CopyByCountryId(int CountryId)
         {
             try
@@ -376,7 +372,6 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
         }
 
         [HttpPost("~/api/BasicCulture/Country/1/CopyManyOrAll/{CopyType}")]
-        [Produces("text/plain")]
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
             try
@@ -420,7 +415,6 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
 
         #region Other actions
         [HttpPost("~/api/BasicCulture/Country/1/ExportAsPDF/{ExportationType}")]
-        [Produces("text/plain")]
         public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -455,7 +449,6 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
         }
 
         [HttpPost("~/api/BasicCulture/Country/1/ExportAsExcel/{ExportationType}")]
-        [Produces("text/plain")]
         public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -490,7 +483,6 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
         }
 
         [HttpPost("~/api/BasicCulture/Country/1/ExportAsCSV/{ExportationType}")]
-        [Produces("text/plain")]
         public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
         {
             try

@@ -1,6 +1,7 @@
 @page
 @using FiyiRequirements.Areas.Requirement.Models
 @using FiyiRequirements.Areas.CMSCore.Models
+@using Microsoft.AspNetCore.Http;
 @model FiyiRequirements.Areas.Requirement.Pages.PageRequirementNonQueryModel
 @{
     Layout = "_LayoutDashboard";
@@ -77,6 +78,14 @@
     List<RequirementStateModel> lstRequirementStateModel = new RequirementStateModel().SelectAllToList();
     List<RequirementPriorityModel> lstRequirementPriorityModel = new RequirementPriorityModel().SelectAllToList();
     List<UserModel> lstUserEmployeeModel = new UserModel().SelectAllByEmployeeRoleToList(3); //Role 3: Employee
+
+    //Don't allow clients to change employee ID
+    int UserId = HttpContext.Session.GetInt32("UserId") ?? 0;
+    UserModel UserModel2 = new UserModel(UserId);
+    if(UserModel2.RoleId == 2)
+    {
+        RequirementUserEmployeeIdEnabledButton = false;
+    }
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b

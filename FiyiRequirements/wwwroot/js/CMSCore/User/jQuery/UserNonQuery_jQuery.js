@@ -16,7 +16,15 @@
 //Last modification on: 21/12/2022 11:12:12
 
 $(document).ready(function () {
-
+    //Employee select tag
+    $("#cmscore-user-roleid-select").on("change", function (e) {
+        $("#cmscore-user-roleid-list").html(`<li class="nav-item">
+            <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
+                ${$("#cmscore-user-roleid-select option:selected").text()}
+            </a>
+            <input type="hidden" id="cmscore-user-roleid-input" value="${$("#cmscore-user-roleid-select option:selected").val()}"/>
+        </li>`);
+    });
 });
 
 //Used for Quill Editor
