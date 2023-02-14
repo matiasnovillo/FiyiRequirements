@@ -5,18 +5,19 @@ var Parameter_TsModel_1 = require("../../Parameter/TsModels/Parameter_TsModel");
 var $ = require("jquery");
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
+require("bootstrap-notify");
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  *
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  *
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  *
 */
 //Stack: 10
-//Last modification on: 21/12/2022 9:32:45
+//Last modification on: 14/02/2023 11:05:05
 //Set default values
 var LastTopDistance = 0;
 var QueryString = "";
@@ -35,7 +36,7 @@ var ParameterQuery = /** @class */ (function () {
         //Used for list view
         $(window).off("scroll");
         //Load some part of table
-        var TableContent = "<thead class=\"thead-light\">\n    <tr>\n        <th scope=\"col\">\n            <div>\n                <input id=\"parameter-table-check-all\" type=\"checkbox\">\n            </div>\n        </th>\n        <th scope=\"col\">\n            <button value=\"ParameterId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Parameter ID\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Name\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Name\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Value\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Value\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"IsPrivate\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Is private?\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Active\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Active\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserCreationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserLastModificationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeCreation\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeLastModification\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Last Modification\n            </button>\n        </th>\n        \n        <th scope=\"col\"></th>\n    </tr>\n</thead>\n<tbody>";
+        var TableContent = "<thead class=\"thead-light\">\n    <tr>\n        <th scope=\"col\">\n            <div>\n                <input id=\"parameter-table-check-all\" type=\"checkbox\">\n            </div>\n        </th>\n        <th scope=\"col\">\n            <button value=\"ParameterId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Parameter ID\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Active\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Active\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeCreation\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeLastModification\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserCreationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserLastModificationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Name\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Name\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Value\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Value\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"IsPrivate\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Is private\n            </button>\n        </th>\n        \n        <th scope=\"col\"></th>\n    </tr>\n</thead>\n<tbody>";
         var ListContent = "";
         Parameter_TsModel_1.ParameterModel.SelectAllPaged(request_parametermodelQuery).subscribe({
             next: function (newrow) {
@@ -89,8 +90,8 @@ var ParameterQuery = /** @class */ (function () {
                     }
                     //Read data book
                     (_j = response_parameterQuery === null || response_parameterQuery === void 0 ? void 0 : response_parameterQuery.lstParameterModel) === null || _j === void 0 ? void 0 : _j.forEach(function (row) {
-                        TableContent += "<tr>\n    <!-- Checkbox -->\n    <td>\n        <div>\n            <input class=\"parameter-table-checkbox-for-row\" value=\"" + row.ParameterId + "\" type=\"checkbox\">\n        </div>\n    </td>\n    <!-- Data -->\n    <td class=\"text-left text-light\">\n        <i class=\"fas fa-key\"></i> " + row.ParameterId + "\n    </td>\n    <td class=\"text-left\">\n        <strong><i class=\"fas fa-font\">\n            </i> " + row.Name + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <i class=\"fas fa-font\"></i> " + row.Value + "\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-toggle-on\"></i> " + (row.IsPrivate == true ? "Yes <i class='text-success fas fa-circle'></i>" : "No <i class='text-danger fas fa-circle'></i>") + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-toggle-on\"></i> " + (row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>") + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong><i class=\"fas fa-divide\">\n            </i> " + row.UserCreationIdFantasyName + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong><i class=\"fas fa-divide\">\n            </i> " + row.UserLastModificationIdFantasyName + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-calendar\"></i> " + row.DateTimeCreation + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-calendar\"></i> " + row.DateTimeLastModification + "\n        </strong>\n    </td>\n    \n    <!-- Actions -->\n    <td class=\"text-right\">\n        <a class=\"btn btn-icon-only text-primary\" href=\"/BasicCore/PageParameterNonQuery?ParameterId=" + row.ParameterId + "\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"Edit\">\n            <i class=\"fas fa-edit\"></i>\n        </a>\n        <div class=\"dropdown\">\n            <button class=\"btn btn-icon-only text-danger\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <i class=\"fas fa-trash\"></i>\n            </button>\n            <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\n                <button class=\"dropdown-item text-danger basiccore-parameter-table-delete-button\" value=\"" + row.ParameterId + "\" type=\"button\">\n                    <i class=\"fas fa-exclamation-triangle\"></i> Yes, delete\n                </button>\n            </div>\n        </div>\n        <div class=\"dropdown\">\n            <button class=\"btn btn-sm btn-icon-only text-primary\" href=\"#\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <i class=\"fas fa-ellipsis-v\"></i>\n            </button>\n            <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\n                <button type=\"button\" class=\"dropdown-item basiccore-parameter-table-copy-button\" value=\"" + row.ParameterId + "\">\n                    <i class=\"fas fa-copy text-primary\"></i>&nbsp;Copy\n                </button>\n            </div>\n        </div>\n    </td>\n</tr>";
-                        ListContent += "<div class=\"row mx-2\">\n    <div class=\"col-sm\">\n        <div class=\"card bg-gradient-primary mb-2\">\n            <div class=\"card-body\">\n                <div class=\"row\">\n                    <div class=\"col text-truncate\">\n                        <span class=\"text-white text-light mb-4\">\n                           Parameter ID <i class=\"fas fa-key\"></i> " + row.ParameterId + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Name <i class=\"fas fa-font\"></i> " + row.Name + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Value <i class=\"fas fa-font\"></i> " + row.Value + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Is private? <i class=\"fas fa-toggle-on\"></i> " + (row.IsPrivate == true ? "Yes <i class='text-success fas fa-circle'></i>" : "No <i class='text-danger fas fa-circle'></i>") + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Active <i class=\"fas fa-toggle-on\"></i> " + (row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>") + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                            User Creation <i class=\"fas fa-divide\"></i> " + row.UserCreationIdFantasyName + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                            User Last Modification <i class=\"fas fa-divide\"></i> " + row.UserLastModificationIdFantasyName + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Date Time Creation <i class=\"fas fa-calendar\"></i> " + row.DateTimeCreation + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Date Time Last Modification <i class=\"fas fa-calendar\"></i> " + row.DateTimeLastModification + "\n                        </span>\n                        <br/>\n                        \n                    </div>\n                    <div class=\"col-auto\">\n                    </div>\n                </div>\n                <!-- Actions -->\n                <div class=\"row\">\n                    <div class=\"col\">\n                        <div class=\"justify-content-end text-right mt-2\">\n                            <div class=\"basiccore-parameter-checkbox-list list-row-unchecked mb-2\">\n                                <a class=\"icon icon-shape bg-white icon-sm rounded-circle shadow\" href=\"javascript:void(0)\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"check\">\n                                    <i class=\"fas fa-circle text-white\"></i>\n                                </a>\n                            </div>\n                            <input type=\"hidden\" value=\"" + row.ParameterId + "\"/>\n                            <a class=\"icon icon-shape bg-white icon-sm rounded-circle shadow\" href=\"/BasicCore/PageParameterNonQuery?ParameterId=" + row.ParameterId + "\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"edit\">\n                                <i class=\"fas fa-edit text-primary\"></i>\n                            </a>\n                            <div class=\"dropup\">\n                                <a class=\"icon icon-shape bg-white icon-sm text-primary rounded-circle shadow\" href=\"javascript:void(0)\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                                    <i class=\"fas fa-ellipsis-v\"></i>\n                                </a>\n                                <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\n                                    <button value=\"" + row.ParameterId + "\" class=\"dropdown-item text-primary basiccore-parameter-list-copy-button\" type=\"button\">\n                                        <i class=\"fas fa-copy\"></i>&nbsp;Copy\n                                    </button>\n                                    <button value=\"" + row.ParameterId + "\" class=\"dropdown-item text-danger basiccore-parameter-list-delete-button\" type=\"button\">\n                                        <i class=\"fas fa-trash\"></i>&nbsp;Delete\n                                    </button>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>";
+                        TableContent += "<tr>\n    <!-- Checkbox -->\n    <td>\n        <div>\n            <input class=\"parameter-table-checkbox-for-row\" value=\"" + row.ParameterId + "\" type=\"checkbox\">\n        </div>\n    </td>\n    <!-- Data -->\n    <td class=\"text-left text-light\">\n        <i class=\"fas fa-key\"></i> " + row.ParameterId + "\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-toggle-on\"></i> " + (row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>") + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-calendar\"></i> " + row.DateTimeCreation + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-calendar\"></i> " + row.DateTimeLastModification + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-key\"></i> " + row.UserCreationIdFantasyName + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-key\"></i> " + row.UserLastModificationIdFantasyName + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong><i class=\"fas fa-font\">\n            </i> " + row.Name + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong><i class=\"fas fa-font\">\n            </i> " + row.Value + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-toggle-on\"></i> " + (row.IsPrivate == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>") + "\n        </strong>\n    </td>\n    \n    <!-- Actions -->\n    <td class=\"text-right\">\n        <a class=\"btn btn-icon-only text-primary\" href=\"/BasicCore/PageParameterNonQuery?ParameterId=" + row.ParameterId + "\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"Edit\">\n            <i class=\"fas fa-edit\"></i>\n        </a>\n        <div class=\"dropdown\">\n            <button class=\"btn btn-icon-only text-danger\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <i class=\"fas fa-trash\"></i>\n            </button>\n            <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\n                <button class=\"dropdown-item text-danger basiccore-parameter-table-delete-button\" value=\"" + row.ParameterId + "\" type=\"button\">\n                    <i class=\"fas fa-exclamation-triangle\"></i> Yes, delete\n                </button>\n            </div>\n        </div>\n        <div class=\"dropdown\">\n            <button class=\"btn btn-sm btn-icon-only text-primary\" href=\"#\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <i class=\"fas fa-ellipsis-v\"></i>\n            </button>\n            <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\n                <button type=\"button\" class=\"dropdown-item basiccore-parameter-table-copy-button\" value=\"" + row.ParameterId + "\">\n                    <i class=\"fas fa-copy text-primary\"></i>&nbsp;Copy\n                </button>\n            </div>\n        </div>\n    </td>\n</tr>";
+                        ListContent += "<div class=\"row mx-2\">\n    <div class=\"col-sm\">\n        <div class=\"card bg-gradient-primary mb-2\">\n            <div class=\"card-body\">\n                <div class=\"row\">\n                    <div class=\"col text-truncate\">\n                        <span class=\"text-white text-light mb-4\">\n                           Parameter ID <i class=\"fas fa-key\"></i> " + row.ParameterId + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Active <i class=\"fas fa-toggle-on\"></i> " + (row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>") + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Date Time Creation <i class=\"fas fa-calendar\"></i> " + row.DateTimeCreation + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Date Time Last Modification <i class=\"fas fa-calendar\"></i> " + row.DateTimeLastModification + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           User Creation <i class=\"fas fa-key\"></i> " + row.UserCreationId + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           User Last Modification <i class=\"fas fa-key\"></i> " + row.UserLastModificationId + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Name <i class=\"fas fa-font\"></i> " + row.Name + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Value <i class=\"fas fa-font\"></i> " + row.Value + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Is private <i class=\"fas fa-toggle-on\"></i> " + (row.IsPrivate == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>") + "\n                        </span>\n                        <br/>\n                        \n                    </div>\n                    <div class=\"col-auto\">\n                    </div>\n                </div>\n                <!-- Actions -->\n                <div class=\"row\">\n                    <div class=\"col\">\n                        <div class=\"justify-content-end text-right mt-2\">\n                            <div class=\"mb-2\">\n                                <a class=\"basiccore-parameter-checkbox-list list-row-unchecked icon icon-shape bg-white icon-sm rounded-circle shadow\" href=\"javascript:void(0)\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"Check\">\n                                    <i class=\"fas fa-circle text-white\"></i>\n                                </a>\n                                <input type=\"hidden\" value=\"" + row.ParameterId + "\"/>\n                            </div>\n                            <a class=\"icon icon-shape bg-white icon-sm rounded-circle shadow\" href=\"/BasicCore/PageParameterNonQuery?ParameterId=" + row.ParameterId + "\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"edit\">\n                                <i class=\"fas fa-edit text-primary\"></i>\n                            </a>\n                            <div class=\"dropup\">\n                                <a class=\"icon icon-shape bg-white icon-sm text-primary rounded-circle shadow\" href=\"javascript:void(0)\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                                    <i class=\"fas fa-ellipsis-v\"></i>\n                                </a>\n                                <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\n                                    <button value=\"" + row.ParameterId + "\" class=\"dropdown-item text-primary basiccore-parameter-list-copy-button\" type=\"button\">\n                                        <i class=\"fas fa-copy\"></i>&nbsp;Copy\n                                    </button>\n                                    <button value=\"" + row.ParameterId + "\" class=\"dropdown-item text-danger basiccore-parameter-list-delete-button\" type=\"button\">\n                                        <i class=\"fas fa-trash\"></i>&nbsp;Delete\n                                    </button>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>";
                     });
                     //If view table is activated, clear table view, if not, clear list view
                     if (ViewToggler === "Table") {
@@ -111,10 +112,9 @@ var ParameterQuery = /** @class */ (function () {
                     }
                 }
                 else {
-                    //Show error message
-                    $("#basiccore-parameter-error-message-title").html("No registers found");
-                    $("#basiccore-parameter-error-message-text").html("The server did not found any register. HTTP code 204");
-                    $("#basiccore-parameter-button-error-message-in-card").show();
+                    //ERROR
+                    // @ts-ignore
+                    $.notify({ icon: "fas fa-exclamation-triangle", message: "No registers found" }, { type: "warning", placement: { from: "bottom", align: "center" } });
                 }
             },
             complete: function () {
@@ -157,10 +157,6 @@ var ParameterQuery = /** @class */ (function () {
                     }
                     ValidateAndSearch();
                 });
-                //Hide error message
-                $("#basiccore-parameter-error-message-title").html("");
-                $("#basiccore-parameter-error-message-text").html("");
-                $("#basiccore-parameter-button-error-message-in-card").hide();
                 //Delete button in table and list
                 $("div.dropdown-menu button.basiccore-parameter-table-delete-button, div.dropdown-menu button.basiccore-parameter-list-delete-button").on("click", function (e) {
                     var ParameterId = $(this).val();
@@ -168,17 +164,16 @@ var ParameterQuery = /** @class */ (function () {
                         next: function (newrow) {
                         },
                         complete: function () {
+                            //SUCCESS
+                            // @ts-ignore
+                            $.notify({ icon: "fas fa-check", message: "Row deleted successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
                             ValidateAndSearch();
-                            //Show OK message
-                            $("#basiccore-parameter-button-error-message-in-card").hide();
-                            $("#basiccore-parameter-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Row deleted successfully");
-                            $("#basiccore-parameter-button-ok-message-in-card").show();
                         },
                         error: function (err) {
-                            //Related to error message
-                            $("#basiccore-parameter-error-message-title").html("ParameterModel.DeleteByParameterId(ParameterId).subscribe(...)");
-                            $("#basiccore-parameter-error-message-text").html(err);
-                            $("#basiccore-parameter-button-error-message-in-card").show();
+                            //ERROR
+                            // @ts-ignore
+                            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                            console.log(err);
                         }
                     });
                 });
@@ -189,35 +184,31 @@ var ParameterQuery = /** @class */ (function () {
                         next: function (newrow) {
                         },
                         complete: function () {
+                            //SUCCESS
+                            // @ts-ignore
+                            $.notify({ icon: "fas fa-check", message: "Row copied successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
                             ValidateAndSearch();
-                            //Show OK message
-                            $("#basiccore-parameter-button-error-message-in-card").hide();
-                            $("#basiccore-parameter-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Row copied successfully");
-                            $("#basiccore-parameter-button-ok-message-in-card").show();
                         },
                         error: function (err) {
-                            //Show error message
-                            $("#basiccore-parameter-error-message-title").html("ParameterModel.CopyByParameterId(ParameterId).subscribe(...)");
-                            $("#basiccore-parameter-error-message-text").html(err);
-                            $("#basiccore-parameter-button-error-message-in-card").show();
+                            //ERROR
+                            // @ts-ignore
+                            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                            console.log(err);
                         }
                     });
                 });
             },
             error: function (err) {
-                //Show error message
-                $("#basiccore-parameter-error-message-title").html("ParameterModel.SelectAllPaged(request_parametermodelQ).subscribe(...)");
-                $("#basiccore-parameter-error-message-text").html(err);
-                $("#basiccore-parameter-button-error-message-in-card").show();
+                //ERROR
+                // @ts-ignore
+                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to get data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                console.log(err);
             }
         });
     };
     return ParameterQuery;
 }());
 function ValidateAndSearch() {
-    //Hide error and OK message button
-    $("#basiccore-parameter-button-error-message-in-card").hide();
-    $("#basiccore-parameter-button-ok-message-in-card").hide();
     var _parametermodelQuery = {
         QueryString: QueryString,
         ActualPageNumber: ActualPageNumber,
@@ -245,8 +236,6 @@ if ($("#basiccore-parameter-title-page").html().includes("Query parameter")) {
     $("#basiccore-parameter-lnk-previous-page-lg, #basiccore-parameter-lnk-previous-page").attr("disabled", "disabled");
     //Hide messages
     $("#basiccore-parameter-export-message").html("");
-    $("#basiccore-parameter-button-error-message-in-card").hide();
-    $("#basiccore-parameter-button-ok-message-in-card").hide();
     ValidateAndSearch();
 }
 //CLICK, SCROLL AND KEYBOARD EVENTS
@@ -366,17 +355,17 @@ $("#basiccore-parameter-export-as-pdf").on("click", function (e) {
             DateTimeNow = newrow.response;
         },
         complete: function () {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
             //Show download button for PDF file
             $("#basiccore-parameter-export-message").html("<a class=\"btn btn-icon btn-success\" href=\"/PDFFiles/BasicCore/Parameter/Parameter_" + DateTimeNow.AjaxForString + ".pdf\" type=\"button\" download>\n                                            <span class=\"btn-inner--icon\"><i class=\"fas fa-file-pdf\"></i></span>\n                                            <span class=\"btn-inner--text\">Download</span>\n                                        </a>");
-            //Show OK message
-            $("#basiccore-parameter-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Conversion completed");
-            $("#basiccore-parameter-button-ok-message-in-card").show();
         },
         error: function (err) {
-            //Show error message
-            $("#basiccore-parameter-error-message-title").html("Rx.from(ajax.post('/api/BasicCore/Parameter/1/ExportAsPDF/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basiccore-parameter-error-message-text").html(err);
-            $("#basiccore-parameter-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -421,17 +410,17 @@ $("#basiccore-parameter-export-as-excel").on("click", function (e) {
             DateTimeNow = newrow.response;
         },
         complete: function () {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
             //Show download button for Excel file
             $("#basiccore-parameter-export-message").html("<a class=\"btn btn-icon btn-success\" href=\"/ExcelFiles/BasicCore/Parameter/Parameter_" + DateTimeNow.AjaxForString + ".xlsx\" type=\"button\" download>\n                                            <span class=\"btn-inner--icon\"><i class=\"fas fa-file-excel\"></i></span>\n                                            <span class=\"btn-inner--text\">Download</span>\n                                        </a>");
-            //Show OK message
-            $("#basiccore-parameter-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Conversion completed");
-            $("#basiccore-parameter-button-ok-message-in-card").show();
         },
         error: function (err) {
-            //Show error message
-            $("#basiccore-parameter-error-message-title").html("Rx.from(ajax.post('/api/BasicCore/Parameter/1/ExportAsExcel/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basiccore-parameter-error-message-text").html(err);
-            $("#basiccore-parameter-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -476,17 +465,17 @@ $("#basiccore-parameter-export-as-csv").on("click", function (e) {
             DateTimeNow = newrow.response;
         },
         complete: function () {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
             //Show download button for CSV file
             $("#basiccore-parameter-export-message").html("<a class=\"btn btn-icon btn-success\" href=\"/CSVFiles/BasicCore/Parameter/Parameter_" + DateTimeNow.AjaxForString + ".csv\" type=\"button\" download>\n                                            <span class=\"btn-inner--icon\"><i class=\"fas fa-file-csv\"></i></span>\n                                            <span class=\"btn-inner--text\">Download</span>\n                                        </a>");
-            //Show OK message
-            $("#basiccore-parameter-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Conversion completed");
-            $("#basiccore-parameter-button-ok-message-in-card").show();
         },
         error: function (err) {
-            //Show error message
-            $("#basiccore-parameter-error-message-title").html("Rx.from(ajax.post('/api/BasicCore/Parameter/1/ExportAsCSV/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basiccore-parameter-error-message-text").html(err);
-            $("#basiccore-parameter-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -524,16 +513,16 @@ $("#basiccore-parameter-massive-action-copy").on("click", function (e) {
         next: function (newrow) {
         },
         complete: function () {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed copy" }, { type: "success", placement: { from: "bottom", align: "center" } });
             ValidateAndSearch();
-            //Show OK message
-            $("#basiccore-parameter-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Rows copied successfully");
-            $("#basiccore-parameter-button-ok-message-in-card").show();
         },
         error: function (err) {
-            //Show error message
-            $("#basiccore-parameter-error-message-title").html("ParameterModel.Copy(CopyType).subscribe(...)");
-            $("#basiccore-parameter-error-message-text").html(err);
-            $("#basiccore-parameter-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -567,16 +556,16 @@ $("#basiccore-parameter-massive-action-delete").on("click", function (e) {
         next: function (newrow) {
         },
         complete: function () {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed deletion" }, { type: "success", placement: { from: "bottom", align: "center" } });
             ValidateAndSearch();
-            //Show OK message
-            $("#basiccore-parameter-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Rows deleted successfully");
-            $("#basiccore-parameter-button-ok-message-in-card").show();
         },
         error: function (err) {
-            //Show error message
-            $("#basiccore-parameter-error-message-title").html("ParameterModel.Copy(CopyType).subscribe(...)");
-            $("#basiccore-parameter-error-message-text").html(err);
-            $("#basiccore-parameter-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });

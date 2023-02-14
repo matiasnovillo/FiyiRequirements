@@ -1,6 +1,6 @@
 @page
 @using FiyiRequirements.Areas.BasicCore.Models
-@model FiyiRequirements.Areas.BasicCore.Pages.PageParameterNonQueryModel
+@model FiyiRequirements.Areas.BasicCore.Pages.ParameterNonQueryPageModel
 @{
     Layout = "_LayoutDashboard";
 
@@ -43,7 +43,7 @@
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -51,7 +51,7 @@
  */
     
 //Stack: 11
-//Last modification on: 21/12/2022 9:32:45
+//Last modification on: 14/02/2023 11:05:05
 
 }
 <!-- Header -->
@@ -63,7 +63,6 @@
                 <div class="col-lg-6 col-7">
                     <!-- Title -->
                     <h2 id="basiccore-parameter-title-page" class="h2 text-white d-inline-block mb-0">@NonQueryText parameter</h2>
-                    <input id="basiccore-parameter-parameterid-input" type="hidden" value="@ParameterId" />
                     <!-- Breadcrumb -->
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -74,7 +73,7 @@
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="javascript:void(0)">
-                                    Basic (Core)
+                                    BasicCore
                                 </a>
                             </li>
                             <li class="breadcrumb-item">
@@ -91,13 +90,13 @@
                 <div class="col-lg-6 col-5 text-right">
                     <!-- XL Screens -->
                     <div class="d-none d-xl-inline">
-                        <a href="/BasicCore/PageParameterQuery" class="btn btn-secondary">
+                        <a href="/BasicCore/ParameterQueryPage" class="btn btn-secondary">
                             <i class="fas fa-angle-left"></i> Go back
                         </a>
                     </div>
                     <!-- Other Screens -->
                     <div class="d-inline d-sm-inline d-md-inline d-lg-inline d-xl-none">
-                        <a href="/BasicCore/PageParameterQuery" class="btn btn-secondary">
+                        <a href="/BasicCore/ParameterQueryPage" class="btn btn-secondary">
                             <i class="fas fa-angle-left"></i>
                         </a>
                     </div>
@@ -114,11 +113,11 @@
             <div class="card">
                 <!-- Card body -->
                 <div class="card-body">
-                    <form role="form" class="needs-validation" novalidate>
+                    <form novalidate>
                         <!-- ParameterId -->
                         <div class="form-group mb-3">
                             <label for="basiccore-parameter-parameterId-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-key"></i> Parameter ID
+                                <i class="fas fa-key"></i> ParameterId
                             </label>
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
@@ -156,23 +155,36 @@
                             </div>
                         </div>
                         <!-- Value -->
-                        <label for="basiccore-parameter-value-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                            <i class="fas fa-font"></i> Value
-                        </label>
-                        <div id="basiccore-parameter-value-input">
+                        <div class="form-group mb-3">
+                            <label for="basiccore-parameter-value-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                <i class="fas fa-font"></i> Value
+                            </label>
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                    <span class="input-group-text ">
+                                        <strong>
+                                            <i class="fas fa-font"></i> Value
+                                        </strong>
+                                    </span>
+                                </div>
+                                <input class="form-control" min="1" max="8000" type="text" id="basiccore-parameter-value-input" value="@Value" >
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="value-info">
+                                        <i class="fas fa-info"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <input type="hidden" value="@Value" id="basiccore-parameter-value-hidden-value">
-                        <div class="mb-3"></div>
                         <!-- IsPrivate -->
                         <div class="form-group mb-3">
                             <label for="basiccore-parameter-isprivate-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-toggle-on"></i> Is private?
+                                <i class="fas fa-toggle-on"></i> Is private
                             </label>
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
                                     <span class="input-group-text">
                                         <strong>
-                                            <i class="fas fa-toggle-on"></i> Is private?
+                                            <i class="fas fa-toggle-on"></i> Is private
                                         </strong>
                                     </span>
                                 </div>
@@ -191,7 +203,6 @@
                         <!-- Buttons -->
                         <div class="row justify-content-between">
                             <button id="basiccore-parameter-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="@NonQueryIcon"></i> @NonQueryText</button>
-                            <button id="basiccore-parameter-insert-or-update-message" data-toggle="modal" data-target="#basiccore-parameter-error-message-modal" class="btn mt-4" type="button"></button>
                             <a href="/BasicCore/PageParameterQuery" class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
                                 <i class="fas fa-angle-left"></i> Go back
                             </a>
@@ -206,37 +217,6 @@
     </div>
 </div>
 
-<!-- Error message in modal style -->
-<div class="row">
-    <div class="col-md-4 px-0">
-        <div class="modal fade" id="basiccore-parameter-error-message-modal" tabindex="-1" role="dialog" aria-labelledby="basiccore-parameter-error-message-modal" aria-hidden="true">
-            <div class="modal-dialog modal-secondary modal-dialog-centered modal-" role="document">
-                <div class="modal-content bg-gradient-danger">
-                    <!-- Modal title -->
-                    <div class="modal-header">
-                        <h6 class="modal-title text-white" id="modal-title-notification">
-                            Error <i class="fas fa-exclamation-triangle"></i>
-                        </h6>
-                    </div>
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <div class="py-3 text-center">
-                            <h4 id="/basiccore-parameter-error-message-title" class="heading mt-4 text-white"></h4>
-                            <p class="text-white text-truncate" id="basiccore-parameter-error-message-text"></p>
-                        </div>
-                    </div>
-                    <!-- Close button -->
-                    <div class="modal-footer pt-4">
-                        <button type="button" class="btn btn-white ml-auto" data-dismiss="modal">
-                            Close
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- ForeignKeyDropDown selector in Modal style -->
 <div class="row">
     <div class="col-md-4">
@@ -246,7 +226,7 @@
                 <!-- Modal content -->
                 <div class="modal-content bg-gradient-secondary">
                     <div class="modal-header">
-                        <h6 class="modal-title text-primary" id="modal-title-notification">
+                        <h6 class="modal-title text-primary">
                             Choose a ForeignKeyDropDown value <i class="fas fa-hashtag"></i>
                          </h6>
                     </div>
@@ -276,7 +256,7 @@
             <div class="modal-dialog modal-secondary modal-dialog-centered modal-" role="document">
                 <div class="modal-content bg-gradient-secondary">
                     <div class="modal-header">
-                        <h6 class="modal-title text-primary" id="modal-title-notification">Choose your phone code <i class="fas fa-globe-americas"></i></h6>
+                        <h6 class="modal-title text-primary">Choose your phone code <i class="fas fa-globe-americas"></i></h6>
                     </div>
                     <div class="modal-body">
                         <form role="form">

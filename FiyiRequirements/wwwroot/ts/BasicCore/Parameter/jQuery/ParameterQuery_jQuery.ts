@@ -4,12 +4,13 @@ import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import "bootstrap-notify";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -18,7 +19,7 @@ import { Ajax } from "../../../Library/Ajax";
 
 //Stack: 10
 
-//Last modification on: 21/12/2022 9:32:45
+//Last modification on: 14/02/2023 11:05:05
 
 //Set default values
 let LastTopDistance: number = 0;
@@ -51,23 +52,18 @@ class ParameterQuery {
             </button>
         </th>
         <th scope="col">
-            <button value="Name" class="btn btn-outline-secondary btn-sm" type="button">
-                Name
-            </button>
-        </th>
-        <th scope="col">
-            <button value="Value" class="btn btn-outline-secondary btn-sm" type="button">
-                Value
-            </button>
-        </th>
-        <th scope="col">
-            <button value="IsPrivate" class="btn btn-outline-secondary btn-sm" type="button">
-                Is private?
-            </button>
-        </th>
-        <th scope="col">
             <button value="Active" class="btn btn-outline-secondary btn-sm" type="button">
                 Active
+            </button>
+        </th>
+        <th scope="col">
+            <button value="DateTimeCreation" class="btn btn-outline-secondary btn-sm" type="button">
+                Date Time Creation
+            </button>
+        </th>
+        <th scope="col">
+            <button value="DateTimeLastModification" class="btn btn-outline-secondary btn-sm" type="button">
+                Date Time Last Modification
             </button>
         </th>
         <th scope="col">
@@ -81,13 +77,18 @@ class ParameterQuery {
             </button>
         </th>
         <th scope="col">
-            <button value="DateTimeCreation" class="btn btn-outline-secondary btn-sm" type="button">
-                Date Time Creation
+            <button value="Name" class="btn btn-outline-secondary btn-sm" type="button">
+                Name
             </button>
         </th>
         <th scope="col">
-            <button value="DateTimeLastModification" class="btn btn-outline-secondary btn-sm" type="button">
-                Date Time Last Modification
+            <button value="Value" class="btn btn-outline-secondary btn-sm" type="button">
+                Value
+            </button>
+        </th>
+        <th scope="col">
+            <button value="IsPrivate" class="btn btn-outline-secondary btn-sm" type="button">
+                Is private
             </button>
         </th>
         
@@ -166,31 +167,8 @@ class ParameterQuery {
         <i class="fas fa-key"></i> ${row.ParameterId}
     </td>
     <td class="text-left">
-        <strong><i class="fas fa-font">
-            </i> ${row.Name}
-        </strong>
-    </td>
-    <td class="text-left">
-        <i class="fas fa-font"></i> ${row.Value}
-    </td>
-    <td class="text-left">
-        <strong>
-            <i class="fas fa-toggle-on"></i> ${row.IsPrivate == true ? "Yes <i class='text-success fas fa-circle'></i>" : "No <i class='text-danger fas fa-circle'></i>"}
-        </strong>
-    </td>
-    <td class="text-left">
         <strong>
             <i class="fas fa-toggle-on"></i> ${row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong><i class="fas fa-divide">
-            </i> ${row.UserCreationIdFantasyName}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong><i class="fas fa-divide">
-            </i> ${row.UserLastModificationIdFantasyName}
         </strong>
     </td>
     <td class="text-left">
@@ -201,6 +179,31 @@ class ParameterQuery {
     <td class="text-left">
         <strong>
             <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong><i class="fas fa-font">
+            </i> ${row.Name}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong><i class="fas fa-font">
+            </i> ${row.Value}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-toggle-on"></i> ${row.IsPrivate == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
         </strong>
     </td>
     
@@ -243,27 +246,7 @@ class ParameterQuery {
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           Name <i class="fas fa-font"></i> ${row.Name}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                           Value <i class="fas fa-font"></i> ${row.Value}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                           Is private? <i class="fas fa-toggle-on"></i> ${row.IsPrivate == true ? "Yes <i class='text-success fas fa-circle'></i>" : "No <i class='text-danger fas fa-circle'></i>"}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
                            Active <i class="fas fa-toggle-on"></i> ${row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                            User Creation <i class="fas fa-divide"></i> ${row.UserCreationIdFantasyName}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                            User Last Modification <i class="fas fa-divide"></i> ${row.UserLastModificationIdFantasyName}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
@@ -272,6 +255,26 @@ class ParameterQuery {
                         <br/>
                         <span class="text-white mb-4">
                            Date Time Last Modification <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           User Creation <i class="fas fa-key"></i> ${row.UserCreationId}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           User Last Modification <i class="fas fa-key"></i> ${row.UserLastModificationId}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           Name <i class="fas fa-font"></i> ${row.Name}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           Value <i class="fas fa-font"></i> ${row.Value}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           Is private <i class="fas fa-toggle-on"></i> ${row.IsPrivate == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
                         </span>
                         <br/>
                         
@@ -283,12 +286,12 @@ class ParameterQuery {
                 <div class="row">
                     <div class="col">
                         <div class="justify-content-end text-right mt-2">
-                            <div class="basiccore-parameter-checkbox-list list-row-unchecked mb-2">
-                                <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="check">
+                            <div class="mb-2">
+                                <a class="basiccore-parameter-checkbox-list list-row-unchecked icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="Check">
                                     <i class="fas fa-circle text-white"></i>
                                 </a>
+                                <input type="hidden" value="${row.ParameterId}"/>
                             </div>
-                            <input type="hidden" value="${row.ParameterId}"/>
                             <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/BasicCore/PageParameterNonQuery?ParameterId=${row.ParameterId}" role="button" data-toggle="tooltip" data-original-title="edit">
                                 <i class="fas fa-edit text-primary"></i>
                             </a>
@@ -333,10 +336,9 @@ class ParameterQuery {
                             }
                     }
                     else {
-                        //Show error message
-                        $("#basiccore-parameter-error-message-title").html("No registers found");
-                        $("#basiccore-parameter-error-message-text").html("The server did not found any register. HTTP code 204");
-                        $("#basiccore-parameter-button-error-message-in-card").show();
+                        //ERROR
+                        // @ts-ignore
+                        $.notify({ icon: "fas fa-exclamation-triangle", message: "No registers found" }, { type: "warning", placement: { from: "bottom", align: "center" } });
                     }
                 },
                 complete: () => {
@@ -390,11 +392,6 @@ class ParameterQuery {
                         ValidateAndSearch();
                     });
 
-                    //Hide error message
-                    $("#basiccore-parameter-error-message-title").html("");
-                    $("#basiccore-parameter-error-message-text").html("");
-                    $("#basiccore-parameter-button-error-message-in-card").hide();
-
                     //Delete button in table and list
                     $("div.dropdown-menu button.basiccore-parameter-table-delete-button, div.dropdown-menu button.basiccore-parameter-list-delete-button").on("click", function (e) {
                         let ParameterId = $(this).val();
@@ -402,20 +399,17 @@ class ParameterQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                //SUCCESS
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-check", message: "Row deleted successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-                                //Show OK message
-                                $("#basiccore-parameter-button-error-message-in-card").hide();
-                                $("#basiccore-parameter-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Row deleted successfully`);
-                                $("#basiccore-parameter-button-ok-message-in-card").show();
+                                ValidateAndSearch();
                             },
                             error: err => {
-                                //Related to error message
-                                $("#basiccore-parameter-error-message-title").html("ParameterModel.DeleteByParameterId(ParameterId).subscribe(...)");
-                                $("#basiccore-parameter-error-message-text").html(err);
-                                $("#basiccore-parameter-button-error-message-in-card").show();
+                                //ERROR
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                                console.log(err);
                             }
                         });
                     });
@@ -427,39 +421,32 @@ class ParameterQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                //SUCCESS
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-check", message: "Row copied successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-                                //Show OK message
-                                $("#basiccore-parameter-button-error-message-in-card").hide();
-                                $("#basiccore-parameter-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Row copied successfully`);
-                                $("#basiccore-parameter-button-ok-message-in-card").show();
+                                ValidateAndSearch();
                             },
                             error: err => {
-                                //Show error message
-                                $("#basiccore-parameter-error-message-title").html("ParameterModel.CopyByParameterId(ParameterId).subscribe(...)");
-                                $("#basiccore-parameter-error-message-text").html(err);
-                                $("#basiccore-parameter-button-error-message-in-card").show();
+                                //ERROR
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                                console.log(err);
                             }
                         });
                     });
                 },
                 error: err => {
-                    //Show error message
-                    $("#basiccore-parameter-error-message-title").html("ParameterModel.SelectAllPaged(request_parametermodelQ).subscribe(...)");
-                    $("#basiccore-parameter-error-message-text").html(err);
-                    $("#basiccore-parameter-button-error-message-in-card").show();
+                    //ERROR
+                    // @ts-ignore
+                    $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to get data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                    console.log(err);
                 }
             });
     }
 }
 
 function ValidateAndSearch() {
-
-    //Hide error and OK message button
-    $("#basiccore-parameter-button-error-message-in-card").hide();
-    $("#basiccore-parameter-button-ok-message-in-card").hide();
 
     var _parametermodelQuery: parametermodelQuery = {
         QueryString,
@@ -490,8 +477,6 @@ if ($("#basiccore-parameter-title-page").html().includes("Query parameter")) {
     $("#basiccore-parameter-lnk-previous-page-lg, #basiccore-parameter-lnk-previous-page").attr("disabled", "disabled");
     //Hide messages
     $("#basiccore-parameter-export-message").html("");
-    $("#basiccore-parameter-button-error-message-in-card").hide();
-    $("#basiccore-parameter-button-ok-message-in-card").hide();
 
     ValidateAndSearch();
 }
@@ -626,23 +611,22 @@ $("#basiccore-parameter-export-as-pdf").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for PDF file
             $("#basiccore-parameter-export-message").html(`<a class="btn btn-icon btn-success" href="/PDFFiles/BasicCore/Parameter/Parameter_${DateTimeNow.AjaxForString}.pdf" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-pdf"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
 
-            //Show OK message
-            $("#basiccore-parameter-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basiccore-parameter-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basiccore-parameter-error-message-title").html("Rx.from(ajax.post('/api/BasicCore/Parameter/1/ExportAsPDF/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basiccore-parameter-error-message-text").html(err);
-            $("#basiccore-parameter-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -693,23 +677,21 @@ $("#basiccore-parameter-export-as-excel").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for Excel file
             $("#basiccore-parameter-export-message").html(`<a class="btn btn-icon btn-success" href="/ExcelFiles/BasicCore/Parameter/Parameter_${DateTimeNow.AjaxForString}.xlsx" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-excel"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#basiccore-parameter-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basiccore-parameter-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basiccore-parameter-error-message-title").html("Rx.from(ajax.post('/api/BasicCore/Parameter/1/ExportAsExcel/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basiccore-parameter-error-message-text").html(err);
-            $("#basiccore-parameter-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -760,23 +742,21 @@ $("#basiccore-parameter-export-as-csv").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for CSV file
             $("#basiccore-parameter-export-message").html(`<a class="btn btn-icon btn-success" href="/CSVFiles/BasicCore/Parameter/Parameter_${DateTimeNow.AjaxForString}.csv" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-csv"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#basiccore-parameter-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basiccore-parameter-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basiccore-parameter-error-message-title").html("Rx.from(ajax.post('/api/BasicCore/Parameter/1/ExportAsCSV/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basiccore-parameter-error-message-text").html(err);
-            $("#basiccore-parameter-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -819,19 +799,17 @@ $("#basiccore-parameter-massive-action-copy").on("click", function (e) {
         next: newrow => {
         },
         complete: () => {
-            ValidateAndSearch();
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed copy" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-            //Show OK message
-            $("#basiccore-parameter-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows copied successfully`);
-            $("#basiccore-parameter-button-ok-message-in-card").show();
+            ValidateAndSearch();
         },
         error: err => {
-            //Show error message
-            $("#basiccore-parameter-error-message-title").html("ParameterModel.Copy(CopyType).subscribe(...)");
-            $("#basiccore-parameter-error-message-text").html(err);
-            $("#basiccore-parameter-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -869,19 +847,17 @@ $("#basiccore-parameter-massive-action-delete").on("click", function (e) {
         next: newrow => {
         },
         complete: () => {
-            ValidateAndSearch();
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed deletion" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-            //Show OK message
-            $("#basiccore-parameter-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows deleted successfully`);
-            $("#basiccore-parameter-button-ok-message-in-card").show();
+            ValidateAndSearch();
         },
         error: err => {
-            //Show error message
-            $("#basiccore-parameter-error-message-title").html("ParameterModel.Copy(CopyType).subscribe(...)");
-            $("#basiccore-parameter-error-message-text").html(err);
-            $("#basiccore-parameter-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
