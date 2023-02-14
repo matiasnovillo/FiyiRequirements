@@ -4,12 +4,13 @@ import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import "bootstrap-notify";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -18,7 +19,7 @@ import { Ajax } from "../../../Library/Ajax";
 
 //Stack: 10
 
-//Last modification on: 21/12/2022 10:33:37
+//Last modification on: 14/02/2023 12:24:53
 
 //Set default values
 let LastTopDistance: number = 0;
@@ -51,18 +52,18 @@ class PlanetQuery {
             </button>
         </th>
         <th scope="col">
-            <button value="Name" class="btn btn-outline-secondary btn-sm" type="button">
-                Name
-            </button>
-        </th>
-        <th scope="col">
-            <button value="Code" class="btn btn-outline-secondary btn-sm" type="button">
-                Code
-            </button>
-        </th>
-        <th scope="col">
             <button value="Active" class="btn btn-outline-secondary btn-sm" type="button">
                 Active
+            </button>
+        </th>
+        <th scope="col">
+            <button value="DateTimeCreation" class="btn btn-outline-secondary btn-sm" type="button">
+                Date Time Creation
+            </button>
+        </th>
+        <th scope="col">
+            <button value="DateTimeLastModification" class="btn btn-outline-secondary btn-sm" type="button">
+                Date Time Last Modification
             </button>
         </th>
         <th scope="col">
@@ -76,13 +77,13 @@ class PlanetQuery {
             </button>
         </th>
         <th scope="col">
-            <button value="DateTimeCreation" class="btn btn-outline-secondary btn-sm" type="button">
-                Date Time Creation
+            <button value="Name" class="btn btn-outline-secondary btn-sm" type="button">
+                Name
             </button>
         </th>
         <th scope="col">
-            <button value="DateTimeLastModification" class="btn btn-outline-secondary btn-sm" type="button">
-                Date Time Last Modification
+            <button value="Code" class="btn btn-outline-secondary btn-sm" type="button">
+                Code
             </button>
         </th>
         
@@ -161,28 +162,8 @@ class PlanetQuery {
         <i class="fas fa-key"></i> ${row.PlanetId}
     </td>
     <td class="text-left">
-        <strong><i class="fas fa-font">
-            </i> ${row.Name}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong><i class="fas fa-font">
-            </i> ${row.Code}
-        </strong>
-    </td>
-    <td class="text-left">
         <strong>
             <i class="fas fa-toggle-on"></i> ${row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong><i class="fas fa-divide">
-            </i> ${row.UserCreationIdFantasyName}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong><i class="fas fa-divide">
-            </i> ${row.UserLastModificationIdFantasyName}
         </strong>
     </td>
     <td class="text-left">
@@ -195,10 +176,30 @@ class PlanetQuery {
             <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
         </strong>
     </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-key"></i> ${row.UserCreationId}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-key"></i> ${row.UserLastModificationId}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong><i class="fas fa-font">
+            </i> ${row.Name}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong><i class="fas fa-font">
+            </i> ${row.Code}
+        </strong>
+    </td>
     
     <!-- Actions -->
     <td class="text-right">
-        <a class="btn btn-icon-only text-primary" href="/BasicCulture/PagePlanetNonQuery?PlanetId=${row.PlanetId}" role="button" data-toggle="tooltip" data-original-title="Edit">
+        <a class="btn btn-icon-only text-primary" href="/BasicCulture/PlanetNonQueryPage?PlanetId=${row.PlanetId}" role="button" data-toggle="tooltip" data-original-title="Edit">
             <i class="fas fa-edit"></i>
         </a>
         <div class="dropdown">
@@ -235,31 +236,31 @@ class PlanetQuery {
                         </span>
                         <br/>
                         <span class="text-white mb-4">
+                           Active <i class="fas fa-toggle-on"></i> ${row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           DateTimeCreation <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           DateTimeLastModification <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           User Creation <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           User Last Modification <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
                            Name <i class="fas fa-font"></i> ${row.Name}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
                            Code <i class="fas fa-font"></i> ${row.Code}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                           Active <i class="fas fa-toggle-on"></i> ${row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                            User Creation <i class="fas fa-divide"></i> ${row.UserCreationIdFantasyName}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                            User Last Modification <i class="fas fa-divide"></i> ${row.UserLastModificationIdFantasyName}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                           Date Time Creation <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                           Date Time Last Modification <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
                         </span>
                         <br/>
                         
@@ -271,13 +272,13 @@ class PlanetQuery {
                 <div class="row">
                     <div class="col">
                         <div class="justify-content-end text-right mt-2">
-                            <div class="basicculture-planet-checkbox-list list-row-unchecked mb-2">
-                                <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="check">
+                            <div class="mb-2">
+                                <a class="basicculture-planet-checkbox-list list-row-unchecked icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="Check">
                                     <i class="fas fa-circle text-white"></i>
                                 </a>
+                                <input type="hidden" value="${row.PlanetId}"/>
                             </div>
-                            <input type="hidden" value="${row.PlanetId}"/>
-                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/BasicCulture/PagePlanetNonQuery?PlanetId=${row.PlanetId}" role="button" data-toggle="tooltip" data-original-title="edit">
+                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/BasicCulture/PlanetNonQueryPage?PlanetId=${row.PlanetId}" role="button" data-toggle="tooltip" data-original-title="edit">
                                 <i class="fas fa-edit text-primary"></i>
                             </a>
                             <div class="dropup">
@@ -321,10 +322,9 @@ class PlanetQuery {
                             }
                     }
                     else {
-                        //Show error message
-                        $("#basicculture-planet-error-message-title").html("No registers found");
-                        $("#basicculture-planet-error-message-text").html("The server did not found any register. HTTP code 204");
-                        $("#basicculture-planet-button-error-message-in-card").show();
+                        //ERROR
+                        // @ts-ignore
+                        $.notify({ icon: "fas fa-exclamation-triangle", message: "No registers found" }, { type: "warning", placement: { from: "bottom", align: "center" } });
                     }
                 },
                 complete: () => {
@@ -378,11 +378,6 @@ class PlanetQuery {
                         ValidateAndSearch();
                     });
 
-                    //Hide error message
-                    $("#basicculture-planet-error-message-title").html("");
-                    $("#basicculture-planet-error-message-text").html("");
-                    $("#basicculture-planet-button-error-message-in-card").hide();
-
                     //Delete button in table and list
                     $("div.dropdown-menu button.basicculture-planet-table-delete-button, div.dropdown-menu button.basicculture-planet-list-delete-button").on("click", function (e) {
                         let PlanetId = $(this).val();
@@ -390,20 +385,17 @@ class PlanetQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                //SUCCESS
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-check", message: "Row deleted successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-                                //Show OK message
-                                $("#basicculture-planet-button-error-message-in-card").hide();
-                                $("#basicculture-planet-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Row deleted successfully`);
-                                $("#basicculture-planet-button-ok-message-in-card").show();
+                                ValidateAndSearch();
                             },
                             error: err => {
-                                //Related to error message
-                                $("#basicculture-planet-error-message-title").html("PlanetModel.DeleteByPlanetId(PlanetId).subscribe(...)");
-                                $("#basicculture-planet-error-message-text").html(err);
-                                $("#basicculture-planet-button-error-message-in-card").show();
+                                //ERROR
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                                console.log(err);
                             }
                         });
                     });
@@ -415,39 +407,32 @@ class PlanetQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                //SUCCESS
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-check", message: "Row copied successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-                                //Show OK message
-                                $("#basicculture-planet-button-error-message-in-card").hide();
-                                $("#basicculture-planet-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Row copied successfully`);
-                                $("#basicculture-planet-button-ok-message-in-card").show();
+                                ValidateAndSearch();
                             },
                             error: err => {
-                                //Show error message
-                                $("#basicculture-planet-error-message-title").html("PlanetModel.CopyByPlanetId(PlanetId).subscribe(...)");
-                                $("#basicculture-planet-error-message-text").html(err);
-                                $("#basicculture-planet-button-error-message-in-card").show();
+                                //ERROR
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                                console.log(err);
                             }
                         });
                     });
                 },
                 error: err => {
-                    //Show error message
-                    $("#basicculture-planet-error-message-title").html("PlanetModel.SelectAllPaged(request_planetmodelQ).subscribe(...)");
-                    $("#basicculture-planet-error-message-text").html(err);
-                    $("#basicculture-planet-button-error-message-in-card").show();
+                    //ERROR
+                    // @ts-ignore
+                    $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to get data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                    console.log(err);
                 }
             });
     }
 }
 
 function ValidateAndSearch() {
-
-    //Hide error and OK message button
-    $("#basicculture-planet-button-error-message-in-card").hide();
-    $("#basicculture-planet-button-ok-message-in-card").hide();
 
     var _planetmodelQuery: planetmodelQuery = {
         QueryString,
@@ -478,8 +463,6 @@ if ($("#basicculture-planet-title-page").html().includes("Query planet")) {
     $("#basicculture-planet-lnk-previous-page-lg, #basicculture-planet-lnk-previous-page").attr("disabled", "disabled");
     //Hide messages
     $("#basicculture-planet-export-message").html("");
-    $("#basicculture-planet-button-error-message-in-card").hide();
-    $("#basicculture-planet-button-ok-message-in-card").hide();
 
     ValidateAndSearch();
 }
@@ -614,23 +597,22 @@ $("#basicculture-planet-export-as-pdf").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for PDF file
             $("#basicculture-planet-export-message").html(`<a class="btn btn-icon btn-success" href="/PDFFiles/BasicCulture/Planet/Planet_${DateTimeNow.AjaxForString}.pdf" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-pdf"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
 
-            //Show OK message
-            $("#basicculture-planet-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basicculture-planet-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-planet-error-message-title").html("Rx.from(ajax.post('/api/BasicCulture/Planet/1/ExportAsPDF/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basicculture-planet-error-message-text").html(err);
-            $("#basicculture-planet-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -681,23 +663,21 @@ $("#basicculture-planet-export-as-excel").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for Excel file
             $("#basicculture-planet-export-message").html(`<a class="btn btn-icon btn-success" href="/ExcelFiles/BasicCulture/Planet/Planet_${DateTimeNow.AjaxForString}.xlsx" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-excel"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#basicculture-planet-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basicculture-planet-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-planet-error-message-title").html("Rx.from(ajax.post('/api/BasicCulture/Planet/1/ExportAsExcel/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basicculture-planet-error-message-text").html(err);
-            $("#basicculture-planet-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -748,23 +728,21 @@ $("#basicculture-planet-export-as-csv").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for CSV file
             $("#basicculture-planet-export-message").html(`<a class="btn btn-icon btn-success" href="/CSVFiles/BasicCulture/Planet/Planet_${DateTimeNow.AjaxForString}.csv" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-csv"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#basicculture-planet-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basicculture-planet-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-planet-error-message-title").html("Rx.from(ajax.post('/api/BasicCulture/Planet/1/ExportAsCSV/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basicculture-planet-error-message-text").html(err);
-            $("#basicculture-planet-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -807,19 +785,17 @@ $("#basicculture-planet-massive-action-copy").on("click", function (e) {
         next: newrow => {
         },
         complete: () => {
-            ValidateAndSearch();
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed copy" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-            //Show OK message
-            $("#basicculture-planet-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows copied successfully`);
-            $("#basicculture-planet-button-ok-message-in-card").show();
+            ValidateAndSearch();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-planet-error-message-title").html("PlanetModel.Copy(CopyType).subscribe(...)");
-            $("#basicculture-planet-error-message-text").html(err);
-            $("#basicculture-planet-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -857,19 +833,17 @@ $("#basicculture-planet-massive-action-delete").on("click", function (e) {
         next: newrow => {
         },
         complete: () => {
-            ValidateAndSearch();
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed deletion" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-            //Show OK message
-            $("#basicculture-planet-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows deleted successfully`);
-            $("#basicculture-planet-button-ok-message-in-card").show();
+            ValidateAndSearch();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-planet-error-message-title").html("PlanetModel.Copy(CopyType).subscribe(...)");
-            $("#basicculture-planet-error-message-text").html(err);
-            $("#basicculture-planet-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
