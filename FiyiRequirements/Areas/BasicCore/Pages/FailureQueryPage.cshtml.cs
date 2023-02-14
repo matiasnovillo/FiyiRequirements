@@ -27,7 +27,7 @@ namespace FiyiRequirements.Areas.BasicCore.Pages
     /// Last modification: 21/12/2022 9:25:46
     /// </summary>
     [FailureFilter]
-    public partial class PageFailureQueryModel : PageModel
+    public partial class FailureQueryPageModel : PageModel
     {
         public void OnGet()
         {
