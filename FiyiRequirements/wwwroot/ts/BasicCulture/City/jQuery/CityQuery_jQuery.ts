@@ -4,12 +4,13 @@ import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import "bootstrap-notify";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -18,7 +19,7 @@ import { Ajax } from "../../../Library/Ajax";
 
 //Stack: 10
 
-//Last modification on: 21/12/2022 9:41:41
+//Last modification on: 14/02/2023 11:17:47
 
 //Set default values
 let LastTopDistance: number = 0;
@@ -51,6 +52,31 @@ class CityQuery {
             </button>
         </th>
         <th scope="col">
+            <button value="Active" class="btn btn-outline-secondary btn-sm" type="button">
+                Active
+            </button>
+        </th>
+        <th scope="col">
+            <button value="DateTimeCreation" class="btn btn-outline-secondary btn-sm" type="button">
+                Date Time Creation
+            </button>
+        </th>
+        <th scope="col">
+            <button value="DateTimeLastModification" class="btn btn-outline-secondary btn-sm" type="button">
+                Date Time Last Modification
+            </button>
+        </th>
+        <th scope="col">
+            <button value="UserCreationId" class="btn btn-outline-secondary btn-sm" type="button">
+                User Creation
+            </button>
+        </th>
+        <th scope="col">
+            <button value="UserLastModificationId" class="btn btn-outline-secondary btn-sm" type="button">
+                User Last Modification
+            </button>
+        </th>
+        <th scope="col">
             <button value="Name" class="btn btn-outline-secondary btn-sm" type="button">
                 Name
             </button>
@@ -68,31 +94,6 @@ class CityQuery {
         <th scope="col">
             <button value="ProvinceId" class="btn btn-outline-secondary btn-sm" type="button">
                 Province
-            </button>
-        </th>
-        <th scope="col">
-            <button value="Active" class="btn btn-outline-secondary btn-sm" type="button">
-                Active
-            </button>
-        </th>
-        <th scope="col">
-            <button value="UserCreationId" class="btn btn-outline-secondary btn-sm" type="button">
-                User Creation
-            </button>
-        </th>
-        <th scope="col">
-            <button value="UserLastModificationId" class="btn btn-outline-secondary btn-sm" type="button">
-                User Last Modification
-            </button>
-        </th>
-        <th scope="col">
-            <button value="DateTimeCreation" class="btn btn-outline-secondary btn-sm" type="button">
-                Date Time Creation
-            </button>
-        </th>
-        <th scope="col">
-            <button value="DateTimeLastModification" class="btn btn-outline-secondary btn-sm" type="button">
-                Date Time Last Modification
             </button>
         </th>
         
@@ -171,6 +172,31 @@ class CityQuery {
         <i class="fas fa-key"></i> ${row.CityId}
     </td>
     <td class="text-left">
+        <strong>
+            <i class="fas fa-toggle-on"></i> ${row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
+        </strong>
+    </td>
+    <td class="text-left">
         <strong><i class="fas fa-font">
             </i> ${row.Name}
         </strong>
@@ -190,35 +216,10 @@ class CityQuery {
             <i class="fas fa-key"></i> ${row.ProvinceIdName}
         </strong>
     </td>
-    <td class="text-left">
-        <strong>
-            <i class="fas fa-toggle-on"></i> ${row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong><i class="fas fa-divide">
-            </i> ${row.UserCreationIdFantasyName}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong><i class="fas fa-divide">
-            </i> ${row.UserLastModificationIdFantasyName}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong>
-            <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong>
-            <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
-        </strong>
-    </td>
     
     <!-- Actions -->
     <td class="text-right">
-        <a class="btn btn-icon-only text-primary" href="/BasicCulture/PageCityNonQuery?CityId=${row.CityId}" role="button" data-toggle="tooltip" data-original-title="Edit">
+        <a class="btn btn-icon-only text-primary" href="/BasicCulture/CityNonQueryPage?CityId=${row.CityId}" role="button" data-toggle="tooltip" data-original-title="Edit">
             <i class="fas fa-edit"></i>
         </a>
         <div class="dropdown">
@@ -255,6 +256,26 @@ class CityQuery {
                         </span>
                         <br/>
                         <span class="text-white mb-4">
+                           Active <i class="fas fa-toggle-on"></i> ${row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           Date Time Creation <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           Date Time Last Modification <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           User Creation <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           User Last Modification <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
                            Name <i class="fas fa-font"></i> ${row.Name}
                         </span>
                         <br/>
@@ -270,26 +291,6 @@ class CityQuery {
                            Province <i class="fas fa-key"></i> ${row.ProvinceIdName}
                         </span>
                         <br/>
-                        <span class="text-white mb-4">
-                           Active <i class="fas fa-toggle-on"></i> ${row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                            User Creation <i class="fas fa-divide"></i> ${row.UserCreationIdFantasyName}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                            User Last Modification <i class="fas fa-divide"></i> ${row.UserLastModificationIdFantasyName}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                           Date Time Creation <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                           Date Time Last Modification <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
-                        </span>
-                        <br/>
                         
                     </div>
                     <div class="col-auto">
@@ -299,13 +300,13 @@ class CityQuery {
                 <div class="row">
                     <div class="col">
                         <div class="justify-content-end text-right mt-2">
-                            <div class="basicculture-city-checkbox-list list-row-unchecked mb-2">
-                                <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="check">
+                            <div class="mb-2">
+                                <a class="basicculture-city-checkbox-list list-row-unchecked icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="Check">
                                     <i class="fas fa-circle text-white"></i>
                                 </a>
+                                <input type="hidden" value="${row.CityId}"/>
                             </div>
-                            <input type="hidden" value="${row.CityId}"/>
-                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/BasicCulture/PageCityNonQuery?CityId=${row.CityId}" role="button" data-toggle="tooltip" data-original-title="edit">
+                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/BasicCulture/CityNonQueryPage?CityId=${row.CityId}" role="button" data-toggle="tooltip" data-original-title="edit">
                                 <i class="fas fa-edit text-primary"></i>
                             </a>
                             <div class="dropup">
@@ -349,10 +350,9 @@ class CityQuery {
                             }
                     }
                     else {
-                        //Show error message
-                        $("#basicculture-city-error-message-title").html("No registers found");
-                        $("#basicculture-city-error-message-text").html("The server did not found any register. HTTP code 204");
-                        $("#basicculture-city-button-error-message-in-card").show();
+                        //ERROR
+                        // @ts-ignore
+                        $.notify({ icon: "fas fa-exclamation-triangle", message: "No registers found" }, { type: "warning", placement: { from: "bottom", align: "center" } });
                     }
                 },
                 complete: () => {
@@ -406,11 +406,6 @@ class CityQuery {
                         ValidateAndSearch();
                     });
 
-                    //Hide error message
-                    $("#basicculture-city-error-message-title").html("");
-                    $("#basicculture-city-error-message-text").html("");
-                    $("#basicculture-city-button-error-message-in-card").hide();
-
                     //Delete button in table and list
                     $("div.dropdown-menu button.basicculture-city-table-delete-button, div.dropdown-menu button.basicculture-city-list-delete-button").on("click", function (e) {
                         let CityId = $(this).val();
@@ -418,20 +413,17 @@ class CityQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                //SUCCESS
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-check", message: "Row deleted successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-                                //Show OK message
-                                $("#basicculture-city-button-error-message-in-card").hide();
-                                $("#basicculture-city-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Row deleted successfully`);
-                                $("#basicculture-city-button-ok-message-in-card").show();
+                                ValidateAndSearch();
                             },
                             error: err => {
-                                //Related to error message
-                                $("#basicculture-city-error-message-title").html("CityModel.DeleteByCityId(CityId).subscribe(...)");
-                                $("#basicculture-city-error-message-text").html(err);
-                                $("#basicculture-city-button-error-message-in-card").show();
+                                //ERROR
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                                console.log(err);
                             }
                         });
                     });
@@ -443,39 +435,32 @@ class CityQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                //SUCCESS
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-check", message: "Row copied successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-                                //Show OK message
-                                $("#basicculture-city-button-error-message-in-card").hide();
-                                $("#basicculture-city-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Row copied successfully`);
-                                $("#basicculture-city-button-ok-message-in-card").show();
+                                ValidateAndSearch();
                             },
                             error: err => {
-                                //Show error message
-                                $("#basicculture-city-error-message-title").html("CityModel.CopyByCityId(CityId).subscribe(...)");
-                                $("#basicculture-city-error-message-text").html(err);
-                                $("#basicculture-city-button-error-message-in-card").show();
+                                //ERROR
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                                console.log(err);
                             }
                         });
                     });
                 },
                 error: err => {
-                    //Show error message
-                    $("#basicculture-city-error-message-title").html("CityModel.SelectAllPaged(request_citymodelQ).subscribe(...)");
-                    $("#basicculture-city-error-message-text").html(err);
-                    $("#basicculture-city-button-error-message-in-card").show();
+                    //ERROR
+                    // @ts-ignore
+                    $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to get data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                    console.log(err);
                 }
             });
     }
 }
 
 function ValidateAndSearch() {
-
-    //Hide error and OK message button
-    $("#basicculture-city-button-error-message-in-card").hide();
-    $("#basicculture-city-button-ok-message-in-card").hide();
 
     var _citymodelQuery: citymodelQuery = {
         QueryString,
@@ -506,8 +491,6 @@ if ($("#basicculture-city-title-page").html().includes("Query city")) {
     $("#basicculture-city-lnk-previous-page-lg, #basicculture-city-lnk-previous-page").attr("disabled", "disabled");
     //Hide messages
     $("#basicculture-city-export-message").html("");
-    $("#basicculture-city-button-error-message-in-card").hide();
-    $("#basicculture-city-button-ok-message-in-card").hide();
 
     ValidateAndSearch();
 }
@@ -642,23 +625,22 @@ $("#basicculture-city-export-as-pdf").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for PDF file
             $("#basicculture-city-export-message").html(`<a class="btn btn-icon btn-success" href="/PDFFiles/BasicCulture/City/City_${DateTimeNow.AjaxForString}.pdf" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-pdf"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
 
-            //Show OK message
-            $("#basicculture-city-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basicculture-city-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-city-error-message-title").html("Rx.from(ajax.post('/api/BasicCulture/City/1/ExportAsPDF/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basicculture-city-error-message-text").html(err);
-            $("#basicculture-city-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -709,23 +691,21 @@ $("#basicculture-city-export-as-excel").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for Excel file
             $("#basicculture-city-export-message").html(`<a class="btn btn-icon btn-success" href="/ExcelFiles/BasicCulture/City/City_${DateTimeNow.AjaxForString}.xlsx" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-excel"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#basicculture-city-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basicculture-city-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-city-error-message-title").html("Rx.from(ajax.post('/api/BasicCulture/City/1/ExportAsExcel/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basicculture-city-error-message-text").html(err);
-            $("#basicculture-city-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -776,23 +756,21 @@ $("#basicculture-city-export-as-csv").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for CSV file
             $("#basicculture-city-export-message").html(`<a class="btn btn-icon btn-success" href="/CSVFiles/BasicCulture/City/City_${DateTimeNow.AjaxForString}.csv" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-csv"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#basicculture-city-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basicculture-city-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-city-error-message-title").html("Rx.from(ajax.post('/api/BasicCulture/City/1/ExportAsCSV/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basicculture-city-error-message-text").html(err);
-            $("#basicculture-city-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -835,19 +813,17 @@ $("#basicculture-city-massive-action-copy").on("click", function (e) {
         next: newrow => {
         },
         complete: () => {
-            ValidateAndSearch();
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed copy" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-            //Show OK message
-            $("#basicculture-city-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows copied successfully`);
-            $("#basicculture-city-button-ok-message-in-card").show();
+            ValidateAndSearch();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-city-error-message-title").html("CityModel.Copy(CopyType).subscribe(...)");
-            $("#basicculture-city-error-message-text").html(err);
-            $("#basicculture-city-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -885,19 +861,17 @@ $("#basicculture-city-massive-action-delete").on("click", function (e) {
         next: newrow => {
         },
         complete: () => {
-            ValidateAndSearch();
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed deletion" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-            //Show OK message
-            $("#basicculture-city-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows deleted successfully`);
-            $("#basicculture-city-button-ok-message-in-card").show();
+            ValidateAndSearch();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-city-error-message-title").html("CityModel.Copy(CopyType).subscribe(...)");
-            $("#basicculture-city-error-message-text").html(err);
-            $("#basicculture-city-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });

@@ -209,7 +209,7 @@ class ParameterQuery {
     
     <!-- Actions -->
     <td class="text-right">
-        <a class="btn btn-icon-only text-primary" href="/BasicCore/PageParameterNonQuery?ParameterId=${row.ParameterId}" role="button" data-toggle="tooltip" data-original-title="Edit">
+        <a class="btn btn-icon-only text-primary" href="/BasicCore/ParameterNonQueryPage?ParameterId=${row.ParameterId}" role="button" data-toggle="tooltip" data-original-title="Edit">
             <i class="fas fa-edit"></i>
         </a>
         <div class="dropdown">
@@ -292,7 +292,7 @@ class ParameterQuery {
                                 </a>
                                 <input type="hidden" value="${row.ParameterId}"/>
                             </div>
-                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/BasicCore/PageParameterNonQuery?ParameterId=${row.ParameterId}" role="button" data-toggle="tooltip" data-original-title="edit">
+                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/BasicCore/ParameterNonQueryPage?ParameterId=${row.ParameterId}" role="button" data-toggle="tooltip" data-original-title="edit">
                                 <i class="fas fa-edit text-primary"></i>
                             </a>
                             <div class="dropup">

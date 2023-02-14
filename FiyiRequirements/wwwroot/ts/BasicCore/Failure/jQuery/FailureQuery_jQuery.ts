@@ -239,7 +239,7 @@ class FailureQuery {
     
     <!-- Actions -->
     <td class="text-right">
-        <a class="btn btn-icon-only text-primary" href="/BasicCore/PageFailureNonQuery?FailureId=${row.FailureId}" role="button" data-toggle="tooltip" data-original-title="Edit">
+        <a class="btn btn-icon-only text-primary" href="/BasicCore/FailureNonQueryPage?FailureId=${row.FailureId}" role="button" data-toggle="tooltip" data-original-title="Edit">
             <i class="fas fa-edit"></i>
         </a>
         <div class="dropdown">
@@ -334,7 +334,7 @@ class FailureQuery {
                                 </a>
                                 <input type="hidden" value="${row.FailureId}"/>
                             </div>
-                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/BasicCore/PageFailureNonQuery?FailureId=${row.FailureId}" role="button" data-toggle="tooltip" data-original-title="edit">
+                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/BasicCore/FailureNonQueryPage?FailureId=${row.FailureId}" role="button" data-toggle="tooltip" data-original-title="edit">
                                 <i class="fas fa-edit text-primary"></i>
                             </a>
                             <div class="dropup">
