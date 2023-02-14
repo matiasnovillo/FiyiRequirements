@@ -54,8 +54,7 @@
      entry: {
          main: ["./wwwroot/js/site", "./wwwroot/css/site.css"],  //Here we've got common modules used in the entire application
 
-         pagepermissions: ["./wwwroot/ts/CMSCore/PagePermissions"], //Area: BasicCore
-         failuretsmodel: ["./wwwroot/ts/BasicCore/Failure/TsModels/Failure_TsModel"],
+         failuretsmodel: ["./wwwroot/ts/BasicCore/Failure/TsModels/Failure_TsModel"], //Area: BasicCore
          failurejquery: ["./wwwroot/ts/BasicCore/Failure/jQuery/FailureQuery_jQuery"],
          parametertsmodel: ["./wwwroot/ts/BasicCore/Parameter/TsModels/Parameter_TsModel"],
          parameterjquery: ["./wwwroot/ts/BasicCore/Parameter/jQuery/ParameterQuery_jQuery"],
@@ -79,6 +78,7 @@
          rolejquery: ["./wwwroot/ts/CMSCore/Role/jQuery/RoleQuery_jQuery"],
          rolemenutsmodel: ["./wwwroot/ts/CMSCore/RoleMenu/TsModels/RoleMenu_TsModel"],
          rolemenujquery: ["./wwwroot/ts/CMSCore/RoleMenu/jQuery/RoleMenuQuery_jQuery"],
+         pagepermissions: ["./wwwroot/ts/CMSCore/PagePermissions"],
 
          requirementtsmodel: ["./wwwroot/ts/Requirement/Requirement/TsModels/Requirement_TsModel"], //Area: Requirement
          requirementjquery: ["./wwwroot/ts/Requirement/Requirement/jQuery/RequirementQuery_jQuery"],

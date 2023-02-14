@@ -5,6 +5,7 @@ var Failure_TsModel_1 = require("../../Failure/TsModels/Failure_TsModel");
 var $ = require("jquery");
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
+require("bootstrap-notify");
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  *
@@ -90,7 +91,7 @@ var FailureQuery = /** @class */ (function () {
                     //Read data book
                     (_j = response_failureQuery === null || response_failureQuery === void 0 ? void 0 : response_failureQuery.lstFailureModel) === null || _j === void 0 ? void 0 : _j.forEach(function (row) {
                         TableContent += "<tr>\n    <!-- Checkbox -->\n    <td>\n        <div>\n            <input class=\"failure-table-checkbox-for-row\" value=\"" + row.FailureId + "\" type=\"checkbox\">\n        </div>\n    </td>\n    <!-- Data -->\n    <td class=\"text-left text-light\">\n        <i class=\"fas fa-key\"></i> " + row.FailureId + "\n    </td>\n    <td class=\"text-left\">\n        <strong><i class=\"fas fa-divide\">\n            </i> " + row.HTTPCode + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong><i class=\"fas fa-divide\">\n            </i> " + row.EmergencyLevel + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-font\"></i> " + row.Message + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-font\"></i> " + row.StackTrace + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-font\"></i> " + row.Source + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-font\"></i> " + row.Comment + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-toggle-on\"></i> " + (row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>") + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong><i class=\"fas fa-divide\">\n            </i> " + row.UserCreationIdFantasyName + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong><i class=\"fas fa-divide\">\n            </i> " + row.UserLastModificationIdFantasyName + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-calendar\"></i> " + row.DateTimeCreation + "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-calendar\"></i> " + row.DateTimeLastModification + "\n        </strong>\n    </td>\n    \n    <!-- Actions -->\n    <td class=\"text-right\">\n        <a class=\"btn btn-icon-only text-primary\" href=\"/BasicCore/PageFailureNonQuery?FailureId=" + row.FailureId + "\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"Edit\">\n            <i class=\"fas fa-edit\"></i>\n        </a>\n        <div class=\"dropdown\">\n            <button class=\"btn btn-icon-only text-danger\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <i class=\"fas fa-trash\"></i>\n            </button>\n            <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\n                <button class=\"dropdown-item text-danger basiccore-failure-table-delete-button\" value=\"" + row.FailureId + "\" type=\"button\">\n                    <i class=\"fas fa-exclamation-triangle\"></i> Yes, delete\n                </button>\n            </div>\n        </div>\n        <div class=\"dropdown\">\n            <button class=\"btn btn-sm btn-icon-only text-primary\" href=\"#\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <i class=\"fas fa-ellipsis-v\"></i>\n            </button>\n            <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\n                <button type=\"button\" class=\"dropdown-item basiccore-failure-table-copy-button\" value=\"" + row.FailureId + "\">\n                    <i class=\"fas fa-copy text-primary\"></i>&nbsp;Copy\n                </button>\n            </div>\n        </div>\n    </td>\n</tr>";
-                        ListContent += "<div class=\"row mx-2\">\n    <div class=\"col-sm\">\n        <div class=\"card bg-gradient-primary mb-2\">\n            <div class=\"card-body\">\n                <div class=\"row\">\n                    <div class=\"col text-truncate\">\n                        <span class=\"text-white text-light mb-4\">\n                           Failure ID <i class=\"fas fa-key\"></i> " + row.FailureId + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                            HTTP Code <i class=\"fas fa-divide\"></i> " + row.HTTPCode + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                            Emergency Level <i class=\"fas fa-divide\"></i> " + row.EmergencyLevel + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Message <i class=\"fas fa-font\"></i> " + row.Message + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Stack Trace <i class=\"fas fa-font\"></i> " + row.StackTrace + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Source <i class=\"fas fa-font\"></i> " + row.Source + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Comment <i class=\"fas fa-font\"></i> " + row.Comment + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Active <i class=\"fas fa-toggle-on\"></i> " + (row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>") + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                            User Creation <i class=\"fas fa-divide\"></i> " + row.UserCreationIdFantasyName + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                            User Last Modification <i class=\"fas fa-divide\"></i> " + row.UserLastModificationIdFantasyName + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Date Time Creation <i class=\"fas fa-calendar\"></i> " + row.DateTimeCreation + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Date Time Last Modification <i class=\"fas fa-calendar\"></i> " + row.DateTimeLastModification + "\n                        </span>\n                        <br/>\n                        \n                    </div>\n                    <div class=\"col-auto\">\n                    </div>\n                </div>\n                <!-- Actions -->\n                <div class=\"row\">\n                    <div class=\"col\">\n                        <div class=\"justify-content-end text-right mt-2\">\n                            <div class=\"basiccore-failure-checkbox-list list-row-unchecked mb-2\">\n                                <a class=\"icon icon-shape bg-white icon-sm rounded-circle shadow\" href=\"javascript:void(0)\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"check\">\n                                    <i class=\"fas fa-circle text-white\"></i>\n                                </a>\n                            </div>\n                            <input type=\"hidden\" value=\"" + row.FailureId + "\"/>\n                            <a class=\"icon icon-shape bg-white icon-sm rounded-circle shadow\" href=\"/BasicCore/PageFailureNonQuery?FailureId=" + row.FailureId + "\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"edit\">\n                                <i class=\"fas fa-edit text-primary\"></i>\n                            </a>\n                            <div class=\"dropup\">\n                                <a class=\"icon icon-shape bg-white icon-sm text-primary rounded-circle shadow\" href=\"javascript:void(0)\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                                    <i class=\"fas fa-ellipsis-v\"></i>\n                                </a>\n                                <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\n                                    <button value=\"" + row.FailureId + "\" class=\"dropdown-item text-primary basiccore-failure-list-copy-button\" type=\"button\">\n                                        <i class=\"fas fa-copy\"></i>&nbsp;Copy\n                                    </button>\n                                    <button value=\"" + row.FailureId + "\" class=\"dropdown-item text-danger basiccore-failure-list-delete-button\" type=\"button\">\n                                        <i class=\"fas fa-trash\"></i>&nbsp;Delete\n                                    </button>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>";
+                        ListContent += "<div class=\"row mx-2\">\n    <div class=\"col-sm\">\n        <div class=\"card bg-gradient-primary mb-2\">\n            <div class=\"card-body\">\n                <div class=\"row\">\n                    <div class=\"col text-truncate\">\n                        <span class=\"text-white text-light mb-4\">\n                           Failure ID <i class=\"fas fa-key\"></i> " + row.FailureId + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                            HTTP Code <i class=\"fas fa-divide\"></i> " + row.HTTPCode + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                            Emergency Level <i class=\"fas fa-divide\"></i> " + row.EmergencyLevel + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Message <i class=\"fas fa-font\"></i> " + row.Message + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Stack Trace <i class=\"fas fa-font\"></i> " + row.StackTrace + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Source <i class=\"fas fa-font\"></i> " + row.Source + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Comment <i class=\"fas fa-font\"></i> " + row.Comment + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Active <i class=\"fas fa-toggle-on\"></i> " + (row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>") + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                            User Creation <i class=\"fas fa-divide\"></i> " + row.UserCreationIdFantasyName + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                            User Last Modification <i class=\"fas fa-divide\"></i> " + row.UserLastModificationIdFantasyName + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Date Time Creation <i class=\"fas fa-calendar\"></i> " + row.DateTimeCreation + "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Date Time Last Modification <i class=\"fas fa-calendar\"></i> " + row.DateTimeLastModification + "\n                        </span>\n                        <br/>\n                        \n                    </div>\n                    <div class=\"col-auto\">\n                    </div>\n                </div>\n                <!-- Actions -->\n                <div class=\"row\">\n                    <div class=\"col\">\n                        <div class=\"justify-content-end text-right mt-2\">\n                            <div class=\"mb-2\">\n                                <a class=\"basiccore-failure-checkbox-list list-row-unchecked icon icon-shape bg-white icon-sm rounded-circle shadow\" href=\"javascript:void(0)\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"Check\">\n                                    <i class=\"fas fa-circle text-white\"></i>\n                                </a>\n                                <input type=\"hidden\" value=\"" + row.FailureId + "\"/>\n                            </div>\n                            <a class=\"icon icon-shape bg-white icon-sm rounded-circle shadow\" href=\"/BasicCore/PageFailureNonQuery?FailureId=" + row.FailureId + "\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"edit\">\n                                <i class=\"fas fa-edit text-primary\"></i>\n                            </a>\n                            <div class=\"dropup\">\n                                <a class=\"icon icon-shape bg-white icon-sm text-primary rounded-circle shadow\" href=\"javascript:void(0)\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                                    <i class=\"fas fa-ellipsis-v\"></i>\n                                </a>\n                                <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\n                                    <button value=\"" + row.FailureId + "\" class=\"dropdown-item text-primary basiccore-failure-list-copy-button\" type=\"button\">\n                                        <i class=\"fas fa-copy\"></i>&nbsp;Copy\n                                    </button>\n                                    <button value=\"" + row.FailureId + "\" class=\"dropdown-item text-danger basiccore-failure-list-delete-button\" type=\"button\">\n                                        <i class=\"fas fa-trash\"></i>&nbsp;Delete\n                                    </button>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>";
                     });
                     //If view table is activated, clear table view, if not, clear list view
                     if (ViewToggler === "Table") {
@@ -111,10 +112,9 @@ var FailureQuery = /** @class */ (function () {
                     }
                 }
                 else {
-                    //Show error message
-                    $("#basiccore-failure-error-message-title").html("No registers found");
-                    $("#basiccore-failure-error-message-text").html("The server did not found any register. HTTP code 204");
-                    $("#basiccore-failure-button-error-message-in-card").show();
+                    //ERROR
+                    // @ts-ignore
+                    $.notify({ icon: "fas fa-exclamation-triangle", message: "No registers found" }, { type: "warning", placement: { from: "bottom", align: "center" } });
                 }
             },
             complete: function () {
@@ -157,10 +157,6 @@ var FailureQuery = /** @class */ (function () {
                     }
                     ValidateAndSearch();
                 });
-                //Hide error message
-                $("#basiccore-failure-error-message-title").html("");
-                $("#basiccore-failure-error-message-text").html("");
-                $("#basiccore-failure-button-error-message-in-card").hide();
                 //Delete button in table and list
                 $("div.dropdown-menu button.basiccore-failure-table-delete-button, div.dropdown-menu button.basiccore-failure-list-delete-button").on("click", function (e) {
                     var FailureId = $(this).val();
@@ -168,17 +164,16 @@ var FailureQuery = /** @class */ (function () {
                         next: function (newrow) {
                         },
                         complete: function () {
+                            //SUCCESS
+                            // @ts-ignore
+                            $.notify({ icon: "fas fa-check", message: "Row deleted successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
                             ValidateAndSearch();
-                            //Show OK message
-                            $("#basiccore-failure-button-error-message-in-card").hide();
-                            $("#basiccore-failure-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Row deleted successfully");
-                            $("#basiccore-failure-button-ok-message-in-card").show();
                         },
                         error: function (err) {
-                            //Related to error message
-                            $("#basiccore-failure-error-message-title").html("FailureModel.DeleteByFailureId(FailureId).subscribe(...)");
-                            $("#basiccore-failure-error-message-text").html(err);
-                            $("#basiccore-failure-button-error-message-in-card").show();
+                            //ERROR
+                            // @ts-ignore
+                            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                            console.log(err);
                         }
                     });
                 });
@@ -189,35 +184,31 @@ var FailureQuery = /** @class */ (function () {
                         next: function (newrow) {
                         },
                         complete: function () {
+                            //SUCCESS
+                            // @ts-ignore
+                            $.notify({ icon: "fas fa-check", message: "Row copied successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
                             ValidateAndSearch();
-                            //Show OK message
-                            $("#basiccore-failure-button-error-message-in-card").hide();
-                            $("#basiccore-failure-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Row copied successfully");
-                            $("#basiccore-failure-button-ok-message-in-card").show();
                         },
                         error: function (err) {
-                            //Show error message
-                            $("#basiccore-failure-error-message-title").html("FailureModel.CopyByFailureId(FailureId).subscribe(...)");
-                            $("#basiccore-failure-error-message-text").html(err);
-                            $("#basiccore-failure-button-error-message-in-card").show();
+                            //ERROR
+                            // @ts-ignore
+                            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                            console.log(err);
                         }
                     });
                 });
             },
             error: function (err) {
-                //Show error message
-                $("#basiccore-failure-error-message-title").html("FailureModel.SelectAllPaged(request_failuremodelQ).subscribe(...)");
-                $("#basiccore-failure-error-message-text").html(err);
-                $("#basiccore-failure-button-error-message-in-card").show();
+                //ERROR
+                // @ts-ignore
+                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to get data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                console.log(err);
             }
         });
     };
     return FailureQuery;
 }());
 function ValidateAndSearch() {
-    //Hide error and OK message button
-    $("#basiccore-failure-button-error-message-in-card").hide();
-    $("#basiccore-failure-button-ok-message-in-card").hide();
     var _failuremodelQuery = {
         QueryString: QueryString,
         ActualPageNumber: ActualPageNumber,
@@ -245,8 +236,6 @@ if ($("#basiccore-failure-title-page").html().includes("Query failure")) {
     $("#basiccore-failure-lnk-previous-page-lg, #basiccore-failure-lnk-previous-page").attr("disabled", "disabled");
     //Hide messages
     $("#basiccore-failure-export-message").html("");
-    $("#basiccore-failure-button-error-message-in-card").hide();
-    $("#basiccore-failure-button-ok-message-in-card").hide();
     ValidateAndSearch();
 }
 //CLICK, SCROLL AND KEYBOARD EVENTS
@@ -366,17 +355,17 @@ $("#basiccore-failure-export-as-pdf").on("click", function (e) {
             DateTimeNow = newrow.response;
         },
         complete: function () {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
             //Show download button for PDF file
             $("#basiccore-failure-export-message").html("<a class=\"btn btn-icon btn-success\" href=\"/PDFFiles/BasicCore/Failure/Failure_" + DateTimeNow.AjaxForString + ".pdf\" type=\"button\" download>\n                                            <span class=\"btn-inner--icon\"><i class=\"fas fa-file-pdf\"></i></span>\n                                            <span class=\"btn-inner--text\">Download</span>\n                                        </a>");
-            //Show OK message
-            $("#basiccore-failure-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Conversion completed");
-            $("#basiccore-failure-button-ok-message-in-card").show();
         },
         error: function (err) {
-            //Show error message
-            $("#basiccore-failure-error-message-title").html("Rx.from(ajax.post('/api/BasicCore/Failure/1/ExportAsPDF/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basiccore-failure-error-message-text").html(err);
-            $("#basiccore-failure-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -421,17 +410,17 @@ $("#basiccore-failure-export-as-excel").on("click", function (e) {
             DateTimeNow = newrow.response;
         },
         complete: function () {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
             //Show download button for Excel file
             $("#basiccore-failure-export-message").html("<a class=\"btn btn-icon btn-success\" href=\"/ExcelFiles/BasicCore/Failure/Failure_" + DateTimeNow.AjaxForString + ".xlsx\" type=\"button\" download>\n                                            <span class=\"btn-inner--icon\"><i class=\"fas fa-file-excel\"></i></span>\n                                            <span class=\"btn-inner--text\">Download</span>\n                                        </a>");
-            //Show OK message
-            $("#basiccore-failure-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Conversion completed");
-            $("#basiccore-failure-button-ok-message-in-card").show();
         },
         error: function (err) {
-            //Show error message
-            $("#basiccore-failure-error-message-title").html("Rx.from(ajax.post('/api/BasicCore/Failure/1/ExportAsExcel/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basiccore-failure-error-message-text").html(err);
-            $("#basiccore-failure-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -476,17 +465,17 @@ $("#basiccore-failure-export-as-csv").on("click", function (e) {
             DateTimeNow = newrow.response;
         },
         complete: function () {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
             //Show download button for CSV file
             $("#basiccore-failure-export-message").html("<a class=\"btn btn-icon btn-success\" href=\"/CSVFiles/BasicCore/Failure/Failure_" + DateTimeNow.AjaxForString + ".csv\" type=\"button\" download>\n                                            <span class=\"btn-inner--icon\"><i class=\"fas fa-file-csv\"></i></span>\n                                            <span class=\"btn-inner--text\">Download</span>\n                                        </a>");
-            //Show OK message
-            $("#basiccore-failure-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Conversion completed");
-            $("#basiccore-failure-button-ok-message-in-card").show();
         },
         error: function (err) {
-            //Show error message
-            $("#basiccore-failure-error-message-title").html("Rx.from(ajax.post('/api/BasicCore/Failure/1/ExportAsCSV/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basiccore-failure-error-message-text").html(err);
-            $("#basiccore-failure-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -524,16 +513,16 @@ $("#basiccore-failure-massive-action-copy").on("click", function (e) {
         next: function (newrow) {
         },
         complete: function () {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed copy" }, { type: "success", placement: { from: "bottom", align: "center" } });
             ValidateAndSearch();
-            //Show OK message
-            $("#basiccore-failure-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Rows copied successfully");
-            $("#basiccore-failure-button-ok-message-in-card").show();
         },
         error: function (err) {
-            //Show error message
-            $("#basiccore-failure-error-message-title").html("FailureModel.Copy(CopyType).subscribe(...)");
-            $("#basiccore-failure-error-message-text").html(err);
-            $("#basiccore-failure-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -567,16 +556,16 @@ $("#basiccore-failure-massive-action-delete").on("click", function (e) {
         next: function (newrow) {
         },
         complete: function () {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Deletion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
             ValidateAndSearch();
-            //Show OK message
-            $("#basiccore-failure-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Rows deleted successfully");
-            $("#basiccore-failure-button-ok-message-in-card").show();
         },
         error: function (err) {
-            //Show error message
-            $("#basiccore-failure-error-message-title").html("FailureModel.Copy(CopyType).subscribe(...)");
-            $("#basiccore-failure-error-message-text").html(err);
-            $("#basiccore-failure-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });

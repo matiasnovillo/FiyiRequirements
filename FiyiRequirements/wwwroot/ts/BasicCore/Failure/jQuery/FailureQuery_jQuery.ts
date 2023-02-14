@@ -4,6 +4,7 @@ import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import 'bootstrap-notify';
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -327,12 +328,12 @@ class FailureQuery {
                 <div class="row">
                     <div class="col">
                         <div class="justify-content-end text-right mt-2">
-                            <div class="basiccore-failure-checkbox-list list-row-unchecked mb-2">
-                                <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="check">
+                            <div class="mb-2">
+                                <a class="basiccore-failure-checkbox-list list-row-unchecked icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="Check">
                                     <i class="fas fa-circle text-white"></i>
                                 </a>
+                                <input type="hidden" value="${row.FailureId}"/>
                             </div>
-                            <input type="hidden" value="${row.FailureId}"/>
                             <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/BasicCore/PageFailureNonQuery?FailureId=${row.FailureId}" role="button" data-toggle="tooltip" data-original-title="edit">
                                 <i class="fas fa-edit text-primary"></i>
                             </a>
@@ -377,10 +378,9 @@ class FailureQuery {
                             }
                     }
                     else {
-                        //Show error message
-                        $("#basiccore-failure-error-message-title").html("No registers found");
-                        $("#basiccore-failure-error-message-text").html("The server did not found any register. HTTP code 204");
-                        $("#basiccore-failure-button-error-message-in-card").show();
+                        //ERROR
+                        // @ts-ignore
+                        $.notify({ icon: "fas fa-exclamation-triangle", message: "No registers found" }, { type: "warning", placement: { from: "bottom", align: "center" } });
                     }
                 },
                 complete: () => {
@@ -434,11 +434,6 @@ class FailureQuery {
                         ValidateAndSearch();
                     });
 
-                    //Hide error message
-                    $("#basiccore-failure-error-message-title").html("");
-                    $("#basiccore-failure-error-message-text").html("");
-                    $("#basiccore-failure-button-error-message-in-card").hide();
-
                     //Delete button in table and list
                     $("div.dropdown-menu button.basiccore-failure-table-delete-button, div.dropdown-menu button.basiccore-failure-list-delete-button").on("click", function (e) {
                         let FailureId = $(this).val();
@@ -446,20 +441,17 @@ class FailureQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                //SUCCESS
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-check", message: "Row deleted successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-                                //Show OK message
-                                $("#basiccore-failure-button-error-message-in-card").hide();
-                                $("#basiccore-failure-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Row deleted successfully`);
-                                $("#basiccore-failure-button-ok-message-in-card").show();
+                                ValidateAndSearch();
                             },
                             error: err => {
-                                //Related to error message
-                                $("#basiccore-failure-error-message-title").html("FailureModel.DeleteByFailureId(FailureId).subscribe(...)");
-                                $("#basiccore-failure-error-message-text").html(err);
-                                $("#basiccore-failure-button-error-message-in-card").show();
+                                //ERROR
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                                console.log(err);
                             }
                         });
                     });
@@ -471,39 +463,32 @@ class FailureQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                //SUCCESS
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-check", message: "Row copied successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-                                //Show OK message
-                                $("#basiccore-failure-button-error-message-in-card").hide();
-                                $("#basiccore-failure-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Row copied successfully`);
-                                $("#basiccore-failure-button-ok-message-in-card").show();
+                                ValidateAndSearch();
                             },
                             error: err => {
-                                //Show error message
-                                $("#basiccore-failure-error-message-title").html("FailureModel.CopyByFailureId(FailureId).subscribe(...)");
-                                $("#basiccore-failure-error-message-text").html(err);
-                                $("#basiccore-failure-button-error-message-in-card").show();
+                                //ERROR
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                                console.log(err);
                             }
                         });
                     });
                 },
                 error: err => {
-                    //Show error message
-                    $("#basiccore-failure-error-message-title").html("FailureModel.SelectAllPaged(request_failuremodelQ).subscribe(...)");
-                    $("#basiccore-failure-error-message-text").html(err);
-                    $("#basiccore-failure-button-error-message-in-card").show();
+                    //ERROR
+                    // @ts-ignore
+                    $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to get data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                    console.log(err);
                 }
             });
     }
 }
 
 function ValidateAndSearch() {
-
-    //Hide error and OK message button
-    $("#basiccore-failure-button-error-message-in-card").hide();
-    $("#basiccore-failure-button-ok-message-in-card").hide();
 
     var _failuremodelQuery: failuremodelQuery = {
         QueryString,
@@ -520,6 +505,7 @@ function ValidateAndSearch() {
 
 //LOAD EVENT
 if ($("#basiccore-failure-title-page").html().includes("Query failure")) {
+
     //Set to default values
     QueryString = "";
     ActualPageNumber = 1;
@@ -534,8 +520,6 @@ if ($("#basiccore-failure-title-page").html().includes("Query failure")) {
     $("#basiccore-failure-lnk-previous-page-lg, #basiccore-failure-lnk-previous-page").attr("disabled", "disabled");
     //Hide messages
     $("#basiccore-failure-export-message").html("");
-    $("#basiccore-failure-button-error-message-in-card").hide();
-    $("#basiccore-failure-button-ok-message-in-card").hide();
 
     ValidateAndSearch();
 }
@@ -670,23 +654,21 @@ $("#basiccore-failure-export-as-pdf").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for PDF file
             $("#basiccore-failure-export-message").html(`<a class="btn btn-icon btn-success" href="/PDFFiles/BasicCore/Failure/Failure_${DateTimeNow.AjaxForString}.pdf" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-pdf"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#basiccore-failure-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basiccore-failure-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basiccore-failure-error-message-title").html("Rx.from(ajax.post('/api/BasicCore/Failure/1/ExportAsPDF/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basiccore-failure-error-message-text").html(err);
-            $("#basiccore-failure-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -737,23 +719,21 @@ $("#basiccore-failure-export-as-excel").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for Excel file
             $("#basiccore-failure-export-message").html(`<a class="btn btn-icon btn-success" href="/ExcelFiles/BasicCore/Failure/Failure_${DateTimeNow.AjaxForString}.xlsx" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-excel"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#basiccore-failure-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basiccore-failure-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basiccore-failure-error-message-title").html("Rx.from(ajax.post('/api/BasicCore/Failure/1/ExportAsExcel/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basiccore-failure-error-message-text").html(err);
-            $("#basiccore-failure-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -804,23 +784,21 @@ $("#basiccore-failure-export-as-csv").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for CSV file
             $("#basiccore-failure-export-message").html(`<a class="btn btn-icon btn-success" href="/CSVFiles/BasicCore/Failure/Failure_${DateTimeNow.AjaxForString}.csv" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-csv"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#basiccore-failure-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basiccore-failure-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basiccore-failure-error-message-title").html("Rx.from(ajax.post('/api/BasicCore/Failure/1/ExportAsCSV/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basiccore-failure-error-message-text").html(err);
-            $("#basiccore-failure-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -863,19 +841,17 @@ $("#basiccore-failure-massive-action-copy").on("click", function (e) {
         next: newrow => {
         },
         complete: () => {
-            ValidateAndSearch();
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed copy" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-            //Show OK message
-            $("#basiccore-failure-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows copied successfully`);
-            $("#basiccore-failure-button-ok-message-in-card").show();
+            ValidateAndSearch();
         },
         error: err => {
-            //Show error message
-            $("#basiccore-failure-error-message-title").html("FailureModel.Copy(CopyType).subscribe(...)");
-            $("#basiccore-failure-error-message-text").html(err);
-            $("#basiccore-failure-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -913,19 +889,17 @@ $("#basiccore-failure-massive-action-delete").on("click", function (e) {
         next: newrow => {
         },
         complete: () => {
-            ValidateAndSearch();
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Deletion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-            //Show OK message
-            $("#basiccore-failure-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows deleted successfully`);
-            $("#basiccore-failure-button-ok-message-in-card").show();
+            ValidateAndSearch();
         },
         error: err => {
-            //Show error message
-            $("#basiccore-failure-error-message-title").html("FailureModel.Copy(CopyType).subscribe(...)");
-            $("#basiccore-failure-error-message-text").html(err);
-            $("#basiccore-failure-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
