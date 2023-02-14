@@ -1,6 +1,6 @@
 @page
 @using FiyiRequirements.Areas.CMSCore.Models
-@model FiyiRequirements.Areas.CMSCore.Pages.PageUserNonQueryModel
+@model FiyiRequirements.Areas.CMSCore.Pages.UserNonQueryPageModel
 @{
     Layout = "_LayoutDashboard";
 
@@ -12,8 +12,8 @@
     string Email;
     string Password;
     int RoleId;
-    string RegistrationToken;
     string RoleName;
+    string RegistrationToken;
 
 
     if(HttpContext.Request.QueryString.Value.Contains("?UserId=0"))
@@ -25,8 +25,10 @@
         FantasyName = "";
         Email = "";
         Password = "";
-        RoleId = 0;RegistrationToken = "";
+        RoleId = 0;
         RoleName = "Choose a value";
+        RegistrationToken = "";
+        
     }
     else
     {
@@ -42,21 +44,18 @@
         Password = UserModel.Password;
         RoleId = UserModel.RoleId;
         RegistrationToken = UserModel.RegistrationToken;
-
-        RoleModel RoleModel = new RoleModel(RoleId);
+        
+        RoleModel RoleModel = new RoleModel(UserModel.RoleId);
         RoleName = RoleModel.Name;
-
     }
 
     List<RoleModel> lstRoleModel = new RoleModel().SelectAllToList();
-
-
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -64,7 +63,7 @@
  */
     
 //Stack: 11
-//Last modification on: 21/12/2022 11:12:12
+//Last modification on: 14/02/2023 14:44:38
 
 }
 <!-- Header -->
@@ -103,13 +102,13 @@
                 <div class="col-lg-6 col-5 text-right">
                     <!-- XL Screens -->
                     <div class="d-none d-xl-inline">
-                        <a href="/CMSCore/PageUserQuery" class="btn btn-secondary">
+                        <a href="/CMSCore/UserQueryPage" class="btn btn-secondary">
                             <i class="fas fa-angle-left"></i> Go back
                         </a>
                     </div>
                     <!-- Other Screens -->
                     <div class="d-inline d-sm-inline d-md-inline d-lg-inline d-xl-none">
-                        <a href="/CMSCore/PageUserQuery" class="btn btn-secondary">
+                        <a href="/CMSCore/UserQueryPage" class="btn btn-secondary">
                             <i class="fas fa-angle-left"></i>
                         </a>
                     </div>
@@ -126,7 +125,7 @@
             <div class="card">
                 <!-- Card body -->
                 <div class="card-body">
-                    <form role="form" class="needs-validation" novalidate>
+                    <form novalidate>
                         <!-- UserId -->
                         <div class="form-group mb-3">
                             <label for="cmscore-user-userId-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
@@ -187,7 +186,8 @@
                                     </button>
                                 </div>
                             </div>
-                        </div><!-- Password -->
+                        </div>
+                        <!-- Password -->
                         <div class="form-group mb-3">
                             <label for="cmscore-user-password-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
                                 <i class="fas fa-asterisk"></i> Password
@@ -211,13 +211,13 @@
                         <!-- RoleId -->
                         <div class="form-group mb-3">
                             <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-hashtag"></i> Role ID
+                                <i class="fas fa-hashtag"></i> RoleId
                             </label>
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend input-group-text">
                                     <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
                                         <strong>
-                                            <i class="fas fa-hashtag"></i> Role ID
+                                            <i class="fas fa-hashtag"></i> RoleId
                                         </strong>
                                     </span>
                                 </div>
@@ -250,9 +250,9 @@
                                         </strong>
                                     </span>
                                 </div>
-                                <input class="form-control" min="1" max="8000" type="text" id="cmscore-user-registrationtoken-input" value="@RegistrationToken" >
+                                <input class="form-control" min="1" max="8000" type="text" id="cmscore-user-registrationtoken-input" value="@RegistrationToken" required>
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="registrationtoken-info">
+                                    <button class="btn btn-danger border-0" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="registrationtoken-info">
                                         <i class="fas fa-info"></i>
                                     </button>
                                 </div>
@@ -262,8 +262,7 @@
                         <!-- Buttons -->
                         <div class="row justify-content-between">
                             <button id="cmscore-user-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="@NonQueryIcon"></i> @NonQueryText</button>
-                            <button id="cmscore-user-insert-or-update-message" data-toggle="modal" data-target="#cmscore-user-error-message-modal" class="btn mt-4" type="button"></button>
-                            <a href="/CMSCore/PageUserQuery" class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
+                            <a href="/CMSCore/UserQueryPage" class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
                                 <i class="fas fa-angle-left"></i> Go back
                             </a>
                         </div>
@@ -277,38 +276,7 @@
     </div>
 </div>
 
-<!-- Error message in modal style -->
-<div class="row">
-    <div class="col-md-4 px-0">
-        <div class="modal fade" id="cmscore-user-error-message-modal" tabindex="-1" role="dialog" aria-labelledby="cmscore-user-error-message-modal" aria-hidden="true">
-            <div class="modal-dialog modal-secondary modal-dialog-centered modal-" role="document">
-                <div class="modal-content bg-gradient-danger">
-                    <!-- Modal title -->
-                    <div class="modal-header">
-                        <h6 class="modal-title text-white">
-                            Error <i class="fas fa-exclamation-triangle"></i>
-                        </h6>
-                    </div>
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <div class="py-3 text-center">
-                            <h4 id="cmscore-user-error-message-title" class="heading mt-4 text-white"></h4>
-                            <p class="text-white text-truncate" id="cmscore-user-error-message-text"></p>
-                        </div>
-                    </div>
-                    <!-- Close button -->
-                    <div class="modal-footer pt-4">
-                        <button type="button" class="btn btn-white ml-auto" data-dismiss="modal">
-                            Close
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Role selector in Modal style -->
+<!-- ForeignKeyDropDown selector in Modal style -->
 <div class="row">
     <div class="col-md-4">
         <!-- Modal -->
@@ -318,7 +286,7 @@
                 <div class="modal-content bg-gradient-secondary">
                     <div class="modal-header">
                         <h6 class="modal-title text-primary">
-                            Choose a role <i class="fas fa-hashtag"></i>
+                            Choose a ForeignKeyDropDown value <i class="fas fa-hashtag"></i>
                          </h6>
                     </div>
                     <div class="modal-body">
@@ -341,6 +309,37 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-primary ml-auto" data-dismiss="modal">Close</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Phone code Selector in Modal style -->
+<div class="row">
+    <div class="col-md-4">
+        <div class="modal fade" id="modal-phone-code-selector" tabindex="-1" role="dialog" aria-labelledby="modal-phone-code-selector" aria-hidden="true">
+            <div class="modal-dialog modal-secondary modal-dialog-centered modal-" role="document">
+                <div class="modal-content bg-gradient-secondary">
+                    <div class="modal-header">
+                        <h6 class="modal-title text-primary">Choose your phone code <i class="fas fa-globe-americas"></i></h6>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <div class="input-group input-group-merge input-group-alternative">
+                                    <select class="form-control" data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Country (+Code)" data-allow-reset="true">
+                                        <option></option> <!--This must be empty-->
+                                        <option>Argentina (+54)</option>
+                                        <option>USA (+1)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary ml-auto" data-dismiss="modal">Close</button>
+                    </div>
+
                 </div>
             </div>
         </div>

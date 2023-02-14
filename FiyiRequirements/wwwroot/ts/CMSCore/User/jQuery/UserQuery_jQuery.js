@@ -5,18 +5,19 @@ var User_TsModel_1 = require("../../User/TsModels/User_TsModel");
 var $ = require("jquery");
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
+require("bootstrap-notify");
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  *
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  *
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  *
 */
 //Stack: 10
-//Last modification on: 21/12/2022 11:12:12
+//Last modification on: 14/02/2023 14:44:38
 //Set default values
 var LastTopDistance = 0;
 var QueryString = "";
@@ -35,7 +36,7 @@ var UserQuery = /** @class */ (function () {
         //Used for list view
         $(window).off("scroll");
         //Load some part of table
-        var TableContent = "<thead class=\"thead-light\">\n    <tr>\n        <th scope=\"col\">\n            <div>\n                <input id=\"user-table-check-all\" type=\"checkbox\">\n            </div>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User ID\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"FantasyName\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Fantasy Name\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Email\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Email\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Password\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Password\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"RoleId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Role\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Active\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Active\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserCreationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserLastModificationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeCreation\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeLastModification\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"RegistrationToken\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Registration Token\n            </button>\n        </th>\n        \n        <th scope=\"col\"></th>\n    </tr>\n</thead>\n<tbody>";
+        var TableContent = "<thead class=\"thead-light\">\n    <tr>\n        <th scope=\"col\">\n            <div>\n                <input id=\"user-table-check-all\" type=\"checkbox\">\n            </div>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User ID\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Active\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Active\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeCreation\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeLastModification\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserCreationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserLastModificationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"FantasyName\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Fantasy Name\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Email\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Email\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Password\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Password\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"RoleId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Role\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"RegistrationToken\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Registration Token\n            </button>\n        </th>\n        \n        <th scope=\"col\"></th>\n    </tr>\n</thead>\n<tbody>";
         var ListContent = "";
         User_TsModel_1.UserModel.SelectAllPaged(request_usermodelQuery).subscribe({
             next: function (newrow) {
@@ -89,8 +90,8 @@ var UserQuery = /** @class */ (function () {
                     }
                     //Read data book
                     (_j = response_userQuery === null || response_userQuery === void 0 ? void 0 : response_userQuery.lstUserModel) === null || _j === void 0 ? void 0 : _j.forEach(function (row) {
-                        TableContent += "<tr>\n    <!-- Checkbox -->\n    <td>\n        <div>\n            <input class=\"user-table-checkbox-for-row\" value=\"".concat(row.UserId, "\" type=\"checkbox\">\n        </div>\n    </td>\n    <!-- Data -->\n    <td class=\"text-left text-light\">\n        <i class=\"fas fa-key\"></i> ").concat(row.UserId, "\n    </td>\n    <td class=\"text-left\">\n        <strong><i class=\"fas fa-font\">\n            </i> ").concat(row.FantasyName, "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <a href=\"mailto:").concat(row.Email, "\">\n            <strong>\n                <i class=\"fas fa-at\"></i> ").concat(row.Email, "\n            </strong>\n        </a>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-asterisk\"></i> ").concat(row.Password, "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-key\"></i> ").concat(row.RoleIdName, "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-toggle-on\"></i> ").concat(row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>", "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong><i class=\"fas fa-divide\">\n            </i> ").concat(row.UserCreationIdFantasyName, "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong><i class=\"fas fa-divide\">\n            </i> ").concat(row.UserLastModificationIdFantasyName, "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-calendar\"></i> ").concat(row.DateTimeCreation, "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-calendar\"></i> ").concat(row.DateTimeLastModification, "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong><i class=\"fas fa-font\">\n            </i> ").concat(row.RegistrationToken, "\n        </strong>\n    </td>\n    \n    <!-- Actions -->\n    <td class=\"text-right\">\n        <a class=\"btn btn-icon-only text-primary\" href=\"/CMSCore/PageUserNonQuery?UserId=").concat(row.UserId, "\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"Edit\">\n            <i class=\"fas fa-edit\"></i>\n        </a>\n        <div class=\"dropdown\">\n            <button class=\"btn btn-icon-only text-danger\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <i class=\"fas fa-trash\"></i>\n            </button>\n            <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\n                <button class=\"dropdown-item text-danger cmscore-user-table-delete-button\" value=\"").concat(row.UserId, "\" type=\"button\">\n                    <i class=\"fas fa-exclamation-triangle\"></i> Yes, delete\n                </button>\n            </div>\n        </div>\n        <div class=\"dropdown\">\n            <button class=\"btn btn-sm btn-icon-only text-primary\" href=\"#\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <i class=\"fas fa-ellipsis-v\"></i>\n            </button>\n            <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\n                <button type=\"button\" class=\"dropdown-item cmscore-user-table-copy-button\" value=\"").concat(row.UserId, "\">\n                    <i class=\"fas fa-copy text-primary\"></i>&nbsp;Copy\n                </button>\n            </div>\n        </div>\n    </td>\n</tr>");
-                        ListContent += "<div class=\"row mx-2\">\n    <div class=\"col-sm\">\n        <div class=\"card bg-gradient-primary mb-2\">\n            <div class=\"card-body\">\n                <div class=\"row\">\n                    <div class=\"col text-truncate\">\n                        <span class=\"text-white text-light mb-4\">\n                           User ID <i class=\"fas fa-key\"></i> ".concat(row.UserId, "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Fantasy Name <i class=\"fas fa-font\"></i> ").concat(row.FantasyName, "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                            <a style=\"color:#FFFFFF\" href=\"mailto:").concat(row.Email, "\">\n                               Email <i class=\"fas fa-at\"></i> ").concat(row.Email, "\n                            <a/>\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Password <i class=\"fas fa-asterisk\"></i> ").concat(row.Password, "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Role <i class=\"fas fa-key\"></i> ").concat(row.RoleIdName, "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Active <i class=\"fas fa-toggle-on\"></i> ").concat(row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>", "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                            User Creation <i class=\"fas fa-divide\"></i> ").concat(row.UserCreationIdFantasyName, "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                            User Last Modification <i class=\"fas fa-divide\"></i> ").concat(row.UserLastModificationIdFantasyName, "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Date Time Creation <i class=\"fas fa-calendar\"></i> ").concat(row.DateTimeCreation, "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Date Time Last Modification <i class=\"fas fa-calendar\"></i> ").concat(row.DateTimeLastModification, "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Registration Token <i class=\"fas fa-font\"></i> ").concat(row.RegistrationToken, "\n                        </span>\n                        <br/>\n                        \n                    </div>\n                    <div class=\"col-auto\">\n                    </div>\n                </div>\n                <!-- Actions -->\n                <div class=\"row\">\n                    <div class=\"col\">\n                        <div class=\"justify-content-end text-right mt-2\">\n                            <div class=\"cmscore-user-checkbox-list list-row-unchecked mb-2\">\n                                <a class=\"icon icon-shape bg-white icon-sm rounded-circle shadow\" href=\"javascript:void(0)\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"check\">\n                                    <i class=\"fas fa-circle text-white\"></i>\n                                </a>\n                            </div>\n                            <input type=\"hidden\" value=\"").concat(row.UserId, "\"/>\n                            <a class=\"icon icon-shape bg-white icon-sm rounded-circle shadow\" href=\"/CMSCore/PageUserNonQuery?UserId=").concat(row.UserId, "\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"edit\">\n                                <i class=\"fas fa-edit text-primary\"></i>\n                            </a>\n                            <div class=\"dropup\">\n                                <a class=\"icon icon-shape bg-white icon-sm text-primary rounded-circle shadow\" href=\"javascript:void(0)\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                                    <i class=\"fas fa-ellipsis-v\"></i>\n                                </a>\n                                <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\n                                    <button value=\"").concat(row.UserId, "\" class=\"dropdown-item text-primary cmscore-user-list-copy-button\" type=\"button\">\n                                        <i class=\"fas fa-copy\"></i>&nbsp;Copy\n                                    </button>\n                                    <button value=\"").concat(row.UserId, "\" class=\"dropdown-item text-danger cmscore-user-list-delete-button\" type=\"button\">\n                                        <i class=\"fas fa-trash\"></i>&nbsp;Delete\n                                    </button>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>");
+                        TableContent += "<tr>\n    <!-- Checkbox -->\n    <td>\n        <div>\n            <input class=\"user-table-checkbox-for-row\" value=\"".concat(row.UserId, "\" type=\"checkbox\">\n        </div>\n    </td>\n    <!-- Data -->\n    <td class=\"text-left text-light\">\n        <i class=\"fas fa-key\"></i> ").concat(row.UserId, "\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-toggle-on\"></i> ").concat(row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>", "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-calendar\"></i> ").concat(row.DateTimeCreation, "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-calendar\"></i> ").concat(row.DateTimeLastModification, "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-key\"></i> ").concat(row.UserCreationIdFantasyName, "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-key\"></i> ").concat(row.UserLastModificationIdFantasyName, "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong><i class=\"fas fa-font\">\n            </i> ").concat(row.FantasyName, "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <a href=\"mailto:").concat(row.Email, "\">\n            <strong>\n                <i class=\"fas fa-at\"></i> ").concat(row.Email, "\n            </strong>\n        </a>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-asterisk\"></i> ").concat(row.Password, "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong>\n            <i class=\"fas fa-key\"></i> ").concat(row.RoleIdName, "\n        </strong>\n    </td>\n    <td class=\"text-left\">\n        <strong><i class=\"fas fa-font\">\n            </i> ").concat(row.RegistrationToken, "\n        </strong>\n    </td>\n    \n    <!-- Actions -->\n    <td class=\"text-right\">\n        <a class=\"btn btn-icon-only text-primary\" href=\"/CMSCore/UserNonQueryPage?UserId=").concat(row.UserId, "\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"Edit\">\n            <i class=\"fas fa-edit\"></i>\n        </a>\n        <div class=\"dropdown\">\n            <button class=\"btn btn-icon-only text-danger\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <i class=\"fas fa-trash\"></i>\n            </button>\n            <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\n                <button class=\"dropdown-item text-danger cmscore-user-table-delete-button\" value=\"").concat(row.UserId, "\" type=\"button\">\n                    <i class=\"fas fa-exclamation-triangle\"></i> Yes, delete\n                </button>\n            </div>\n        </div>\n        <div class=\"dropdown\">\n            <button class=\"btn btn-sm btn-icon-only text-primary\" href=\"#\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                <i class=\"fas fa-ellipsis-v\"></i>\n            </button>\n            <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\n                <button type=\"button\" class=\"dropdown-item cmscore-user-table-copy-button\" value=\"").concat(row.UserId, "\">\n                    <i class=\"fas fa-copy text-primary\"></i>&nbsp;Copy\n                </button>\n            </div>\n        </div>\n    </td>\n</tr>");
+                        ListContent += "<div class=\"row mx-2\">\n    <div class=\"col-sm\">\n        <div class=\"card bg-gradient-primary mb-2\">\n            <div class=\"card-body\">\n                <div class=\"row\">\n                    <div class=\"col text-truncate\">\n                        <span class=\"text-white text-light mb-4\">\n                           User ID <i class=\"fas fa-key\"></i> ".concat(row.UserId, "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Active <i class=\"fas fa-toggle-on\"></i> ").concat(row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>", "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Date Time Creation <i class=\"fas fa-calendar\"></i> ").concat(row.DateTimeCreation, "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Date Time Last Modification <i class=\"fas fa-calendar\"></i> ").concat(row.DateTimeLastModification, "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           User Creation <i class=\"fas fa-key\"></i> ").concat(row.UserCreationIdFantasyName, "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           User Last Modification <i class=\"fas fa-key\"></i> ").concat(row.UserLastModificationIdFantasyName, "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           FantasyName <i class=\"fas fa-font\"></i> ").concat(row.FantasyName, "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                            <a style=\"color:#FFFFFF\" href=\"mailto:").concat(row.Email, "\">\n                               Email <i class=\"fas fa-at\"></i> ").concat(row.Email, "\n                            <a/>\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           Password <i class=\"fas fa-asterisk\"></i> ").concat(row.Password, "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           RoleId <i class=\"fas fa-key\"></i> ").concat(row.RoleId, "\n                        </span>\n                        <br/>\n                        <span class=\"text-white mb-4\">\n                           RegistrationToken <i class=\"fas fa-font\"></i> ").concat(row.RegistrationToken, "\n                        </span>\n                        <br/>\n                        \n                    </div>\n                    <div class=\"col-auto\">\n                    </div>\n                </div>\n                <!-- Actions -->\n                <div class=\"row\">\n                    <div class=\"col\">\n                        <div class=\"justify-content-end text-right mt-2\">\n                            <div class=\"mb-2\">\n                                <a class=\"cmscore-user-checkbox-list list-row-unchecked icon icon-shape bg-white icon-sm rounded-circle shadow\" href=\"javascript:void(0)\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"Check\">\n                                    <i class=\"fas fa-circle text-white\"></i>\n                                </a>\n                                <input type=\"hidden\" value=\"").concat(row.UserId, "\"/>\n                            </div>\n                            <a class=\"icon icon-shape bg-white icon-sm rounded-circle shadow\" href=\"/CMSCore/UserNonQueryPage?UserId=").concat(row.UserId, "\" role=\"button\" data-toggle=\"tooltip\" data-original-title=\"edit\">\n                                <i class=\"fas fa-edit text-primary\"></i>\n                            </a>\n                            <div class=\"dropup\">\n                                <a class=\"icon icon-shape bg-white icon-sm text-primary rounded-circle shadow\" href=\"javascript:void(0)\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                                    <i class=\"fas fa-ellipsis-v\"></i>\n                                </a>\n                                <div class=\"dropdown-menu dropdown-menu-right dropdown-menu-arrow\">\n                                    <button value=\"").concat(row.UserId, "\" class=\"dropdown-item text-primary cmscore-user-list-copy-button\" type=\"button\">\n                                        <i class=\"fas fa-copy\"></i>&nbsp;Copy\n                                    </button>\n                                    <button value=\"").concat(row.UserId, "\" class=\"dropdown-item text-danger cmscore-user-list-delete-button\" type=\"button\">\n                                        <i class=\"fas fa-trash\"></i>&nbsp;Delete\n                                    </button>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>");
                     });
                     //If view table is activated, clear table view, if not, clear list view
                     if (ViewToggler === "Table") {
@@ -111,10 +112,9 @@ var UserQuery = /** @class */ (function () {
                     }
                 }
                 else {
-                    //Show error message
-                    $("#cmscore-user-error-message-title").html("No registers found");
-                    $("#cmscore-user-error-message-text").html("The server did not found any register. HTTP code 204");
-                    $("#cmscore-user-button-error-message-in-card").show();
+                    //ERROR
+                    // @ts-ignore
+                    $.notify({ icon: "fas fa-exclamation-triangle", message: "No registers found" }, { type: "warning", placement: { from: "bottom", align: "center" } });
                 }
             },
             complete: function () {
@@ -157,10 +157,6 @@ var UserQuery = /** @class */ (function () {
                     }
                     ValidateAndSearch();
                 });
-                //Hide error message
-                $("#cmscore-user-error-message-title").html("");
-                $("#cmscore-user-error-message-text").html("");
-                $("#cmscore-user-button-error-message-in-card").hide();
                 //Delete button in table and list
                 $("div.dropdown-menu button.cmscore-user-table-delete-button, div.dropdown-menu button.cmscore-user-list-delete-button").on("click", function (e) {
                     var UserId = $(this).val();
@@ -168,17 +164,16 @@ var UserQuery = /** @class */ (function () {
                         next: function (newrow) {
                         },
                         complete: function () {
+                            //SUCCESS
+                            // @ts-ignore
+                            $.notify({ icon: "fas fa-check", message: "Row deleted successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
                             ValidateAndSearch();
-                            //Show OK message
-                            $("#cmscore-user-button-error-message-in-card").hide();
-                            $("#cmscore-user-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Row deleted successfully");
-                            $("#cmscore-user-button-ok-message-in-card").show();
                         },
                         error: function (err) {
-                            //Related to error message
-                            $("#cmscore-user-error-message-title").html("UserModel.DeleteByUserId(UserId).subscribe(...)");
-                            $("#cmscore-user-error-message-text").html(err);
-                            $("#cmscore-user-button-error-message-in-card").show();
+                            //ERROR
+                            // @ts-ignore
+                            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                            console.log(err);
                         }
                     });
                 });
@@ -189,35 +184,31 @@ var UserQuery = /** @class */ (function () {
                         next: function (newrow) {
                         },
                         complete: function () {
+                            //SUCCESS
+                            // @ts-ignore
+                            $.notify({ icon: "fas fa-check", message: "Row copied successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
                             ValidateAndSearch();
-                            //Show OK message
-                            $("#cmscore-user-button-error-message-in-card").hide();
-                            $("#cmscore-user-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Row copied successfully");
-                            $("#cmscore-user-button-ok-message-in-card").show();
                         },
                         error: function (err) {
-                            //Show error message
-                            $("#cmscore-user-error-message-title").html("UserModel.CopyByUserId(UserId).subscribe(...)");
-                            $("#cmscore-user-error-message-text").html(err);
-                            $("#cmscore-user-button-error-message-in-card").show();
+                            //ERROR
+                            // @ts-ignore
+                            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                            console.log(err);
                         }
                     });
                 });
             },
             error: function (err) {
-                //Show error message
-                $("#cmscore-user-error-message-title").html("UserModel.SelectAllPaged(request_usermodelQ).subscribe(...)");
-                $("#cmscore-user-error-message-text").html(err);
-                $("#cmscore-user-button-error-message-in-card").show();
+                //ERROR
+                // @ts-ignore
+                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to get data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                console.log(err);
             }
         });
     };
     return UserQuery;
 }());
 function ValidateAndSearch() {
-    //Hide error and OK message button
-    $("#cmscore-user-button-error-message-in-card").hide();
-    $("#cmscore-user-button-ok-message-in-card").hide();
     var _usermodelQuery = {
         QueryString: QueryString,
         ActualPageNumber: ActualPageNumber,
@@ -245,8 +236,6 @@ if ($("#cmscore-user-title-page").html().includes("Query user")) {
     $("#cmscore-user-lnk-previous-page-lg, #cmscore-user-lnk-previous-page").attr("disabled", "disabled");
     //Hide messages
     $("#cmscore-user-export-message").html("");
-    $("#cmscore-user-button-error-message-in-card").hide();
-    $("#cmscore-user-button-ok-message-in-card").hide();
     ValidateAndSearch();
 }
 //CLICK, SCROLL AND KEYBOARD EVENTS
@@ -366,17 +355,17 @@ $("#cmscore-user-export-as-pdf").on("click", function (e) {
             DateTimeNow = newrow.response;
         },
         complete: function () {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
             //Show download button for PDF file
             $("#cmscore-user-export-message").html("<a class=\"btn btn-icon btn-success\" href=\"/PDFFiles/CMSCore/User/User_".concat(DateTimeNow.AjaxForString, ".pdf\" type=\"button\" download>\n                                            <span class=\"btn-inner--icon\"><i class=\"fas fa-file-pdf\"></i></span>\n                                            <span class=\"btn-inner--text\">Download</span>\n                                        </a>"));
-            //Show OK message
-            $("#cmscore-user-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Conversion completed");
-            $("#cmscore-user-button-ok-message-in-card").show();
         },
         error: function (err) {
-            //Show error message
-            $("#cmscore-user-error-message-title").html("Rx.from(ajax.post('/api/CMSCore/User/1/ExportAsPDF/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#cmscore-user-error-message-text").html(err);
-            $("#cmscore-user-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -421,17 +410,17 @@ $("#cmscore-user-export-as-excel").on("click", function (e) {
             DateTimeNow = newrow.response;
         },
         complete: function () {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
             //Show download button for Excel file
             $("#cmscore-user-export-message").html("<a class=\"btn btn-icon btn-success\" href=\"/ExcelFiles/CMSCore/User/User_".concat(DateTimeNow.AjaxForString, ".xlsx\" type=\"button\" download>\n                                            <span class=\"btn-inner--icon\"><i class=\"fas fa-file-excel\"></i></span>\n                                            <span class=\"btn-inner--text\">Download</span>\n                                        </a>"));
-            //Show OK message
-            $("#cmscore-user-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Conversion completed");
-            $("#cmscore-user-button-ok-message-in-card").show();
         },
         error: function (err) {
-            //Show error message
-            $("#cmscore-user-error-message-title").html("Rx.from(ajax.post('/api/CMSCore/User/1/ExportAsExcel/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#cmscore-user-error-message-text").html(err);
-            $("#cmscore-user-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -476,17 +465,17 @@ $("#cmscore-user-export-as-csv").on("click", function (e) {
             DateTimeNow = newrow.response;
         },
         complete: function () {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
             //Show download button for CSV file
             $("#cmscore-user-export-message").html("<a class=\"btn btn-icon btn-success\" href=\"/CSVFiles/CMSCore/User/User_".concat(DateTimeNow.AjaxForString, ".csv\" type=\"button\" download>\n                                            <span class=\"btn-inner--icon\"><i class=\"fas fa-file-csv\"></i></span>\n                                            <span class=\"btn-inner--text\">Download</span>\n                                        </a>"));
-            //Show OK message
-            $("#cmscore-user-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Conversion completed");
-            $("#cmscore-user-button-ok-message-in-card").show();
         },
         error: function (err) {
-            //Show error message
-            $("#cmscore-user-error-message-title").html("Rx.from(ajax.post('/api/CMSCore/User/1/ExportAsCSV/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#cmscore-user-error-message-text").html(err);
-            $("#cmscore-user-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -524,16 +513,16 @@ $("#cmscore-user-massive-action-copy").on("click", function (e) {
         next: function (newrow) {
         },
         complete: function () {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed copy" }, { type: "success", placement: { from: "bottom", align: "center" } });
             ValidateAndSearch();
-            //Show OK message
-            $("#cmscore-user-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Rows copied successfully");
-            $("#cmscore-user-button-ok-message-in-card").show();
         },
         error: function (err) {
-            //Show error message
-            $("#cmscore-user-error-message-title").html("UserModel.Copy(CopyType).subscribe(...)");
-            $("#cmscore-user-error-message-text").html(err);
-            $("#cmscore-user-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -567,16 +556,16 @@ $("#cmscore-user-massive-action-delete").on("click", function (e) {
         next: function (newrow) {
         },
         complete: function () {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed deletion" }, { type: "success", placement: { from: "bottom", align: "center" } });
             ValidateAndSearch();
-            //Show OK message
-            $("#cmscore-user-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Rows deleted successfully");
-            $("#cmscore-user-button-ok-message-in-card").show();
         },
         error: function (err) {
-            //Show error message
-            $("#cmscore-user-error-message-title").html("UserModel.Copy(CopyType).subscribe(...)");
-            $("#cmscore-user-error-message-text").html(err);
-            $("#cmscore-user-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
