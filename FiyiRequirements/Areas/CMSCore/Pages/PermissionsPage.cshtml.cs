@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace FiyiRequirements.Areas.CMSCore.Pages
 {
-    public class PagePermissionsModel : PageModel
+    public class PermissionsPageModel : PageModel
     {
         public void OnGet()
         {
