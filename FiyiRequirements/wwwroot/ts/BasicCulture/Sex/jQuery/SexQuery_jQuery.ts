@@ -4,12 +4,13 @@ import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import "bootstrap-notify";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -18,7 +19,7 @@ import { Ajax } from "../../../Library/Ajax";
 
 //Stack: 10
 
-//Last modification on: 21/12/2022 10:42:03
+//Last modification on: 14/02/2023 13:05:17
 
 //Set default values
 let LastTopDistance: number = 0;
@@ -51,13 +52,18 @@ class SexQuery {
             </button>
         </th>
         <th scope="col">
-            <button value="Name" class="btn btn-outline-secondary btn-sm" type="button">
-                Name
+            <button value="Active" class="btn btn-outline-secondary btn-sm" type="button">
+                Active
             </button>
         </th>
         <th scope="col">
-            <button value="Active" class="btn btn-outline-secondary btn-sm" type="button">
-                Active
+            <button value="DateTimeCreation" class="btn btn-outline-secondary btn-sm" type="button">
+                Date Time Creation
+            </button>
+        </th>
+        <th scope="col">
+            <button value="DateTimeLastModification" class="btn btn-outline-secondary btn-sm" type="button">
+                Date Time Last Modification
             </button>
         </th>
         <th scope="col">
@@ -71,13 +77,8 @@ class SexQuery {
             </button>
         </th>
         <th scope="col">
-            <button value="DateTimeCreation" class="btn btn-outline-secondary btn-sm" type="button">
-                Date Time Creation
-            </button>
-        </th>
-        <th scope="col">
-            <button value="DateTimeLastModification" class="btn btn-outline-secondary btn-sm" type="button">
-                Date Time Last Modification
+            <button value="Name" class="btn btn-outline-secondary btn-sm" type="button">
+                Name
             </button>
         </th>
         
@@ -156,23 +157,8 @@ class SexQuery {
         <i class="fas fa-key"></i> ${row.SexId}
     </td>
     <td class="text-left">
-        <strong><i class="fas fa-font">
-            </i> ${row.Name}
-        </strong>
-    </td>
-    <td class="text-left">
         <strong>
             <i class="fas fa-toggle-on"></i> ${row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong><i class="fas fa-divide">
-            </i> ${row.UserCreationIdFantasyName}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong><i class="fas fa-divide">
-            </i> ${row.UserLastModificationIdFantasyName}
         </strong>
     </td>
     <td class="text-left">
@@ -185,10 +171,25 @@ class SexQuery {
             <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
         </strong>
     </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong><i class="fas fa-font">
+            </i> ${row.Name}
+        </strong>
+    </td>
     
     <!-- Actions -->
     <td class="text-right">
-        <a class="btn btn-icon-only text-primary" href="/BasicCulture/PageSexNonQuery?SexId=${row.SexId}" role="button" data-toggle="tooltip" data-original-title="Edit">
+        <a class="btn btn-icon-only text-primary" href="/BasicCulture/SexNonQueryPage?SexId=${row.SexId}" role="button" data-toggle="tooltip" data-original-title="Edit">
             <i class="fas fa-edit"></i>
         </a>
         <div class="dropdown">
@@ -225,19 +226,7 @@ class SexQuery {
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           Name <i class="fas fa-font"></i> ${row.Name}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
                            Active <i class="fas fa-toggle-on"></i> ${row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                            User Creation <i class="fas fa-divide"></i> ${row.UserCreationIdFantasyName}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                            User Last Modification <i class="fas fa-divide"></i> ${row.UserLastModificationIdFantasyName}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
@@ -246,6 +235,18 @@ class SexQuery {
                         <br/>
                         <span class="text-white mb-4">
                            Date Time Last Modification <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           User Creation <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           User Last Modification <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           Name <i class="fas fa-font"></i> ${row.Name}
                         </span>
                         <br/>
                         
@@ -257,13 +258,13 @@ class SexQuery {
                 <div class="row">
                     <div class="col">
                         <div class="justify-content-end text-right mt-2">
-                            <div class="basicculture-sex-checkbox-list list-row-unchecked mb-2">
-                                <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="check">
+                            <div class="mb-2">
+                                <a class="basicculture-sex-checkbox-list list-row-unchecked icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="Check">
                                     <i class="fas fa-circle text-white"></i>
                                 </a>
+                                <input type="hidden" value="${row.SexId}"/>
                             </div>
-                            <input type="hidden" value="${row.SexId}"/>
-                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/BasicCulture/PageSexNonQuery?SexId=${row.SexId}" role="button" data-toggle="tooltip" data-original-title="edit">
+                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/BasicCulture/SexNonQueryPage?SexId=${row.SexId}" role="button" data-toggle="tooltip" data-original-title="edit">
                                 <i class="fas fa-edit text-primary"></i>
                             </a>
                             <div class="dropup">
@@ -307,10 +308,9 @@ class SexQuery {
                             }
                     }
                     else {
-                        //Show error message
-                        $("#basicculture-sex-error-message-title").html("No registers found");
-                        $("#basicculture-sex-error-message-text").html("The server did not found any register. HTTP code 204");
-                        $("#basicculture-sex-button-error-message-in-card").show();
+                        //ERROR
+                        // @ts-ignore
+                        $.notify({ icon: "fas fa-exclamation-triangle", message: "No registers found" }, { type: "warning", placement: { from: "bottom", align: "center" } });
                     }
                 },
                 complete: () => {
@@ -364,11 +364,6 @@ class SexQuery {
                         ValidateAndSearch();
                     });
 
-                    //Hide error message
-                    $("#basicculture-sex-error-message-title").html("");
-                    $("#basicculture-sex-error-message-text").html("");
-                    $("#basicculture-sex-button-error-message-in-card").hide();
-
                     //Delete button in table and list
                     $("div.dropdown-menu button.basicculture-sex-table-delete-button, div.dropdown-menu button.basicculture-sex-list-delete-button").on("click", function (e) {
                         let SexId = $(this).val();
@@ -376,20 +371,17 @@ class SexQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                //SUCCESS
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-check", message: "Row deleted successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-                                //Show OK message
-                                $("#basicculture-sex-button-error-message-in-card").hide();
-                                $("#basicculture-sex-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Row deleted successfully`);
-                                $("#basicculture-sex-button-ok-message-in-card").show();
+                                ValidateAndSearch();
                             },
                             error: err => {
-                                //Related to error message
-                                $("#basicculture-sex-error-message-title").html("SexModel.DeleteBySexId(SexId).subscribe(...)");
-                                $("#basicculture-sex-error-message-text").html(err);
-                                $("#basicculture-sex-button-error-message-in-card").show();
+                                //ERROR
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                                console.log(err);
                             }
                         });
                     });
@@ -401,39 +393,32 @@ class SexQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                //SUCCESS
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-check", message: "Row copied successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-                                //Show OK message
-                                $("#basicculture-sex-button-error-message-in-card").hide();
-                                $("#basicculture-sex-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Row copied successfully`);
-                                $("#basicculture-sex-button-ok-message-in-card").show();
+                                ValidateAndSearch();
                             },
                             error: err => {
-                                //Show error message
-                                $("#basicculture-sex-error-message-title").html("SexModel.CopyBySexId(SexId).subscribe(...)");
-                                $("#basicculture-sex-error-message-text").html(err);
-                                $("#basicculture-sex-button-error-message-in-card").show();
+                                //ERROR
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                                console.log(err);
                             }
                         });
                     });
                 },
                 error: err => {
-                    //Show error message
-                    $("#basicculture-sex-error-message-title").html("SexModel.SelectAllPaged(request_sexmodelQ).subscribe(...)");
-                    $("#basicculture-sex-error-message-text").html(err);
-                    $("#basicculture-sex-button-error-message-in-card").show();
+                    //ERROR
+                    // @ts-ignore
+                    $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to get data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                    console.log(err);
                 }
             });
     }
 }
 
 function ValidateAndSearch() {
-
-    //Hide error and OK message button
-    $("#basicculture-sex-button-error-message-in-card").hide();
-    $("#basicculture-sex-button-ok-message-in-card").hide();
 
     var _sexmodelQuery: sexmodelQuery = {
         QueryString,
@@ -464,8 +449,6 @@ if ($("#basicculture-sex-title-page").html().includes("Query sex")) {
     $("#basicculture-sex-lnk-previous-page-lg, #basicculture-sex-lnk-previous-page").attr("disabled", "disabled");
     //Hide messages
     $("#basicculture-sex-export-message").html("");
-    $("#basicculture-sex-button-error-message-in-card").hide();
-    $("#basicculture-sex-button-ok-message-in-card").hide();
 
     ValidateAndSearch();
 }
@@ -600,23 +583,22 @@ $("#basicculture-sex-export-as-pdf").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for PDF file
             $("#basicculture-sex-export-message").html(`<a class="btn btn-icon btn-success" href="/PDFFiles/BasicCulture/Sex/Sex_${DateTimeNow.AjaxForString}.pdf" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-pdf"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
 
-            //Show OK message
-            $("#basicculture-sex-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basicculture-sex-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-sex-error-message-title").html("Rx.from(ajax.post('/api/BasicCulture/Sex/1/ExportAsPDF/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basicculture-sex-error-message-text").html(err);
-            $("#basicculture-sex-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -667,23 +649,21 @@ $("#basicculture-sex-export-as-excel").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for Excel file
             $("#basicculture-sex-export-message").html(`<a class="btn btn-icon btn-success" href="/ExcelFiles/BasicCulture/Sex/Sex_${DateTimeNow.AjaxForString}.xlsx" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-excel"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#basicculture-sex-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basicculture-sex-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-sex-error-message-title").html("Rx.from(ajax.post('/api/BasicCulture/Sex/1/ExportAsExcel/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basicculture-sex-error-message-text").html(err);
-            $("#basicculture-sex-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -734,23 +714,21 @@ $("#basicculture-sex-export-as-csv").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for CSV file
             $("#basicculture-sex-export-message").html(`<a class="btn btn-icon btn-success" href="/CSVFiles/BasicCulture/Sex/Sex_${DateTimeNow.AjaxForString}.csv" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-csv"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#basicculture-sex-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basicculture-sex-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-sex-error-message-title").html("Rx.from(ajax.post('/api/BasicCulture/Sex/1/ExportAsCSV/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basicculture-sex-error-message-text").html(err);
-            $("#basicculture-sex-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -793,19 +771,17 @@ $("#basicculture-sex-massive-action-copy").on("click", function (e) {
         next: newrow => {
         },
         complete: () => {
-            ValidateAndSearch();
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed copy" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-            //Show OK message
-            $("#basicculture-sex-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows copied successfully`);
-            $("#basicculture-sex-button-ok-message-in-card").show();
+            ValidateAndSearch();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-sex-error-message-title").html("SexModel.Copy(CopyType).subscribe(...)");
-            $("#basicculture-sex-error-message-text").html(err);
-            $("#basicculture-sex-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -843,19 +819,17 @@ $("#basicculture-sex-massive-action-delete").on("click", function (e) {
         next: newrow => {
         },
         complete: () => {
-            ValidateAndSearch();
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed deletion" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-            //Show OK message
-            $("#basicculture-sex-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows deleted successfully`);
-            $("#basicculture-sex-button-ok-message-in-card").show();
+            ValidateAndSearch();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-sex-error-message-title").html("SexModel.Copy(CopyType).subscribe(...)");
-            $("#basicculture-sex-error-message-text").html(err);
-            $("#basicculture-sex-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });

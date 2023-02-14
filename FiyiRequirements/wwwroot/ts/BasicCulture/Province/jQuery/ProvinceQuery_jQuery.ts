@@ -4,12 +4,13 @@ import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import "bootstrap-notify";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -18,7 +19,7 @@ import { Ajax } from "../../../Library/Ajax";
 
 //Stack: 10
 
-//Last modification on: 21/12/2022 10:37:34
+//Last modification on: 14/02/2023 12:40:12
 
 //Set default values
 let LastTopDistance: number = 0;
@@ -51,6 +52,31 @@ class ProvinceQuery {
             </button>
         </th>
         <th scope="col">
+            <button value="Active" class="btn btn-outline-secondary btn-sm" type="button">
+                Active
+            </button>
+        </th>
+        <th scope="col">
+            <button value="DateTimeCreation" class="btn btn-outline-secondary btn-sm" type="button">
+                Date Time Creation
+            </button>
+        </th>
+        <th scope="col">
+            <button value="DateTimeLastModification" class="btn btn-outline-secondary btn-sm" type="button">
+                Date Time Last Modification
+            </button>
+        </th>
+        <th scope="col">
+            <button value="UserCreationId" class="btn btn-outline-secondary btn-sm" type="button">
+                User Creation
+            </button>
+        </th>
+        <th scope="col">
+            <button value="UserLastModificationId" class="btn btn-outline-secondary btn-sm" type="button">
+                User Last Modification
+            </button>
+        </th>
+        <th scope="col">
             <button value="Name" class="btn btn-outline-secondary btn-sm" type="button">
                 Name
             </button>
@@ -67,32 +93,7 @@ class ProvinceQuery {
         </th>
         <th scope="col">
             <button value="CountryId" class="btn btn-outline-secondary btn-sm" type="button">
-                Country
-            </button>
-        </th>
-        <th scope="col">
-            <button value="Active" class="btn btn-outline-secondary btn-sm" type="button">
-                Active
-            </button>
-        </th>
-        <th scope="col">
-            <button value="UserCreationId" class="btn btn-outline-secondary btn-sm" type="button">
-                User Creation
-            </button>
-        </th>
-        <th scope="col">
-            <button value="UserLastModificationId" class="btn btn-outline-secondary btn-sm" type="button">
-                User Last Modification
-            </button>
-        </th>
-        <th scope="col">
-            <button value="DateTimeCreation" class="btn btn-outline-secondary btn-sm" type="button">
-                Date Time Creation
-            </button>
-        </th>
-        <th scope="col">
-            <button value="DateTimeLastModification" class="btn btn-outline-secondary btn-sm" type="button">
-                Date Time Last Modification
+                Country 
             </button>
         </th>
         
@@ -171,6 +172,31 @@ class ProvinceQuery {
         <i class="fas fa-key"></i> ${row.ProvinceId}
     </td>
     <td class="text-left">
+        <strong>
+            <i class="fas fa-toggle-on"></i> ${row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
+        </strong>
+    </td>
+    <td class="text-left">
         <strong><i class="fas fa-font">
             </i> ${row.Name}
         </strong>
@@ -187,38 +213,13 @@ class ProvinceQuery {
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.CountryIdName}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong>
-            <i class="fas fa-toggle-on"></i> ${row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong><i class="fas fa-divide">
-            </i> ${row.UserCreationIdFantasyName}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong><i class="fas fa-divide">
-            </i> ${row.UserLastModificationIdFantasyName}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong>
-            <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong>
-            <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
+            <i class="fas fa-key"></i> ${row.CountryId}
         </strong>
     </td>
     
     <!-- Actions -->
     <td class="text-right">
-        <a class="btn btn-icon-only text-primary" href="/BasicCulture/PageProvinceNonQuery?ProvinceId=${row.ProvinceId}" role="button" data-toggle="tooltip" data-original-title="Edit">
+        <a class="btn btn-icon-only text-primary" href="/BasicCulture/ProvinceNonQueryPage?ProvinceId=${row.ProvinceId}" role="button" data-toggle="tooltip" data-original-title="Edit">
             <i class="fas fa-edit"></i>
         </a>
         <div class="dropdown">
@@ -255,6 +256,26 @@ class ProvinceQuery {
                         </span>
                         <br/>
                         <span class="text-white mb-4">
+                           Active <i class="fas fa-toggle-on"></i> ${row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           Date Time Creation <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           Date Time Last Modification <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           User Creation <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           User Last Modification <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
                            Name <i class="fas fa-font"></i> ${row.Name}
                         </span>
                         <br/>
@@ -270,26 +291,6 @@ class ProvinceQuery {
                            Country <i class="fas fa-key"></i> ${row.CountryIdName}
                         </span>
                         <br/>
-                        <span class="text-white mb-4">
-                           Active <i class="fas fa-toggle-on"></i> ${row.Active == true ? "Active <i class='text-success fas fa-circle'></i>" : "Not active <i class='text-danger fas fa-circle'></i>"}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                            User Creation <i class="fas fa-divide"></i> ${row.UserCreationIdFantasyName}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                            User Last Modification <i class="fas fa-divide"></i> ${row.UserLastModificationIdFantasyName}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                           Date Time Creation <i class="fas fa-calendar"></i> ${row.DateTimeCreation}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                           Date Time Last Modification <i class="fas fa-calendar"></i> ${row.DateTimeLastModification}
-                        </span>
-                        <br/>
                         
                     </div>
                     <div class="col-auto">
@@ -299,13 +300,13 @@ class ProvinceQuery {
                 <div class="row">
                     <div class="col">
                         <div class="justify-content-end text-right mt-2">
-                            <div class="basicculture-province-checkbox-list list-row-unchecked mb-2">
-                                <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="check">
+                            <div class="mb-2">
+                                <a class="basicculture-province-checkbox-list list-row-unchecked icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="Check">
                                     <i class="fas fa-circle text-white"></i>
                                 </a>
+                                <input type="hidden" value="${row.ProvinceId}"/>
                             </div>
-                            <input type="hidden" value="${row.ProvinceId}"/>
-                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/BasicCulture/PageProvinceNonQuery?ProvinceId=${row.ProvinceId}" role="button" data-toggle="tooltip" data-original-title="edit">
+                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/BasicCulture/ProvinceNonQueryPage?ProvinceId=${row.ProvinceId}" role="button" data-toggle="tooltip" data-original-title="edit">
                                 <i class="fas fa-edit text-primary"></i>
                             </a>
                             <div class="dropup">
@@ -349,10 +350,9 @@ class ProvinceQuery {
                             }
                     }
                     else {
-                        //Show error message
-                        $("#basicculture-province-error-message-title").html("No registers found");
-                        $("#basicculture-province-error-message-text").html("The server did not found any register. HTTP code 204");
-                        $("#basicculture-province-button-error-message-in-card").show();
+                        //ERROR
+                        // @ts-ignore
+                        $.notify({ icon: "fas fa-exclamation-triangle", message: "No registers found" }, { type: "warning", placement: { from: "bottom", align: "center" } });
                     }
                 },
                 complete: () => {
@@ -406,11 +406,6 @@ class ProvinceQuery {
                         ValidateAndSearch();
                     });
 
-                    //Hide error message
-                    $("#basicculture-province-error-message-title").html("");
-                    $("#basicculture-province-error-message-text").html("");
-                    $("#basicculture-province-button-error-message-in-card").hide();
-
                     //Delete button in table and list
                     $("div.dropdown-menu button.basicculture-province-table-delete-button, div.dropdown-menu button.basicculture-province-list-delete-button").on("click", function (e) {
                         let ProvinceId = $(this).val();
@@ -418,20 +413,17 @@ class ProvinceQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                //SUCCESS
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-check", message: "Row deleted successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-                                //Show OK message
-                                $("#basicculture-province-button-error-message-in-card").hide();
-                                $("#basicculture-province-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Row deleted successfully`);
-                                $("#basicculture-province-button-ok-message-in-card").show();
+                                ValidateAndSearch();
                             },
                             error: err => {
-                                //Related to error message
-                                $("#basicculture-province-error-message-title").html("ProvinceModel.DeleteByProvinceId(ProvinceId).subscribe(...)");
-                                $("#basicculture-province-error-message-text").html(err);
-                                $("#basicculture-province-button-error-message-in-card").show();
+                                //ERROR
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                                console.log(err);
                             }
                         });
                     });
@@ -443,39 +435,32 @@ class ProvinceQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                //SUCCESS
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-check", message: "Row copied successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-                                //Show OK message
-                                $("#basicculture-province-button-error-message-in-card").hide();
-                                $("#basicculture-province-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Row copied successfully`);
-                                $("#basicculture-province-button-ok-message-in-card").show();
+                                ValidateAndSearch();
                             },
                             error: err => {
-                                //Show error message
-                                $("#basicculture-province-error-message-title").html("ProvinceModel.CopyByProvinceId(ProvinceId).subscribe(...)");
-                                $("#basicculture-province-error-message-text").html(err);
-                                $("#basicculture-province-button-error-message-in-card").show();
+                                //ERROR
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                                console.log(err);
                             }
                         });
                     });
                 },
                 error: err => {
-                    //Show error message
-                    $("#basicculture-province-error-message-title").html("ProvinceModel.SelectAllPaged(request_provincemodelQ).subscribe(...)");
-                    $("#basicculture-province-error-message-text").html(err);
-                    $("#basicculture-province-button-error-message-in-card").show();
+                    //ERROR
+                    // @ts-ignore
+                    $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to get data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                    console.log(err);
                 }
             });
     }
 }
 
 function ValidateAndSearch() {
-
-    //Hide error and OK message button
-    $("#basicculture-province-button-error-message-in-card").hide();
-    $("#basicculture-province-button-ok-message-in-card").hide();
 
     var _provincemodelQuery: provincemodelQuery = {
         QueryString,
@@ -506,8 +491,6 @@ if ($("#basicculture-province-title-page").html().includes("Query province")) {
     $("#basicculture-province-lnk-previous-page-lg, #basicculture-province-lnk-previous-page").attr("disabled", "disabled");
     //Hide messages
     $("#basicculture-province-export-message").html("");
-    $("#basicculture-province-button-error-message-in-card").hide();
-    $("#basicculture-province-button-ok-message-in-card").hide();
 
     ValidateAndSearch();
 }
@@ -642,23 +625,22 @@ $("#basicculture-province-export-as-pdf").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for PDF file
             $("#basicculture-province-export-message").html(`<a class="btn btn-icon btn-success" href="/PDFFiles/BasicCulture/Province/Province_${DateTimeNow.AjaxForString}.pdf" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-pdf"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
 
-            //Show OK message
-            $("#basicculture-province-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basicculture-province-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-province-error-message-title").html("Rx.from(ajax.post('/api/BasicCulture/Province/1/ExportAsPDF/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basicculture-province-error-message-text").html(err);
-            $("#basicculture-province-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -709,23 +691,21 @@ $("#basicculture-province-export-as-excel").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for Excel file
             $("#basicculture-province-export-message").html(`<a class="btn btn-icon btn-success" href="/ExcelFiles/BasicCulture/Province/Province_${DateTimeNow.AjaxForString}.xlsx" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-excel"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#basicculture-province-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basicculture-province-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-province-error-message-title").html("Rx.from(ajax.post('/api/BasicCulture/Province/1/ExportAsExcel/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basicculture-province-error-message-text").html(err);
-            $("#basicculture-province-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -776,23 +756,21 @@ $("#basicculture-province-export-as-csv").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for CSV file
             $("#basicculture-province-export-message").html(`<a class="btn btn-icon btn-success" href="/CSVFiles/BasicCulture/Province/Province_${DateTimeNow.AjaxForString}.csv" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-csv"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#basicculture-province-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#basicculture-province-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-province-error-message-title").html("Rx.from(ajax.post('/api/BasicCulture/Province/1/ExportAsCSV/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#basicculture-province-error-message-text").html(err);
-            $("#basicculture-province-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -835,19 +813,17 @@ $("#basicculture-province-massive-action-copy").on("click", function (e) {
         next: newrow => {
         },
         complete: () => {
-            ValidateAndSearch();
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed copy" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-            //Show OK message
-            $("#basicculture-province-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows copied successfully`);
-            $("#basicculture-province-button-ok-message-in-card").show();
+            ValidateAndSearch();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-province-error-message-title").html("ProvinceModel.Copy(CopyType).subscribe(...)");
-            $("#basicculture-province-error-message-text").html(err);
-            $("#basicculture-province-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -885,19 +861,17 @@ $("#basicculture-province-massive-action-delete").on("click", function (e) {
         next: newrow => {
         },
         complete: () => {
-            ValidateAndSearch();
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed deletion" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-            //Show OK message
-            $("#basicculture-province-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows deleted successfully`);
-            $("#basicculture-province-button-ok-message-in-card").show();
+            ValidateAndSearch();
         },
         error: err => {
-            //Show error message
-            $("#basicculture-province-error-message-title").html("ProvinceModel.Copy(CopyType).subscribe(...)");
-            $("#basicculture-province-error-message-text").html(err);
-            $("#basicculture-province-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });

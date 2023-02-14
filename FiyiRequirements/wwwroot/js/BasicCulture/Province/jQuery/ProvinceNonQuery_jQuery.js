@@ -4,7 +4,7 @@
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -13,7 +13,7 @@
 
 //Stack: 10
 
-//Last modification on: 21/12/2022 10:37:34
+//Last modification on: 14/02/2023 12:40:12
 
 $(document).ready(function () {
     $("#basicculture-province-countryid-select").on("change", function (e) {
@@ -53,56 +53,18 @@ $("#basicculture-province-insert-or-update-button").on("click", function (e) {
     var xmlHttpRequest = new XMLHttpRequest();
     //Set event listeners
     xmlHttpRequest.upload.addEventListener("loadstart", function (e) {
-        //Show success button and success message modal
-        $("#basicculture-province-insert-or-update-message").addClass("btn-secondary");
-        $("#basicculture-province-insert-or-update-message").removeClass("btn-success");
-        $("#basicculture-province-insert-or-update-message").removeClass("btn-error");
-        $("#basicculture-province-insert-or-update-message").removeAttr("data-toggle");
-        $("#basicculture-province-insert-or-update-message").removeAttr("data-target");
-        $("#basicculture-province-insert-or-update-message").html(`Sending data. Please, wait`);
-    });
-    xmlHttpRequest.upload.addEventListener("progress", function (e) {
-        // While sending and loading data.
-    });
-    xmlHttpRequest.upload.addEventListener("load", function (e) {
-        // When the request has successfully completed.
-    });
-    xmlHttpRequest.upload.addEventListener("loadend", function (e) {
-        // When the request has completed (either in success or failure).
-    });
-    xmlHttpRequest.upload.addEventListener("error", function (e) {
-        // When the request has failed.
-    });
-    xmlHttpRequest.upload.addEventListener("abort", function (e) {
-        // When the request has been aborted. 
-    });
-    xmlHttpRequest.upload.addEventListener("timeout", function (e) {
-        // When the author specified timeout has passed before the request could complete
+        //SAVING
+        $.notify({message: "Saving data. Please, wait"}, {type: "info", placement: { from: "bottom", align: "center" }});
     });
     xmlHttpRequest.onload = function () {
-        console.log(xmlHttpRequest);
         if (xmlHttpRequest.status >= 400) {
-            //Show error button and error message modal
-            $("#basicculture-province-insert-or-update-message").addClass("btn-danger");
-            $("#basicculture-province-insert-or-update-message").removeClass("btn-success");
-            $("#basicculture-province-insert-or-update-message").removeClass("btn-secondary");
-            $("#basicculture-province-insert-or-update-message").attr("data-toggle", "modal");
-            $("#basicculture-province-insert-or-update-message").attr("data-target", "#basicculture-province-error-message-modal");
-            $("#basicculture-province-insert-or-update-message").html(`<i class="fas fa-exclamation-triangle"></i> 
-                                                                There was an error while sending the data`);
-            $("#basicculture-province-error-message-title").html("There was an error while sending the data");
-            $("#basicculture-province-error-message-text").html(xmlHttpRequest.response);
-            console.log("Error:" + xmlHttpRequest.response);
+            //ERROR
+            console.log(xmlHttpRequest);
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while saving the data" }, { type: "danger", placement: { from: "bottom", align: "center"}});
         }
         else {
-            //Show success button
-            $("#basicculture-province-insert-or-update-message").addClass("btn-success");
-            $("#basicculture-province-insert-or-update-message").removeClass("btn-error");
-            $("#basicculture-province-insert-or-update-message").removeClass("btn-secondary");
-            $("#basicculture-province-insert-or-update-message").removeAttr("data-toggle");
-            $("#basicculture-province-insert-or-update-message").removeAttr("data-target");
-            $("#basicculture-province-insert-or-update-message").html(`<i class="fas fa-check"></i>
-                                                                Data sent successfully`);
+            //SUCCESS
+            $.notify({ icon: "fas fa-check", message: "Data sent successfully"}, { type: "success", placement: { from: "bottom", align: "center"}});
         }
     };
     //Open connection
