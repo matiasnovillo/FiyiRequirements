@@ -13,7 +13,7 @@
 
 //Stack: 10
 
-//Last modification on: 14/02/2023 17:08:17
+//Last modification on: 15/02/2023 8:44:39
 
 //Used for Quill Editor
 let examplesexampletexttexteditortoolbaroptions = [
@@ -28,7 +28,7 @@ let examplesexampletexttexteditortoolbaroptions = [
     ["image", "video"],
     ["clean"]                                         // remove formatting button
 ];
-let examplesexampletexttexteditorquill= new Quill("#examples-example-texttexteditor-input", {
+let examplesexampletexttexteditorquill = new Quill("#examples-example-texttexteditor-input", {
     modules: {
         toolbar: examplesexampletexttexteditortoolbaroptions
     },
@@ -45,24 +45,27 @@ $("#examples-example-textfile-input").on("change", function (e) {
     formData.append("examples-example-textfile-input", examplesexampletextfileinput[0], examplesexampletextfileinput[0].name);
 });
 
+
+
 //Create a formdata object
 var formData = new FormData();
 
 //LOAD EVENT
 $(document).ready(function () {
     examplesexampletexttexteditorquill.root.innerHTML = $("#examples-example-texttexteditor-hidden-value").val();
-
+    
+    
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.getElementsByClassName('needs-validation');
+    var forms = document.getElementsByClassName("needs-validation");
     // Loop over them and prevent submission
     Array.prototype.filter.call(forms, function (form) {
-        form.addEventListener('submit', function (event) {
+        form.addEventListener("submit", function (event) {
 
             event.preventDefault();
             event.stopPropagation();
 
             if (form.checkValidity() === true) {
-
+                
                 //Add or edit value
                 formData.append("examples-example-title-page", $("#examples-example-title-page").html());
                 formData.append("examples-example-exampleid-input", $("#examples-example-exampleid-input").val());
@@ -84,7 +87,7 @@ $(document).ready(function () {
                 formData.append("examples-example-texturl-input", $("#examples-example-texturl-input").val());
                 formData.append("examples-example-foreignkeydropdown-input", $("#examples-example-foreignkeydropdown-input").val());
                 formData.append("examples-example-foreignkeyoption-input", $(".examples-example-foreignkeyoption-a.active").next().val());
-
+                
 
                 //Setup request
                 var xmlHttpRequest = new XMLHttpRequest();
@@ -110,7 +113,7 @@ $(document).ready(function () {
                 xmlHttpRequest.send(formData);
             }
 
-            form.classList.add('was-validated');
+            form.classList.add("was-validated");
         }, false);
     });
 });
