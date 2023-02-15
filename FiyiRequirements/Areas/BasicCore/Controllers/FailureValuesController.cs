@@ -17,14 +17,14 @@ using System.IO;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 21/12/2022 9:25:46
+//Last modification on: 15/02/2023 17:31:00
 
 namespace FiyiRequirements.Areas.BasicCore.Controllers
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 21/12/2022 9:25:46
+    /// Last modification: 15/02/2023 17:31:00
     /// </summary>
     [ApiController]
     [FailureFilter]
@@ -70,8 +70,8 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -102,8 +102,8 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -134,8 +134,8 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -146,6 +146,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
         #endregion
 
         #region Non-Queries
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCore/Failure/1/InsertOrUpdateAsync")]
         public async Task<IActionResult> InsertOrUpdateAsync()
         {
@@ -158,24 +159,26 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 {
                     return StatusCode(401, "User not found in session");
                 }
-
-                //Add or edit value
-                string AddOrEdit = HttpContext.Request.Form["basiccore-failure-title-page"];
-
+                
+                #region Pass data from client to server
+                //FailureId
+                int FailureId = Convert.ToInt32(HttpContext.Request.Form["basiccore-failure-failureid-input"]);
+                
                 int HTTPCode = Convert.ToInt32(HttpContext.Request.Form["basiccore-failure-httpcode-input"]);
-                int EmergencyLevel = Convert.ToInt32(HttpContext.Request.Form["basiccore-failure-emergencylevel-input"]);
                 string Message = HttpContext.Request.Form["basiccore-failure-message-input"];
+                int EmergencyLevel = Convert.ToInt32(HttpContext.Request.Form["basiccore-failure-emergencylevel-input"]);
                 string StackTrace = HttpContext.Request.Form["basiccore-failure-stacktrace-input"];
                 string Source = HttpContext.Request.Form["basiccore-failure-source-input"];
                 string Comment = HttpContext.Request.Form["basiccore-failure-comment-input"];
                 
+                #endregion
 
                 int NewEnteredId = 0;
                 int RowsAffected = 0;
 
-                if (AddOrEdit.StartsWith("Add"))
+                if (FailureId == 0)
                 {
-                    //Add
+                    //Insert
                     FailureModel FailureModel = new FailureModel()
                     {
                         Active = true,
@@ -184,8 +187,8 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                         DateTimeCreation = DateTime.Now,
                         DateTimeLastModification = DateTime.Now,
                         HTTPCode = HTTPCode,
-                        EmergencyLevel = EmergencyLevel,
                         Message = Message,
+                        EmergencyLevel = EmergencyLevel,
                         StackTrace = StackTrace,
                         Source = Source,
                         Comment = Comment,
@@ -197,14 +200,13 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 else
                 {
                     //Update
-                    int FailureId = Convert.ToInt32(HttpContext.Request.Form["basiccore-failure-failureid-input"]);
                     FailureModel FailureModel = new FailureModel(FailureId);
                     
                     FailureModel.UserLastModificationId = UserId;
                     FailureModel.DateTimeLastModification = DateTime.Now;
                     FailureModel.HTTPCode = HTTPCode;
-                    FailureModel.EmergencyLevel = EmergencyLevel;
                     FailureModel.Message = Message;
+                    FailureModel.EmergencyLevel = EmergencyLevel;
                     FailureModel.StackTrace = StackTrace;
                     FailureModel.Source = Source;
                     FailureModel.Comment = Comment;
@@ -239,7 +241,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                     }
                 }
 
-                if (AddOrEdit.StartsWith("Add"))
+                if (FailureId == 0)
                 {
                     return StatusCode(200, NewEnteredId); 
                 }
@@ -260,8 +262,8 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -270,6 +272,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpDelete("~/api/BasicCore/Failure/1/DeleteByFailureId/{FailureId:int}")]
         public IActionResult DeleteByFailureId(int FailureId)
         {
@@ -293,8 +296,8 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -303,6 +306,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCore/Failure/1/DeleteManyOrAll/{DeleteType}")]
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
@@ -327,8 +331,8 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -337,6 +341,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCore/Failure/1/CopyByFailureId/{FailureId:int}")]
         public IActionResult CopyByFailureId(int FailureId)
         {
@@ -361,8 +366,8 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -371,6 +376,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCore/Failure/1/CopyManyOrAll/{CopyType}")]
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
@@ -402,8 +408,8 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -414,6 +420,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
         #endregion
 
         #region Other actions
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCore/Failure/1/ExportAsPDF/{ExportationType}")]
         public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
         {
@@ -438,8 +445,8 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -448,6 +455,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCore/Failure/1/ExportAsExcel/{ExportationType}")]
         public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
         {
@@ -472,8 +480,8 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -482,6 +490,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCore/Failure/1/ExportAsCSV/{ExportationType}")]
         public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
         {
@@ -506,8 +515,8 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };

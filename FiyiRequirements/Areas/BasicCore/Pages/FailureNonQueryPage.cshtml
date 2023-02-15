@@ -60,7 +60,7 @@
  */
     
 //Stack: 11
-//Last modification on: 14/02/2023 10:49:44
+//Last modification on: 15/02/2023 17:31:00
 
 }
 <!-- Header -->
@@ -71,7 +71,13 @@
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
                     <!-- Title -->
-                    <h2 id="basiccore-failure-title-page" class="h2 text-white d-inline-block mb-0">@NonQueryText failure</h2>
+                    <h2 class="h2 text-white d-inline-block mb-0">
+                        @NonQueryText 
+                        failure
+                    </h2>
+                    <input type="hidden" 
+                        id="basiccore-failure-failureid-input" 
+                        value="@FailureId"/>
                     <!-- Breadcrumb -->
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -122,166 +128,117 @@
             <div class="card">
                 <!-- Card body -->
                 <div class="card-body">
-                    <form novalidate>
-                        <!-- FailureId -->
-                        <div class="form-group mb-3">
-                            <label for="basiccore-failure-failureId-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-key"></i> Failure ID
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text">
-                                        <strong>
-                                            <i class="fas fa-key"></i> Failure ID
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input type="hidden" id="basiccore-failure-failureid-input" value="@FailureId"/>
-                                <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="bottom" title="@FailureId"  type="button" value="FailureId">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
+                    <form class="needs-validation" novalidate>
                         <!-- HTTPCode -->
                         <div class="form-group mb-3">
-                            <label for="basiccore-failure-httpcode-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-divide"></i> HTTP Code
+                            <label for="basiccore-failure-httpcode-input" class="form-control-label">
+                                <i class="fas fa-divide"></i> 
+                                HTTPCode
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-divide"></i> HTTP Code
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" type="number" id="basiccore-failure-httpcode-input" value="@HTTPCode" min="0" max="2147483647" step="1" pattern="[^0-9]">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="httpcode-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                type="number" 
+                                id="basiccore-failure-httpcode-input" 
+                                value="@HTTPCode" 
+                                min="0" 
+                                max="2147483647" 
+                                step="1" 
+                                pattern="[^0-9]"
+                                />
+                            
                         </div>
                         <!-- Message -->
                         <div class="form-group mb-3">
-                            <label for="basiccore-failure-message-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-font"></i> Message
+                            <label for="basiccore-failure-message-input" class="form-control-label">
+                                <i class="fas fa-font"></i> 
+                                Message
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Message
-                                        </strong>
-                                    </span>
-                                </div>
-                                <textarea class="form-control mt-1" id="basiccore-failure-message-input" rows="3" resize="none" maxlength="8000">
+                            <textarea class="form-control mt-1" 
+                                id="basiccore-failure-message-input" 
+                                rows="3" 
+                                resize="none" 
+                                maxlength="8000"
+                                >
                                     @Message
-                                </textarea>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="message-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            </textarea>
+                            
                         </div>
                         <!-- EmergencyLevel -->
                         <div class="form-group mb-3">
-                            <label for="basiccore-failure-emergencylevel-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-divide"></i> Emergency Level
+                            <label for="basiccore-failure-emergencylevel-input" class="form-control-label">
+                                <i class="fas fa-divide"></i> 
+                                EmergencyLevel
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-divide"></i> Emergency Level
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" type="number" id="basiccore-failure-emergencylevel-input" value="@EmergencyLevel" min="0" max="2147483647" step="1" pattern="[^0-9]">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="emergencylevel-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                type="number" 
+                                id="basiccore-failure-emergencylevel-input" 
+                                value="@EmergencyLevel" 
+                                min="0" 
+                                max="2147483647" 
+                                step="1" 
+                                pattern="[^0-9]"
+                                />
+                            
                         </div>
                         <!-- StackTrace -->
                         <div class="form-group mb-3">
-                            <label for="basiccore-failure-stacktrace-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-font"></i> Stack Trace
+                            <label for="basiccore-failure-stacktrace-input" class="form-control-label">
+                                <i class="fas fa-font"></i> 
+                                StackTrace
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> StackTrace
-                                        </strong>
-                                    </span>
-                                </div>
-                                <textarea class="form-control mt-1" id="basiccore-failure-stacktrace-input" rows="3" resize="none" maxlength="8000">
+                            <textarea class="form-control mt-1" 
+                                id="basiccore-failure-stacktrace-input" 
+                                rows="3" 
+                                resize="none" 
+                                maxlength="8000"
+                                >
                                     @StackTrace
-                                </textarea>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="stacktrace-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            </textarea>
+                            
                         </div>
                         <!-- Source -->
                         <div class="form-group mb-3">
-                            <label for="basiccore-failure-source-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-font"></i> Source
+                            <label for="basiccore-failure-source-input" class="form-control-label">
+                                <i class="fas fa-font"></i> 
+                                Source
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Source
-                                        </strong>
-                                    </span>
-                                </div>
-                                <textarea class="form-control mt-1" id="basiccore-failure-source-input" rows="3" resize="none" maxlength="8000">
+                            <textarea class="form-control mt-1" 
+                                id="basiccore-failure-source-input" 
+                                rows="3" 
+                                resize="none" 
+                                maxlength="8000"
+                                >
                                     @Source
-                                </textarea>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="source-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            </textarea>
+                            
                         </div>
                         <!-- Comment -->
                         <div class="form-group mb-3">
-                            <label for="basiccore-failure-comment-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-font"></i> Comment
+                            <label for="basiccore-failure-comment-input" class="form-control-label">
+                                <i class="fas fa-font"></i> 
+                                Comment
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Comment
-                                        </strong>
-                                    </span>
-                                </div>
-                                <textarea class="form-control mt-1" id="basiccore-failure-comment-input" rows="3" resize="none" maxlength="8000">
+                            <textarea class="form-control mt-1" 
+                                id="basiccore-failure-comment-input" 
+                                rows="3" 
+                                resize="none" 
+                                maxlength="8000"
+                                >
                                     @Comment
-                                </textarea>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="comment-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            </textarea>
+                            
                         </div>
                         
                         <!-- Buttons -->
                         <div class="row justify-content-between">
-                            <button id="basiccore-failure-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="@NonQueryIcon"></i> @NonQueryText</button>
-                            <a href="/BasicCore/FailureQueryPage" class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
-                                <i class="fas fa-angle-left"></i> Go back
+                            <button class="btn btn-primary text-nowrap ml-3 mt-4" 
+                                type="submit">
+                                    <i class="@NonQueryIcon"></i> 
+                                    @NonQueryText
+                            </button>
+                            <a href="/BasicCore/FailureQueryPage" 
+                                class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
+                                    <i class="fas fa-angle-left"></i> 
+                                    Go back
                             </a>
                         </div>
                     </form>
