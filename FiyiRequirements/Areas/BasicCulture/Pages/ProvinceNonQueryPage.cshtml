@@ -26,6 +26,7 @@
         Code = "";
         CountryId = 0;
         CountryName = "Choose a value";
+        
     }
     else
     {
@@ -59,7 +60,7 @@
  */
     
 //Stack: 11
-//Last modification on: 14/02/2023 12:40:12
+//Last modification on: 15/02/2023 17:47:24
 
 }
 <!-- Header -->
@@ -70,7 +71,13 @@
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
                     <!-- Title -->
-                    <h2 id="basicculture-province-title-page" class="h2 text-white d-inline-block mb-0">@NonQueryText province</h2>
+                    <h2 class="h2 text-white d-inline-block mb-0">
+                        @NonQueryText 
+                        province
+                    </h2>
+                    <input type="hidden" 
+                        id="basicculture-province-provinceid-input" 
+                        value="@ProvinceId"/>
                     <!-- Breadcrumb -->
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -121,124 +128,94 @@
             <div class="card">
                 <!-- Card body -->
                 <div class="card-body">
-                    <form novalidate>
-                        <!-- ProvinceId -->
-                        <div class="form-group mb-3">
-                            <label for="basicculture-province-provinceId-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-key"></i> Province ID
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text">
-                                        <strong>
-                                            <i class="fas fa-key"></i> Province ID
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input type="hidden" id="basicculture-province-provinceid-input" value="@ProvinceId"/>
-                                <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="bottom" title="@ProvinceId"  type="button" value="ProvinceId">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
+                    <form class="needs-validation" novalidate>
                         <!-- Name -->
                         <div class="form-group mb-3">
-                            <label for="basicculture-province-name-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                            <label for="basicculture-province-name-input" class="form-control-label">
                                 <i class="fas fa-font"></i> Name
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Name
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" min="1" max="500" type="text" id="basicculture-province-name-input" value="@Name" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="name-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                min="1" 
+                                max="500" 
+                                type="text" 
+                                id="basicculture-province-name-input" 
+                                value="@Name"
+                                />
+                            
                         </div>
                         <!-- GeographicalCoordinates -->
                         <div class="form-group mb-3">
-                            <label for="basicculture-province-geographicalcoordinates-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-font"></i> Geographical Coordinates
+                            <label for="basicculture-province-geographicalcoordinates-input" class="form-control-label">
+                                <i class="fas fa-font"></i> GeographicalCoordinates
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Geographical Coordinates
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" min="1" max="200" type="text" id="basicculture-province-geographicalcoordinates-input" value="@GeographicalCoordinates" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="geographicalcoordinates-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                min="1" 
+                                max="200" 
+                                type="text" 
+                                id="basicculture-province-geographicalcoordinates-input" 
+                                value="@GeographicalCoordinates"
+                                />
+                            
                         </div>
                         <!-- Code -->
                         <div class="form-group mb-3">
-                            <label for="basicculture-province-code-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                            <label for="basicculture-province-code-input" class="form-control-label">
                                 <i class="fas fa-font"></i> Code
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Code
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" min="1" max="100" type="text" id="basicculture-province-code-input" value="@Code" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="code-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                min="1" 
+                                max="100" 
+                                type="text" 
+                                id="basicculture-province-code-input" 
+                                value="@Code"
+                                />
+                            
                         </div>
                         <!-- CountryId -->
-                        <div class="form-group mb-3">
-                            <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-hashtag"></i> Country ID
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend input-group-text">
-                                    <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                        <strong>
-                                            <i class="fas fa-hashtag"></i> Country ID
-                                        </strong>
-                                    </span>
-                                </div>
-                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector"><i class="fas fa-hashtag"></i></button>
-                                <ul id="basicculture-province-countryid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
+                            <div class="form-group mb-3">
+                                <label class="form-control-label">
+                                    <i class="fas fa-hashtag"></i> Country ID
+                                </label>
+                                <br/>
+                                <button type="button" 
+                                    class="btn btn-outline-primary border-0" 
+                                    data-toggle="modal" 
+                                    data-target="#modal-foreign-key-code-selector">
+                                        <i class="fas fa-hashtag"></i>
+                                </button>
+                                <ul id="basicculture-province-countryid-list"
+                                    class="nav nav-pills nav-fill flex-column flex-sm-row" 
+                                    role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
-                                            @CountryName
+                                        <a class="nav-link mb-sm-3 mb-md-0 active" 
+                                            data-toggle="tab" 
+                                            href="javascript:void(0)" 
+                                            role="tab" 
+                                            aria-controls="" 
+                                            aria-selected="true">
+                                                @CountryName
                                         </a>
-                                        <input type="hidden" id="basicculture-province-countryid-input" value="@CountryId"/>
+                                        <input type="hidden" 
+                                            id="basicculture-province-countryid-input"
+                                            value="@CountryId"/>
                                     </li>
                                 </ul>
-                                <div class="input-group-append">
-                                    <button class="btn btn-danger border-0 ml-2" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="countryid-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
+                                <p class="text-danger text-sm">
+                                    <b>This value is required.</b>
+                                </p>
                             </div>
-                        </div>
                         
                         <!-- Buttons -->
                         <div class="row justify-content-between">
-                            <button id="basicculture-province-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="@NonQueryIcon"></i> @NonQueryText</button>
-                            <a href="/BasicCulture/ProvinceQueryPage" class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
-                                <i class="fas fa-angle-left"></i> Go back
+                            <button class="btn btn-primary text-nowrap ml-3 mt-4" 
+                                type="submit">
+                                    <i class="@NonQueryIcon"></i> 
+                                    @NonQueryText
+                            </button>
+                            <a href="/BasicCulture/ProvinceQueryPage" 
+                                class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
+                                    <i class="fas fa-angle-left"></i> 
+                                    Go back
                             </a>
                         </div>
                     </form>
