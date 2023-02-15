@@ -17,14 +17,14 @@ using System.IO;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 21/12/2022 10:42:03
+//Last modification on: 15/02/2023 18:02:20
 
 namespace FiyiRequirements.Areas.BasicCulture.Controllers
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 21/12/2022 10:42:03
+    /// Last modification: 15/02/2023 18:02:20
     /// </summary>
     [ApiController]
     [SexFilter]
@@ -70,8 +70,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -102,8 +102,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -134,8 +134,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -146,6 +146,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
         #endregion
 
         #region Non-Queries
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/Sex/1/InsertOrUpdateAsync")]
         public async Task<IActionResult> InsertOrUpdateAsync()
         {
@@ -158,19 +159,21 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 {
                     return StatusCode(401, "User not found in session");
                 }
-
-                //Add or edit value
-                string AddOrEdit = HttpContext.Request.Form["basicculture-sex-title-page"];
-
+                
+                #region Pass data from client to server
+                //SexId
+                int SexId = Convert.ToInt32(HttpContext.Request.Form["basicculture-sex-sexid-input"]);
+                
                 string Name = HttpContext.Request.Form["basicculture-sex-name-input"];
                 
+                #endregion
 
                 int NewEnteredId = 0;
                 int RowsAffected = 0;
 
-                if (AddOrEdit.StartsWith("Add"))
+                if (SexId == 0)
                 {
-                    //Add
+                    //Insert
                     SexModel SexModel = new SexModel()
                     {
                         Active = true,
@@ -187,7 +190,6 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 else
                 {
                     //Update
-                    int SexId = Convert.ToInt32(HttpContext.Request.Form["basicculture-sex-sexid-input"]);
                     SexModel SexModel = new SexModel(SexId);
                     
                     SexModel.UserLastModificationId = UserId;
@@ -224,7 +226,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     }
                 }
 
-                if (AddOrEdit.StartsWith("Add"))
+                if (SexId == 0)
                 {
                     return StatusCode(200, NewEnteredId); 
                 }
@@ -245,8 +247,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -255,6 +257,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpDelete("~/api/BasicCulture/Sex/1/DeleteBySexId/{SexId:int}")]
         public IActionResult DeleteBySexId(int SexId)
         {
@@ -278,8 +281,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -288,6 +291,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/Sex/1/DeleteManyOrAll/{DeleteType}")]
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
@@ -312,8 +316,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -322,6 +326,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/Sex/1/CopyBySexId/{SexId:int}")]
         public IActionResult CopyBySexId(int SexId)
         {
@@ -346,8 +351,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -356,6 +361,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/Sex/1/CopyManyOrAll/{CopyType}")]
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
@@ -387,8 +393,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -399,6 +405,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
         #endregion
 
         #region Other actions
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/Sex/1/ExportAsPDF/{ExportationType}")]
         public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
         {
@@ -423,8 +430,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -433,6 +440,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/Sex/1/ExportAsExcel/{ExportationType}")]
         public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
         {
@@ -457,8 +465,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -467,6 +475,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/Sex/1/ExportAsCSV/{ExportationType}")]
         public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
         {
@@ -491,8 +500,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
