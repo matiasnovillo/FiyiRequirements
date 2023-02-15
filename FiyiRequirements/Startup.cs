@@ -75,11 +75,12 @@ namespace FiyiRequirements
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
             });
-            
+
             //Captcha configuration
             services.AddSixLabCaptcha(x =>
             {
-                x.DrawLines = 4;
+                x.DrawLines = 0;
+                x.NoiseRate = 0;
             });
         }
 
