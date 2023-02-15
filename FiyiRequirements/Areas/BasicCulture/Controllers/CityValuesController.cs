@@ -17,14 +17,14 @@ using System.IO;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 21/12/2022 9:41:41
+//Last modification on: 15/02/2023 17:55:57
 
 namespace FiyiRequirements.Areas.BasicCulture.Controllers
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 21/12/2022 9:41:41
+    /// Last modification: 15/02/2023 17:55:57
     /// </summary>
     [ApiController]
     [CityFilter]
@@ -70,8 +70,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -102,8 +102,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -134,8 +134,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -146,6 +146,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
         #endregion
 
         #region Non-Queries
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/City/1/InsertOrUpdateAsync")]
         public async Task<IActionResult> InsertOrUpdateAsync()
         {
@@ -158,10 +159,11 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 {
                     return StatusCode(401, "User not found in session");
                 }
-
-                //Add or edit value
-                string AddOrEdit = HttpContext.Request.Form["basicculture-city-title-page"];
-
+                
+                #region Pass data from client to server
+                //CityId
+                int CityId = Convert.ToInt32(HttpContext.Request.Form["basicculture-city-cityid-input"]);
+                
                 string Name = HttpContext.Request.Form["basicculture-city-name-input"];
                 string GeographicalCoordinates = HttpContext.Request.Form["basicculture-city-geographicalcoordinates-input"];
                 string Code = HttpContext.Request.Form["basicculture-city-code-input"];
@@ -173,13 +175,14 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 else
                 { return StatusCode(400, "It's not allowed to save zero values in ProvinceId"); }
                 
+                #endregion
 
                 int NewEnteredId = 0;
                 int RowsAffected = 0;
 
-                if (AddOrEdit.StartsWith("Add"))
+                if (CityId == 0)
                 {
-                    //Add
+                    //Insert
                     CityModel CityModel = new CityModel()
                     {
                         Active = true,
@@ -199,7 +202,6 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 else
                 {
                     //Update
-                    int CityId = Convert.ToInt32(HttpContext.Request.Form["basicculture-city-cityid-input"]);
                     CityModel CityModel = new CityModel(CityId);
                     
                     CityModel.UserLastModificationId = UserId;
@@ -239,7 +241,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     }
                 }
 
-                if (AddOrEdit.StartsWith("Add"))
+                if (CityId == 0)
                 {
                     return StatusCode(200, NewEnteredId); 
                 }
@@ -260,8 +262,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -270,6 +272,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpDelete("~/api/BasicCulture/City/1/DeleteByCityId/{CityId:int}")]
         public IActionResult DeleteByCityId(int CityId)
         {
@@ -293,8 +296,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -303,6 +306,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/City/1/DeleteManyOrAll/{DeleteType}")]
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
@@ -327,8 +331,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -337,6 +341,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/City/1/CopyByCityId/{CityId:int}")]
         public IActionResult CopyByCityId(int CityId)
         {
@@ -361,8 +366,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -371,6 +376,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/City/1/CopyManyOrAll/{CopyType}")]
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
@@ -402,8 +408,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -414,6 +420,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
         #endregion
 
         #region Other actions
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/City/1/ExportAsPDF/{ExportationType}")]
         public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
         {
@@ -438,8 +445,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -448,6 +455,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/City/1/ExportAsExcel/{ExportationType}")]
         public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
         {
@@ -472,8 +480,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -482,6 +490,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/City/1/ExportAsCSV/{ExportationType}")]
         public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
         {
@@ -506,8 +515,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };

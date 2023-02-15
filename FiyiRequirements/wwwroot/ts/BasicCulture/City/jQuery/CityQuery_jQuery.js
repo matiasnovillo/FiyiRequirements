@@ -53,7 +53,7 @@ var CityQuery = /** @class */ (function () {
                     TotalRows = (_f = response_cityQuery.TotalRows) !== null && _f !== void 0 ? _f : 0;
                     TotalPages = (_g = response_cityQuery.TotalPages) !== null && _g !== void 0 ? _g : 0;
                     //Query string
-                    $("#basicculture-city-query-string").attr("placeholder", "Search... (".concat(TotalRows, " records)"));
+                    $("#basicculture-city-query-string").attr("placeholder", "Search... (".concat(TotalRows, " cities)"));
                     //Total pages of pagination
                     $("#basicculture-city-total-pages-lg, #basicculture-city-total-pages").html(TotalPages.toString());
                     //Actual page number of pagination

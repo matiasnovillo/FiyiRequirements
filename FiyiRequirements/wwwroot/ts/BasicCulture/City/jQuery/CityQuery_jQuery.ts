@@ -122,7 +122,7 @@ class CityQuery {
                         TotalPages = response_cityQuery.TotalPages ?? 0;
 
                         //Query string
-                        $("#basicculture-city-query-string").attr("placeholder", `Search... (${TotalRows} records)`);
+                        $("#basicculture-city-query-string").attr("placeholder", `Search... (${TotalRows} cities)`);
                         //Total pages of pagination
                         $("#basicculture-city-total-pages-lg, #basicculture-city-total-pages").html(TotalPages.toString());
                         //Actual page number of pagination
