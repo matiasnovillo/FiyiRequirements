@@ -190,15 +190,15 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 {
                     ForeignKeyDropDown = Convert.ToInt32(HttpContext.Request.Form["examples-example-foreignkeydropdown-input"]);
                 }
-                else
-                { return StatusCode(400, "It's not allowed to save zero values in ForeignKeyDropDown"); }
+                //else
+                //{ return StatusCode(400, "It's not allowed to save zero values in ForeignKeyDropDown"); }
                 int ForeignKeyOption = 0; 
                 if (Convert.ToInt32(HttpContext.Request.Form["examples-example-foreignkeyoption-input"]) != 0)
                 {
                     ForeignKeyOption = Convert.ToInt32(HttpContext.Request.Form["examples-example-foreignkeyoption-input"]);
                 }
-                else
-                { return StatusCode(400, "It's not allowed to save zero values in ForeignKeyOption"); }
+                //else
+                //{ return StatusCode(400, "It's not allowed to save zero values in ForeignKeyOption"); }
                 string TextHexColour = HttpContext.Request.Form["examples-example-texthexcolour-input"];
                 TimeSpan Time = TimeSpan.Parse(HttpContext.Request.Form["examples-example-time-input"]);
                 

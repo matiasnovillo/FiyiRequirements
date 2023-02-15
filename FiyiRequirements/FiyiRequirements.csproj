@@ -25,6 +25,7 @@
     <Folder Include="wwwroot\ExcelFiles\" />
     <Folder Include="wwwroot\icons\" />
     <Folder Include="wwwroot\PDFFiles\" />
+    <Folder Include="wwwroot\Uploads\Examples\Example\" />
     <Folder Include="wwwroot\Uploads\Requirement\RequirementFile\" />
   </ItemGroup>
 
