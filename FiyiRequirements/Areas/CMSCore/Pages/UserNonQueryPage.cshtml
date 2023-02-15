@@ -14,7 +14,7 @@
     int RoleId;
     string RoleName;
     string RegistrationToken;
-
+    
 
     if(HttpContext.Request.QueryString.Value.Contains("?UserId=0"))
     {
@@ -63,7 +63,7 @@
  */
     
 //Stack: 11
-//Last modification on: 14/02/2023 14:44:38
+//Last modification on: 15/02/2023 18:50:53
 
 }
 <!-- Header -->
@@ -74,7 +74,13 @@
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
                     <!-- Title -->
-                    <h2 id="cmscore-user-title-page" class="h2 text-white d-inline-block mb-0">@NonQueryText user</h2>
+                    <h2 class="h2 text-white d-inline-block mb-0">
+                        @NonQueryText 
+                        user
+                    </h2>
+                    <input type="hidden" 
+                        id="cmscore-user-userid-input" 
+                        value="@UserId"/>
                     <!-- Breadcrumb -->
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -125,145 +131,111 @@
             <div class="card">
                 <!-- Card body -->
                 <div class="card-body">
-                    <form novalidate>
-                        <!-- UserId -->
-                        <div class="form-group mb-3">
-                            <label for="cmscore-user-userId-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-key"></i> User ID
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text">
-                                        <strong>
-                                            <i class="fas fa-key"></i> User ID
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input type="hidden" id="cmscore-user-userid-input" value="@UserId"/>
-                                <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="bottom" title="@UserId"  type="button" value="UserId">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
+                    <form class="needs-validation" novalidate>
                         <!-- FantasyName -->
                         <div class="form-group mb-3">
-                            <label for="cmscore-user-fantasyname-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                            <label for="cmscore-user-fantasyname-input" class="form-control-label">
                                 <i class="fas fa-font"></i> Fantasy Name
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Fantasy Name
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" min="1" max="200" type="text" id="cmscore-user-fantasyname-input" value="@FantasyName" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="fantasyname-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                min="1" 
+                                max="200" 
+                                type="text" 
+                                id="cmscore-user-fantasyname-input" 
+                                value="@FantasyName"
+                                />
+                            
                         </div>
                         <!-- Email -->
                         <div class="form-group mb-3">
-                            <label for="cmscore-user-email-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                            <label for="cmscore-user-email-input" class="form-control-label">
                                 <i class="fas fa-at"></i> Email
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-at"></i> Email
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" type="email" min="1" max="320" id="cmscore-user-email-input" value="@Email" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                type="email" 
+                                min="1" 
+                                max="320" 
+                                id="cmscore-user-email-input" 
+                                value="@Email" 
+                                />
+                            
                         </div>
                         <!-- Password -->
                         <div class="form-group mb-3">
-                            <label for="cmscore-user-password-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-asterisk"></i> Password
+                            <label for="cmscore-user-password-input" class="form-control-label">
+                                <i class="fas fa-asterisk"></i> 
+                                Password
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-asterisk"></i> Password
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" tabindex=7 min="1" max="8000" type="password" id="cmscore-user-password-input" value="@Password" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary  border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="password-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                min="1" 
+                                max="8000" 
+                                type="password" 
+                                id="cmscore-user-password-input" 
+                                value="@Password" 
+                                />
+                            
                         </div>
                         <!-- RoleId -->
-                        <div class="form-group mb-3">
-                            <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-hashtag"></i> RoleId
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend input-group-text">
-                                    <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                        <strong>
-                                            <i class="fas fa-hashtag"></i> RoleId
-                                        </strong>
-                                    </span>
-                                </div>
-                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector"><i class="fas fa-hashtag"></i></button>
-                                <ul id="cmscore-user-roleid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
+                            <div class="form-group mb-3">
+                                <label class="form-control-label">
+                                    <i class="fas fa-hashtag"></i> Role ID
+                                </label>
+                                <br/>
+                                <button type="button" 
+                                    class="btn btn-outline-primary border-0" 
+                                    data-toggle="modal" 
+                                    data-target="#modal-foreign-key-code-selector">
+                                        <i class="fas fa-hashtag"></i>
+                                </button>
+                                <ul id="cmscore-user-roleid-list"
+                                    class="nav nav-pills nav-fill flex-column flex-sm-row" 
+                                    role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
-                                            @RoleName
+                                        <a class="nav-link mb-sm-3 mb-md-0 active" 
+                                            data-toggle="tab" 
+                                            href="javascript:void(0)" 
+                                            role="tab" 
+                                            aria-controls="" 
+                                            aria-selected="true">
+                                                @RoleName
                                         </a>
-                                        <input type="hidden" id="cmscore-user-roleid-input" value="@RoleId"/>
+                                        <input type="hidden" 
+                                            id="cmscore-user-roleid-input"
+                                            value="@RoleId"/>
                                     </li>
                                 </ul>
-                                <div class="input-group-append">
-                                    <button class="btn btn-danger border-0 ml-2" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="roleid-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
+                                <p class="text-danger text-sm">
+                                    <b>This value is required.</b>
+                                </p>
                             </div>
-                        </div>
                         <!-- RegistrationToken -->
                         <div class="form-group mb-3">
-                            <label for="cmscore-user-registrationtoken-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                            <label for="cmscore-user-registrationtoken-input" class="form-control-label">
                                 <i class="fas fa-font"></i> Registration Token
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Registration Token
-                                        </strong>
-                                    </span>
+                            <input class="form-control" 
+                                min="1" 
+                                max="8000" 
+                                type="text" 
+                                id="cmscore-user-registrationtoken-input" 
+                                value="@RegistrationToken"
+                                required/>
+                            <div class="invalid-feedback">
+                                    This value is required.
                                 </div>
-                                <input class="form-control" min="1" max="8000" type="text" id="cmscore-user-registrationtoken-input" value="@RegistrationToken" required>
-                                <div class="input-group-append">
-                                    <button class="btn btn-danger border-0" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="registrationtoken-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                         
                         <!-- Buttons -->
                         <div class="row justify-content-between">
-                            <button id="cmscore-user-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="@NonQueryIcon"></i> @NonQueryText</button>
-                            <a href="/CMSCore/UserQueryPage" class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
-                                <i class="fas fa-angle-left"></i> Go back
+                            <button class="btn btn-primary text-nowrap ml-3 mt-4" 
+                                type="submit">
+                                    <i class="@NonQueryIcon"></i> 
+                                    @NonQueryText
+                            </button>
+                            <a href="/CMSCore/UserQueryPage" 
+                                class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
+                                    <i class="fas fa-angle-left"></i> 
+                                    Go back
                             </a>
                         </div>
                     </form>
@@ -286,7 +258,7 @@
                 <div class="modal-content bg-gradient-secondary">
                     <div class="modal-header">
                         <h6 class="modal-title text-primary">
-                            Choose a ForeignKeyDropDown value <i class="fas fa-hashtag"></i>
+                            Choose a role <i class="fas fa-hashtag"></i>
                          </h6>
                     </div>
                     <div class="modal-body">
