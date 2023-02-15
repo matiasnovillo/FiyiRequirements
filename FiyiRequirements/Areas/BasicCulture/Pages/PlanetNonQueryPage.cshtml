@@ -48,7 +48,7 @@
  */
     
 //Stack: 11
-//Last modification on: 14/02/2023 12:24:53
+//Last modification on: 15/02/2023 17:38:02
 
 }
 <!-- Header -->
@@ -59,7 +59,13 @@
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
                     <!-- Title -->
-                    <h2 id="basicculture-planet-title-page" class="h2 text-white d-inline-block mb-0">@NonQueryText planet</h2>
+                    <h2 class="h2 text-white d-inline-block mb-0">
+                        @NonQueryText 
+                        planet
+                    </h2>
+                    <input type="hidden" 
+                        id="basicculture-planet-planetid-input" 
+                        value="@PlanetId"/>
                     <!-- Breadcrumb -->
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -110,74 +116,47 @@
             <div class="card">
                 <!-- Card body -->
                 <div class="card-body">
-                    <form novalidate>
-                        <!-- PlanetId -->
-                        <div class="form-group mb-3">
-                            <label for="basicculture-planet-planetId-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-key"></i> Planet ID
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text">
-                                        <strong>
-                                            <i class="fas fa-key"></i> Planet ID
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input type="hidden" id="basicculture-planet-planetid-input" value="@PlanetId"/>
-                                <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="bottom" title="@PlanetId"  type="button" value="PlanetId">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
+                    <form class="needs-validation" novalidate>
                         <!-- Name -->
                         <div class="form-group mb-3">
-                            <label for="basicculture-planet-name-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                            <label for="basicculture-planet-name-input" class="form-control-label">
                                 <i class="fas fa-font"></i> Name
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Name
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" min="1" max="500" type="text" id="basicculture-planet-name-input" value="@Name" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="name-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                min="1" 
+                                max="500" 
+                                type="text" 
+                                id="basicculture-planet-name-input" 
+                                value="@Name"
+                                />
+                            
                         </div>
                         <!-- Code -->
                         <div class="form-group mb-3">
-                            <label for="basicculture-planet-code-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                            <label for="basicculture-planet-code-input" class="form-control-label">
                                 <i class="fas fa-font"></i> Code
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Code
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" min="1" max="100" type="text" id="basicculture-planet-code-input" value="@Code" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="code-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                min="1" 
+                                max="100" 
+                                type="text" 
+                                id="basicculture-planet-code-input" 
+                                value="@Code"
+                                />
+                            
                         </div>
                         
                         <!-- Buttons -->
                         <div class="row justify-content-between">
-                            <button id="basicculture-planet-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="@NonQueryIcon"></i> @NonQueryText</button>
-                            <a href="/BasicCulture/PlanetQueryPage" class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
-                                <i class="fas fa-angle-left"></i> Go back
+                            <button class="btn btn-primary text-nowrap ml-3 mt-4" 
+                                type="submit">
+                                    <i class="@NonQueryIcon"></i> 
+                                    @NonQueryText
+                            </button>
+                            <a href="/BasicCulture/PlanetQueryPage" 
+                                class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
+                                    <i class="fas fa-angle-left"></i> 
+                                    Go back
                             </a>
                         </div>
                     </form>
