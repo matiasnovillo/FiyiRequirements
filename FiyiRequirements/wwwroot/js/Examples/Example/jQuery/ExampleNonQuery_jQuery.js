@@ -45,6 +45,8 @@ $("#examples-example-textfile-input").on("change", function (e) {
     formData.append("examples-example-textfile-input", examplesexampletextfileinput[0], examplesexampletextfileinput[0].name);
 });
 
+//Create a formdata object
+var formData = new FormData();
 
 //LOAD EVENT
 $(document).ready(function () {

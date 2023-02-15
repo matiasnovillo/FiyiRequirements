@@ -282,12 +282,20 @@
                                 id="examples-example-textfile-readonly" 
                                 value="@TextFile" />
                             <br />
-                            <p class="text-danger text-sm">
-                                <b>This value is required.</b>
-                            </p>
-                            <p class="text-info text-sm">
-                                <b>@TextFile</b>
-                            </p>
+                            @if (@TextFile == ""){
+                                <p class="text-danger text-sm">
+                                    <b>This value is required.</b>
+                                </p>
+                            }
+                            else
+                            {
+                                <a class="btn btn-info btn-sm"
+                                    href="@TextFile"
+                                    download>
+                                        <i class="fas fa-download"></i>
+                                        Download file
+                                </a>
+                            }
                         </div>
                         <!-- TextPassword -->
                         <div class="form-group mb-3">
