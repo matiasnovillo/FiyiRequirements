@@ -6,14 +6,14 @@ using System;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 20/12/2022 20:22:13
+//Last modification on: 15/02/2023 18:14:40
 
 namespace FiyiRequirements.Areas.CMSCore.Filters
 {
@@ -21,7 +21,7 @@ namespace FiyiRequirements.Areas.CMSCore.Filters
     /// Stack:             7 <br/>
     /// Name:              C# Filter. <br/>
     /// Function:          Allow you to intercept HTPP inside a pipeline.<br/>
-    /// Last modification: 20/12/2022 20:22:13
+    /// Last modification: 15/02/2023 18:14:40
     /// </summary>
     public class MenuFilter : ActionFilterAttribute
     {

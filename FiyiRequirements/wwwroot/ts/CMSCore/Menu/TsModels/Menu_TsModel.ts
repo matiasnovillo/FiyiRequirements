@@ -2,33 +2,34 @@ import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
 
+
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
 */
 
-//11 fields | Last modification on: 21/12/2022 10:58:18 | Stack: 9
+//11 fields | Sub-models: 0 models  | Last modification on: 15/02/2023 18:14:40 | Stack: 9
 
 export class MenuModel {
 
     //Fields
     MenuId?: number;
+	Active?: boolean;
+	DateTimeCreation?: string | string[] | number | undefined;
+	DateTimeLastModification?: string | string[] | number | undefined;
+	UserCreationId?: number;
+	UserLastModificationId?: number;
 	Name?: string | string[] | number | undefined;
 	MenuFatherId?: number;
 	Order?: number;
 	URLPath?: string | string[] | number | undefined;
 	IconURLPath?: string | string[] | number | undefined;
-	Active?: boolean;
-	UserCreationId?: number;
-	UserLastModificationId?: number;
-	DateTimeCreation?: string | string[] | number | undefined;
-    DateTimeLastModification?: string | string[] | number | undefined;
     UserCreationIdFantasyName?: string | string[] | number | undefined;
     UserLastModificationIdFantasyName?: string | string[] | number | undefined;
 

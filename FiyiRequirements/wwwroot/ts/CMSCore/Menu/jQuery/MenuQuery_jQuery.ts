@@ -19,7 +19,7 @@ import "bootstrap-notify";
 
 //Stack: 10
 
-//Last modification on: 14/02/2023 14:04:59
+//Last modification on: 15/02/2023 18:14:40
 
 //Set default values
 let LastTopDistance: number = 0;
@@ -217,18 +217,14 @@ class MenuQuery {
         </strong>
     </td>
     <td class="text-left">
-        <a href="${row.URLPath}" target="_blank">
-            <strong>
-                <i class="fas fa-globe"></i> ${row.URLPath}
-            </strong>
-        </a>
+        <strong><i class="fas fa-font">
+            </i> ${row.URLPath}
+        </strong>
     </td>
     <td class="text-left">
-        <a href="${row.IconURLPath}" target="_blank">
-            <strong>
-                <i class="fas fa-globe"></i> ${row.IconURLPath}
-            </strong>
-        </a>
+        <strong><i class="fas fa-font">
+            </i> ${row.IconURLPath}
+        </strong>
     </td>
     
     <!-- Actions -->
@@ -301,16 +297,12 @@ class MenuQuery {
                             Order <i class="fas fa-divide"></i> ${row.Order}
                         </span>
                         <br/>
-                        <span class="mb-4">
-                            <a href="${row.URLPath}" style="color:#FFFFFF" target="_blank">
-                               URL Path <i class="fas fa-globe"></i> ${row.URLPath}
-                            </a>
+                        <span class="text-white mb-4">
+                           URL Path <i class="fas fa-font"></i> ${row.URLPath}
                         </span>
                         <br/>
-                        <span class="mb-4">
-                            <a href="${row.IconURLPath}" style="color:#FFFFFF" target="_blank">
-                               Icon URL Path <i class="fas fa-globe"></i> ${row.IconURLPath}
-                            </a>
+                        <span class="text-white mb-4">
+                           Icon URL Path <i class="fas fa-font"></i> ${row.IconURLPath}
                         </span>
                         <br/>
                         

@@ -15,14 +15,14 @@ using System.IO;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 20/12/2022 20:22:13
+//Last modification on: 15/02/2023 18:14:40
 
 namespace FiyiRequirements.Areas.CMSCore.Services
 {
@@ -31,7 +31,7 @@ namespace FiyiRequirements.Areas.CMSCore.Services
     /// Name:              C# Service. <br/>
     /// Function:          Allow you to separate data contract stored in C# model from business with your clients. <br/>
     /// Also, allow dependency injection inside controllers/web apis<br/>
-    /// Last modification: 20/12/2022 20:22:13
+    /// Last modification: 15/02/2023 18:14:40
     /// </summary>
     public partial class MenuService : MenuProtocol
     {
@@ -187,6 +187,31 @@ namespace FiyiRequirements.Areas.CMSCore.Services
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Active&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeCreation&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeLastModification&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">UserCreationId&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">UserLastModificationId&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
                 <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Name&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
@@ -208,31 +233,6 @@ namespace FiyiRequirements.Areas.CMSCore.Services
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
                 <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">IconURLPath&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Active&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">UserCreationId&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">UserLastModificationId&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeCreation&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeLastModification&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th>
@@ -269,6 +269,31 @@ namespace FiyiRequirements.Areas.CMSCore.Services
                     dtColumnMenuIdFordtMenuCopy.ColumnName = "MenuId";
                     dtMenuCopy.Columns.Add(dtColumnMenuIdFordtMenuCopy);
 
+                    DataColumn dtColumnActiveFordtMenuCopy = new DataColumn();
+                    dtColumnActiveFordtMenuCopy.DataType = typeof(string);
+                    dtColumnActiveFordtMenuCopy.ColumnName = "Active";
+                    dtMenuCopy.Columns.Add(dtColumnActiveFordtMenuCopy);
+
+                    DataColumn dtColumnDateTimeCreationFordtMenuCopy = new DataColumn();
+                    dtColumnDateTimeCreationFordtMenuCopy.DataType = typeof(string);
+                    dtColumnDateTimeCreationFordtMenuCopy.ColumnName = "DateTimeCreation";
+                    dtMenuCopy.Columns.Add(dtColumnDateTimeCreationFordtMenuCopy);
+
+                    DataColumn dtColumnDateTimeLastModificationFordtMenuCopy = new DataColumn();
+                    dtColumnDateTimeLastModificationFordtMenuCopy.DataType = typeof(string);
+                    dtColumnDateTimeLastModificationFordtMenuCopy.ColumnName = "DateTimeLastModification";
+                    dtMenuCopy.Columns.Add(dtColumnDateTimeLastModificationFordtMenuCopy);
+
+                    DataColumn dtColumnUserCreationIdFordtMenuCopy = new DataColumn();
+                    dtColumnUserCreationIdFordtMenuCopy.DataType = typeof(string);
+                    dtColumnUserCreationIdFordtMenuCopy.ColumnName = "UserCreationId";
+                    dtMenuCopy.Columns.Add(dtColumnUserCreationIdFordtMenuCopy);
+
+                    DataColumn dtColumnUserLastModificationIdFordtMenuCopy = new DataColumn();
+                    dtColumnUserLastModificationIdFordtMenuCopy.DataType = typeof(string);
+                    dtColumnUserLastModificationIdFordtMenuCopy.ColumnName = "UserLastModificationId";
+                    dtMenuCopy.Columns.Add(dtColumnUserLastModificationIdFordtMenuCopy);
+
                     DataColumn dtColumnNameFordtMenuCopy = new DataColumn();
                     dtColumnNameFordtMenuCopy.DataType = typeof(string);
                     dtColumnNameFordtMenuCopy.ColumnName = "Name";
@@ -293,31 +318,6 @@ namespace FiyiRequirements.Areas.CMSCore.Services
                     dtColumnIconURLPathFordtMenuCopy.DataType = typeof(string);
                     dtColumnIconURLPathFordtMenuCopy.ColumnName = "IconURLPath";
                     dtMenuCopy.Columns.Add(dtColumnIconURLPathFordtMenuCopy);
-
-                    DataColumn dtColumnActiveFordtMenuCopy = new DataColumn();
-                    dtColumnActiveFordtMenuCopy.DataType = typeof(string);
-                    dtColumnActiveFordtMenuCopy.ColumnName = "Active";
-                    dtMenuCopy.Columns.Add(dtColumnActiveFordtMenuCopy);
-
-                    DataColumn dtColumnUserCreationIdFordtMenuCopy = new DataColumn();
-                    dtColumnUserCreationIdFordtMenuCopy.DataType = typeof(string);
-                    dtColumnUserCreationIdFordtMenuCopy.ColumnName = "UserCreationId";
-                    dtMenuCopy.Columns.Add(dtColumnUserCreationIdFordtMenuCopy);
-
-                    DataColumn dtColumnUserLastModificationIdFordtMenuCopy = new DataColumn();
-                    dtColumnUserLastModificationIdFordtMenuCopy.DataType = typeof(string);
-                    dtColumnUserLastModificationIdFordtMenuCopy.ColumnName = "UserLastModificationId";
-                    dtMenuCopy.Columns.Add(dtColumnUserLastModificationIdFordtMenuCopy);
-
-                    DataColumn dtColumnDateTimeCreationFordtMenuCopy = new DataColumn();
-                    dtColumnDateTimeCreationFordtMenuCopy.DataType = typeof(string);
-                    dtColumnDateTimeCreationFordtMenuCopy.ColumnName = "DateTimeCreation";
-                    dtMenuCopy.Columns.Add(dtColumnDateTimeCreationFordtMenuCopy);
-
-                    DataColumn dtColumnDateTimeLastModificationFordtMenuCopy = new DataColumn();
-                    dtColumnDateTimeLastModificationFordtMenuCopy.DataType = typeof(string);
-                    dtColumnDateTimeLastModificationFordtMenuCopy.ColumnName = "DateTimeLastModification";
-                    dtMenuCopy.Columns.Add(dtColumnDateTimeLastModificationFordtMenuCopy);
 
                     
                 #endregion
@@ -353,6 +353,31 @@ namespace FiyiRequirements.Areas.CMSCore.Services
                     dtColumnMenuIdFordtMenuCopy.ColumnName = "MenuId";
                     dtMenuCopy.Columns.Add(dtColumnMenuIdFordtMenuCopy);
 
+                    DataColumn dtColumnActiveFordtMenuCopy = new DataColumn();
+                    dtColumnActiveFordtMenuCopy.DataType = typeof(string);
+                    dtColumnActiveFordtMenuCopy.ColumnName = "Active";
+                    dtMenuCopy.Columns.Add(dtColumnActiveFordtMenuCopy);
+
+                    DataColumn dtColumnDateTimeCreationFordtMenuCopy = new DataColumn();
+                    dtColumnDateTimeCreationFordtMenuCopy.DataType = typeof(string);
+                    dtColumnDateTimeCreationFordtMenuCopy.ColumnName = "DateTimeCreation";
+                    dtMenuCopy.Columns.Add(dtColumnDateTimeCreationFordtMenuCopy);
+
+                    DataColumn dtColumnDateTimeLastModificationFordtMenuCopy = new DataColumn();
+                    dtColumnDateTimeLastModificationFordtMenuCopy.DataType = typeof(string);
+                    dtColumnDateTimeLastModificationFordtMenuCopy.ColumnName = "DateTimeLastModification";
+                    dtMenuCopy.Columns.Add(dtColumnDateTimeLastModificationFordtMenuCopy);
+
+                    DataColumn dtColumnUserCreationIdFordtMenuCopy = new DataColumn();
+                    dtColumnUserCreationIdFordtMenuCopy.DataType = typeof(string);
+                    dtColumnUserCreationIdFordtMenuCopy.ColumnName = "UserCreationId";
+                    dtMenuCopy.Columns.Add(dtColumnUserCreationIdFordtMenuCopy);
+
+                    DataColumn dtColumnUserLastModificationIdFordtMenuCopy = new DataColumn();
+                    dtColumnUserLastModificationIdFordtMenuCopy.DataType = typeof(string);
+                    dtColumnUserLastModificationIdFordtMenuCopy.ColumnName = "UserLastModificationId";
+                    dtMenuCopy.Columns.Add(dtColumnUserLastModificationIdFordtMenuCopy);
+
                     DataColumn dtColumnNameFordtMenuCopy = new DataColumn();
                     dtColumnNameFordtMenuCopy.DataType = typeof(string);
                     dtColumnNameFordtMenuCopy.ColumnName = "Name";
@@ -377,31 +402,6 @@ namespace FiyiRequirements.Areas.CMSCore.Services
                     dtColumnIconURLPathFordtMenuCopy.DataType = typeof(string);
                     dtColumnIconURLPathFordtMenuCopy.ColumnName = "IconURLPath";
                     dtMenuCopy.Columns.Add(dtColumnIconURLPathFordtMenuCopy);
-
-                    DataColumn dtColumnActiveFordtMenuCopy = new DataColumn();
-                    dtColumnActiveFordtMenuCopy.DataType = typeof(string);
-                    dtColumnActiveFordtMenuCopy.ColumnName = "Active";
-                    dtMenuCopy.Columns.Add(dtColumnActiveFordtMenuCopy);
-
-                    DataColumn dtColumnUserCreationIdFordtMenuCopy = new DataColumn();
-                    dtColumnUserCreationIdFordtMenuCopy.DataType = typeof(string);
-                    dtColumnUserCreationIdFordtMenuCopy.ColumnName = "UserCreationId";
-                    dtMenuCopy.Columns.Add(dtColumnUserCreationIdFordtMenuCopy);
-
-                    DataColumn dtColumnUserLastModificationIdFordtMenuCopy = new DataColumn();
-                    dtColumnUserLastModificationIdFordtMenuCopy.DataType = typeof(string);
-                    dtColumnUserLastModificationIdFordtMenuCopy.ColumnName = "UserLastModificationId";
-                    dtMenuCopy.Columns.Add(dtColumnUserLastModificationIdFordtMenuCopy);
-
-                    DataColumn dtColumnDateTimeCreationFordtMenuCopy = new DataColumn();
-                    dtColumnDateTimeCreationFordtMenuCopy.DataType = typeof(string);
-                    dtColumnDateTimeCreationFordtMenuCopy.ColumnName = "DateTimeCreation";
-                    dtMenuCopy.Columns.Add(dtColumnDateTimeCreationFordtMenuCopy);
-
-                    DataColumn dtColumnDateTimeLastModificationFordtMenuCopy = new DataColumn();
-                    dtColumnDateTimeLastModificationFordtMenuCopy.DataType = typeof(string);
-                    dtColumnDateTimeLastModificationFordtMenuCopy.ColumnName = "DateTimeLastModification";
-                    dtMenuCopy.Columns.Add(dtColumnDateTimeLastModificationFordtMenuCopy);
 
                     
                     #endregion

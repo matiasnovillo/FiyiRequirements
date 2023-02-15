@@ -57,7 +57,7 @@
  */
     
 //Stack: 11
-//Last modification on: 14/02/2023 14:04:59
+//Last modification on: 15/02/2023 18:14:40
 
 }
 <!-- Header -->
@@ -68,7 +68,13 @@
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
                     <!-- Title -->
-                    <h2 id="cmscore-menu-title-page" class="h2 text-white d-inline-block mb-0">@NonQueryText menu</h2>
+                    <h2 class="h2 text-white d-inline-block mb-0">
+                        @NonQueryText 
+                        menu
+                    </h2>
+                    <input type="hidden" 
+                        id="cmscore-menu-menuid-input" 
+                        value="@MenuId"/>
                     <!-- Breadcrumb -->
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -119,137 +125,95 @@
             <div class="card">
                 <!-- Card body -->
                 <div class="card-body">
-                    <form novalidate>
-                        <!-- MenuId -->
-                        <div class="form-group mb-3">
-                            <label for="cmscore-menu-menuId-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-key"></i> Menu ID
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text">
-                                        <strong>
-                                            <i class="fas fa-key"></i> Menu ID
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input type="hidden" id="cmscore-menu-menuid-input" value="@MenuId"/>
-                                <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="bottom" title="@MenuId"  type="button" value="MenuId">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
+                    <form class="needs-validation" novalidate>
                         <!-- Name -->
                         <div class="form-group mb-3">
-                            <label for="cmscore-menu-name-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                            <label for="cmscore-menu-name-input" class="form-control-label">
                                 <i class="fas fa-font"></i> Name
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Name
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" min="1" max="200" type="text" id="cmscore-menu-name-input" value="@Name" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="name-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                min="1" 
+                                max="200" 
+                                type="text" 
+                                id="cmscore-menu-name-input" 
+                                value="@Name"
+                                />
+                            
                         </div>
                         <!-- MenuFatherId -->
                         <div class="form-group mb-3">
-                            <label for="cmscore-menu-menufatherid-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-divide"></i> Menu Father ID
+                            <label for="cmscore-menu-menufatherid-input" class="form-control-label">
+                                <i class="fas fa-divide"></i> 
+                                Menu Father ID
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-divide"></i> Menu Father ID
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" type="number" id="cmscore-menu-menufatherid-input" value="@MenuFatherId" min="0" max="2147483647" step="1" pattern="[^0-9]">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="menufatherid-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                type="number" 
+                                id="cmscore-menu-menufatherid-input" 
+                                value="@MenuFatherId" 
+                                min="0" 
+                                max="2147483647" 
+                                step="1" 
+                                pattern="[^0-9]"
+                                />
+                            
                         </div>
                         <!-- Order -->
                         <div class="form-group mb-3">
-                            <label for="cmscore-menu-order-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-divide"></i> Order
+                            <label for="cmscore-menu-order-input" class="form-control-label">
+                                <i class="fas fa-divide"></i> 
+                                Order
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-divide"></i> Order
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" type="number" id="cmscore-menu-order-input" value="@Order" min="0" max="2147483647" step="1" pattern="[^0-9]">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="order-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                type="number" 
+                                id="cmscore-menu-order-input" 
+                                value="@Order" 
+                                min="0" 
+                                max="2147483647" 
+                                step="1" 
+                                pattern="[^0-9]"
+                                />
+                            
                         </div>
                         <!-- URLPath -->
                         <div class="form-group mb-3">
-                            <label for="cmscore-menu-urlpath-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-globe"></i> URL Path
+                            <label for="cmscore-menu-urlpath-input" class="form-control-label">
+                                <i class="fas fa-font"></i> URL Path
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-globe"></i> URL Path
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" type="url" id="cmscore-menu-urlpath-input" value="@URLPath" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="urlpath-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                min="1" 
+                                max="8000" 
+                                type="text" 
+                                id="cmscore-menu-urlpath-input" 
+                                value="@URLPath"
+                                />
+                            
                         </div>
                         <!-- IconURLPath -->
                         <div class="form-group mb-3">
-                            <label for="cmscore-menu-iconurlpath-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-globe"></i> Icon URL Path
+                            <label for="cmscore-menu-iconurlpath-input" class="form-control-label">
+                                <i class="fas fa-font"></i> Icon URL Path
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-globe"></i> Icon URL Path
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" type="url" id="cmscore-menu-iconurlpath-input" value="@IconURLPath" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="iconurlpath-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                min="1" 
+                                max="8000" 
+                                type="text" 
+                                id="cmscore-menu-iconurlpath-input" 
+                                value="@IconURLPath"
+                                />
+                            
                         </div>
                         
                         <!-- Buttons -->
                         <div class="row justify-content-between">
-                            <button id="cmscore-menu-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="@NonQueryIcon"></i> @NonQueryText</button>
-                            <a href="/CMSCore/MenuQueryPage" class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
-                                <i class="fas fa-angle-left"></i> Go back
+                            <button class="btn btn-primary text-nowrap ml-3 mt-4" 
+                                type="submit">
+                                    <i class="@NonQueryIcon"></i> 
+                                    @NonQueryText
+                            </button>
+                            <a href="/CMSCore/MenuQueryPage" 
+                                class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
+                                    <i class="fas fa-angle-left"></i> 
+                                    Go back
                             </a>
                         </div>
                     </form>

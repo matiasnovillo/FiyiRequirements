@@ -17,14 +17,14 @@ using System.IO;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 21/12/2022 10:58:18
+//Last modification on: 15/02/2023 18:14:40
 
 namespace FiyiRequirements.Areas.CMSCore.Controllers
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 21/12/2022 10:58:18
+    /// Last modification: 15/02/2023 18:14:40
     /// </summary>
     [ApiController]
     [MenuFilter]
@@ -70,8 +70,8 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -102,8 +102,8 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -134,8 +134,8 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -146,6 +146,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         #endregion
 
         #region Non-Queries
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/CMSCore/Menu/1/InsertOrUpdateAsync")]
         public async Task<IActionResult> InsertOrUpdateAsync()
         {
@@ -158,23 +159,25 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 {
                     return StatusCode(401, "User not found in session");
                 }
-
-                //Add or edit value
-                string AddOrEdit = HttpContext.Request.Form["cmscore-menu-title-page"];
-
+                
+                #region Pass data from client to server
+                //MenuId
+                int MenuId = Convert.ToInt32(HttpContext.Request.Form["cmscore-menu-menuid-input"]);
+                
                 string Name = HttpContext.Request.Form["cmscore-menu-name-input"];
                 int MenuFatherId = Convert.ToInt32(HttpContext.Request.Form["cmscore-menu-menufatherid-input"]);
                 int Order = Convert.ToInt32(HttpContext.Request.Form["cmscore-menu-order-input"]);
                 string URLPath = HttpContext.Request.Form["cmscore-menu-urlpath-input"];
                 string IconURLPath = HttpContext.Request.Form["cmscore-menu-iconurlpath-input"];
                 
+                #endregion
 
                 int NewEnteredId = 0;
                 int RowsAffected = 0;
 
-                if (AddOrEdit.StartsWith("Add"))
+                if (MenuId == 0)
                 {
-                    //Add
+                    //Insert
                     MenuModel MenuModel = new MenuModel()
                     {
                         Active = true,
@@ -195,7 +198,6 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 else
                 {
                     //Update
-                    int MenuId = Convert.ToInt32(HttpContext.Request.Form["cmscore-menu-menuid-input"]);
                     MenuModel MenuModel = new MenuModel(MenuId);
                     
                     MenuModel.UserLastModificationId = UserId;
@@ -236,7 +238,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     }
                 }
 
-                if (AddOrEdit.StartsWith("Add"))
+                if (MenuId == 0)
                 {
                     return StatusCode(200, NewEnteredId); 
                 }
@@ -257,8 +259,8 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -267,6 +269,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpDelete("~/api/CMSCore/Menu/1/DeleteByMenuId/{MenuId:int}")]
         public IActionResult DeleteByMenuId(int MenuId)
         {
@@ -290,8 +293,8 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -300,6 +303,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/CMSCore/Menu/1/DeleteManyOrAll/{DeleteType}")]
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
@@ -324,8 +328,8 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -334,6 +338,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/CMSCore/Menu/1/CopyByMenuId/{MenuId:int}")]
         public IActionResult CopyByMenuId(int MenuId)
         {
@@ -358,8 +363,8 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -368,6 +373,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/CMSCore/Menu/1/CopyManyOrAll/{CopyType}")]
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
@@ -399,8 +405,8 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -411,8 +417,8 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         #endregion
 
         #region Other actions
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/CMSCore/Menu/1/ExportAsPDF/{ExportationType}")]
-
         public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -436,8 +442,8 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -446,8 +452,8 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/CMSCore/Menu/1/ExportAsExcel/{ExportationType}")]
-        
         public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -471,8 +477,8 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
@@ -481,8 +487,8 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/CMSCore/Menu/1/ExportAsCSV/{ExportationType}")]
-        
         public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -506,8 +512,8 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     Source = ex.Source ?? "",
                     Comment = "",
                     Active = true,
-                    UserCreationId = 1,
-                    UserLastModificationId = 1,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
                     DateTimeCreation = Now,
                     DateTimeLastModification = Now
                 };
