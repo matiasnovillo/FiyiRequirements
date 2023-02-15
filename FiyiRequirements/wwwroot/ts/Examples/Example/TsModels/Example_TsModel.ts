@@ -14,7 +14,7 @@ import { Ajax } from "../../../Library/Ajax";
  * 
 */
 
-//21 fields | Sub-models: 0 models  | Last modification on: 15/02/2023 14:56:57 | Stack: 9
+//23 fields | Sub-models: 0 models  | Last modification on: 15/02/2023 16:56:40 | Stack: 9
 
 export class ExampleModel {
 
@@ -40,6 +40,8 @@ export class ExampleModel {
 	TextURL?: string | string[] | number | undefined;
 	ForeignKeyDropDown?: number;
 	ForeignKeyOption?: number;
+	TextHexColour?: string | string[] | number | undefined;
+	Time?: string;
     
 
     //Queries

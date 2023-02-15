@@ -9,19 +9,19 @@ CREATE PROCEDURE [dbo].[Examples.Example.UpdateByExampleId]
     @Boolean TINYINT,
     @DateTime DATETIME,
     @Decimal NUMERIC(24,6),
-    @ForeignKeyDropDown INT,
-    @ForeignKeyOptions INT,
     @Integer INT,
-    @TextBasic VARCHAR(8000),
-    @TextEmail VARCHAR(8000),
+    @TextBasic VARCHAR(20),
+    @TextEmail VARCHAR(20),
     @TextFile VARCHAR(8000),
+    @TextPassword VARCHAR(20),
+    @TextPhoneNumber VARCHAR(20),
+    @TextTag VARCHAR(20),
+    @TextTextArea VARCHAR(20),
+    @TextTextEditor VARCHAR(20),
+    @TextURL VARCHAR(20),
+    @ForeignKeyDropDown INT,
+    @ForeignKeyOption INT,
     @TextHexColour VARCHAR(6),
-    @TextPassword VARCHAR(8000),
-    @TextPhoneNumber VARCHAR(8000),
-    @TextTag VARCHAR(8000),
-    @TextTextArea VARCHAR(8000),
-    @TextTextEditor VARCHAR(8000),
-    @TextURL VARCHAR(8000),
     @Time TIME(3),
 
     @RowsAffected INT OUTPUT
@@ -51,7 +51,7 @@ SELECT @RowsAffected AS N'@RowsAffected'
  *
  */
 
---Last modification on: 31/01/2023 7:54:01
+--Last modification on: 15/02/2023 16:56:40
 
 UPDATE [Examples.Example] SET
     [Active] = @Active,
@@ -62,22 +62,22 @@ UPDATE [Examples.Example] SET
     [Boolean] = @Boolean,
     [DateTime] = @DateTime,
     [Decimal] = @Decimal,
-    [ForeignKeyDropDown] = @ForeignKeyDropDown,
-    [ForeignKeyOptions] = @ForeignKeyOptions,
     [Integer] = @Integer,
     [TextBasic] = @TextBasic,
     [TextEmail] = @TextEmail,
     [TextFile] = @TextFile,
-    [TextHexColour] = @TextHexColour,
     [TextPassword] = @TextPassword,
     [TextPhoneNumber] = @TextPhoneNumber,
     [TextTag] = @TextTag,
     [TextTextArea] = @TextTextArea,
     [TextTextEditor] = @TextTextEditor,
     [TextURL] = @TextURL,
+    [ForeignKeyDropDown] = @ForeignKeyDropDown,
+    [ForeignKeyOption] = @ForeignKeyOption,
+    [TextHexColour] = @TextHexColour,
     [Time] = @Time
 WHERE 
     1 = 1 
     AND [Examples.Example].[ExampleId] = @ExampleId 
 
-SELECT @RowsAffected = @@ROWCOUNT
+SELECT @RowsAffected = @@ROWCOUNTected = @@ROWCOUNT

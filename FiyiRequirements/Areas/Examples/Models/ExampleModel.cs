@@ -26,9 +26,9 @@ namespace FiyiRequirements.Areas.Examples.Models
     /// Function:          Allow you to manipulate information from database using stored procedures.
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
-    /// Fields:            21 <br/> 
+    /// Fields:            23 <br/> 
     /// Sub-models:      0 models <br/>
-    /// Last modification: 15/02/2023 14:56:57
+    /// Last modification: 15/02/2023 16:56:40
     /// </summary>
     [Serializable]
     public partial class ExampleModel
@@ -112,6 +112,12 @@ namespace FiyiRequirements.Areas.Examples.Models
 
         [Library.ModelAttributeValidator.Key("ForeignKeyOption")]
         public int ForeignKeyOption { get; set; }
+
+        [Library.ModelAttributeValidator.HexColour("TextHexColour", true, "000000", "FFFFFF")]
+        public string TextHexColour { get; set; }
+
+        [Library.ModelAttributeValidator.TimeSpan("Time", true, "00:00", "23:59")]
+        public TimeSpan Time { get; set; }
         #endregion
 
         #region Sub-lists
@@ -124,7 +130,7 @@ namespace FiyiRequirements.Areas.Examples.Models
         /// Function:     Create fastly this model with field ExampleId = 0 <br/>
         /// Note 1:       Generally used to have fast access to functions of object. <br/>
         /// Note 2:       Need construction with [new] reserved word, as all constructors. <br/>
-        /// Fields:       21 <br/> 
+        /// Fields:       23 <br/> 
         /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
         public ExampleModel()
@@ -143,7 +149,7 @@ namespace FiyiRequirements.Areas.Examples.Models
         /// Stack:        3 <br/>
         /// Function:     Create this model with stored information in database using ExampleId <br/>
         /// Note:         Raise exception on duplicated IDs <br/>
-        /// Fields:       21 <br/> 
+        /// Fields:       23 <br/> 
         /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
         public ExampleModel(int ExampleId)
@@ -193,6 +199,8 @@ namespace FiyiRequirements.Areas.Examples.Models
 					this.TextURL = example.TextURL;
 					this.ForeignKeyDropDown = example.ForeignKeyDropDown;
 					this.ForeignKeyOption = example.ForeignKeyOption;
+					this.TextHexColour = example.TextHexColour;
+					this.Time = example.Time;
                 }
             }
             catch (Exception ex) { throw ex; }
@@ -203,10 +211,10 @@ namespace FiyiRequirements.Areas.Examples.Models
         /// Stack:        3 <br/>
         /// Function:     Create this model with filled parameters <br/>
         /// Note:         Raise exception on duplicated IDs <br/>
-        /// Fields:       21 <br/> 
+        /// Fields:       23 <br/> 
         /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
-        public ExampleModel(int ExampleId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, bool Boolean, DateTime DateTime, decimal Decimal, int Integer, string TextBasic, string TextEmail, string TextFile, string TextPassword, string TextPhoneNumber, string TextTag, string TextTextArea, string TextTextEditor, string TextURL, int ForeignKeyDropDown, int ForeignKeyOption)
+        public ExampleModel(int ExampleId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, bool Boolean, DateTime DateTime, decimal Decimal, int Integer, string TextBasic, string TextEmail, string TextFile, string TextPassword, string TextPhoneNumber, string TextTag, string TextTextArea, string TextTextEditor, string TextURL, int ForeignKeyDropDown, int ForeignKeyOption, string TextHexColour, TimeSpan Time)
         {
             try
             {
@@ -234,6 +242,8 @@ namespace FiyiRequirements.Areas.Examples.Models
 				this.TextURL = TextURL;
 				this.ForeignKeyDropDown = ForeignKeyDropDown;
 				this.ForeignKeyOption = ForeignKeyOption;
+				this.TextHexColour = TextHexColour;
+				this.Time = Time;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -242,7 +252,7 @@ namespace FiyiRequirements.Areas.Examples.Models
         /// Stack:        3 <br/>
         /// Function:     Create this model (copy) using the given model (original), example, passed by parameter. <br/>
         /// Note:         This constructor is generally used to execute functions using the copied fields <br/>
-        /// Fields:       21 <br/> 
+        /// Fields:       23 <br/> 
         /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
         public ExampleModel(ExampleModel example)
@@ -273,6 +283,8 @@ namespace FiyiRequirements.Areas.Examples.Models
 				TextURL = example.TextURL;
 				ForeignKeyDropDown = example.ForeignKeyDropDown;
 				ForeignKeyOption = example.ForeignKeyOption;
+				TextHexColour = example.TextHexColour;
+				Time = example.Time;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -395,6 +407,8 @@ namespace FiyiRequirements.Areas.Examples.Models
 					ExampleModel.TextURL = example.TextURL;
 					ExampleModel.ForeignKeyDropDown = example.ForeignKeyDropDown;
 					ExampleModel.ForeignKeyOption = example.ForeignKeyOption;
+					ExampleModel.TextHexColour = example.TextHexColour;
+					ExampleModel.Time = example.Time;
                 }
 
                 return ExampleModel;
@@ -481,6 +495,8 @@ namespace FiyiRequirements.Areas.Examples.Models
 				dp.Add("TextURL", TextURL, DbType.String, ParameterDirection.Input);
 				dp.Add("ForeignKeyDropDown", ForeignKeyDropDown, DbType.Int32, ParameterDirection.Input);
 				dp.Add("ForeignKeyOption", ForeignKeyOption, DbType.Int32, ParameterDirection.Input);
+				dp.Add("TextHexColour", TextHexColour, DbType.String, ParameterDirection.Input);
+				dp.Add("Time", Time, DbType.Time, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -529,6 +545,8 @@ namespace FiyiRequirements.Areas.Examples.Models
 				dp.Add("TextURL", example.TextURL, DbType.String, ParameterDirection.Input);
 				dp.Add("ForeignKeyDropDown", example.ForeignKeyDropDown, DbType.Int32, ParameterDirection.Input);
 				dp.Add("ForeignKeyOption", example.ForeignKeyOption, DbType.Int32, ParameterDirection.Input);
+				dp.Add("TextHexColour", example.TextHexColour, DbType.String, ParameterDirection.Input);
+				dp.Add("Time", example.Time, DbType.Time, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
                 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -549,7 +567,7 @@ namespace FiyiRequirements.Areas.Examples.Models
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
         /// <returns>The ID of the last registry inserted in Example table</returns>
-        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, bool Boolean, DateTime DateTime, decimal Decimal, int Integer, string TextBasic, string TextEmail, string TextFile, string TextPassword, string TextPhoneNumber, string TextTag, string TextTextArea, string TextTextEditor, string TextURL, int ForeignKeyDropDown, int ForeignKeyOption)
+        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, bool Boolean, DateTime DateTime, decimal Decimal, int Integer, string TextBasic, string TextEmail, string TextFile, string TextPassword, string TextPhoneNumber, string TextTag, string TextTextArea, string TextTextEditor, string TextURL, int ForeignKeyDropDown, int ForeignKeyOption, string TextHexColour, TimeSpan Time)
         {
             try
             {
@@ -577,6 +595,8 @@ namespace FiyiRequirements.Areas.Examples.Models
 				dp.Add("TextURL", TextURL, DbType.String, ParameterDirection.Input);
 				dp.Add("ForeignKeyDropDown", ForeignKeyDropDown, DbType.Int32, ParameterDirection.Input);
 				dp.Add("ForeignKeyOption", ForeignKeyOption, DbType.Int32, ParameterDirection.Input);
+				dp.Add("TextHexColour", TextHexColour, DbType.String, ParameterDirection.Input);
+				dp.Add("Time", Time, DbType.Time, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -626,6 +646,8 @@ namespace FiyiRequirements.Areas.Examples.Models
 				dp.Add("TextURL", TextURL, DbType.String, ParameterDirection.Input);
 				dp.Add("ForeignKeyDropDown", ForeignKeyDropDown, DbType.Int32, ParameterDirection.Input);
 				dp.Add("ForeignKeyOption", ForeignKeyOption, DbType.Int32, ParameterDirection.Input);
+				dp.Add("TextHexColour", TextHexColour, DbType.String, ParameterDirection.Input);
+				dp.Add("Time", Time, DbType.Time, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -675,6 +697,8 @@ namespace FiyiRequirements.Areas.Examples.Models
 				dp.Add("TextURL", example.TextURL, DbType.String, ParameterDirection.Input);
 				dp.Add("ForeignKeyDropDown", example.ForeignKeyDropDown, DbType.Int32, ParameterDirection.Input);
 				dp.Add("ForeignKeyOption", example.ForeignKeyOption, DbType.Int32, ParameterDirection.Input);
+				dp.Add("TextHexColour", example.TextHexColour, DbType.String, ParameterDirection.Input);
+				dp.Add("Time", example.Time, DbType.Time, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -695,7 +719,7 @@ namespace FiyiRequirements.Areas.Examples.Models
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
         /// <returns>The number of rows updated in Example table</returns>
-        public int UpdateByExampleId(int ExampleId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, bool Boolean, DateTime DateTime, decimal Decimal, int Integer, string TextBasic, string TextEmail, string TextFile, string TextPassword, string TextPhoneNumber, string TextTag, string TextTextArea, string TextTextEditor, string TextURL, int ForeignKeyDropDown, int ForeignKeyOption)
+        public int UpdateByExampleId(int ExampleId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, bool Boolean, DateTime DateTime, decimal Decimal, int Integer, string TextBasic, string TextEmail, string TextFile, string TextPassword, string TextPhoneNumber, string TextTag, string TextTextArea, string TextTextEditor, string TextURL, int ForeignKeyDropDown, int ForeignKeyOption, string TextHexColour, TimeSpan Time)
         {
             try
             {
@@ -724,6 +748,8 @@ namespace FiyiRequirements.Areas.Examples.Models
 				dp.Add("TextURL", TextURL, DbType.String, ParameterDirection.Input);
 				dp.Add("ForeignKeyDropDown", ForeignKeyDropDown, DbType.Int32, ParameterDirection.Input);
 				dp.Add("ForeignKeyOption", ForeignKeyOption, DbType.Int32, ParameterDirection.Input);
+				dp.Add("TextHexColour", TextHexColour, DbType.String, ParameterDirection.Input);
+				dp.Add("Time", Time, DbType.Time, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -864,7 +890,9 @@ namespace FiyiRequirements.Areas.Examples.Models
 				$"TextTextEditor: {TextTextEditor}, " +
 				$"TextURL: {TextURL}, " +
 				$"ForeignKeyDropDown: {ForeignKeyDropDown}, " +
-				$"ForeignKeyOption: {ForeignKeyOption}";
+				$"ForeignKeyOption: {ForeignKeyOption}, " +
+				$"TextHexColour: {TextHexColour}, " +
+				$"Time: {Time}";
         }
 
         public string ToStringOnlyValuesForHTML()
@@ -994,6 +1022,18 @@ namespace FiyiRequirements.Areas.Examples.Models
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
             <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{ForeignKeyOption}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{TextHexColour}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Time}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td>

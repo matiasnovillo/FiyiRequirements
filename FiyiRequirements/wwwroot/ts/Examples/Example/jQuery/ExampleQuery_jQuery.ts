@@ -19,7 +19,7 @@ import "bootstrap-notify";
 
 //Stack: 10
 
-//Last modification on: 15/02/2023 15:45:41
+//Last modification on: 15/02/2023 16:56:40
 
 //Set default values
 let LastTopDistance: number = 0;
@@ -149,6 +149,16 @@ class ExampleQuery {
         <th scope="col">
             <button value="ForeignKeyOption" class="btn btn-outline-secondary btn-sm" type="button">
                 ForeignKeyOption
+            </button>
+        </th>
+        <th scope="col">
+            <button value="TextHexColour" class="btn btn-outline-secondary btn-sm" type="button">
+                TextHexColour
+            </button>
+        </th>
+        <th scope="col">
+            <button value="Time" class="btn btn-outline-secondary btn-sm" type="button">
+                Time
             </button>
         </th>
         
@@ -332,6 +342,16 @@ class ExampleQuery {
             <i class="fas fa-key"></i> ${row.ForeignKeyOption}
         </strong>
     </td>
+    <td class="text-left" >
+        <strong style="color:#${row.TextHexColour}">
+            <i class="fas fa-palette"></i> ${row.TextHexColour}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-clock"></i> ${row.Time?.substring(0, 12)}
+        </strong>
+    </td>
     
     <!-- Actions -->
     <td class="text-right">
@@ -455,6 +475,15 @@ class ExampleQuery {
                         <br/>
                         <span class="text-white mb-4">
                            ForeignKeyOption <i class="fas fa-key"></i> ${row.ForeignKeyOption}
+                        </span>
+                        <br/>
+                        <span class="mb-4" style="color:#${row.TextHexColour}">
+                           TextHexColour <i class="fas fa-palette"></i>
+                            <strong>${row.TextHexColour}</strong>
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           Time <i class="fas fa-clock"></i> ${row.Time?.substring(0, 12)}
                         </span>
                         <br/>
                         

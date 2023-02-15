@@ -19,8 +19,7 @@
     "TextTextEditor" : "PutTextTextEditor",
     "TextURL" : "PutTextURL",
     "ForeignKeyDropDown" : 1,
-    "ForeignKeyOption" : 1
-},
-    "TextURL" : "PutTextURL",
+    "ForeignKeyOption" : 1,
+    "TextHexColour" : "212529",
     "Time" : "00:00:00.001"
-}
+}}

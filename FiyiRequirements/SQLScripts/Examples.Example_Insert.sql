@@ -8,19 +8,19 @@ CREATE PROCEDURE [dbo].[Examples.Example.Insert]
     @Boolean TINYINT,
     @DateTime DATETIME,
     @Decimal NUMERIC(24,6),
-    @ForeignKeyDropDown INT,
-    @ForeignKeyOptions INT,
     @Integer INT,
-    @TextBasic VARCHAR(8000),
-    @TextEmail VARCHAR(8000),
+    @TextBasic VARCHAR(20),
+    @TextEmail VARCHAR(20),
     @TextFile VARCHAR(8000),
+    @TextPassword VARCHAR(20),
+    @TextPhoneNumber VARCHAR(20),
+    @TextTag VARCHAR(20),
+    @TextTextArea VARCHAR(20),
+    @TextTextEditor VARCHAR(20),
+    @TextURL VARCHAR(20),
+    @ForeignKeyDropDown INT,
+    @ForeignKeyOption INT,
     @TextHexColour VARCHAR(6),
-    @TextPassword VARCHAR(8000),
-    @TextPhoneNumber VARCHAR(8000),
-    @TextTag VARCHAR(8000),
-    @TextTextArea VARCHAR(8000),
-    @TextTextEditor VARCHAR(8000),
-    @TextURL VARCHAR(8000),
     @Time TIME(3),
 
     @NewEnteredId INT OUTPUT
@@ -53,19 +53,19 @@ EXEC [dbo].[Examples.Example.Insert]
     @Boolean = 1,
     @DateTime = N'01/01/1753 0:00:00.001',
     @Decimal = 3.14,
-     @ForeignKeyDropDown = 1,
-    @ForeignKeyOptions = 1,
     @Integer = 1,
     @TextBasic = N'PutTextBasic',
     @TextEmail = N'PutTextEmail',
     @TextFile = N'PutTextFile',
-    @TextHexColour = AABBCC,
     @TextPassword = N'PutTextPassword',
     @TextPhoneNumber = N'PutTextPhoneNumber',
     @TextTag = N'PutTextTag',
     @TextTextArea = N'PutTextTextArea',
     @TextTextEditor = N'PutTextTextEditor',
     @TextURL = N'PutTextURL',
+     @ForeignKeyDropDown = 1,
+    @ForeignKeyOption = 1,
+    @TextHexColour = AABBCC,
     @Time = N'00:00:00.001',
 
 @NewEnteredId = @NewEnteredId OUTPUT
@@ -74,7 +74,7 @@ SELECT @NewEnteredId AS N'@NewEnteredId'
  *
  */
 
---Last modification on: 31/01/2023 7:54:01
+--Last modification on: 15/02/2023 16:56:40
 
 INSERT INTO [Examples.Example]
 (
@@ -86,19 +86,19 @@ INSERT INTO [Examples.Example]
     [Boolean],
     [DateTime],
     [Decimal],
-    [ForeignKeyDropDown],
-    [ForeignKeyOptions],
     [Integer],
     [TextBasic],
     [TextEmail],
     [TextFile],
-    [TextHexColour],
     [TextPassword],
     [TextPhoneNumber],
     [TextTag],
     [TextTextArea],
     [TextTextEditor],
     [TextURL],
+    [ForeignKeyDropDown],
+    [ForeignKeyOption],
+    [TextHexColour],
     [Time]
 )
 VALUES
@@ -111,20 +111,20 @@ VALUES
     @Boolean,
     @DateTime,
     @Decimal,
-    @ForeignKeyDropDown,
-    @ForeignKeyOptions,
     @Integer,
     @TextBasic,
     @TextEmail,
     @TextFile,
-    @TextHexColour,
     @TextPassword,
     @TextPhoneNumber,
     @TextTag,
     @TextTextArea,
     @TextTextEditor,
     @TextURL,
+    @ForeignKeyDropDown,
+    @ForeignKeyOption,
+    @TextHexColour,
     @Time
 )
 
-SELECT @NewEnteredId = @@IDENTITY
+SELECT @NewEnteredId = @@IDENTITYeredId = @@IDENTITY

@@ -13,7 +13,7 @@
 
 //Stack: 10
 
-//Last modification on: 15/02/2023 15:45:41
+//Last modification on: 15/02/2023 16:56:40
 
 //Create a formdata object
 var formData = new FormData();
@@ -65,7 +65,7 @@ $(document).ready(function () {
             event.stopPropagation();
 
             if (form.checkValidity() === true) {
-
+                
                 //ExampleId
                 formData.append("examples-example-exampleid-input", $("#examples-example-exampleid-input").val());
 
@@ -86,7 +86,9 @@ $(document).ready(function () {
                 formData.append("examples-example-texturl-input", $("#examples-example-texturl-input").val());
                 formData.append("examples-example-foreignkeydropdown-input", $("#examples-example-foreignkeydropdown-input").val());
                 formData.append("examples-example-foreignkeyoption-input", $(".examples-example-foreignkeyoption-a.active").next().val());
-
+                formData.append("examples-example-texthexcolour-input", $("#examples-example-texthexcolour-input").val());
+                formData.append("examples-example-time-input", $("#examples-example-time-input").val());
+                
 
                 //Setup request
                 var xmlHttpRequest = new XMLHttpRequest();
@@ -114,6 +116,7 @@ $(document).ready(function () {
             else {
                 $.notify({ message: "Please, complete all fields." }, { type: "warning", placement: { from: "bottom", align: "center" } });
             }
+
 
             form.classList.add("was-validated");
         }, false);

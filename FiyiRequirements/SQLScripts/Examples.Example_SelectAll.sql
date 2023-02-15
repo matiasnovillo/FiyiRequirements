@@ -20,7 +20,7 @@ EXEC [dbo].[Examples.Example.SelectAll]
  *
  */
 
---Last modification on: 31/01/2023 7:54:01
+--Last modification on: 15/02/2023 16:56:40
 
 SET DATEFORMAT DMY
 
@@ -34,19 +34,19 @@ SELECT
     [Examples.Example].[Boolean],
     [Examples.Example].[DateTime],
     [Examples.Example].[Decimal],
-    [Examples.Example].[ForeignKeyDropDown],
-    [Examples.Example].[ForeignKeyOptions],
     [Examples.Example].[Integer],
     [Examples.Example].[TextBasic],
     [Examples.Example].[TextEmail],
     [Examples.Example].[TextFile],
-    [Examples.Example].[TextHexColour],
     [Examples.Example].[TextPassword],
     [Examples.Example].[TextPhoneNumber],
     [Examples.Example].[TextTag],
     [Examples.Example].[TextTextArea],
     [Examples.Example].[TextTextEditor],
     [Examples.Example].[TextURL],
+    [Examples.Example].[ForeignKeyDropDown],
+    [Examples.Example].[ForeignKeyOption],
+    [Examples.Example].[TextHexColour],
     [Examples.Example].[Time]
 FROM 
     [Examples.Example]

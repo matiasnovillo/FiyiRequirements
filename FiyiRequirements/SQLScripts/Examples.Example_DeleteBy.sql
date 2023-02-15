@@ -28,7 +28,7 @@ SELECT @RowsAffected AS N'@RowsAffected'
  *
  */
 
---Last modification on: 31/01/2023 7:54:01
+--Last modification on: 15/02/2023 16:56:40
 
 DELETE FROM 
     [Examples.Example]

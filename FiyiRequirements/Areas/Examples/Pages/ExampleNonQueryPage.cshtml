@@ -23,6 +23,8 @@
     string TextURL;
     int ForeignKeyDropDown;
     int ForeignKeyOption;
+    string TextHexColour;
+    TimeSpan Time;
     
 
     if(HttpContext.Request.QueryString.Value.Contains("?ExampleId=0"))
@@ -46,6 +48,8 @@
         TextURL = "http://";
         ForeignKeyDropDown = 0;
         ForeignKeyOption = 0;
+        TextHexColour = "#FFFFFF";
+        Time = TimeSpan.Parse("00:00");
         
     }
     else
@@ -72,6 +76,8 @@
         TextURL = ExampleModel.TextURL;
         ForeignKeyDropDown = ExampleModel.ForeignKeyDropDown;
         ForeignKeyOption = ExampleModel.ForeignKeyOption;
+        TextHexColour = ExampleModel.TextHexColour;
+        Time = ExampleModel.Time;
         
     }
 
@@ -87,7 +93,7 @@
  */
     
 //Stack: 11
-//Last modification on: 15/02/2023 15:45:41
+//Last modification on: 15/02/2023 16:56:40
 
 }
 <!-- Header -->
@@ -451,6 +457,48 @@
                                         </li>
                                 </ul>
                             </div>
+                        <!-- TextHexColour -->
+                        <div class="form-group mb-3">
+                            <label for="examples-example-texthexcolour-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                <i class="fas fa-palette"></i> TextHexColour
+                            </label>
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                    <span class="input-group-text">
+                                        <strong>
+                                            <i class="fas fa-palette"></i> TextHexColour
+                                        </strong>
+                                    </span>
+                                </div>
+                                <input class="form-control" type="color" value="@TextHexColour" id="examples-example-texthexcolour-input">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="texthexcolour-info">
+                                        <i class="fas fa-info"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Time -->
+                        <div class="form-group mb-3">
+                            <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                <i class="fas fa-clock"></i> Time
+                            </label>
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                    <span class="input-group-text ">
+                                        <strong>
+                                            <i class="fas fa-clock"></i> Time
+                                        </strong>
+                                    </span>
+                                </div>
+                                <input class="form-control" type="time" min="00:00" max="23:59" value="@Time" id="examples-example-time-input">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="time-info">
+                                        <i class="fas fa-info"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                         
                         <!-- Buttons -->
                         <div class="row justify-content-between">

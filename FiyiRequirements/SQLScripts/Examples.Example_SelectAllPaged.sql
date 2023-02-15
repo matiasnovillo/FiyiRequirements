@@ -36,7 +36,7 @@ EXEC [dbo].[Examples.Example.SelectAllPaged]
 SELECT @TotalRows AS N'@TotalRows'
 */
 
---Last modification on: 31/01/2023 7:54:01
+--Last modification on: 15/02/2023 16:56:40
 
 SET DATEFORMAT DMY
 SET NOCOUNT ON
@@ -51,19 +51,19 @@ SELECT
     [Examples.Example].[Boolean],
     [Examples.Example].[DateTime],
     [Examples.Example].[Decimal],
-    [Examples.Example].[ForeignKeyDropDown],
-    [Examples.Example].[ForeignKeyOptions],
     [Examples.Example].[Integer],
     [Examples.Example].[TextBasic],
     [Examples.Example].[TextEmail],
     [Examples.Example].[TextFile],
-    [Examples.Example].[TextHexColour],
     [Examples.Example].[TextPassword],
     [Examples.Example].[TextPhoneNumber],
     [Examples.Example].[TextTag],
     [Examples.Example].[TextTextArea],
     [Examples.Example].[TextTextEditor],
     [Examples.Example].[TextURL],
+    [Examples.Example].[ForeignKeyDropDown],
+    [Examples.Example].[ForeignKeyOption],
+    [Examples.Example].[TextHexColour],
     [Examples.Example].[Time]
 FROM 
     [Examples.Example]
@@ -81,19 +81,19 @@ WHERE
         OR ([Examples.Example].[Boolean] LIKE  '%' + @QueryString + '%')
         OR ([Examples.Example].[DateTime] LIKE  '%' + @QueryString + '%')
         OR ([Examples.Example].[Decimal] LIKE  '%' + @QueryString + '%')
-        OR ([Examples.Example].[ForeignKeyDropDown] LIKE  '%' + @QueryString + '%')
-        OR ([Examples.Example].[ForeignKeyOptions] LIKE  '%' + @QueryString + '%')
         OR ([Examples.Example].[Integer] LIKE  '%' + @QueryString + '%')
         OR ([Examples.Example].[TextBasic] LIKE  '%' + @QueryString + '%')
         OR ([Examples.Example].[TextEmail] LIKE  '%' + @QueryString + '%')
         OR ([Examples.Example].[TextFile] LIKE  '%' + @QueryString + '%')
-        OR ([Examples.Example].[TextHexColour] LIKE  '%' + @QueryString + '%')
         OR ([Examples.Example].[TextPassword] LIKE  '%' + @QueryString + '%')
         OR ([Examples.Example].[TextPhoneNumber] LIKE  '%' + @QueryString + '%')
         OR ([Examples.Example].[TextTag] LIKE  '%' + @QueryString + '%')
         OR ([Examples.Example].[TextTextArea] LIKE  '%' + @QueryString + '%')
         OR ([Examples.Example].[TextTextEditor] LIKE  '%' + @QueryString + '%')
         OR ([Examples.Example].[TextURL] LIKE  '%' + @QueryString + '%')
+        OR ([Examples.Example].[ForeignKeyDropDown] LIKE  '%' + @QueryString + '%')
+        OR ([Examples.Example].[ForeignKeyOption] LIKE  '%' + @QueryString + '%')
+        OR ([Examples.Example].[TextHexColour] LIKE  '%' + @QueryString + '%')
         OR ([Examples.Example].[Time] LIKE  '%' + @QueryString + '%')
 
     )
@@ -116,10 +116,6 @@ ORDER BY
     CASE WHEN (@SorterColumn = 'DateTime' AND @SortToggler = 1) THEN [Examples.Example].[DateTime] END DESC,
     CASE WHEN (@SorterColumn = 'Decimal' AND @SortToggler = 0) THEN [Examples.Example].[Decimal] END ASC,
     CASE WHEN (@SorterColumn = 'Decimal' AND @SortToggler = 1) THEN [Examples.Example].[Decimal] END DESC,
-    CASE WHEN (@SorterColumn = 'ForeignKeyDropDown' AND @SortToggler = 0) THEN [Examples.Example].[ForeignKeyDropDown] END ASC,
-    CASE WHEN (@SorterColumn = 'ForeignKeyDropDown' AND @SortToggler = 1) THEN [Examples.Example].[ForeignKeyDropDown] END DESC,
-    CASE WHEN (@SorterColumn = 'ForeignKeyOptions' AND @SortToggler = 0) THEN [Examples.Example].[ForeignKeyOptions] END ASC,
-    CASE WHEN (@SorterColumn = 'ForeignKeyOptions' AND @SortToggler = 1) THEN [Examples.Example].[ForeignKeyOptions] END DESC,
     CASE WHEN (@SorterColumn = 'Integer' AND @SortToggler = 0) THEN [Examples.Example].[Integer] END ASC,
     CASE WHEN (@SorterColumn = 'Integer' AND @SortToggler = 1) THEN [Examples.Example].[Integer] END DESC,
     CASE WHEN (@SorterColumn = 'TextBasic' AND @SortToggler = 0) THEN [Examples.Example].[TextBasic] END ASC,
@@ -128,8 +124,6 @@ ORDER BY
     CASE WHEN (@SorterColumn = 'TextEmail' AND @SortToggler = 1) THEN [Examples.Example].[TextEmail] END DESC,
     CASE WHEN (@SorterColumn = 'TextFile' AND @SortToggler = 0) THEN [Examples.Example].[TextFile] END ASC,
     CASE WHEN (@SorterColumn = 'TextFile' AND @SortToggler = 1) THEN [Examples.Example].[TextFile] END DESC,
-    CASE WHEN (@SorterColumn = 'TextHexColour' AND @SortToggler = 0) THEN [Examples.Example].[TextHexColour] END ASC,
-    CASE WHEN (@SorterColumn = 'TextHexColour' AND @SortToggler = 1) THEN [Examples.Example].[TextHexColour] END DESC,
     CASE WHEN (@SorterColumn = 'TextPassword' AND @SortToggler = 0) THEN [Examples.Example].[TextPassword] END ASC,
     CASE WHEN (@SorterColumn = 'TextPassword' AND @SortToggler = 1) THEN [Examples.Example].[TextPassword] END DESC,
     CASE WHEN (@SorterColumn = 'TextPhoneNumber' AND @SortToggler = 0) THEN [Examples.Example].[TextPhoneNumber] END ASC,
@@ -142,9 +136,15 @@ ORDER BY
     CASE WHEN (@SorterColumn = 'TextTextEditor' AND @SortToggler = 1) THEN [Examples.Example].[TextTextEditor] END DESC,
     CASE WHEN (@SorterColumn = 'TextURL' AND @SortToggler = 0) THEN [Examples.Example].[TextURL] END ASC,
     CASE WHEN (@SorterColumn = 'TextURL' AND @SortToggler = 1) THEN [Examples.Example].[TextURL] END DESC,
+    CASE WHEN (@SorterColumn = 'ForeignKeyDropDown' AND @SortToggler = 0) THEN [Examples.Example].[ForeignKeyDropDown] END ASC,
+    CASE WHEN (@SorterColumn = 'ForeignKeyDropDown' AND @SortToggler = 1) THEN [Examples.Example].[ForeignKeyDropDown] END DESC,
+    CASE WHEN (@SorterColumn = 'ForeignKeyOption' AND @SortToggler = 0) THEN [Examples.Example].[ForeignKeyOption] END ASC,
+    CASE WHEN (@SorterColumn = 'ForeignKeyOption' AND @SortToggler = 1) THEN [Examples.Example].[ForeignKeyOption] END DESC,
+    CASE WHEN (@SorterColumn = 'TextHexColour' AND @SortToggler = 0) THEN [Examples.Example].[TextHexColour] END ASC,
+    CASE WHEN (@SorterColumn = 'TextHexColour' AND @SortToggler = 1) THEN [Examples.Example].[TextHexColour] END DESC,
     CASE WHEN (@SorterColumn = 'Time' AND @SortToggler = 0) THEN [Examples.Example].[Time] END ASC,
     CASE WHEN (@SorterColumn = 'Time' AND @SortToggler = 1) THEN [Examples.Example].[Time] END DESC
 
 OFFSET (@ActualPageNumber - 1) * @RowsPerPage ROWS
 FETCH NEXT @RowsPerPage ROWS ONLY
-SELECT @TotalRows = COUNT(*) FROM [Examples.Example]
+SELECT @TotalRows = COUNT(*) FROM [Examples.Example]mple]
