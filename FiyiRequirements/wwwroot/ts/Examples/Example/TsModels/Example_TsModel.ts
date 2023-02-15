@@ -14,7 +14,7 @@ import { Ajax } from "../../../Library/Ajax";
  * 
 */
 
-//23 fields | Sub-models: 0 models  | Last modification on: 31/01/2023 7:54:01 | Stack: 9
+//21 fields | Sub-models: 0 models  | Last modification on: 14/02/2023 17:12:06 | Stack: 9
 
 export class ExampleModel {
 
@@ -28,20 +28,18 @@ export class ExampleModel {
 	Boolean?: boolean;
 	DateTime?: string | string[] | number | undefined;
 	Decimal?: number;
-	ForeignKeyDropDown?: number;
-	ForeignKeyOptions?: number;
 	Integer?: number;
 	TextBasic?: string | string[] | number | undefined;
 	TextEmail?: string | string[] | number | undefined;
 	TextFile?: string | string[] | number | undefined;
-	TextHexColour?: string | string[] | number | undefined;
 	TextPassword?: string | string[] | number | undefined;
 	TextPhoneNumber?: string | string[] | number | undefined;
 	TextTag?: string | string[] | number | undefined;
 	TextTextArea?: string | string[] | number | undefined;
 	TextTextEditor?: string | string[] | number | undefined;
 	TextURL?: string | string[] | number | undefined;
-	Time?: string;
+	ForeignKeyDropDown?: number;
+	ForeignKeyOption?: number;
     
 
     //Queries

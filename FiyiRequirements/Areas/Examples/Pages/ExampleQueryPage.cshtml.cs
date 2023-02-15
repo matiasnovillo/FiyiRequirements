@@ -16,7 +16,7 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 31/01/2023 7:54:01
+//Last modification on: 14/02/2023 17:08:17
 
 namespace FiyiRequirements.Areas.Examples.Pages
 {
@@ -24,10 +24,10 @@ namespace FiyiRequirements.Areas.Examples.Pages
     /// Stack:             9 <br/>
     /// Name:              C# Razor Page. <br/>
     /// Function:          Allow you to show HTML files using Razor Page technology. <br/>
-    /// Last modification: 31/01/2023 7:54:01
+    /// Last modification: 14/02/2023 17:08:17
     /// </summary>
     [ExampleFilter]
-    public partial class PageExampleNonQueryModel : PageModel
+    public partial class ExampleQueryPageModel : PageModel
     {
         public void OnGet()
         {
@@ -38,6 +38,6 @@ namespace FiyiRequirements.Areas.Examples.Pages
 
             ViewData["FantasyName"] = UserModel.FantasyName;
             ViewData["Menues"] = Menues;
-        }
+            }
     }
 }

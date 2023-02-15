@@ -4,6 +4,7 @@ import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import "bootstrap-notify";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -18,7 +19,7 @@ import { Ajax } from "../../../Library/Ajax";
 
 //Stack: 10
 
-//Last modification on: 31/01/2023 7:54:01
+//Last modification on: 14/02/2023 17:08:17
 
 //Set default values
 let LastTopDistance: number = 0;
@@ -91,16 +92,6 @@ class ExampleQuery {
             </button>
         </th>
         <th scope="col">
-            <button value="ForeignKeyDropDown" class="btn btn-outline-secondary btn-sm" type="button">
-                ForeignKeyDropDown
-            </button>
-        </th>
-        <th scope="col">
-            <button value="ForeignKeyOptions" class="btn btn-outline-secondary btn-sm" type="button">
-                ForeignKeyOptions
-            </button>
-        </th>
-        <th scope="col">
             <button value="Integer" class="btn btn-outline-secondary btn-sm" type="button">
                 Integer
             </button>
@@ -118,11 +109,6 @@ class ExampleQuery {
         <th scope="col">
             <button value="TextFile" class="btn btn-outline-secondary btn-sm" type="button">
                 TextFile
-            </button>
-        </th>
-        <th scope="col">
-            <button value="TextHexColour" class="btn btn-outline-secondary btn-sm" type="button">
-                TextHexColour
             </button>
         </th>
         <th scope="col">
@@ -156,8 +142,13 @@ class ExampleQuery {
             </button>
         </th>
         <th scope="col">
-            <button value="Time" class="btn btn-outline-secondary btn-sm" type="button">
-                Time
+            <button value="ForeignKeyDropDown" class="btn btn-outline-secondary btn-sm" type="button">
+                ForeignKeyDropDown
+            </button>
+        </th>
+        <th scope="col">
+            <button value="ForeignKeyOption" class="btn btn-outline-secondary btn-sm" type="button">
+                ForeignKeyOption
             </button>
         </th>
         
@@ -276,16 +267,6 @@ class ExampleQuery {
         </strong>
     </td>
     <td class="text-left">
-        <strong>
-            <i class="fas fa-key"></i> ${row.ForeignKeyDropDown}
-        </strong>
-    </td>
-    <td class="text-left">
-        <strong>
-            <i class="fas fa-key"></i> ${row.ForeignKeyOptions}
-        </strong>
-    </td>
-    <td class="text-left">
         <strong><i class="fas fa-divide">
             </i> ${row.Integer}
         </strong>
@@ -308,11 +289,6 @@ class ExampleQuery {
                 <i class="fas fa-file"></i> ${row.TextFile}
             </strong>
         </a>
-    </td>
-    <td class="text-left" >
-        <strong style="color:#${row.TextHexColour}">
-            <i class="fas fa-palette"></i> ${row.TextHexColour}
-        </strong>
     </td>
     <td class="text-left">
         <strong>
@@ -348,13 +324,18 @@ class ExampleQuery {
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-clock"></i> ${row.Time?.substring(0, 12)}
+            <i class="fas fa-key"></i> ${row.ForeignKeyDropDown}
+        </strong>
+    </td>
+    <td class="text-left">
+        <strong>
+            <i class="fas fa-key"></i> ${row.ForeignKeyOption}
         </strong>
     </td>
     
     <!-- Actions -->
     <td class="text-right">
-        <a class="btn btn-icon-only text-primary" href="/Examples/PageExampleNonQuery?ExampleId=${row.ExampleId}" role="button" data-toggle="tooltip" data-original-title="Edit">
+        <a class="btn btn-icon-only text-primary" href="/Examples/ExampleNonQueryPage?ExampleId=${row.ExampleId}" role="button" data-toggle="tooltip" data-original-title="Edit">
             <i class="fas fa-edit"></i>
         </a>
         <div class="dropdown">
@@ -423,14 +404,6 @@ class ExampleQuery {
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           ForeignKeyDropDown <i class="fas fa-key"></i> ${row.ForeignKeyDropDown}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
-                           ForeignKeyOptions <i class="fas fa-key"></i> ${row.ForeignKeyOptions}
-                        </span>
-                        <br/>
-                        <span class="text-white mb-4">
                             Integer <i class="fas fa-divide"></i> ${row.Integer}
                         </span>
                         <br/>
@@ -446,11 +419,6 @@ class ExampleQuery {
                         <br/>
                         <span class="text-white mb-4">
                            TextFile <i class="fas fa-file"></i> ${row.TextFile}
-                        </span>
-                        <br/>
-                        <span class="mb-4" style="color:#${row.TextHexColour}">
-                           TextHexColour <i class="fas fa-palette"></i>
-                            <strong>${row.TextHexColour}</strong>
                         </span>
                         <br/>
                         <span class="text-white mb-4">
@@ -482,7 +450,11 @@ class ExampleQuery {
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           Time <i class="fas fa-clock"></i> ${row.Time?.substring(0, 12)}
+                           ForeignKeyDropDown <i class="fas fa-key"></i> ${row.ForeignKeyDropDown}
+                        </span>
+                        <br/>
+                        <span class="text-white mb-4">
+                           ForeignKeyOption <i class="fas fa-key"></i> ${row.ForeignKeyOption}
                         </span>
                         <br/>
                         
@@ -494,13 +466,13 @@ class ExampleQuery {
                 <div class="row">
                     <div class="col">
                         <div class="justify-content-end text-right mt-2">
-                            <div class="examples-example-checkbox-list list-row-unchecked mb-2">
-                                <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="check">
+                            <div class="mb-2">
+                                <a class="examples-example-checkbox-list list-row-unchecked icon icon-shape bg-white icon-sm rounded-circle shadow" href="javascript:void(0)" role="button" data-toggle="tooltip" data-original-title="Check">
                                     <i class="fas fa-circle text-white"></i>
                                 </a>
+                                <input type="hidden" value="${row.ExampleId}"/>
                             </div>
-                            <input type="hidden" value="${row.ExampleId}"/>
-                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/Examples/PageExampleNonQuery?ExampleId=${row.ExampleId}" role="button" data-toggle="tooltip" data-original-title="edit">
+                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/Examples/ExampleNonQueryPage?ExampleId=${row.ExampleId}" role="button" data-toggle="tooltip" data-original-title="edit">
                                 <i class="fas fa-edit text-primary"></i>
                             </a>
                             <div class="dropup">
@@ -544,10 +516,9 @@ class ExampleQuery {
                             }
                     }
                     else {
-                        //Show error message
-                        $("#examples-example-error-message-title").html("No registers found");
-                        $("#examples-example-error-message-text").html("The server did not found any register. HTTP code 204");
-                        $("#examples-example-button-error-message-in-card").show();
+                        //ERROR
+                        // @ts-ignore
+                        $.notify({ icon: "fas fa-exclamation-triangle", message: "No registers found" }, { type: "warning", placement: { from: "bottom", align: "center" } });
                     }
                 },
                 complete: () => {
@@ -601,11 +572,6 @@ class ExampleQuery {
                         ValidateAndSearch();
                     });
 
-                    //Hide error message
-                    $("#examples-example-error-message-title").html("");
-                    $("#examples-example-error-message-text").html("");
-                    $("#examples-example-button-error-message-in-card").hide();
-
                     //Delete button in table and list
                     $("div.dropdown-menu button.examples-example-table-delete-button, div.dropdown-menu button.examples-example-list-delete-button").on("click", function (e) {
                         let ExampleId = $(this).val();
@@ -613,20 +579,17 @@ class ExampleQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                //SUCCESS
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-check", message: "Row deleted successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-                                //Show OK message
-                                $("#examples-example-button-error-message-in-card").hide();
-                                $("#examples-example-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Row deleted successfully`);
-                                $("#examples-example-button-ok-message-in-card").show();
+                                ValidateAndSearch();
                             },
                             error: err => {
-                                //Related to error message
-                                $("#examples-example-error-message-title").html("ExampleModel.DeleteByExampleId(ExampleId).subscribe(...)");
-                                $("#examples-example-error-message-text").html(err);
-                                $("#examples-example-button-error-message-in-card").show();
+                                //ERROR
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                                console.log(err);
                             }
                         });
                     });
@@ -638,39 +601,32 @@ class ExampleQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                //SUCCESS
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-check", message: "Row copied successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-                                //Show OK message
-                                $("#examples-example-button-error-message-in-card").hide();
-                                $("#examples-example-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Row copied successfully`);
-                                $("#examples-example-button-ok-message-in-card").show();
+                                ValidateAndSearch();
                             },
                             error: err => {
-                                //Show error message
-                                $("#examples-example-error-message-title").html("ExampleModel.CopyByExampleId(ExampleId).subscribe(...)");
-                                $("#examples-example-error-message-text").html(err);
-                                $("#examples-example-button-error-message-in-card").show();
+                                //ERROR
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                                console.log(err);
                             }
                         });
                     });
                 },
                 error: err => {
-                    //Show error message
-                    $("#examples-example-error-message-title").html("ExampleModel.SelectAllPaged(request_examplemodelQ).subscribe(...)");
-                    $("#examples-example-error-message-text").html(err);
-                    $("#examples-example-button-error-message-in-card").show();
+                    //ERROR
+                    // @ts-ignore
+                    $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to get data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                    console.log(err);
                 }
             });
     }
 }
 
 function ValidateAndSearch() {
-
-    //Hide error and OK message button
-    $("#examples-example-button-error-message-in-card").hide();
-    $("#examples-example-button-ok-message-in-card").hide();
 
     var _examplemodelQuery: examplemodelQuery = {
         QueryString,
@@ -701,8 +657,6 @@ if ($("#examples-example-title-page").html().includes("Query example")) {
     $("#examples-example-lnk-previous-page-lg, #examples-example-lnk-previous-page").attr("disabled", "disabled");
     //Hide messages
     $("#examples-example-export-message").html("");
-    $("#examples-example-button-error-message-in-card").hide();
-    $("#examples-example-button-ok-message-in-card").hide();
 
     ValidateAndSearch();
 }
@@ -837,23 +791,22 @@ $("#examples-example-export-as-pdf").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for PDF file
             $("#examples-example-export-message").html(`<a class="btn btn-icon btn-success" href="/PDFFiles/Examples/Example/Example_${DateTimeNow.AjaxForString}.pdf" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-pdf"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
 
-            //Show OK message
-            $("#examples-example-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#examples-example-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#examples-example-error-message-title").html("Rx.from(ajax.post('/api/Examples/Example/1/ExportAsPDF/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#examples-example-error-message-text").html(err);
-            $("#examples-example-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -904,23 +857,21 @@ $("#examples-example-export-as-excel").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for Excel file
             $("#examples-example-export-message").html(`<a class="btn btn-icon btn-success" href="/ExcelFiles/Examples/Example/Example_${DateTimeNow.AjaxForString}.xlsx" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-excel"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#examples-example-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#examples-example-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#examples-example-error-message-title").html("Rx.from(ajax.post('/api/Examples/Example/1/ExportAsExcel/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#examples-example-error-message-text").html(err);
-            $("#examples-example-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -971,23 +922,21 @@ $("#examples-example-export-as-csv").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for CSV file
             $("#examples-example-export-message").html(`<a class="btn btn-icon btn-success" href="/CSVFiles/Examples/Example/Example_${DateTimeNow.AjaxForString}.csv" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-csv"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#examples-example-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#examples-example-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#examples-example-error-message-title").html("Rx.from(ajax.post('/api/Examples/Example/1/ExportAsCSV/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#examples-example-error-message-text").html(err);
-            $("#examples-example-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -1030,19 +979,17 @@ $("#examples-example-massive-action-copy").on("click", function (e) {
         next: newrow => {
         },
         complete: () => {
-            ValidateAndSearch();
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed copy" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-            //Show OK message
-            $("#examples-example-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows copied successfully`);
-            $("#examples-example-button-ok-message-in-card").show();
+            ValidateAndSearch();
         },
         error: err => {
-            //Show error message
-            $("#examples-example-error-message-title").html("ExampleModel.Copy(CopyType).subscribe(...)");
-            $("#examples-example-error-message-text").html(err);
-            $("#examples-example-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -1080,19 +1027,17 @@ $("#examples-example-massive-action-delete").on("click", function (e) {
         next: newrow => {
         },
         complete: () => {
-            ValidateAndSearch();
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed deletion" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-            //Show OK message
-            $("#examples-example-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows deleted successfully`);
-            $("#examples-example-button-ok-message-in-card").show();
+            ValidateAndSearch();
         },
         error: err => {
-            //Show error message
-            $("#examples-example-error-message-title").html("ExampleModel.Copy(CopyType).subscribe(...)");
-            $("#examples-example-error-message-text").html(err);
-            $("#examples-example-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });

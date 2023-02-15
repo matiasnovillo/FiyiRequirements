@@ -24,7 +24,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 31/01/2023 7:54:01
+//Last modification on: 14/02/2023 17:08:17
 
 namespace FiyiRequirements.Areas.Examples.Controllers
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 31/01/2023 7:54:01
+    /// Last modification: 14/02/2023 17:08:17
     /// </summary>
     [ApiController]
     [ExampleFilter]
@@ -166,20 +166,6 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 bool Boolean = Convert.ToBoolean(HttpContext.Request.Form["examples-example-boolean-input"]);
                 DateTime DateTime = Convert.ToDateTime(HttpContext.Request.Form["examples-example-datetime-input"]);
                 decimal Decimal = Convert.ToDecimal(HttpContext.Request.Form["examples-example-decimal-input"].ToString().Replace(".",","));
-                int ForeignKeyDropDown = 0; 
-                if (Convert.ToInt32(HttpContext.Request.Form["examples-example-foreignkeydropdown-input"]) != 0)
-                {
-                    ForeignKeyDropDown = Convert.ToInt32(HttpContext.Request.Form["examples-example-foreignkeydropdown-input"]);
-                }
-                else
-                { return StatusCode(400, "It's not allowed to save zero values in ForeignKeyDropDown"); }
-                int ForeignKeyOptions = 0; 
-                if (Convert.ToInt32(HttpContext.Request.Form["examples-example-foreignkeyoptions-input"]) != 0)
-                {
-                    ForeignKeyOptions = Convert.ToInt32(HttpContext.Request.Form["examples-example-foreignkeyoptions-input"]);
-                }
-                else
-                { return StatusCode(400, "It's not allowed to save zero values in ForeignKeyOptions"); }
                 int Integer = Convert.ToInt32(HttpContext.Request.Form["examples-example-integer-input"]);
                 string TextBasic = HttpContext.Request.Form["examples-example-textbasic-input"];
                 string TextEmail = HttpContext.Request.Form["examples-example-textemail-input"];
@@ -188,7 +174,6 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 {
                     TextFile = $@"/Uploads/Examples/Example/{HttpContext.Request.Form.Files[0].FileName}";
                 }
-                string TextHexColour = HttpContext.Request.Form["examples-example-texthexcolour-input"];
                 string TextPassword = "";
                 if (HttpContext.Request.Form["examples-example-textpassword-input"] != "")
                 {
@@ -199,7 +184,20 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 string TextTextArea = HttpContext.Request.Form["examples-example-texttextarea-input"];
                 string TextTextEditor = HttpContext.Request.Form["examples-example-texttexteditor-input"];
                 string TextURL = HttpContext.Request.Form["examples-example-texturl-input"];
-                TimeSpan Time = TimeSpan.Parse(HttpContext.Request.Form["examples-example-time-input"]);
+                int ForeignKeyDropDown = 0; 
+                if (Convert.ToInt32(HttpContext.Request.Form["examples-example-foreignkeydropdown-input"]) != 0)
+                {
+                    ForeignKeyDropDown = Convert.ToInt32(HttpContext.Request.Form["examples-example-foreignkeydropdown-input"]);
+                }
+                //else
+                //{ return StatusCode(400, "It's not allowed to save zero values in ForeignKeyDropDown"); }
+                int ForeignKeyOption = 0; 
+                if (Convert.ToInt32(HttpContext.Request.Form["examples-example-foreignkeyoption-input"]) != 0)
+                {
+                    ForeignKeyOption = Convert.ToInt32(HttpContext.Request.Form["examples-example-foreignkeyoption-input"]);
+                }
+                //else
+                //{ return StatusCode(400, "It's not allowed to save zero values in ForeignKeyOption"); }
                 
 
                 int NewEnteredId = 0;
@@ -218,20 +216,18 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                         Boolean = Boolean,
                         DateTime = DateTime,
                         Decimal = Decimal,
-                        ForeignKeyDropDown = ForeignKeyDropDown,
-                        ForeignKeyOptions = ForeignKeyOptions,
                         Integer = Integer,
                         TextBasic = TextBasic,
                         TextEmail = TextEmail,
                         TextFile = TextFile,
-                        TextHexColour = TextHexColour,
                         TextPassword = TextPassword,
                         TextPhoneNumber = TextPhoneNumber,
                         TextTag = TextTag,
                         TextTextArea = TextTextArea,
                         TextTextEditor = TextTextEditor,
                         TextURL = TextURL,
-                        Time = Time,
+                        ForeignKeyDropDown = ForeignKeyDropDown,
+                        ForeignKeyOption = ForeignKeyOption,
                         
                     };
                     
@@ -248,20 +244,18 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                     ExampleModel.Boolean = Boolean;
                     ExampleModel.DateTime = DateTime;
                     ExampleModel.Decimal = Decimal;
-                    ExampleModel.ForeignKeyDropDown = ForeignKeyDropDown;
-                    ExampleModel.ForeignKeyOptions = ForeignKeyOptions;
                     ExampleModel.Integer = Integer;
                     ExampleModel.TextBasic = TextBasic;
                     ExampleModel.TextEmail = TextEmail;
                     ExampleModel.TextFile = TextFile;
-                    ExampleModel.TextHexColour = TextHexColour;
                     ExampleModel.TextPassword = TextPassword;
                     ExampleModel.TextPhoneNumber = TextPhoneNumber;
                     ExampleModel.TextTag = TextTag;
                     ExampleModel.TextTextArea = TextTextArea;
                     ExampleModel.TextTextEditor = TextTextEditor;
                     ExampleModel.TextURL = TextURL;
-                    ExampleModel.Time = Time;
+                    ExampleModel.ForeignKeyDropDown = ForeignKeyDropDown;
+                    ExampleModel.ForeignKeyOption = ForeignKeyOption;
                                        
 
                     RowsAffected = _ExampleProtocol.UpdateByExampleId(ExampleModel);
