@@ -51,7 +51,7 @@
  */
     
 //Stack: 11
-//Last modification on: 14/02/2023 11:05:05
+//Last modification on: 15/02/2023 17:34:54
 
 }
 <!-- Header -->
@@ -62,7 +62,13 @@
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
                     <!-- Title -->
-                    <h2 id="basiccore-parameter-title-page" class="h2 text-white d-inline-block mb-0">@NonQueryText parameter</h2>
+                    <h2 class="h2 text-white d-inline-block mb-0">
+                        @NonQueryText 
+                        parameter
+                    </h2>
+                    <input type="hidden" 
+                        id="basiccore-parameter-parameterid-input" 
+                        value="@ParameterId"/>
                     <!-- Breadcrumb -->
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -73,7 +79,7 @@
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="javascript:void(0)">
-                                    BasicCore
+                                    Basic (Core)
                                 </a>
                             </li>
                             <li class="breadcrumb-item">
@@ -113,98 +119,60 @@
             <div class="card">
                 <!-- Card body -->
                 <div class="card-body">
-                    <form novalidate>
-                        <!-- ParameterId -->
-                        <div class="form-group mb-3">
-                            <label for="basiccore-parameter-parameterId-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-key"></i> ParameterId
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text">
-                                        <strong>
-                                            <i class="fas fa-key"></i> Parameter ID
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input type="hidden" id="basiccore-parameter-parameterid-input" value="@ParameterId"/>
-                                <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="bottom" title="@ParameterId"  type="button" value="ParameterId">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
+                    <form class="needs-validation" novalidate>
                         <!-- Name -->
                         <div class="form-group mb-3">
-                            <label for="basiccore-parameter-name-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                            <label for="basiccore-parameter-name-input" class="form-control-label">
                                 <i class="fas fa-font"></i> Name
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Name
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" min="1" max="200" type="text" id="basiccore-parameter-name-input" value="@Name" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="name-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                min="1" 
+                                max="200" 
+                                type="text" 
+                                id="basiccore-parameter-name-input" 
+                                value="@Name"
+                                />
+                            
                         </div>
                         <!-- Value -->
                         <div class="form-group mb-3">
-                            <label for="basiccore-parameter-value-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                            <label for="basiccore-parameter-value-input" class="form-control-label">
                                 <i class="fas fa-font"></i> Value
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Value
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" min="1" max="8000" type="text" id="basiccore-parameter-value-input" value="@Value" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="value-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                min="1" 
+                                max="8000" 
+                                type="text" 
+                                id="basiccore-parameter-value-input" 
+                                value="@Value"
+                                />
+                            
                         </div>
                         <!-- IsPrivate -->
-                        <div class="form-group mb-3">
-                            <label for="basiccore-parameter-isprivate-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-toggle-on"></i> Is private
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text">
-                                        <strong>
-                                            <i class="fas fa-toggle-on"></i> Is private
-                                        </strong>
-                                    </span>
-                                </div>
-                                <label class="custom-toggle ml-2 mt-2 mr-4">
-                                    <input type="checkbox" id="basiccore-parameter-isprivate-input" @(IsPrivate == true ? "checked" : "" )>
-                                    <span class="custom-toggle-slider rounded-circle" data-label-off="OFF" data-label-on="ON"></span>
+                            <div class="form-group mb-3">
+                                <label for="basiccore-parameter-isprivate-input" class="form-control-label">
+                                    <i class="fas fa-toggle-on"></i> IsPrivate
                                 </label>
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="isprivate-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
+                                <br/>
+                                <input type="checkbox" 
+                                    id="examples-example-boolean-input"
+                                    @(IsPrivate == true ? "checked" : "" )
+                                    />
+                                <br />
+                                
                             </div>
-                        </div>
                         
                         <!-- Buttons -->
                         <div class="row justify-content-between">
-                            <button id="basiccore-parameter-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="@NonQueryIcon"></i> @NonQueryText</button>
-                            <a href="/BasicCore/ParameterQueryPage" class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
-                                <i class="fas fa-angle-left"></i> Go back
+                            <button class="btn btn-primary text-nowrap ml-3 mt-4" 
+                                type="submit">
+                                    <i class="@NonQueryIcon"></i> 
+                                    @NonQueryText
+                            </button>
+                            <a href="/BasicCore/ParameterQueryPage" 
+                                class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
+                                    <i class="fas fa-angle-left"></i> 
+                                    Go back
                             </a>
                         </div>
                     </form>
