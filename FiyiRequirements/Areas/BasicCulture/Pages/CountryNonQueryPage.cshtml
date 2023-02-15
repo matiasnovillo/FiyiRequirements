@@ -13,6 +13,7 @@
     string Code;
     int PlanetId;
     string PlanetName;
+    
 
     if(HttpContext.Request.QueryString.Value.Contains("?CountryId=0"))
     {
@@ -25,6 +26,7 @@
         Code = "";
         PlanetId = 0;
         PlanetName = "Choose a value";
+        
     }
     else
     {
@@ -58,7 +60,7 @@
  */
     
 //Stack: 11
-//Last modification on: 14/02/2023 11:58:40
+//Last modification on: 15/02/2023 17:41:07
 
 }
 <!-- Header -->
@@ -69,7 +71,13 @@
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
                     <!-- Title -->
-                    <h2 id="basicculture-country-title-page" class="h2 text-white d-inline-block mb-0">@NonQueryText country</h2>
+                    <h2 class="h2 text-white d-inline-block mb-0">
+                        @NonQueryText 
+                        country
+                    </h2>
+                    <input type="hidden" 
+                        id="basicculture-country-countryid-input" 
+                        value="@CountryId"/>
                     <!-- Breadcrumb -->
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -120,124 +128,94 @@
             <div class="card">
                 <!-- Card body -->
                 <div class="card-body">
-                    <form novalidate>
-                        <!-- CountryId -->
-                        <div class="form-group mb-3">
-                            <label for="basicculture-country-countryId-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-key"></i> Country ID
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text">
-                                        <strong>
-                                            <i class="fas fa-key"></i> Country ID
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input type="hidden" id="basicculture-country-countryid-input" value="@CountryId"/>
-                                <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="bottom" title="@CountryId"  type="button" value="CountryId">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
+                    <form class="needs-validation" novalidate>
                         <!-- Name -->
                         <div class="form-group mb-3">
-                            <label for="basicculture-country-name-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                            <label for="basicculture-country-name-input" class="form-control-label">
                                 <i class="fas fa-font"></i> Name
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Name
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" min="1" max="500" type="text" id="basicculture-country-name-input" value="@Name" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="name-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                min="1" 
+                                max="500" 
+                                type="text" 
+                                id="basicculture-country-name-input" 
+                                value="@Name"
+                                />
+                            
                         </div>
                         <!-- GeographicalCoordinates -->
                         <div class="form-group mb-3">
-                            <label for="basicculture-country-geographicalcoordinates-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-font"></i> Geographical Coordinates
+                            <label for="basicculture-country-geographicalcoordinates-input" class="form-control-label">
+                                <i class="fas fa-font"></i> GeographicalCoordinates
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Geographical Coordinates
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" min="1" max="200" type="text" id="basicculture-country-geographicalcoordinates-input" value="@GeographicalCoordinates" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="geographicalcoordinates-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                min="1" 
+                                max="200" 
+                                type="text" 
+                                id="basicculture-country-geographicalcoordinates-input" 
+                                value="@GeographicalCoordinates"
+                                />
+                            
                         </div>
                         <!-- Code -->
                         <div class="form-group mb-3">
-                            <label for="basicculture-country-code-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                            <label for="basicculture-country-code-input" class="form-control-label">
                                 <i class="fas fa-font"></i> Code
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Code
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" min="1" max="100" type="text" id="basicculture-country-code-input" value="@Code" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="code-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <input class="form-control" 
+                                min="1" 
+                                max="100" 
+                                type="text" 
+                                id="basicculture-country-code-input" 
+                                value="@Code"
+                                />
+                            
                         </div>
                         <!-- PlanetId -->
-                        <div class="form-group mb-3">
-                            <label class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-hashtag"></i> Planet ID
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend input-group-text">
-                                    <span class="mr-2 d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                        <strong>
-                                            <i class="fas fa-hashtag"></i> Planet ID
-                                        </strong>
-                                    </span>
-                                </div>
-                                <button type="button" class="btn btn-outline-primary border-0" data-toggle="modal" data-target="#modal-foreign-key-code-selector"><i class="fas fa-hashtag"></i></button>
-                                <ul id="basicculture-country-planetid-list" class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
+                            <div class="form-group mb-3">
+                                <label class="form-control-label">
+                                    <i class="fas fa-hashtag"></i> Planet ID
+                                </label>
+                                <br/>
+                                <button type="button" 
+                                    class="btn btn-outline-primary border-0" 
+                                    data-toggle="modal" 
+                                    data-target="#modal-foreign-key-code-selector">
+                                        <i class="fas fa-hashtag"></i>
+                                </button>
+                                <ul id="basicculture-country-planetid-list"
+                                    class="nav nav-pills nav-fill flex-column flex-sm-row" 
+                                    role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link mb-sm-3 mb-md-0 active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
-                                            @PlanetName
+                                        <a class="nav-link mb-sm-3 mb-md-0 active" 
+                                            data-toggle="tab" 
+                                            href="javascript:void(0)" 
+                                            role="tab" 
+                                            aria-controls="" 
+                                            aria-selected="true">
+                                                @PlanetName
                                         </a>
-                                        <input type="hidden" id="basicculture-country-planetid-input" value="@PlanetId"/>
+                                        <input type="hidden" 
+                                            id="basicculture-country-planetid-input"
+                                            value="@PlanetId"/>
                                     </li>
                                 </ul>
-                                <div class="input-group-append">
-                                    <button class="btn btn-danger border-0 ml-2" data-toggle="tooltip" data-placement="left" title="This value is required" type="button" id="planetid-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
+                                <p class="text-danger text-sm">
+                                    <b>This value is required.</b>
+                                </p>
                             </div>
-                        </div>
                         
                         <!-- Buttons -->
                         <div class="row justify-content-between">
-                            <button id="basicculture-country-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="@NonQueryIcon"></i> @NonQueryText</button>
-                            <a href="/BasicCulture/CountryQueryPage" class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
-                                <i class="fas fa-angle-left"></i> Go back
+                            <button class="btn btn-primary text-nowrap ml-3 mt-4" 
+                                type="submit">
+                                    <i class="@NonQueryIcon"></i> 
+                                    @NonQueryText
+                            </button>
+                            <a href="/BasicCulture/CountryQueryPage" 
+                                class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
+                                    <i class="fas fa-angle-left"></i> 
+                                    Go back
                             </a>
                         </div>
                     </form>
