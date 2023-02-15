@@ -1,67 +1,49 @@
 ﻿$(document).ready(function () {
-    $("#message").hide();
 });
 
-//Create a formdata object
-var formData = new FormData();
-
 $("#loginbutton").on("click", function (e) {
-    formData.append("fantasynameoremail", $("#fantasynameoremail").val());
-    formData.append("password", $("#password").val());
 
-    $("#message").show();
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName("needs-validation");
+    // Loop over them and prevent submission
+    Array.prototype.filter.call(forms, function (form) {
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
 
-    //Setup request
-    var xmlHttpRequest = new XMLHttpRequest();
-    //Set event listeners
-    xmlHttpRequest.upload.addEventListener("loadstart", function (e) {
-        //Show success button and success message modal
-    });
-    xmlHttpRequest.upload.addEventListener("progress", function (e) {
-        // While sending and loading data.
-    });
-    xmlHttpRequest.upload.addEventListener("load", function (e) {
-        // When the request has successfully completed.
-    });
-    xmlHttpRequest.upload.addEventListener("loadend", function (e) {
-        // When the request has completed (either in success or failure).
-    });
-    xmlHttpRequest.upload.addEventListener("error", function (e) {
-        // When the request has failed.
-    });
-    xmlHttpRequest.upload.addEventListener("abort", function (e) {
-        // When the request has been aborted. 
-    });
-    xmlHttpRequest.upload.addEventListener("timeout", function (e) {
-        // When the author specified timeout has passed before the request could complete
-    });
-    xmlHttpRequest.onload = function () {
-        console.log(xmlHttpRequest);
-        if (xmlHttpRequest.status >= 400) {
-            //Show error button and error message modal
-            $("#message").addClass("btn-danger");
-            $("#message").removeClass("btn-white");
-            $("#message").removeClass("btn-success");
-            $("#message").html(`<i class="fas fa-exclamation-triangle"></i> 
-                                    There was an error while trying to login`);
-            console.log("Error:" + xmlHttpRequest.response);
-        }
-        else {
-            if (xmlHttpRequest.response == "User not found") {
-                //Show danger button
-                $("#message").addClass("btn-danger");
-                $("#message").removeClass("btn-white");
-                $("#message").removeClass("btn-success");
-                $("#message").html(`<i class="fas fa-exclamation-triangle"></i>
-                                    User not found`);
+            if (form.checkValidity() === true) {
+                //Create a formdata object
+                var formData = new FormData();
+
+                formData.append("fantasynameoremail", $("#fantasynameoremail").val());
+                formData.append("password", $("#password").val());
+
+                //Setup request
+                var xmlHttpRequest = new XMLHttpRequest();
+                //Set event listeners
+                xmlHttpRequest.onload = function () {
+                    if (xmlHttpRequest.status >= 400) {
+                        //ERROR
+                        console.log(xmlHttpRequest);
+                        $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to login" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                    }
+                    else {
+                        if (xmlHttpRequest.response == "User not found") {
+                            $.notify({ icon: "fas fa-exclamation-triangle", message: "User not found" }, { type: "warning", placement: { from: "bottom", align: "center" } });
+                        }
+                        else {
+                            window.location.href = xmlHttpRequest.response;
+                        }
+                    }
+                };
+                //Open connection
+                xmlHttpRequest.open("POST", "/api/CMSCore/User/1/Login", false);
+                //Send request
+                xmlHttpRequest.send(formData);
             }
             else {
-                window.location.href = xmlHttpRequest.response;
+                $.notify({ message: "Please, complete all fields." }, { type: "warning", placement: { from: "bottom", align: "center" } });
             }
-        }
-    };
-    //Open connection
-    xmlHttpRequest.open("POST", "/api/CMSCore/User/1/Login", false);
-    //Send request
-    xmlHttpRequest.send(formData);
+        }, false);
+    });
 });
