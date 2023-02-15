@@ -22,7 +22,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 14/02/2023 17:08:17
+//Last modification on: 15/02/2023 14:56:57
 
 namespace FiyiRequirements.Areas.Examples.Services
 {
@@ -31,7 +31,7 @@ namespace FiyiRequirements.Areas.Examples.Services
     /// Name:              C# Service. <br/>
     /// Function:          Allow you to separate data contract stored in C# model from business with your clients. <br/>
     /// Also, allow dependency injection inside controllers/web apis<br/>
-    /// Last modification: 14/02/2023 17:08:17
+    /// Last modification: 15/02/2023 14:56:57
     /// </summary>
     public partial class ExampleService : ExampleProtocol
     {

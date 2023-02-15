@@ -33,7 +33,7 @@
         ExampleId = 0;
         Boolean = false;
         DateTime = DateTime.Now;
-        Decimal = 5;
+        Decimal = 5.000000M;
         Integer = 5;
         TextBasic = "";
         TextEmail = "";
@@ -87,7 +87,7 @@
  */
     
 //Stack: 11
-//Last modification on: 14/02/2023 17:08:17
+//Last modification on: 15/02/2023 15:45:41
 
 }
 <!-- Header -->
@@ -98,8 +98,13 @@
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
                     <!-- Title -->
-                    <h2 id="examples-example-title-page" class="h2 text-white d-inline-block mb-0">@NonQueryText example</h2>
-                    <input type="hidden" id="examples-example-exampleid-input" value="@ExampleId"/>
+                    <h2 class="h2 text-white d-inline-block mb-0">
+                        @NonQueryText 
+                        example
+                    </h2>
+                    <input type="hidden" 
+                        id="examples-example-exampleid-input" 
+                        value="@ExampleId"/>
                     <!-- Breadcrumb -->
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -152,36 +157,36 @@
                 <div class="card-body">
                     <form class="needs-validation" novalidate>
                         <!-- Boolean -->
-                        <div class="form-group mb-3">
-                            <label for="examples-example-boolean-input" class="form-control-label">
-                                <i class="fas fa-toggle-on"></i> Boolean
-                            </label>
-                            <br/>
-                            <input type="checkbox" 
-                                id="examples-example-boolean-input"
-                                @(Boolean == true ? "checked" : "" )
-                                required>
-                            <br />
-                            <p class="text-danger text-sm">
-                                <b>This value is required.</b>
-                            </p>
-                        </div>
-                        <!-- DateTime -->
-                        <div class="form-group mb-3">
-                            <label class="form-control-label">
-                                <i class="fas fa-calendar"></i> DateTime
-                            </label>
-                            <input id="examples-example-datetime-input" 
-                                value="@DateTime.ToString("yyyy'-'MM'-'dd'T'HH':'mm")" 
-                                type="datetime-local" 
-                                min="1753-01-01T00:00" 
-                                max="9998-12-30T23:59" 
-                                class="form-control"
-                                required>
-                            <div class="invalid-feedback">
-                                This value is required.
+                            <div class="form-group mb-3">
+                                <label for="examples-example-boolean-input" class="form-control-label">
+                                    <i class="fas fa-toggle-on"></i> Boolean
+                                </label>
+                                <br/>
+                                <input type="checkbox" 
+                                    id="examples-example-boolean-input"
+                                    @(Boolean == true ? "checked" : "" )
+                                    required/>
+                                <br />
+                                <p class="text-danger text-sm">
+                                    <b>This value is required.</b>
+                                </p>
                             </div>
-                        </div>
+                        <!-- DateTime -->
+                            <div class="form-group mb-3">
+                                <label class="form-control-label">
+                                    <i class="fas fa-calendar"></i> DateTime
+                                </label>
+                                <input id="examples-example-datetime-input" 
+                                    value="@DateTime.ToString("yyyy'-'MM'-'dd'T'HH':'mm")" 
+                                    type="datetime-local" 
+                                    min="1753-01-01T00:00" 
+                                    max="9998-12-30T23:59" 
+                                    class="form-control"
+                                    required>
+                                <div class="invalid-feedback">
+                                    This value is required.
+                                </div>
+                            </div>
                         <!-- Decimal -->
                         <div class="form-group mb-3">
                             <label for="examples-example-decimal-input" class="form-control-label">
@@ -189,9 +194,9 @@
                             </label>
                             <input class="form-control" 
                                 type="number" 
-                                id="examples-example-decimal-input" 
-                                value="@Decimal" 
-                                min="5" 
+                                id="examples-example-decimal-input"
+                                value="@(Convert.ToDouble(Decimal))" 
+                                min="5.000000" 
                                 max="20" 
                                 step=".01" 
                                 pattern="^\d*(\.\d{0,2})?$" 
@@ -203,7 +208,8 @@
                         <!-- Integer -->
                         <div class="form-group mb-3">
                             <label for="examples-example-integer-input" class="form-control-label">
-                                <i class="fas fa-divide"></i> Integer
+                                <i class="fas fa-divide"></i> 
+                                Integer
                             </label>
                             <input class="form-control" 
                                 type="number" 
@@ -213,7 +219,7 @@
                                 max="20" 
                                 step="1" 
                                 pattern="[^0-9]"
-                                required>
+                                required/>
                             <div class="invalid-feedback">
                                 This value is required.
                             </div>
@@ -228,11 +234,11 @@
                                 max="20" 
                                 type="text" 
                                 id="examples-example-textbasic-input" 
-                                value="@TextBasic" 
-                                required>
+                                value="@TextBasic"
+                                required/>
                             <div class="invalid-feedback">
-                                This value is required.
-                            </div>
+                                    This value is required.
+                                </div>
                         </div>
                         <!-- TextEmail -->
                         <div class="form-group mb-3">
@@ -245,7 +251,7 @@
                                 max="20" 
                                 id="examples-example-textemail-input" 
                                 value="@TextEmail" 
-                                required>
+                                required/>
                             <div class="invalid-feedback">
                                 This value is required.
                             </div>
@@ -269,7 +275,7 @@
                                             min="1" 
                                             max="8000" 
                                             id="examples-example-textfile-input" 
-                                            value="">
+                                            value=""/>
                                     </span>
                                     <a href="#" class="btn btn-outline-danger fileinput-exists" data-dismiss="fileinput">
                                         Remove
@@ -280,7 +286,7 @@
                                 min="1" 
                                 max="8000" 
                                 id="examples-example-textfile-readonly" 
-                                value="@TextFile" />
+                                value="@TextFile"/>
                             <br />
                             @if (@TextFile == ""){
                                 <p class="text-danger text-sm">
@@ -300,7 +306,8 @@
                         <!-- TextPassword -->
                         <div class="form-group mb-3">
                             <label for="examples-example-textpassword-input" class="form-control-label">
-                                <i class="fas fa-asterisk"></i> TextPassword
+                                <i class="fas fa-asterisk"></i> 
+                                TextPassword
                             </label>
                             <input class="form-control" 
                                 min="5" 
@@ -308,7 +315,7 @@
                                 type="password" 
                                 id="examples-example-textpassword-input" 
                                 value="@TextPassword" 
-                                required>
+                                required/>
                             <div class="invalid-feedback">
                                 This value is required.
                             </div>
@@ -316,15 +323,16 @@
                         <!-- TextPhoneNumber -->
                         <div class="form-group mb-3">
                             <label for="examples-example-textphonenumber-input" class="form-control-label">
-                                <i class="fas fa-phone"></i> TextPhoneNumber
+                                <i class="fas fa-phone"></i> 
+                                TextPhoneNumber
                             </label>
                             <input class="form-control mt-2" 
                                 min="5" 
                                 max="20" 
                                 type="tel" 
-                                id="examples-example-textphonenumber-input"
+                                id="examples-example-textphonenumber-input" 
                                 value="@TextPhoneNumber" 
-                                required>
+                                required/>
                             <div class="invalid-feedback">
                                 This value is required.
                             </div>
@@ -339,7 +347,7 @@
                                 class="form-control" 
                                 min="5" 
                                 max="20" 
-                                id="examples-example-texttag-input"
+                                id="examples-example-texttag-input" 
                                 value="@TextTag" 
                                 data-toggle="tags" 
                                 required/>
@@ -350,7 +358,8 @@
                         <!-- TextTextArea -->
                         <div class="form-group mb-3">
                             <label for="examples-example-texttextarea-input" class="form-control-label">
-                                <i class="fas fa-font"></i> TextTextArea
+                                <i class="fas fa-font"></i> 
+                                TextTextArea
                             </label>
                             <textarea class="form-control mt-1" 
                                 id="examples-example-texttextarea-input" 
@@ -366,7 +375,8 @@
                         </div>
                         <!-- TextTextEditor -->
                         <label for="examples-example-texttexteditor-input" class="form-control-label">
-                            <i class="fas fa-font"></i> TextTextEditor
+                            <i class="fas fa-font"></i> 
+                            TextTextEditor
                         </label>
                         <div id="examples-example-texttexteditor-input">
                         </div>
@@ -377,7 +387,8 @@
                         <!-- TextURL -->
                         <div class="form-group mb-3">
                             <label for="examples-example-texturl-input" class="form-control-label">
-                                <i class="fas fa-globe"></i> TextURL
+                                <i class="fas fa-globe"></i> 
+                                TextURL
                             </label>
                             <input class="form-control" 
                                 type="url" 
@@ -389,58 +400,69 @@
                             </div>
                         </div>
                         <!-- ForeignKeyDropDown -->
-                        <div class="form-group mb-3">
-                            <label class="form-control-label">
-                                <i class="fas fa-hashtag"></i> ForeignKeyDropDown
-                            </label>
-                            <br/>
-                            <button type="button" 
-                                class="btn btn-outline-primary border-0" 
-                                data-toggle="modal" 
-                                data-target="#modal-foreign-key-code-selector">
-                                    <i class="fas fa-hashtag"></i>
-                            </button>
-                            <ul id="examples-example-foreignkeydropdown-list" 
-                                class="nav nav-pills nav-fill flex-column flex-sm-row" 
-                                role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link mb-sm-3 mb-md-0 active" 
-                                        data-toggle="tab" 
-                                        href="javascript:void(0)" 
-                                        role="tab" aria-controls="" 
-                                        aria-selected="true">
-                                            Choose a value
-                                    </a>
-                                    <input type="hidden" 
-                                        id="examples-example-foreignkeydropdown-input"
-                                        value="@ForeignKeyDropDown"/>
-                                </li>
-                            </ul>
-                        </div>
+                            <div class="form-group mb-3">
+                                <label class="form-control-label">
+                                    <i class="fas fa-hashtag"></i> ForeignKeyDropDown
+                                </label>
+                                <br/>
+                                <button type="button" 
+                                    class="btn btn-outline-primary border-0" 
+                                    data-toggle="modal" 
+                                    data-target="#modal-foreign-key-code-selector">
+                                        <i class="fas fa-hashtag"></i>
+                                </button>
+                                <ul id="examples-example-foreignkeydropdown-list"
+                                    class="nav nav-pills nav-fill flex-column flex-sm-row" 
+                                    role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link mb-sm-3 mb-md-0 active" 
+                                            data-toggle="tab" 
+                                            href="javascript:void(0)" 
+                                            role="tab" 
+                                            aria-controls="" 
+                                            aria-selected="true">
+                                                Choose a value
+                                        </a>
+                                        <input type="hidden" 
+                                            id="examples-example-foreignkeydropdown-input"
+                                            value="@ForeignKeyDropDown"/>
+                                    </li>
+                                </ul>
+                                
+                            </div>
                         <!-- ForeignKeyOption -->
-                        <div class="form-group mb-3">
-                            <label class="form-control-label"><i class="fas fa-hashtag">
-                                </i> ForeignKeyOption
-                            </label>
-                            <ul class="nav nav-pills nav-fill flex-column flex-sm-row" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link mb-sm-3 mb-md-0 examples-example-foreignkeyoption-a active" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="" aria-selected="true">
-                                        Choose a value
-                                    </a>
-                                    <input type="hidden" value="0"/>
-                                </li>
-                            </ul>
-                        </div>
+                            <div class="form-group mb-3">
+                                <label class="form-control-label">
+                                    <i class="fas fa-hashtag"></i> 
+                                    ForeignKeyOption
+                                </label>
+                                <ul class="nav nav-pills nav-fill flex-column flex-sm-row" 
+                                    role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link mb-sm-3 mb-md-0 examples-example-foreignkeyoption-a active" 
+                                                data-toggle="tab" 
+                                                href="javascript:void(0)" 
+                                                role="tab" 
+                                                aria-controls="" 
+                                                aria-selected="true">
+                                                    Choose a value
+                                            </a>
+                                            <input type="hidden" value="0"/>
+                                        </li>
+                                </ul>
+                            </div>
                         
                         <!-- Buttons -->
                         <div class="row justify-content-between">
                             <button class="btn btn-primary text-nowrap ml-3 mt-4" 
                                 type="submit">
-                                    <i class="@NonQueryIcon"></i> @NonQueryText
+                                    <i class="@NonQueryIcon"></i> 
+                                    @NonQueryText
                             </button>
                             <a href="/Examples/ExampleQueryPage" 
                                 class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
-                                    <i class="fas fa-angle-left"></i> Go back
+                                    <i class="fas fa-angle-left"></i> 
+                                    Go back
                             </a>
                         </div>
                     </form>

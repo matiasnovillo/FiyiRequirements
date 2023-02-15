@@ -24,7 +24,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 14/02/2023 17:08:17
+//Last modification on: 15/02/2023 15:45:41
 
 namespace FiyiRequirements.Areas.Examples.Controllers
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 14/02/2023 17:08:17
+    /// Last modification: 15/02/2023 15:45:41
     /// </summary>
     [ApiController]
     [ExampleFilter]
@@ -146,8 +146,8 @@ namespace FiyiRequirements.Areas.Examples.Controllers
         #endregion
 
         #region Non-Queries
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Examples/Example/1/InsertOrUpdateAsync")]
-        
         public async Task<IActionResult> InsertOrUpdateAsync()
         {
             try
@@ -159,10 +159,11 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 {
                     return StatusCode(401, "User not found in session");
                 }
-
-                //Add or edit value
-                string AddOrEdit = HttpContext.Request.Form["examples-example-title-page"];
-
+                
+                #region Pass data from client to server
+                //ExampleId
+                int ExampleId = Convert.ToInt32(HttpContext.Request.Form["examples-example-exampleid-input"]);
+                
                 bool Boolean = Convert.ToBoolean(HttpContext.Request.Form["examples-example-boolean-input"]);
                 DateTime DateTime = Convert.ToDateTime(HttpContext.Request.Form["examples-example-datetime-input"]);
                 decimal Decimal = Convert.ToDecimal(HttpContext.Request.Form["examples-example-decimal-input"].ToString().Replace(".",","));
@@ -199,13 +200,14 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 //else
                 //{ return StatusCode(400, "It's not allowed to save zero values in ForeignKeyOption"); }
                 
+                #endregion
 
                 int NewEnteredId = 0;
                 int RowsAffected = 0;
 
-                if (AddOrEdit.StartsWith("Add"))
+                if (ExampleId == 0)
                 {
-                    //Add
+                    //Insert
                     ExampleModel ExampleModel = new ExampleModel()
                     {
                         Active = true,
@@ -236,7 +238,6 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 else
                 {
                     //Update
-                    int ExampleId = Convert.ToInt32(HttpContext.Request.Form["examples-example-exampleid-input"]);
                     ExampleModel ExampleModel = new ExampleModel(ExampleId);
                     
                     ExampleModel.UserLastModificationId = UserId;
@@ -287,7 +288,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                     }
                 }
 
-                if (AddOrEdit.StartsWith("Add"))
+                if (ExampleId == 0)
                 {
                     return StatusCode(200, NewEnteredId); 
                 }
@@ -318,8 +319,8 @@ namespace FiyiRequirements.Areas.Examples.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpDelete("~/api/Examples/Example/1/DeleteByExampleId/{ExampleId:int}")]
-        
         public IActionResult DeleteByExampleId(int ExampleId)
         {
             try
@@ -352,8 +353,8 @@ namespace FiyiRequirements.Areas.Examples.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Examples/Example/1/DeleteManyOrAll/{DeleteType}")]
-        
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
             try
@@ -387,8 +388,8 @@ namespace FiyiRequirements.Areas.Examples.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Examples/Example/1/CopyByExampleId/{ExampleId:int}")]
-        
         public IActionResult CopyByExampleId(int ExampleId)
         {
             try
@@ -422,8 +423,8 @@ namespace FiyiRequirements.Areas.Examples.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Examples/Example/1/CopyManyOrAll/{CopyType}")]
-        
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
             try
@@ -466,8 +467,8 @@ namespace FiyiRequirements.Areas.Examples.Controllers
         #endregion
 
         #region Other actions
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Examples/Example/1/ExportAsPDF/{ExportationType}")]
-        
         public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -501,8 +502,8 @@ namespace FiyiRequirements.Areas.Examples.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Examples/Example/1/ExportAsExcel/{ExportationType}")]
-        
         public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -536,8 +537,8 @@ namespace FiyiRequirements.Areas.Examples.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Examples/Example/1/ExportAsCSV/{ExportationType}")]
-        
         public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
         {
             try

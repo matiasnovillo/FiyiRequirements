@@ -13,7 +13,10 @@
 
 //Stack: 10
 
-//Last modification on: 15/02/2023 8:44:39
+//Last modification on: 15/02/2023 15:45:41
+
+//Create a formdata object
+var formData = new FormData();
 
 //Used for Quill Editor
 let examplesexampletexttexteditortoolbaroptions = [
@@ -47,9 +50,6 @@ $("#examples-example-textfile-input").on("change", function (e) {
 
 
 
-//Create a formdata object
-var formData = new FormData();
-
 //LOAD EVENT
 $(document).ready(function () {
     examplesexampletexttexteditorquill.root.innerHTML = $("#examples-example-texttexteditor-hidden-value").val();
@@ -65,9 +65,8 @@ $(document).ready(function () {
             event.stopPropagation();
 
             if (form.checkValidity() === true) {
-                
-                //Add or edit value
-                formData.append("examples-example-title-page", $("#examples-example-title-page").html());
+
+                //ExampleId
                 formData.append("examples-example-exampleid-input", $("#examples-example-exampleid-input").val());
 
                 formData.append("examples-example-boolean-input", $("#examples-example-boolean-input").is(":checked"));
@@ -87,7 +86,7 @@ $(document).ready(function () {
                 formData.append("examples-example-texturl-input", $("#examples-example-texturl-input").val());
                 formData.append("examples-example-foreignkeydropdown-input", $("#examples-example-foreignkeydropdown-input").val());
                 formData.append("examples-example-foreignkeyoption-input", $(".examples-example-foreignkeyoption-a.active").next().val());
-                
+
 
                 //Setup request
                 var xmlHttpRequest = new XMLHttpRequest();
@@ -111,6 +110,9 @@ $(document).ready(function () {
                 xmlHttpRequest.open("POST", "/api/Examples/Example/1/InsertOrUpdateAsync", true);
                 //Send request
                 xmlHttpRequest.send(formData);
+            }
+            else {
+                $.notify({ message: "Please, complete all fields." }, { type: "warning", placement: { from: "bottom", align: "center" } });
             }
 
             form.classList.add("was-validated");

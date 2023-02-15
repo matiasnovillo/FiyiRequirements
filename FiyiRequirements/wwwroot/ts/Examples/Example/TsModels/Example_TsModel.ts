@@ -14,7 +14,7 @@ import { Ajax } from "../../../Library/Ajax";
  * 
 */
 
-//21 fields | Sub-models: 0 models  | Last modification on: 14/02/2023 17:12:06 | Stack: 9
+//21 fields | Sub-models: 0 models  | Last modification on: 15/02/2023 14:56:57 | Stack: 9
 
 export class ExampleModel {
 

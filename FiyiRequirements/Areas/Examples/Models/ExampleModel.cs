@@ -28,7 +28,7 @@ namespace FiyiRequirements.Areas.Examples.Models
     ///                    make temporal copies with random data. <br/>
     /// Fields:            21 <br/> 
     /// Sub-models:      0 models <br/>
-    /// Last modification: 14/02/2023 17:08:17
+    /// Last modification: 15/02/2023 14:56:57
     /// </summary>
     [Serializable]
     public partial class ExampleModel
@@ -71,7 +71,7 @@ namespace FiyiRequirements.Areas.Examples.Models
 
         public bool Boolean { get; set; }
 
-        [Library.ModelAttributeValidator.DateTime("DateTime", false, "1753-01-01T00:00", "9998-12-30T23:59")]
+        [Library.ModelAttributeValidator.DateTime("DateTime", true, "1753-01-01T00:00", "9998-12-30T23:59")]
         public DateTime DateTime { get; set; }
 
         [Library.ModelAttributeValidator.Decimal("Decimal", true, 5.000000D, 20D)]
