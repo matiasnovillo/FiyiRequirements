@@ -17,14 +17,14 @@ using System.IO;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 25/12/2022 22:02:06
+//Last modification on: 16/02/2023 8:47:52
 
 namespace FiyiRequirements.Areas.Requirement.Controllers
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 25/12/2022 22:02:06
+    /// Last modification: 16/02/2023 8:47:52
     /// </summary>
     [ApiController]
     [RequirementStateFilter]
@@ -146,8 +146,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
         #endregion
 
         #region Non-Queries
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementState/1/InsertOrUpdateAsync")]
-        
         public async Task<IActionResult> InsertOrUpdateAsync()
         {
             try
@@ -159,19 +159,21 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 {
                     return StatusCode(401, "User not found in session");
                 }
-
-                //Add or edit value
-                string AddOrEdit = HttpContext.Request.Form["requirement-requirementstate-title-page"];
-
+                
+                #region Pass data from client to server
+                //RequirementStateId
+                int RequirementStateId = Convert.ToInt32(HttpContext.Request.Form["requirement-requirementstate-requirementstateid-input"]);
+                
                 string Name = HttpContext.Request.Form["requirement-requirementstate-name-input"];
                 
+                #endregion
 
                 int NewEnteredId = 0;
                 int RowsAffected = 0;
 
-                if (AddOrEdit.StartsWith("Add"))
+                if (RequirementStateId == 0)
                 {
-                    //Add
+                    //Insert
                     RequirementStateModel RequirementStateModel = new RequirementStateModel()
                     {
                         Active = true,
@@ -188,7 +190,6 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 else
                 {
                     //Update
-                    int RequirementStateId = Convert.ToInt32(HttpContext.Request.Form["requirement-requirementstate-requirementstateid-input"]);
                     RequirementStateModel RequirementStateModel = new RequirementStateModel(RequirementStateId);
                     
                     RequirementStateModel.UserLastModificationId = UserId;
@@ -225,7 +226,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     }
                 }
 
-                if (AddOrEdit.StartsWith("Add"))
+                if (RequirementStateId == 0)
                 {
                     return StatusCode(200, NewEnteredId); 
                 }
@@ -256,8 +257,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpDelete("~/api/Requirement/RequirementState/1/DeleteByRequirementStateId/{RequirementStateId:int}")]
-        
         public IActionResult DeleteByRequirementStateId(int RequirementStateId)
         {
             try
@@ -290,8 +291,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementState/1/DeleteManyOrAll/{DeleteType}")]
-        
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
             try
@@ -325,8 +326,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementState/1/CopyByRequirementStateId/{RequirementStateId:int}")]
-        
         public IActionResult CopyByRequirementStateId(int RequirementStateId)
         {
             try
@@ -360,8 +361,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementState/1/CopyManyOrAll/{CopyType}")]
-        
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
             try
@@ -404,8 +405,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
         #endregion
 
         #region Other actions
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementState/1/ExportAsPDF/{ExportationType}")]
-        
         public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -439,8 +440,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementState/1/ExportAsExcel/{ExportationType}")]
-        
         public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -474,8 +475,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementState/1/ExportAsCSV/{ExportationType}")]
-        
         public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
         {
             try
