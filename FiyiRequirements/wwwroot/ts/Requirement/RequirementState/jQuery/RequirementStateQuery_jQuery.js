@@ -359,7 +359,7 @@ $("#requirement-requirementstate-export-as-pdf").on("click", function (e) {
             // @ts-ignore
             $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
             //Show download button for PDF file
-            $("#examples-example-export-message").html("<a class=\"btn btn-icon btn-success\" href=\"/PDFFiles/Examples/Example/Example_".concat(DateTimeNow.AjaxForString, ".pdf\" type=\"button\" download>\n                                            <span class=\"btn-inner--icon\"><i class=\"fas fa-file-pdf\"></i></span>\n                                            <span class=\"btn-inner--text\">Download</span>\n                                        </a>"));
+            $("#examples-example-export-message").html("<a class=\"btn btn-icon btn-success\" href=\"/PDFFiles/Requirement/RequirementState/RequirementState_".concat(DateTimeNow.AjaxForString, ".pdf\" type=\"button\" download>\n                                            <span class=\"btn-inner--icon\"><i class=\"fas fa-file-pdf\"></i></span>\n                                            <span class=\"btn-inner--text\">Download</span>\n                                        </a>"));
         },
         error: function (err) {
             //ERROR
@@ -414,7 +414,7 @@ $("#requirement-requirementstate-export-as-excel").on("click", function (e) {
             // @ts-ignore
             $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
             //Show download button for Excel file
-            $("#examples-example-export-message").html("<a class=\"btn btn-icon btn-success\" href=\"/ExcelFiles/Examples/Example/Example_".concat(DateTimeNow.AjaxForString, ".xlsx\" type=\"button\" download>\n                                            <span class=\"btn-inner--icon\"><i class=\"fas fa-file-excel\"></i></span>\n                                            <span class=\"btn-inner--text\">Download</span>\n                                        </a>"));
+            $("#examples-example-export-message").html("<a class=\"btn btn-icon btn-success\" href=\"/ExcelFiles/Requirement/RequirementState/RequirementState_".concat(DateTimeNow.AjaxForString, ".xlsx\" type=\"button\" download>\n                                            <span class=\"btn-inner--icon\"><i class=\"fas fa-file-excel\"></i></span>\n                                            <span class=\"btn-inner--text\">Download</span>\n                                        </a>"));
         },
         error: function (err) {
             //ERROR
@@ -469,7 +469,7 @@ $("#requirement-requirementstate-export-as-csv").on("click", function (e) {
             // @ts-ignore
             $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
             //Show download button for CSV file
-            $("#examples-example-export-message").html("<a class=\"btn btn-icon btn-success\" href=\"/CSVFiles/Examples/Example/Example_".concat(DateTimeNow.AjaxForString, ".csv\" type=\"button\" download>\n                                            <span class=\"btn-inner--icon\"><i class=\"fas fa-file-csv\"></i></span>\n                                            <span class=\"btn-inner--text\">Download</span>\n                                        </a>"));
+            $("#examples-example-export-message").html("<a class=\"btn btn-icon btn-success\" href=\"/CSVFiles/Requirement/RequirementState/RequirementState_".concat(DateTimeNow.AjaxForString, ".csv\" type=\"button\" download>\n                                            <span class=\"btn-inner--icon\"><i class=\"fas fa-file-csv\"></i></span>\n                                            <span class=\"btn-inner--text\">Download</span>\n                                        </a>"));
         },
         error: function (err) {
             //ERROR
