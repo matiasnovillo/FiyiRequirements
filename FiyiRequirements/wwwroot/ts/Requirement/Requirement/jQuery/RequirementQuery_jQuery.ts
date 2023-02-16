@@ -4,6 +4,7 @@ import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import "bootstrap-notify";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -361,10 +362,9 @@ class RequirementQuery {
                             }
                     }
                     else {
-                        //Show error message
-                        $("#requirement-requirement-error-message-title").html("No registers found");
-                        $("#requirement-requirement-error-message-text").html("The server did not found any register. HTTP code 204");
-                        $("#requirement-requirement-button-error-message-in-card").show();
+                        //ERROR
+                        // @ts-ignore
+                        $.notify({ icon: "fas fa-exclamation-triangle", message: "No registers found" }, { type: "warning", placement: { from: "bottom", align: "center" } });
                     }
                 },
                 complete: () => {
@@ -418,11 +418,6 @@ class RequirementQuery {
                         ValidateAndSearch();
                     });
 
-                    //Hide error message
-                    $("#requirement-requirement-error-message-title").html("");
-                    $("#requirement-requirement-error-message-text").html("");
-                    $("#requirement-requirement-button-error-message-in-card").hide();
-
                     //Delete button in table and list
                     $("div.dropdown-menu button.requirement-requirement-table-delete-button, div.dropdown-menu button.requirement-requirement-list-delete-button").on("click", function (e) {
                         let RequirementId = $(this).val();
@@ -430,20 +425,17 @@ class RequirementQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                //SUCCESS
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-check", message: "Row deleted successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-                                //Show OK message
-                                $("#requirement-requirement-button-error-message-in-card").hide();
-                                $("#requirement-requirement-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Row deleted successfully`);
-                                $("#requirement-requirement-button-ok-message-in-card").show();
+                                ValidateAndSearch();
                             },
                             error: err => {
-                                //Related to error message
-                                $("#requirement-requirement-error-message-title").html("RequirementModel.DeleteByRequirementId(RequirementId).subscribe(...)");
-                                $("#requirement-requirement-error-message-text").html(err);
-                                $("#requirement-requirement-button-error-message-in-card").show();
+                                //ERROR
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                                console.log(err);
                             }
                         });
                     });
@@ -455,39 +447,32 @@ class RequirementQuery {
                             next: newrow => {
                             },
                             complete: () => {
-                                ValidateAndSearch();
+                                //SUCCESS
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-check", message: "Row copied successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-                                //Show OK message
-                                $("#requirement-requirement-button-error-message-in-card").hide();
-                                $("#requirement-requirement-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Row copied successfully`);
-                                $("#requirement-requirement-button-ok-message-in-card").show();
+                                ValidateAndSearch();
                             },
                             error: err => {
-                                //Show error message
-                                $("#requirement-requirement-error-message-title").html("RequirementModel.CopyByRequirementId(RequirementId).subscribe(...)");
-                                $("#requirement-requirement-error-message-text").html(err);
-                                $("#requirement-requirement-button-error-message-in-card").show();
+                                //ERROR
+                                // @ts-ignore
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                                console.log(err);
                             }
                         });
                     });
                 },
                 error: err => {
-                    //Show error message
-                    $("#requirement-requirement-error-message-title").html("RequirementModel.SelectAllPaged(request_requirementmodelQ).subscribe(...)");
-                    $("#requirement-requirement-error-message-text").html(err);
-                    $("#requirement-requirement-button-error-message-in-card").show();
+                    //ERROR
+                    // @ts-ignore
+                    $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to get data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                    console.log(err);
                 }
             });
     }
 }
 
 function ValidateAndSearch() {
-
-    //Hide error and OK message button
-    $("#requirement-requirement-button-error-message-in-card").hide();
-    $("#requirement-requirement-button-ok-message-in-card").hide();
 
     var _requirementmodelQuery: requirementmodelQuery = {
         QueryString,
@@ -518,8 +503,6 @@ if ($("#requirement-requirement-title-page").html().includes("Query requirement"
     $("#requirement-requirement-lnk-previous-page-lg, #requirement-requirement-lnk-previous-page").attr("disabled", "disabled");
     //Hide messages
     $("#requirement-requirement-export-message").html("");
-    $("#requirement-requirement-button-error-message-in-card").hide();
-    $("#requirement-requirement-button-ok-message-in-card").hide();
 
     ValidateAndSearch();
 }
@@ -654,23 +637,22 @@ $("#requirement-requirement-export-as-pdf").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for PDF file
-            $("#requirement-requirement-export-message").html(`<a class="btn btn-icon btn-success" href="/PDFFiles/Requirement/Requirement/Requirement_${DateTimeNow.AjaxForString}.pdf" type="button" download>
+            $("#examples-example-export-message").html(`<a class="btn btn-icon btn-success" href="/PDFFiles/Examples/Example/Example_${DateTimeNow.AjaxForString}.pdf" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-pdf"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
 
-            //Show OK message
-            $("#requirement-requirement-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#requirement-requirement-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#requirement-requirement-error-message-title").html("Rx.from(ajax.post('/api/Requirement/Requirement/1/ExportAsPDF/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#requirement-requirement-error-message-text").html(err);
-            $("#requirement-requirement-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -721,23 +703,21 @@ $("#requirement-requirement-export-as-excel").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for Excel file
-            $("#requirement-requirement-export-message").html(`<a class="btn btn-icon btn-success" href="/ExcelFiles/Requirement/Requirement/Requirement_${DateTimeNow.AjaxForString}.xlsx" type="button" download>
+            $("#examples-example-export-message").html(`<a class="btn btn-icon btn-success" href="/ExcelFiles/Examples/Example/Example_${DateTimeNow.AjaxForString}.xlsx" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-excel"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#requirement-requirement-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#requirement-requirement-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#requirement-requirement-error-message-title").html("Rx.from(ajax.post('/api/Requirement/Requirement/1/ExportAsExcel/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#requirement-requirement-error-message-text").html(err);
-            $("#requirement-requirement-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -788,23 +768,21 @@ $("#requirement-requirement-export-as-csv").on("click", function (e) {
             DateTimeNow = newrow.response as Ajax;
         },
         complete: () => {
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Conversion completed" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
             //Show download button for CSV file
-            $("#requirement-requirement-export-message").html(`<a class="btn btn-icon btn-success" href="/CSVFiles/Requirement/Requirement/Requirement_${DateTimeNow.AjaxForString}.csv" type="button" download>
+            $("#examples-example-export-message").html(`<a class="btn btn-icon btn-success" href="/CSVFiles/Examples/Example/Example_${DateTimeNow.AjaxForString}.csv" type="button" download>
                                             <span class="btn-inner--icon"><i class="fas fa-file-csv"></i></span>
                                             <span class="btn-inner--text">Download</span>
                                         </a>`);
-
-            //Show OK message
-            $("#requirement-requirement-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Conversion completed`);
-            $("#requirement-requirement-button-ok-message-in-card").show();
         },
         error: err => {
-            //Show error message
-            $("#requirement-requirement-error-message-title").html("Rx.from(ajax.post('/api/Requirement/Requirement/1/ExportAsCSV/' + ExportationType, Body, Header)).subscribe(...)");
-            $("#requirement-requirement-error-message-text").html(err);
-            $("#requirement-requirement-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to convert" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -847,19 +825,17 @@ $("#requirement-requirement-massive-action-copy").on("click", function (e) {
         next: newrow => {
         },
         complete: () => {
-            ValidateAndSearch();
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed copy" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-            //Show OK message
-            $("#requirement-requirement-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows copied successfully`);
-            $("#requirement-requirement-button-ok-message-in-card").show();
+            ValidateAndSearch();
         },
         error: err => {
-            //Show error message
-            $("#requirement-requirement-error-message-title").html("RequirementModel.Copy(CopyType).subscribe(...)");
-            $("#requirement-requirement-error-message-text").html(err);
-            $("#requirement-requirement-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
@@ -897,19 +873,17 @@ $("#requirement-requirement-massive-action-delete").on("click", function (e) {
         next: newrow => {
         },
         complete: () => {
-            ValidateAndSearch();
+            //SUCCESS
+            // @ts-ignore
+            $.notify({ icon: "fas fa-check", message: "Completed deletion" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
-            //Show OK message
-            $("#requirement-requirement-button-ok-message-in-card").html(`<strong>
-                                                                    <i class="fas fa-check"></i>
-                                                                </strong> Rows deleted successfully`);
-            $("#requirement-requirement-button-ok-message-in-card").show();
+            ValidateAndSearch();
         },
         error: err => {
-            //Show error message
-            $("#requirement-requirement-error-message-title").html("RequirementModel.Copy(CopyType).subscribe(...)");
-            $("#requirement-requirement-error-message-text").html(err);
-            $("#requirement-requirement-button-error-message-in-card").show();
+            //ERROR
+            // @ts-ignore
+            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+            console.log(err);
         }
     });
 });
