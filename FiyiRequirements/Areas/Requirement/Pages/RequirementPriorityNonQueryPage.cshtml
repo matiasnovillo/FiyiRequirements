@@ -1,23 +1,25 @@
 @page
 @using FiyiRequirements.Areas.Requirement.Models
-@model FiyiRequirements.Areas.Requirement.Pages.PageRequirementStateNonQueryModel
+@model FiyiRequirements.Areas.Requirement.Pages.RequirementPriorityNonQueryPageModel
 @{
     Layout = "_LayoutDashboard";
 
     string NonQueryText = "";
     string NonQueryIcon = "";
 
-    int RequirementStateId;
+    int RequirementPriorityId;
     string Name;
+    string Description;
     
 
-    if(HttpContext.Request.QueryString.Value.Contains("?RequirementStateId=0"))
+    if(HttpContext.Request.QueryString.Value.Contains("?RequirementPriorityId=0"))
     {
         NonQueryText = "Add";
         NonQueryIcon = "fas fa-plus";
 
-        RequirementStateId = 0;
+        RequirementPriorityId = 0;
         Name = "";
+        Description = "";
         
     }
     else
@@ -25,11 +27,12 @@
         NonQueryText = "Edit";
         NonQueryIcon = "fas fa-pen";
 
-        RequirementStateModel RequirementStateModel = new RequirementStateModel().Select1ByRequirementStateIdToModel
-        (Convert.ToInt32(HttpContext.Request.QueryString.Value.Replace("?RequirementStateId=","")));
+        RequirementPriorityModel RequirementPriorityModel = new RequirementPriorityModel().Select1ByRequirementPriorityIdToModel
+        (Convert.ToInt32(HttpContext.Request.QueryString.Value.Replace("?RequirementPriorityId=","")));
 
-        RequirementStateId = RequirementStateModel.RequirementStateId;
-        Name = RequirementStateModel.Name;
+        RequirementPriorityId = RequirementPriorityModel.RequirementPriorityId;
+        Name = RequirementPriorityModel.Name;
+        Description = RequirementPriorityModel.Description;
         
     }
 
@@ -45,7 +48,7 @@
  */
     
 //Stack: 11
-//Last modification on: 25/12/2022 18:16:36
+//Last modification on: 25/12/2022 18:13:11
 
 }
 <!-- Header -->
@@ -56,7 +59,7 @@
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
                     <!-- Title -->
-                    <h2 id="requirement-requirementstate-title-page" class="h2 text-white d-inline-block mb-0">@NonQueryText state</h2>
+                    <h2 id="requirement-requirementpriority-title-page" class="h2 text-white d-inline-block mb-0">@NonQueryText priority</h2>
                     <!-- Breadcrumb -->
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -72,7 +75,7 @@
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="javascript:void(0)">
-                                    State
+                                    Priority
                                  </a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
@@ -84,13 +87,13 @@
                 <div class="col-lg-6 col-5 text-right">
                     <!-- XL Screens -->
                     <div class="d-none d-xl-inline">
-                        <a href="/Requirement/PageRequirementStateQuery" class="btn btn-secondary">
+                        <a href="/Requirement/PageRequirementPriorityQuery" class="btn btn-secondary">
                             <i class="fas fa-angle-left"></i> Go back
                         </a>
                     </div>
                     <!-- Other Screens -->
                     <div class="d-inline d-sm-inline d-md-inline d-lg-inline d-xl-none">
-                        <a href="/Requirement/PageRequirementStateQuery" class="btn btn-secondary">
+                        <a href="/Requirement/PageRequirementPriorityQuery" class="btn btn-secondary">
                             <i class="fas fa-angle-left"></i>
                         </a>
                     </div>
@@ -108,28 +111,28 @@
                 <!-- Card body -->
                 <div class="card-body">
                     <form role="form" class="needs-validation" novalidate>
-                        <!-- RequirementStateId -->
+                        <!-- RequirementPriorityId -->
                         <div class="form-group mb-3">
-                            <label for="requirement-requirementstate-requirementstateId-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-key"></i> State ID
+                            <label for="requirement-requirementpriority-requirementpriorityId-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                <i class="fas fa-key"></i> Priority ID
                             </label>
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
                                     <span class="input-group-text">
                                         <strong>
-                                            <i class="fas fa-key"></i> State ID
+                                            <i class="fas fa-key"></i> Priority ID
                                         </strong>
                                     </span>
                                 </div>
-                                <input type="hidden" id="requirement-requirementstate-requirementstateid-input" value="@RequirementStateId"/>
-                                <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="bottom" title="@RequirementStateId"  type="button" value="RequirementStateId">
+                                <input type="hidden" id="requirement-requirementpriority-requirementpriorityid-input" value="@RequirementPriorityId"/>
+                                <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="bottom" title="@RequirementPriorityId"  type="button" value="RequirementPriorityId">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </div>
                         </div>
                         <!-- Name -->
                         <div class="form-group mb-3">
-                            <label for="requirement-requirementstate-name-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                            <label for="requirement-requirementpriority-name-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
                                 <i class="fas fa-font"></i> Name
                             </label>
                             <div class="input-group input-group-merge input-group-alternative">
@@ -140,9 +143,32 @@
                                         </strong>
                                     </span>
                                 </div>
-                                <input class="form-control" min="1" max="100" type="text" id="requirement-requirementstate-name-input" value="@Name" >
+                                <input class="form-control" min="1" max="100" type="text" id="requirement-requirementpriority-name-input" value="@Name" >
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="name-info">
+                                        <i class="fas fa-info"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Description -->
+                        <div class="form-group mb-3">
+                            <label for="requirement-requirementpriority-description-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
+                                <i class="fas fa-font"></i> Description
+                            </label>
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
+                                    <span class="input-group-text ">
+                                        <strong>
+                                            <i class="fas fa-font"></i> Description
+                                        </strong>
+                                    </span>
+                                </div>
+                                <textarea class="form-control mt-1" id="requirement-requirementpriority-description-input" rows="3" resize="none" maxlength="2000">
+                                    @Description
+                                </textarea>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="description-info">
                                         <i class="fas fa-info"></i>
                                     </button>
                                 </div>
@@ -151,9 +177,9 @@
                         
                         <!-- Buttons -->
                         <div class="row justify-content-between">
-                            <button id="requirement-requirementstate-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="@NonQueryIcon"></i> @NonQueryText</button>
-                            <button id="requirement-requirementstate-insert-or-update-message" data-toggle="modal" data-target="#requirement-requirementstate-error-message-modal" class="btn mt-4" type="button"></button>
-                            <a href="/Requirement/PageRequirementStateQuery" class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
+                            <button id="requirement-requirementpriority-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="@NonQueryIcon"></i> @NonQueryText</button>
+                            <button id="requirement-requirementpriority-insert-or-update-message" data-toggle="modal" data-target="#requirement-requirementpriority-error-message-modal" class="btn mt-4" type="button"></button>
+                            <a href="/Requirement/PageRequirementPriorityQuery" class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
                                 <i class="fas fa-angle-left"></i> Go back
                             </a>
                         </div>
@@ -170,7 +196,7 @@
 <!-- Error message in modal style -->
 <div class="row">
     <div class="col-md-4 px-0">
-        <div class="modal fade" id="requirement-requirementstate-error-message-modal" tabindex="-1" role="dialog" aria-labelledby="requirement-requirementstate-error-message-modal" aria-hidden="true">
+        <div class="modal fade" id="requirement-requirementpriority-error-message-modal" tabindex="-1" role="dialog" aria-labelledby="requirement-requirementpriority-error-message-modal" aria-hidden="true">
             <div class="modal-dialog modal-secondary modal-dialog-centered modal-" role="document">
                 <div class="modal-content bg-gradient-danger">
                     <!-- Modal title -->
@@ -182,8 +208,8 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="py-3 text-center">
-                            <h4 id="/requirement-requirementstate-error-message-title" class="heading mt-4 text-white"></h4>
-                            <p class="text-white text-truncate" id="requirement-requirementstate-error-message-text"></p>
+                            <h4 id="/requirement-requirementpriority-error-message-title" class="heading mt-4 text-white"></h4>
+                            <p class="text-white text-truncate" id="requirement-requirementpriority-error-message-text"></p>
                         </div>
                     </div>
                     <!-- Close button -->
@@ -215,7 +241,7 @@
                         <form role="form">
                             <div class="form-group">
                                 <div class="input-group input-group-merge input-group-alternative">
-                                    <select id="requirement-requirementstate-foreignkeydropdown-select" class="form-control" data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Choose value" data-allow-reset="true">
+                                    <select id="requirement-requirementpriority-foreignkeydropdown-select" class="form-control" data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Choose value" data-allow-reset="true">
                                         <option value="0"></option> <!--This must be empty-->
                                     </select>
                                 </div>
@@ -264,4 +290,4 @@
 
 <script src="/js/BasicCore/jquery-3.6.1.min.js"></script>
 <script src="/assets/vendor/quill/dist/quill.min.js"></script>
-<script src="/js/Requirement/RequirementState/jQuery/RequirementStateNonQuery_jQuery.js"></script>
+<script src="/js/Requirement/RequirementPriority/jQuery/RequirementPriorityNonQuery_jQuery.js"></script>

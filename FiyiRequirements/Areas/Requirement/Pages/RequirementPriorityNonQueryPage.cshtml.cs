@@ -16,7 +16,7 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 25/12/2022 18:16:36
+//Last modification on: 25/12/2022 18:13:11
 
 namespace FiyiRequirements.Areas.Requirement.Pages
 {
@@ -24,10 +24,10 @@ namespace FiyiRequirements.Areas.Requirement.Pages
     /// Stack:             9 <br/>
     /// Name:              C# Razor Page. <br/>
     /// Function:          Allow you to show HTML files using Razor Page technology. <br/>
-    /// Last modification: 25/12/2022 18:16:36
+    /// Last modification: 25/12/2022 18:13:11
     /// </summary>
-    [RequirementStateFilter]
-    public partial class PageRequirementStateQueryModel : PageModel
+    [RequirementPriorityFilter]
+    public partial class RequirementPriorityNonQueryPageModel : PageModel
     {
         public void OnGet()
         {
@@ -38,6 +38,6 @@ namespace FiyiRequirements.Areas.Requirement.Pages
 
             ViewData["FantasyName"] = UserModel.FantasyName;
             ViewData["Menues"] = Menues;
-            }
+        }
     }
 }

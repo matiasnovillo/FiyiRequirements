@@ -27,7 +27,7 @@ namespace FiyiRequirements.Areas.Requirement.Pages
     /// Last modification: 27/12/2022 20:52:58
     /// </summary>
     [RequirementFilter]
-    public partial class PageRequirementQueryModel : PageModel
+    public partial class RequirementNonQueryPageModel : PageModel
     {
         public void OnGet()
         {
@@ -38,6 +38,6 @@ namespace FiyiRequirements.Areas.Requirement.Pages
 
             ViewData["FantasyName"] = UserModel.FantasyName;
             ViewData["Menues"] = Menues;
-            }
+        }
     }
 }

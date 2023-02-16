@@ -27,7 +27,7 @@ namespace FiyiRequirements.Areas.Requirement.Pages
     /// Last modification: 25/12/2022 18:13:11
     /// </summary>
     [RequirementPriorityFilter]
-    public partial class PageRequirementPriorityQueryModel : PageModel
+    public partial class RequirementPriorityQueryPageModel : PageModel
     {
         public void OnGet()
         {
