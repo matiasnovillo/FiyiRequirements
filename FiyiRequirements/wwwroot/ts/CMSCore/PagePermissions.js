@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var $ = require("jquery");
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
+require("bootstrap-notify");
 var RoleId = "0";
 //LOAD EVENT
 if ($("#title-page").html().includes("Permissions")) {
@@ -38,46 +39,21 @@ if ($("#title-page").html().includes("Permissions")) {
         var xmlHttpRequest = new XMLHttpRequest();
         //Set event listeners
         xmlHttpRequest.upload.addEventListener("loadstart", function (e) {
-            //Show success button and success message modal
-            $("#message").addClass("btn-secondary");
-            $("#message").removeClass("btn-success");
-            $("#message").removeClass("btn-danger");
-            $("#message").html("Sending data. Please, wait");
-        });
-        xmlHttpRequest.upload.addEventListener("progress", function (e) {
-            // While sending and loading data.
-        });
-        xmlHttpRequest.upload.addEventListener("load", function (e) {
-            // When the request has successfully completed.
-        });
-        xmlHttpRequest.upload.addEventListener("loadend", function (e) {
-            // When the request has completed (either in success or failure).
-        });
-        xmlHttpRequest.upload.addEventListener("error", function (e) {
-            // When the request has failed.
-        });
-        xmlHttpRequest.upload.addEventListener("abort", function (e) {
-            // When the request has been aborted. 
-        });
-        xmlHttpRequest.upload.addEventListener("timeout", function (e) {
-            // When the author specified timeout has passed before the request could complete
+            // @ts-ignore
+            $.notify({ message: "Sending data. Please, wait" }, { type: "info", placement: { from: "bottom", align: "center" } });
         });
         xmlHttpRequest.onload = function () {
             console.log(xmlHttpRequest);
             if (xmlHttpRequest.status >= 400) {
-                //Show error button and error message modal
-                $("#message").addClass("btn-danger");
-                $("#message").removeClass("btn-success");
-                $("#message").removeClass("btn-secondary");
-                $("#message").html("<i class=\"fas fa-exclamation-triangle\"></i> \n                                        There was an error while sending the data");
-                console.log("Error:" + xmlHttpRequest.response);
+                //ERROR
+                // @ts-ignore
+                $.notify({ message: "There was an error while sending the data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                console.log(xmlHttpRequest);
             }
             else {
-                //Show success button
-                $("#message").addClass("btn-success");
-                $("#message").removeClass("btn-danger");
-                $("#message").removeClass("btn-secondary");
-                $("#message").html("<i class=\"fas fa-check\"></i>\n                                        Data sent successfully");
+                //SUCCESS
+                // @ts-ignore
+                $.notify({ message: "Data sent successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
             }
         };
         //Open connection
