@@ -15,6 +15,27 @@
 
 //Last modification on: 27/12/2022 20:52:58
 
+//Used for Quill Editor
+let requirementrequirementbodytoolbaroptions = [
+    ["bold", "italic", "underline", "strike"],        // toggled buttons
+    ["link", "blockquote", "code-block"],
+
+    [{ "header": 1 }, { "header": 2 }],               // custom button values
+    [{ "list": "ordered" }, { "list": "bullet" }],
+    [{ "script": "sub" }, { "script": "super" }],      // superscript/subscript
+    [{ "indent": "-1" }, { "indent": "+1" }],          // outdent/indent
+    [{ "direction": "rtl" }],                         // text direction
+    ["image", "video"],
+    ["clean"]                                         // remove formatting button
+];
+let requirementrequirementbodyquill = new Quill("#requirement-requirement-body-input", {
+    modules: {
+        toolbar: requirementrequirementbodytoolbaroptions
+    },
+    theme: "snow"
+});
+
+//LOAD EVENT
 $(document).ready(function () {
     requirementrequirementbodyquill.root.innerHTML = $("#requirement-requirement-body-hidden-value").val();
 
@@ -46,183 +67,101 @@ $(document).ready(function () {
             </a>
             <input type="hidden" id="requirement-requirement-useremployeeid-input" value="${$("#requirement-requirement-useremployeeid-select option:selected").val()}"/>
         </li>`);
+
     });
-});
 
-//Used for Quill Editor
-let requirementrequirementbodytoolbaroptions = [
-    ["bold", "italic", "underline", "strike"],        // toggled buttons
-    ["link", "blockquote", "code-block"],
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName("needs-validation");
+    // Loop over them and prevent submission
+    Array.prototype.filter.call(forms, function (form) {
+        form.addEventListener("submit", function (event) {
 
-    [{ "header": 1 }, { "header": 2 }],               // custom button values
-    [{ "list": "ordered" }, { "list": "bullet" }],
-    [{ "script": "sub" }, { "script": "super" }],      // superscript/subscript
-    [{ "indent": "-1" }, { "indent": "+1" }],          // outdent/indent
-    [{ "direction": "rtl" }],                         // text direction
-    ["image", "video"],
-    ["clean"]                                         // remove formatting button
-];
-let requirementrequirementbodyquill = new Quill("#requirement-requirement-body-input", {
-    modules: {
-        toolbar: requirementrequirementbodytoolbaroptions
-    },
-    theme: "snow"
-});
+            event.preventDefault();
+            event.stopPropagation();
+
+            if (form.checkValidity() === true) {
+
+                //Create a formdata object
+                var formData = new FormData();
+
+                //RequirementId
+                formData.append("requirement-requirement-requirementid-input", $("#requirement-requirement-requirementid-input").val());
+
+                formData.append("requirement-requirement-title-input", $("#requirement-requirement-title-input").val());
+                formData.append("requirement-requirement-body-input", requirementrequirementbodyquill.root.innerHTML);
+                formData.append("requirement-requirement-requirementstateid-input", $("#requirement-requirement-requirementstateid-input").val());
+                formData.append("requirement-requirement-requirementpriorityid-input", $("#requirement-requirement-requirementpriorityid-input").val());
+                formData.append("requirement-requirement-useremployeeid-input", $("#requirement-requirement-useremployeeid-input").val());
 
 
-//Used for file input
+                //Setup request
+                var xmlHttpRequest = new XMLHttpRequest();
+                //Set event listeners
+                xmlHttpRequest.upload.addEventListener("loadstart", function (e) {
+                    //SAVING
+                    $.notify({ message: "Saving data. Please, wait" }, { type: "info", placement: { from: "bottom", align: "center" } });
+                });
+                xmlHttpRequest.onload = function () {
+                    if (xmlHttpRequest.status >= 400) {
+                        //ERROR
+                        console.log(xmlHttpRequest);
+                        $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while saving the data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                    }
+                    else {
+                        //SUCCESS
+                        $.notify({ icon: "fas fa-check", message: "Data sent successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
+
+                        //Create a formdata object
+                        var changehistoryformData = new FormData();
+                        //Stop stuff happening
+                        e.stopPropagation();
+                        e.preventDefault();
+
+                        //RequirementChangehistoryId
+                        changehistoryformData.append("requirement-requirementchangehistory-requirementchangehistoryid-input", $("#requirement-requirementchangehistory-requirementchangehistoryid-input").val());
+
+                        changehistoryformData.append("requirement-requirementchangehistory-requirementid-input", $("#requirement-requirement-requirementid-input").val());
+                        changehistoryformData.append("requirement-requirementchangehistory-requirementstateid-input", $("#requirement-requirement-requirementstateid-input").val());
+                        changehistoryformData.append("requirement-requirementchangehistory-requirementpriorityid-input", $("#requirement-requirement-requirementpriorityid-input").val());
 
 
-//Create a formdata object
-var formData = new FormData();
-$("#requirement-requirement-insert-or-update-button").on("click", function (e) {
-    //Stop stuff happening
-    e.stopPropagation();
-    e.preventDefault();
+                        //Setup request
+                        var changehistoryxmlHttpRequest = new XMLHttpRequest();
+                        //Set event listeners
+                        changehistoryxmlHttpRequest.upload.addEventListener("loadstart", function (e) {
+                            //SAVING
+                            $.notify({ message: "Saving data. Please, wait" }, { type: "info", placement: { from: "bottom", align: "center" } });
+                        });
+                        changehistoryxmlHttpRequest.onload = function () {
+                            if (xmlHttpRequest.status >= 400) {
+                                //ERROR
+                                console.log(xmlHttpRequest);
+                                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while saving the data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                            }
+                            else {
+                                //SUCCESS
+                                $.notify({ icon: "fas fa-check", message: "Data sent successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
+                            }
+                        };
+                        //Open connection
+                        changehistoryxmlHttpRequest.open("POST", "/api/Requirement/RequirementChangehistory/1/InsertOrUpdateAsync", true);
+                        //Send request
+                        changehistoryxmlHttpRequest.send(changehistoryformData);
+                    }
+                };
+                //Open connection
+                xmlHttpRequest.open("POST", "/api/Requirement/Requirement/1/InsertOrUpdateAsync", true);
+                //Send request
+                xmlHttpRequest.send(formData);
 
-    //Add or edit value
-    formData.append("requirement-requirement-title-page", $("#requirement-requirement-title-page").html());
-    formData.append("requirement-requirement-requirementid-input", $("#requirement-requirement-requirementid-input").val());
+            }
+            else {
+                $.notify({ message: "Please, complete all fields." }, { type: "warning", placement: { from: "bottom", align: "center" } });
+            }
 
-    formData.append("requirement-requirement-title-input", $("#requirement-requirement-title-input").val());
-    formData.append("requirement-requirement-body-input", requirementrequirementbodyquill.root.innerHTML);
-    formData.append("requirement-requirement-requirementstateid-input", $("#requirement-requirement-requirementstateid-input").val());
-    formData.append("requirement-requirement-requirementpriorityid-input", $("#requirement-requirement-requirementpriorityid-input").val());
-    formData.append("requirement-requirement-useremployeeid-input", $("#requirement-requirement-useremployeeid-input").val());
-    
 
-    //Setup request
-    var xmlHttpRequest = new XMLHttpRequest();
-    //Set event listeners
-    xmlHttpRequest.upload.addEventListener("loadstart", function (e) {
-        //Show success button and success message modal
-        $("#requirement-requirement-insert-or-update-message").addClass("btn-secondary");
-        $("#requirement-requirement-insert-or-update-message").removeClass("btn-success");
-        $("#requirement-requirement-insert-or-update-message").removeClass("btn-error");
-        $("#requirement-requirement-insert-or-update-message").removeAttr("data-toggle");
-        $("#requirement-requirement-insert-or-update-message").removeAttr("data-target");
-        $("#requirement-requirement-insert-or-update-message").html(`Sending data. Please, wait`);
+            form.classList.add("was-validated");
+        }, false);
     });
-    xmlHttpRequest.upload.addEventListener("progress", function (e) {
-        // While sending and loading data.
-    });
-    xmlHttpRequest.upload.addEventListener("load", function (e) {
-        // When the request has successfully completed.
-    });
-    xmlHttpRequest.upload.addEventListener("loadend", function (e) {
-        // When the request has completed (either in success or failure).
-    });
-    xmlHttpRequest.upload.addEventListener("error", function (e) {
-        // When the request has failed.
-    });
-    xmlHttpRequest.upload.addEventListener("abort", function (e) {
-        // When the request has been aborted. 
-    });
-    xmlHttpRequest.upload.addEventListener("timeout", function (e) {
-        // When the author specified timeout has passed before the request could complete
-    });
-    xmlHttpRequest.onload = function () {
-        if (xmlHttpRequest.status >= 400) {
-            //Show error button and error message modal
-            $("#requirement-requirement-insert-or-update-message").addClass("btn-danger");
-            $("#requirement-requirement-insert-or-update-message").removeClass("btn-success");
-            $("#requirement-requirement-insert-or-update-message").removeClass("btn-secondary");
-            $("#requirement-requirement-insert-or-update-message").attr("data-toggle", "modal");
-            $("#requirement-requirement-insert-or-update-message").attr("data-target", "#requirement-requirement-error-message-modal");
-            $("#requirement-requirement-insert-or-update-message").html(`<i class="fas fa-exclamation-triangle"></i> 
-                                                                There was an error while sending the data`);
-            $("#requirement-requirement-error-message-title").html("There was an error while sending the data");
-            $("#requirement-requirement-error-message-text").html(xmlHttpRequest.response);
-            console.log("Error:" + xmlHttpRequest.response);
-        }
-        else {
-            //Show success button
-            $("#requirement-requirement-insert-or-update-message").addClass("btn-success");
-            $("#requirement-requirement-insert-or-update-message").removeClass("btn-error");
-            $("#requirement-requirement-insert-or-update-message").removeClass("btn-secondary");
-            $("#requirement-requirement-insert-or-update-message").removeAttr("data-toggle");
-            $("#requirement-requirement-insert-or-update-message").removeAttr("data-target");
-            $("#requirement-requirement-insert-or-update-message").html(`<i class="fas fa-check"></i>
-                                                                Data sent successfully`);
 
-            //Create a formdata object
-            var changehistoryformData = new FormData();
-            //Stop stuff happening
-            e.stopPropagation();
-            e.preventDefault();
-
-            //Add or edit value
-            changehistoryformData.append("requirement-requirementchangehistory-title-page", $("#requirement-requirementchangehistory-title-page").html());
-            changehistoryformData.append("requirement-requirementchangehistory-requirementchangehistoryid-input", $("#requirement-requirementchangehistory-requirementchangehistoryid-input").val());
-
-            changehistoryformData.append("requirement-requirementchangehistory-requirementid-input", $("#requirement-requirement-requirementid-input").val());
-            changehistoryformData.append("requirement-requirementchangehistory-requirementstateid-input", $("#requirement-requirement-requirementstateid-input").val());
-            changehistoryformData.append("requirement-requirementchangehistory-requirementpriorityid-input", $("#requirement-requirement-requirementpriorityid-input").val());
-
-
-            //Setup request
-            var changehistoryxmlHttpRequest = new XMLHttpRequest();
-            //Set event listeners
-            changehistoryxmlHttpRequest.upload.addEventListener("loadstart", function (e) {
-                //Show success button and success message modal
-                $("#requirement-requirementchangehistory-insert-or-update-message").addClass("btn-secondary");
-                $("#requirement-requirementchangehistory-insert-or-update-message").removeClass("btn-success");
-                $("#requirement-requirementchangehistory-insert-or-update-message").removeClass("btn-error");
-                $("#requirement-requirementchangehistory-insert-or-update-message").removeAttr("data-toggle");
-                $("#requirement-requirementchangehistory-insert-or-update-message").removeAttr("data-target");
-                $("#requirement-requirementchangehistory-insert-or-update-message").html(`Sending data. Please, wait`);
-            });
-            changehistoryxmlHttpRequest.upload.addEventListener("progress", function (e) {
-                // While sending and loading data.
-            });
-            changehistoryxmlHttpRequest.upload.addEventListener("load", function (e) {
-                // When the request has successfully completed.
-            });
-            changehistoryxmlHttpRequest.upload.addEventListener("loadend", function (e) {
-                // When the request has completed (either in success or failure).
-            });
-            changehistoryxmlHttpRequest.upload.addEventListener("error", function (e) {
-                // When the request has failed.
-            });
-            changehistoryxmlHttpRequest.upload.addEventListener("abort", function (e) {
-                // When the request has been aborted. 
-            });
-            changehistoryxmlHttpRequest.upload.addEventListener("timeout", function (e) {
-                // When the author specified timeout has passed before the request could complete
-            });
-            changehistoryxmlHttpRequest.onload = function () {
-                if (changehistoryxmlHttpRequest.status >= 400) {
-                    //Show error button and error message modal
-                    $("#requirement-requirementchangehistory-insert-or-update-message").addClass("btn-danger");
-                    $("#requirement-requirementchangehistory-insert-or-update-message").removeClass("btn-success");
-                    $("#requirement-requirementchangehistory-insert-or-update-message").removeClass("btn-secondary");
-                    $("#requirement-requirementchangehistory-insert-or-update-message").attr("data-toggle", "modal");
-                    $("#requirement-requirementchangehistory-insert-or-update-message").attr("data-target", "#requirement-requirementchangehistory-error-message-modal");
-                    $("#requirement-requirementchangehistory-insert-or-update-message").html(`<i class="fas fa-exclamation-triangle"></i> 
-                                                            There was an error while sending the data`);
-                    $("#requirement-requirementchangehistory-error-message-title").html("There was an error while sending the data");
-                    $("#requirement-requirementchangehistory-error-message-text").html(xmlHttpRequest.response);
-                    console.log("Error:" + xmlHttpRequest.response);
-                }
-                else {
-                    //Show success button
-                    $("#requirement-requirementchangehistory-insert-or-update-message").addClass("btn-success");
-                    $("#requirement-requirementchangehistory-insert-or-update-message").removeClass("btn-error");
-                    $("#requirement-requirementchangehistory-insert-or-update-message").removeClass("btn-secondary");
-                    $("#requirement-requirementchangehistory-insert-or-update-message").removeAttr("data-toggle");
-                    $("#requirement-requirementchangehistory-insert-or-update-message").removeAttr("data-target");
-                    $("#requirement-requirementchangehistory-insert-or-update-message").html(`<i class="fas fa-check"></i>
-                                                            Data sent successfully`);
-                }
-            };
-            //Open connection
-            changehistoryxmlHttpRequest.open("POST", "/api/Requirement/RequirementChangehistory/1/InsertOrUpdateAsync", true);
-            //Send request
-            changehistoryxmlHttpRequest.send(changehistoryformData);
-        }
-    };
-    //Open connection
-    xmlHttpRequest.open("POST", "/api/Requirement/Requirement/1/InsertOrUpdateAsync", true);
-    //Send request
-    xmlHttpRequest.send(formData);
 });

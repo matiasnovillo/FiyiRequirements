@@ -56,7 +56,12 @@
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
                     <!-- Title -->
-                    <h2 id="requirement-requirementstate-title-page" class="h2 text-white d-inline-block mb-0">@NonQueryText state</h2>
+                    <h2 class="h2 text-white d-inline-block mb-0">
+                        @NonQueryText state
+                    </h2>
+                    <input type="hidden" 
+                        id="requirement-requirementstate-requirementstateid-input" 
+                        value="@RequirementStateId"/>
                     <!-- Breadcrumb -->
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -107,54 +112,36 @@
             <div class="card">
                 <!-- Card body -->
                 <div class="card-body">
-                    <form role="form" class="needs-validation" novalidate>
-                        <!-- RequirementStateId -->
-                        <div class="form-group mb-3">
-                            <label for="requirement-requirementstate-requirementstateId-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-key"></i> State ID
-                            </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text">
-                                        <strong>
-                                            <i class="fas fa-key"></i> State ID
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input type="hidden" id="requirement-requirementstate-requirementstateid-input" value="@RequirementStateId"/>
-                                <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="bottom" title="@RequirementStateId"  type="button" value="RequirementStateId">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
+                    <form class="needs-validation" novalidate>
                         <!-- Name -->
                         <div class="form-group mb-3">
-                            <label for="requirement-requirementstate-name-input" class="form-control-label d-inline d-sm-inline d-md-inline d-lg-none d-xl-none">
-                                <i class="fas fa-font"></i> Name
+                            <label for="requirement-requirementstate-name-input" class="form-control-label">
+                                <i class="fas fa-font"></i> 
+                                Name
                             </label>
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend d-none d-sm-none d-md-none d-lg-inline d-xl-inline">
-                                    <span class="input-group-text ">
-                                        <strong>
-                                            <i class="fas fa-font"></i> Name
-                                        </strong>
-                                    </span>
-                                </div>
-                                <input class="form-control" min="1" max="100" type="text" id="requirement-requirementstate-name-input" value="@Name" >
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary border-0" data-toggle="tooltip" data-placement="left" title="" type="button" id="name-info">
-                                        <i class="fas fa-info"></i>
-                                    </button>
-                                </div>
+                            <input class="form-control" 
+                                min="1" 
+                                max="100" 
+                                type="text" 
+                                id="requirement-requirementstate-name-input" 
+                                value="@Name"
+                                required>
+                            <div class="invalid-feedback">
+                                This value is required.
                             </div>
                         </div>
                         
                         <!-- Buttons -->
                         <div class="row justify-content-between">
-                            <button id="requirement-requirementstate-insert-or-update-button" class="btn btn-primary text-nowrap ml-3 mt-4" type="button"><i class="@NonQueryIcon"></i> @NonQueryText</button>
-                            <button id="requirement-requirementstate-insert-or-update-message" data-toggle="modal" data-target="#requirement-requirementstate-error-message-modal" class="btn mt-4" type="button"></button>
-                            <a href="/Requirement/RequirementStateQueryPage" class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
-                                <i class="fas fa-angle-left"></i> Go back
+                            <button class="btn btn-primary text-nowrap ml-3 mt-4" 
+                                type="submit">
+                                    <i class="@NonQueryIcon"></i> 
+                                    @NonQueryText
+                            </button>
+                            <a href="/Requirement/RequirementStateQueryPage" 
+                                class="btn btn-outline-primary col-auto mr-3 mt-4 text-nowrap">
+                                    <i class="fas fa-angle-left"></i> 
+                                    Go back
                             </a>
                         </div>
                     </form>
