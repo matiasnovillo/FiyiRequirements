@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //Import libraries to use
 var RequirementFile_TsModel_1 = require("../../RequirementFile/TsModels/RequirementFile_TsModel");
 var $ = require("jquery");
+require("bootstrap-notify");
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  *
@@ -109,10 +110,9 @@ var RequirementFileQuery = /** @class */ (function () {
                     }
                 }
                 else {
-                    //Show error message
-                    $("#requirement-requirementfile-error-message-title").html("No registers found");
-                    $("#requirement-requirementfile-error-message-text").html("The server did not found any register. HTTP code 204");
-                    $("#requirement-requirementfile-button-error-message-in-card").show();
+                    //ERROR
+                    // @ts-ignore
+                    $.notify({ icon: "fas fa-exclamation-triangle", message: "No registers found" }, { type: "warning", placement: { from: "bottom", align: "center" } });
                 }
             },
             complete: function () {
@@ -155,10 +155,6 @@ var RequirementFileQuery = /** @class */ (function () {
                     }
                     requirementfileValidateAndSearch();
                 });
-                //Hide error message
-                $("#requirement-requirementfile-error-message-title").html("");
-                $("#requirement-requirementfile-error-message-text").html("");
-                $("#requirement-requirementfile-button-error-message-in-card").hide();
                 //Delete button in table and list
                 $("div.dropdown-menu button.requirement-requirementfile-table-delete-button, div.dropdown-menu button.requirement-requirementfile-list-delete-button").on("click", function (e) {
                     var RequirementFileId = $(this).val();
@@ -166,17 +162,16 @@ var RequirementFileQuery = /** @class */ (function () {
                         next: function (newrow) {
                         },
                         complete: function () {
+                            //SUCCESS
+                            // @ts-ignore
+                            $.notify({ icon: "fas fa-check", message: "Row deleted successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
                             requirementfileValidateAndSearch();
-                            //Show OK message
-                            $("#requirement-requirementfile-button-error-message-in-card").hide();
-                            $("#requirement-requirementfile-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Row deleted successfully");
-                            $("#requirement-requirementfile-button-ok-message-in-card").show();
                         },
                         error: function (err) {
-                            //Related to error message
-                            $("#requirement-requirementfile-error-message-title").html("RequirementFileModel.DeleteByRequirementFileId(RequirementFileId).subscribe(...)");
-                            $("#requirement-requirementfile-error-message-text").html(err);
-                            $("#requirement-requirementfile-button-error-message-in-card").show();
+                            //ERROR
+                            // @ts-ignore
+                            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to delete data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                            console.log(err);
                         }
                     });
                 });
@@ -187,35 +182,31 @@ var RequirementFileQuery = /** @class */ (function () {
                         next: function (newrow) {
                         },
                         complete: function () {
+                            //SUCCESS
+                            // @ts-ignore
+                            $.notify({ icon: "fas fa-check", message: "Row copied successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
                             requirementfileValidateAndSearch();
-                            //Show OK message
-                            $("#requirement-requirementfile-button-error-message-in-card").hide();
-                            $("#requirement-requirementfile-button-ok-message-in-card").html("<strong>\n                                                                    <i class=\"fas fa-check\"></i>\n                                                                </strong> Row copied successfully");
-                            $("#requirement-requirementfile-button-ok-message-in-card").show();
                         },
                         error: function (err) {
-                            //Show error message
-                            $("#requirement-requirementfile-error-message-title").html("RequirementFileModel.CopyByRequirementFileId(RequirementFileId).subscribe(...)");
-                            $("#requirement-requirementfile-error-message-text").html(err);
-                            $("#requirement-requirementfile-button-error-message-in-card").show();
+                            //ERROR
+                            // @ts-ignore
+                            $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to copy data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                            console.log(err);
                         }
                     });
                 });
             },
             error: function (err) {
-                //Show error message
-                $("#requirement-requirementfile-error-message-title").html("RequirementFileModel.SelectAllPaged(request_requirementfilemodelQ).subscribe(...)");
-                $("#requirement-requirementfile-error-message-text").html(err);
-                $("#requirement-requirementfile-button-error-message-in-card").show();
+                //ERROR
+                // @ts-ignore
+                $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while trying to get data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                console.log(err);
             }
         });
     };
     return RequirementFileQuery;
 }());
 function requirementfileValidateAndSearch() {
-    //Hide error and OK message button
-    $("#requirement-requirementfile-button-error-message-in-card").hide();
-    $("#requirement-requirementfile-button-ok-message-in-card").hide();
     var _requirementfilemodelQuery = {
         requirementfileQueryString: requirementfileQueryString,
         requirementfileActualPageNumber: requirementfileActualPageNumber,
@@ -243,8 +234,6 @@ if ($("#requirement-requirement-title-page").html().includes("Edit requirement")
     $("#requirement-requirementfile-lnk-previous-page-lg, #requirement-requirementfile-lnk-previous-page").attr("disabled", "disabled");
     //Hide messages
     $("#requirement-requirementfile-export-message").html("");
-    $("#requirement-requirementfile-button-error-message-in-card").hide();
-    $("#requirement-requirementfile-button-ok-message-in-card").hide();
     requirementfileValidateAndSearch();
 }
 //CLICK, SCROLL AND KEYBOARD EVENTS
