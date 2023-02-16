@@ -35,10 +35,10 @@
         Body = "";
         RequirementStateId = 1; //For a new requirement, StateId is 1: Pending assignment
         RequirementPriorityId = 0;
-        UserEmployeeId = 0; //For a new requirement, UserEmployeeName is 0: Pending assignment
+        UserEmployeeId = 17;
         RequirementStateName = "Pending assignment"; //For a new requirement, StateId is 1: Pending assignment
         RequirementPriorityName = "Choose a value";
-        UserEmployeeName = "Pending assignment"; //For a new requirement, UserEmployeeName is 0: Pending assignment
+        UserEmployeeName = "Matias Novillo"; //For a new requirement, UserEmployeeName is 0: Pending assignment
 
         //Validations
         NavLinksEnabled = false;
@@ -195,7 +195,7 @@
             <div class="card-body">
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                        <form class="needs-validation" novalidate>
+                        <form class="needs-validation-requirement" novalidate>
                                 <!-- Title -->
                                 <div class="form-group mb-3">
                                     <label for="requirement-requirement-title-input" class="form-control-label">
@@ -354,7 +354,7 @@
                     </div>
                     <!-- Note -->
                     <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                        <form class="needs-validation" novalidate>
+                        <form class="needs-validation-requirementnote" novalidate>
                             <!-- Title -->
                             <label for="requirement-requirementnote-title-input" class="form-control-label">
                                 <i class="fas fa-font"></i> 
@@ -391,7 +391,7 @@
                         <div class="row">
                             <div class="col-4 col-sm-4 col-md-4">
                                 <div class="nav-wrapper d-none d-sm-none d-md-inline d-lg-inline d-xl-inline">
-                                    <ul id="tabs-icons-text-requirementnote" class="nav nav-pills nav-fill flex-column flex-md-row" role="tablist">
+                                    <ul id="tabs-icons-text-requirementnote" class="nav nav-pills nav-fill flex-column flex-md-row mb-3" role="tablist">
                                         <!-- Table view button -->
                                         <li class="nav-item">
                                             <a id="requirement-requirementnote-table-view-button" class="nav-link mb-sm-3 mb-md-0" data-toggle="tab" href="#tab-table-requirementnote" role="tab" aria-controls="tab-table-requirementnote" aria-selected="false">
@@ -493,7 +493,7 @@
                     </div>
                     <!-- File -->
                     <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
-                        <form role="form" class="needs-validation" novalidate>
+                        <form role="form" class="needs-validation-requirementfile" novalidate>
                             <!-- FilePath -->
                             <div class="form-group">
                                 <label class="form-control-label">
@@ -539,7 +539,7 @@
                         <div class="row">
                             <div class="col-4 col-sm-4 col-md-4">
                                 <div class="nav-wrapper d-none d-sm-none d-md-inline d-lg-inline d-xl-inline">
-                                    <ul id="tabs-icons-text-requirementfile" class="nav nav-pills nav-fill flex-column flex-md-row" role="tablist">
+                                    <ul id="tabs-icons-text-requirementfile" class="nav nav-pills nav-fill flex-column flex-md-row mb-3" role="tablist">
                                         <!-- Table view button -->
                                         <li class="nav-item">
                                             <a id="requirement-requirementfile-table-view-button" class="nav-link mb-sm-3 mb-md-0" data-toggle="tab" href="#tab-table-requirementfile" role="tab" aria-controls="tab-table-requirementfile" aria-selected="false">

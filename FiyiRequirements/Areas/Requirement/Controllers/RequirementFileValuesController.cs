@@ -17,14 +17,14 @@ using System.IO;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 29/12/2022 10:16:50
+//Last modification on: 16/02/2023 11:46:57
 
 namespace FiyiRequirements.Areas.Requirement.Controllers
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 29/12/2022 10:16:50
+    /// Last modification: 16/02/2023 11:46:57
     /// </summary>
     [ApiController]
     [RequirementFileFilter]
@@ -146,8 +146,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
         #endregion
 
         #region Non-Queries
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementFile/1/InsertOrUpdateAsync")]
-        
         public async Task<IActionResult> InsertOrUpdateAsync()
         {
             try
@@ -159,10 +159,13 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 {
                     return StatusCode(401, "User not found in session");
                 }
-
-                //Add or edit value
-                string AddOrEdit = HttpContext.Request.Form["requirement-requirementfile-insert-or-update-button"];
-
+                
+                #region Pass data from client to server
+                string FilePath = HttpContext.Request.Form["requirement-requirementfile-filepath-input"];;
+                if (HttpContext.Request.Form.Files.Count != 0)
+                {
+                    FilePath = $@"/Uploads/Requirement/RequirementFile/{HttpContext.Request.Form.Files[0].FileName}";
+                }
                 int RequirementId = 0; 
                 if (Convert.ToInt32(HttpContext.Request.Form["requirement-requirement-requirementid-input"]) != 0)
                 {
@@ -170,48 +173,25 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 }
                 else
                 { return StatusCode(400, "It's not allowed to save zero values in RequirementId"); }
-                string FilePath = HttpContext.Request.Form["requirement-requirementfile-filepath-input"];;
-                if (HttpContext.Request.Form.Files.Count != 0)
-                {
-                    FilePath = $@"/Uploads/Requirement/RequirementFile/{HttpContext.Request.Form.Files[0].FileName}";
-                }
                 
+                #endregion
 
                 int NewEnteredId = 0;
-                int RowsAffected = 0;
 
-                if (AddOrEdit.Contains("Add"))
+                //Insert
+                RequirementFileModel RequirementFileModel = new RequirementFileModel()
                 {
-                    //Add
-                    RequirementFileModel RequirementFileModel = new RequirementFileModel()
-                    {
-                        Active = true,
-                        UserCreationId = UserId,
-                        UserLastModificationId = UserId,
-                        DateTimeCreation = DateTime.Now,
-                        DateTimeLastModification = DateTime.Now,
-                        RequirementId = RequirementId,
-                        FilePath = FilePath,
+                    Active = true,
+                    UserCreationId = UserId,
+                    UserLastModificationId = UserId,
+                    DateTimeCreation = DateTime.Now,
+                    DateTimeLastModification = DateTime.Now,
+                    FilePath = FilePath,
+                    RequirementId = RequirementId,
                         
-                    };
+                };
                     
-                    NewEnteredId = _RequirementFileProtocol.Insert(RequirementFileModel);
-                }
-                else
-                {
-                    //Update
-                    int RequirementFileId = Convert.ToInt32(HttpContext.Request.Form["requirement-requirementfile-requirementfileid-input"]);
-                    RequirementFileModel RequirementFileModel = new RequirementFileModel(RequirementFileId);
-                    
-                    RequirementFileModel.UserLastModificationId = UserId;
-                    RequirementFileModel.DateTimeLastModification = DateTime.Now;
-                    RequirementFileModel.RequirementId = RequirementId;
-                    RequirementFileModel.FilePath = FilePath;
-                                       
-
-                    RowsAffected = _RequirementFileProtocol.UpdateByRequirementFileId(RequirementFileModel);
-                }
-                
+                NewEnteredId = _RequirementFileProtocol.Insert(RequirementFileModel);
 
                 //Look for sent files
                 if (HttpContext.Request.Form.Files.Count != 0)
@@ -238,14 +218,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     }
                 }
 
-                if (AddOrEdit.StartsWith("Add"))
-                {
-                    return StatusCode(200, NewEnteredId); 
-                }
-                else
-                {
-                    return StatusCode(200, RowsAffected);
-                }
+                return StatusCode(200, NewEnteredId);
             }
             catch (Exception ex) 
             { 
@@ -269,8 +242,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpDelete("~/api/Requirement/RequirementFile/1/DeleteByRequirementFileId/{RequirementFileId:int}")]
-        
         public IActionResult DeleteByRequirementFileId(int RequirementFileId)
         {
             try
@@ -303,8 +276,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementFile/1/DeleteManyOrAll/{DeleteType}")]
-        
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
             try
@@ -338,8 +311,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementFile/1/CopyByRequirementFileId/{RequirementFileId:int}")]
-        
         public IActionResult CopyByRequirementFileId(int RequirementFileId)
         {
             try
@@ -373,8 +346,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementFile/1/CopyManyOrAll/{CopyType}")]
-        
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
             try
@@ -417,8 +390,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
         #endregion
 
         #region Other actions
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementFile/1/ExportAsPDF/{ExportationType}")]
-        
         public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -452,8 +425,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementFile/1/ExportAsExcel/{ExportationType}")]
-        
         public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -487,8 +460,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementFile/1/ExportAsCSV/{ExportationType}")]
-        
         public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
         {
             try

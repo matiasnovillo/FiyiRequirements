@@ -15,13 +15,6 @@
 
 //Last modification on: 25/12/2022 18:05:38
 
-$(document).ready(function () {
-
-});
-
-//Used for Quill Editor
-
-
 //Used for file input
 let requirementrequirementfilefilepathinput;
 let requirementrequirementfilefilepathboolfileadded;
@@ -31,83 +24,60 @@ $("#requirement-requirementfile-filepath-input").on("change", function (e) {
     formData.append("requirement-requirementfile-filepath-input", requirementrequirementfilefilepathinput[0], requirementrequirementfilefilepathinput[0].name);
 });
 
-
-
 //Create a formdata object
 var formData = new FormData();
-$("#requirement-requirementfile-insert-or-update-button").on("click", function (e) {
-    //Stop stuff happening
-    e.stopPropagation();
-    e.preventDefault();
 
-    //Add or edit value
-    formData.append("requirement-requirementfile-insert-or-update-button", $("#requirement-requirementfile-insert-or-update-button").html());
+//LOAD EVENT
+$(document).ready(function () {
 
-    formData.append("requirement-requirement-requirementid-input", $("#requirement-requirement-requirementid-input").val());
-    formData.append("requirement-requirementfile-filename-input", $("#requirement-requirementfile-filename-input").val());
-    if (!requirementrequirementfilefilepathboolfileadded) {
-        formData.append("requirement-requirementfile-filepath-input", $("#requirement-requirementfile-filepath-readonly").val());
-    }
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName("needs-validation-requirementfile");
+    // Loop over them and prevent submission
+    Array.prototype.filter.call(forms, function (form) {
+        form.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            if (form.checkValidity() === true) {
+
+                formData.append("requirement-requirement-requirementid-input", $("#requirement-requirement-requirementid-input").val());
+                formData.append("requirement-requirementfile-filename-input", $("#requirement-requirementfile-filename-input").val());
+                if (!requirementrequirementfilefilepathboolfileadded) {
+                    formData.append("requirement-requirementfile-filepath-input", $("#requirement-requirementfile-filepath-readonly").val());
+                }
+
+                //Setup request
+                var xmlHttpRequest = new XMLHttpRequest();
+                //Set event listeners
+                xmlHttpRequest.upload.addEventListener("loadstart", function (e) {
+                    //SAVING
+                    $.notify({ message: "Saving data. Please, wait" }, { type: "info", placement: { from: "bottom", align: "center" } });
+                });
+                xmlHttpRequest.onload = function () {
+                    if (xmlHttpRequest.status >= 400) {
+                        //ERROR
+                        console.log(xmlHttpRequest);
+                        $.notify({ icon: "fas fa-exclamation-triangle", message: "There was an error while saving the data" }, { type: "danger", placement: { from: "bottom", align: "center" } });
+                    }
+                    else {
+                        //SUCCESS
+                        $.notify({ icon: "fas fa-check", message: "Data sent successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
+                    }
+                };
+                //Open connection
+                xmlHttpRequest.open("POST", "/api/Requirement/RequirementFile/1/InsertOrUpdateAsync", true);
+                //Send request
+                xmlHttpRequest.send(formData);
+
+            }
+            else {
+                $.notify({ message: "Please, complete all fields." }, { type: "warning", placement: { from: "bottom", align: "center" } });
+            }
 
 
-    //Setup request
-    var xmlHttpRequest = new XMLHttpRequest();
-    //Set event listeners
-    xmlHttpRequest.upload.addEventListener("loadstart", function (e) {
-        //Show success button and success message modal
-        $("#requirement-requirementfile-insert-or-update-message").addClass("btn-secondary");
-        $("#requirement-requirementfile-insert-or-update-message").removeClass("btn-success");
-        $("#requirement-requirementfile-insert-or-update-message").removeClass("btn-error");
-        $("#requirement-requirementfile-insert-or-update-message").removeAttr("data-toggle");
-        $("#requirement-requirementfile-insert-or-update-message").removeAttr("data-target");
-        $("#requirement-requirementfile-insert-or-update-message").html(`Sending data. Please, wait`);
+            form.classList.add("was-validated");
+        }, false);
     });
-    xmlHttpRequest.upload.addEventListener("progress", function (e) {
-        // While sending and loading data.
-    });
-    xmlHttpRequest.upload.addEventListener("load", function (e) {
-        // When the request has successfully completed.
-    });
-    xmlHttpRequest.upload.addEventListener("loadend", function (e) {
-        // When the request has completed (either in success or failure).
-    });
-    xmlHttpRequest.upload.addEventListener("error", function (e) {
-        // When the request has failed.
-    });
-    xmlHttpRequest.upload.addEventListener("abort", function (e) {
-        // When the request has been aborted. 
-    });
-    xmlHttpRequest.upload.addEventListener("timeout", function (e) {
-        // When the author specified timeout has passed before the request could complete
-    });
-    xmlHttpRequest.onload = function () {
-        console.log(xmlHttpRequest);
-        if (xmlHttpRequest.status >= 400) {
-            //Show error button and error message modal
-            $("#requirement-requirementfile-insert-or-update-message").addClass("btn-danger");
-            $("#requirement-requirementfile-insert-or-update-message").removeClass("btn-success");
-            $("#requirement-requirementfile-insert-or-update-message").removeClass("btn-secondary");
-            $("#requirement-requirementfile-insert-or-update-message").attr("data-toggle", "modal");
-            $("#requirement-requirementfile-insert-or-update-message").attr("data-target", "#requirement-requirementfile-error-message-modal");
-            $("#requirement-requirementfile-insert-or-update-message").html(`<i class="fas fa-exclamation-triangle"></i> 
-                                                                There was an error while sending the data`);
-            $("#requirement-requirementfile-error-message-title").html("There was an error while sending the data");
-            $("#requirement-requirementfile-error-message-text").html(xmlHttpRequest.response);
-            console.log("Error:" + xmlHttpRequest.response);
-        }
-        else {
-            //Show success button
-            $("#requirement-requirementfile-insert-or-update-message").addClass("btn-success");
-            $("#requirement-requirementfile-insert-or-update-message").removeClass("btn-error");
-            $("#requirement-requirementfile-insert-or-update-message").removeClass("btn-secondary");
-            $("#requirement-requirementfile-insert-or-update-message").removeAttr("data-toggle");
-            $("#requirement-requirementfile-insert-or-update-message").removeAttr("data-target");
-            $("#requirement-requirementfile-insert-or-update-message").html(`<i class="fas fa-check"></i>
-                                                                Data sent successfully`);
-        }
-    };
-    //Open connection
-    xmlHttpRequest.open("POST", "/api/Requirement/RequirementFile/1/InsertOrUpdateAsync", true);
-    //Send request
-    xmlHttpRequest.send(formData);
+
 });

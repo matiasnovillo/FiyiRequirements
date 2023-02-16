@@ -17,14 +17,14 @@ using System.IO;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 28/12/2022 17:28:12
+//Last modification on: 16/02/2023 11:50:27
 
 namespace FiyiRequirements.Areas.Requirement.Controllers
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 28/12/2022 17:28:12
+    /// Last modification: 16/02/2023 11:50:27
     /// </summary>
     [ApiController]
     [RequirementNoteFilter]
@@ -146,8 +146,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
         #endregion
 
         #region Non-Queries
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementNote/1/InsertOrUpdateAsync")]
-        
         public async Task<IActionResult> InsertOrUpdateAsync()
         {
             try
@@ -159,10 +159,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 {
                     return StatusCode(401, "User not found in session");
                 }
-
-                //Add or edit value
-                string AddOrEdit = HttpContext.Request.Form["requirement-requirementnote-insert-or-update-button"];
-
+                
+                #region Pass data from client to server
                 string Title = HttpContext.Request.Form["requirement-requirementnote-title-input"];
                 string Body = HttpContext.Request.Form["requirement-requirementnote-body-input"];
                 int RequirementId = 0; 
@@ -173,78 +171,28 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 else
                 { return StatusCode(400, "It's not allowed to save zero values in RequirementId"); }
                 
+                #endregion
 
                 int NewEnteredId = 0;
                 int RowsAffected = 0;
 
-                if (AddOrEdit.Contains("Add"))
+                //Insert
+                RequirementNoteModel RequirementNoteModel = new RequirementNoteModel()
                 {
-                    //Add
-                    RequirementNoteModel RequirementNoteModel = new RequirementNoteModel()
-                    {
-                        Active = true,
-                        UserCreationId = UserId,
-                        UserLastModificationId = UserId,
-                        DateTimeCreation = DateTime.Now,
-                        DateTimeLastModification = DateTime.Now,
-                        Title = Title,
-                        Body = Body,
-                        RequirementId = RequirementId,
+                    Active = true,
+                    UserCreationId = UserId,
+                    UserLastModificationId = UserId,
+                    DateTimeCreation = DateTime.Now,
+                    DateTimeLastModification = DateTime.Now,
+                    Title = Title,
+                    Body = Body,
+                    RequirementId = RequirementId,
                         
-                    };
+                };
                     
-                    NewEnteredId = _RequirementNoteProtocol.Insert(RequirementNoteModel);
-                }
-                else
-                {
-                    //Update
-                    int RequirementNoteId = Convert.ToInt32(HttpContext.Request.Form["requirement-requirementnote-requirementnoteid-input"]);
-                    RequirementNoteModel RequirementNoteModel = new RequirementNoteModel(RequirementNoteId);
-                    
-                    RequirementNoteModel.UserLastModificationId = UserId;
-                    RequirementNoteModel.DateTimeLastModification = DateTime.Now;
-                    RequirementNoteModel.Title = Title;
-                    RequirementNoteModel.Body = Body;
-                    RequirementNoteModel.RequirementId = RequirementId;
-                                       
+                NewEnteredId = _RequirementNoteProtocol.Insert(RequirementNoteModel);
 
-                    RowsAffected = _RequirementNoteProtocol.UpdateByRequirementNoteId(RequirementNoteModel);
-                }
-                
-
-                //Look for sent files
-                if (HttpContext.Request.Form.Files.Count != 0)
-                {
-                    int i = 0; //Used to iterate in HttpContext.Request.Form.Files
-                    foreach (var File in Request.Form.Files)
-                    {
-                        if (File.Length > 0)
-                        {
-                            var FileName = HttpContext.Request.Form.Files[i].FileName;
-                            var FilePath = $@"{_WebHostEnvironment.WebRootPath}/Uploads/Requirement/RequirementNote/";
-
-                            using (var FileStream = new FileStream($@"{FilePath}{FileName}", FileMode.Create))
-                            {
-                                
-                                await File.CopyToAsync(FileStream); // Read file to stream
-                                byte[] array = new byte[FileStream.Length]; // Stream to byte array
-                                FileStream.Seek(0, SeekOrigin.Begin);
-                                FileStream.Read(array, 0, array.Length);
-                            }
-
-                            i += 1;
-                        }
-                    }
-                }
-
-                if (AddOrEdit.StartsWith("Add"))
-                {
-                    return StatusCode(200, NewEnteredId); 
-                }
-                else
-                {
-                    return StatusCode(200, RowsAffected);
-                }
+                return StatusCode(200, NewEnteredId);
             }
             catch (Exception ex) 
             { 
@@ -268,8 +216,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpDelete("~/api/Requirement/RequirementNote/1/DeleteByRequirementNoteId/{RequirementNoteId:int}")]
-        
         public IActionResult DeleteByRequirementNoteId(int RequirementNoteId)
         {
             try
@@ -302,8 +250,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementNote/1/DeleteManyOrAll/{DeleteType}")]
-        
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
             try
@@ -337,8 +285,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementNote/1/CopyByRequirementNoteId/{RequirementNoteId:int}")]
-        
         public IActionResult CopyByRequirementNoteId(int RequirementNoteId)
         {
             try
@@ -372,8 +320,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementNote/1/CopyManyOrAll/{CopyType}")]
-        
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
             try
@@ -416,8 +364,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
         #endregion
 
         #region Other actions
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementNote/1/ExportAsPDF/{ExportationType}")]
-        
         public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -451,8 +399,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementNote/1/ExportAsExcel/{ExportationType}")]
-        
         public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
         {
             try
@@ -486,8 +434,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/Requirement/RequirementNote/1/ExportAsCSV/{ExportationType}")]
-        
         public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
         {
             try
