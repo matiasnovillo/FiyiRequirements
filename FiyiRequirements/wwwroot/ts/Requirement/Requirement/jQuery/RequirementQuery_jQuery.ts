@@ -226,7 +226,7 @@ class RequirementQuery {
     
     <!-- Actions -->
     <td class="text-right">
-        <a class="btn btn-icon-only text-primary" href="/Requirement/PageRequirementNonQuery?RequirementId=${row.RequirementId}" role="button" data-toggle="tooltip" data-original-title="Edit">
+        <a class="btn btn-icon-only text-primary" href="/Requirement/RequirementNonQueryPage?RequirementId=${row.RequirementId}" role="button" data-toggle="tooltip" data-original-title="Edit">
             <i class="fas fa-edit"></i>
         </a>
         <div class="dropdown">
@@ -317,7 +317,7 @@ class RequirementQuery {
                                 </a>
                             </div>
                             <input type="hidden" value="${row.RequirementId}"/>
-                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/Requirement/PageRequirementNonQuery?RequirementId=${row.RequirementId}" role="button" data-toggle="tooltip" data-original-title="edit">
+                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/Requirement/RequirementNonQueryPage?RequirementId=${row.RequirementId}" role="button" data-toggle="tooltip" data-original-title="edit">
                                 <i class="fas fa-edit text-primary"></i>
                             </a>
                             <div class="dropup">

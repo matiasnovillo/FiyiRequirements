@@ -188,7 +188,7 @@ class RequirementStateQuery {
     
     <!-- Actions -->
     <td class="text-right">
-        <a class="btn btn-icon-only text-primary" href="/Requirement/PageRequirementStateNonQuery?RequirementStateId=${row.RequirementStateId}" role="button" data-toggle="tooltip" data-original-title="Edit">
+        <a class="btn btn-icon-only text-primary" href="/Requirement/RequirementStateNonQueryPage?RequirementStateId=${row.RequirementStateId}" role="button" data-toggle="tooltip" data-original-title="Edit">
             <i class="fas fa-edit"></i>
         </a>
         <div class="dropdown">
@@ -263,7 +263,7 @@ class RequirementStateQuery {
                                 </a>
                             </div>
                             <input type="hidden" value="${row.RequirementStateId}"/>
-                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/Requirement/PageRequirementStateNonQuery?RequirementStateId=${row.RequirementStateId}" role="button" data-toggle="tooltip" data-original-title="edit">
+                            <a class="icon icon-shape bg-white icon-sm rounded-circle shadow" href="/Requirement/RequirementStateNonQueryPage?RequirementStateId=${row.RequirementStateId}" role="button" data-toggle="tooltip" data-original-title="edit">
                                 <i class="fas fa-edit text-primary"></i>
                             </a>
                             <div class="dropup">
