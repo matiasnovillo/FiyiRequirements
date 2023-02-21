@@ -1,4 +1,5 @@
 using Dapper;
+using FiyiRequirements.Areas.BasicCulture.DTOs;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -27,8 +28,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
     /// Fields:            7 <br/> 
-    /// Dependencies:      0 models <br/>
-    /// Last modification: 20/12/2022 20:18:05
+    /// Sub-models:      0 models <br/>
+    /// Last modification: 21/02/2023 17:54:25
     /// </summary>
     [Serializable]
     public partial class SexModel
@@ -40,30 +41,41 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
         [Library.ModelAttributeValidator.Key("SexId")]
         public int SexId { get; set; }
 
-        [Library.ModelAttributeValidator.String("Name", false, 1, 500, "")]
-        public string Name { get; set; }
-
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
         public bool Active { get; set; }
 
-        [Library.ModelAttributeValidator.Int("UserCreationId", false, 1, 2147483647)]
-        public int UserCreationId { get; set; }
-
-        [Library.ModelAttributeValidator.Int("UserLastModificationId", false, 1, 2147483647)]
-        public int UserLastModificationId { get; set; }
-
-        [Library.ModelAttributeValidator.DateTime("DateTimeCreation", false, "01/01/1753 0:00:00.001", "30/12/9998 23:59:59.999")]
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        [Library.ModelAttributeValidator.DateTime("DateTimeCreation", false, "1753-01-01T00:00", "9998-12-30T23:59")]
         public DateTime DateTimeCreation { get; set; }
 
-        [Library.ModelAttributeValidator.DateTime("DateTimeLastModification", false, "01/01/1753 0:00:00.001", "30/12/9998 23:59:59.999")]
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        [Library.ModelAttributeValidator.DateTime("DateTimeLastModification", false, "1753-01-01T00:00", "9998-12-30T23:59")]
         public DateTime DateTimeLastModification { get; set; }
 
-        public string UserCreationIdFantasyName { get; set; }
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        [Library.ModelAttributeValidator.Key("UserCreationId")]
+        public int UserCreationId { get; set; }
 
-        public string UserLastModificationIdFantasyName { get; set; }
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        [Library.ModelAttributeValidator.Key("UserLastModificationId")]
+        public int UserLastModificationId { get; set; }
+
+        [Library.ModelAttributeValidator.String("Name", false, 1, 500, "")]
+        public string Name { get; set; }
         #endregion
 
-        #region Models that depend on this model
-
+        #region Sub-lists
+        
         #endregion
 
         #region Constructors
@@ -77,7 +89,13 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
         /// </summary>
         public SexModel()
         {
-            try { SexId = 0; }
+            try 
+            {
+                SexId = 0;
+
+                //Initialize sub-lists
+                
+            }
             catch (Exception ex) { throw ex; }
         }
 
@@ -93,6 +111,10 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
             try
             {
                 List<SexModel> lstSexModel = new List<SexModel>();
+
+                //Initialize sub-lists
+                
+                
                 DynamicParameters dp = new DynamicParameters();
 
                 dp.Add("SexId", SexId, DbType.Int32, ParameterDirection.Input);
@@ -111,12 +133,12 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
                 foreach (SexModel sex in lstSexModel)
                 {
                     this.SexId = sex.SexId;
-					this.Name = sex.Name;
 					this.Active = sex.Active;
-					this.UserCreationId = sex.UserCreationId;
-					this.UserLastModificationId = sex.UserLastModificationId;
 					this.DateTimeCreation = sex.DateTimeCreation;
 					this.DateTimeLastModification = sex.DateTimeLastModification;
+					this.UserCreationId = sex.UserCreationId;
+					this.UserLastModificationId = sex.UserLastModificationId;
+					this.Name = sex.Name;
                 }
             }
             catch (Exception ex) { throw ex; }
@@ -130,17 +152,20 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
         /// Fields:       7 <br/> 
         /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
-        public SexModel(int SexId, string Name, bool Active, int UserCreationId, int UserLastModificationId, DateTime DateTimeCreation, DateTime DateTimeLastModification)
+        public SexModel(int SexId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Name)
         {
             try
             {
+                //Initialize sub-lists
+                
+
                 this.SexId = SexId;
-				this.Name = Name;
 				this.Active = Active;
-				this.UserCreationId = UserCreationId;
-				this.UserLastModificationId = UserLastModificationId;
 				this.DateTimeCreation = DateTimeCreation;
 				this.DateTimeLastModification = DateTimeLastModification;
+				this.UserCreationId = UserCreationId;
+				this.UserLastModificationId = UserLastModificationId;
+				this.Name = Name;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -156,13 +181,16 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
         {
             try
             {
+                //Initialize sub-lists
+                
+
                 SexId = sex.SexId;
-				Name = sex.Name;
 				Active = sex.Active;
-				UserCreationId = sex.UserCreationId;
-				UserLastModificationId = sex.UserLastModificationId;
 				DateTimeCreation = sex.DateTimeCreation;
 				DateTimeLastModification = sex.DateTimeLastModification;
+				UserCreationId = sex.UserCreationId;
+				UserLastModificationId = sex.UserLastModificationId;
+				Name = sex.Name;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -265,12 +293,12 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
                 foreach (SexModel sex in lstSexModel)
                 {
                     SexModel.SexId = sex.SexId;
-					SexModel.Name = sex.Name;
 					SexModel.Active = sex.Active;
-					SexModel.UserCreationId = sex.UserCreationId;
-					SexModel.UserLastModificationId = sex.UserLastModificationId;
 					SexModel.DateTimeCreation = sex.DateTimeCreation;
 					SexModel.DateTimeLastModification = sex.DateTimeLastModification;
+					SexModel.UserCreationId = sex.UserCreationId;
+					SexModel.UserLastModificationId = sex.UserLastModificationId;
+					SexModel.Name = sex.Name;
                 }
 
                 return SexModel;
@@ -295,28 +323,30 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
             catch (Exception ex) { throw ex; }
         }
 
-        public sexModelQuery SelectAllPagedToModel(sexModelQuery sexModelQuery)
+        public sexSelectAllPaged SelectAllPagedToModel(sexSelectAllPaged sexSelectAllPaged)
         {
             try
             {
-                sexModelQuery.lstSexModel = new List<SexModel>();
+                sexSelectAllPaged.lstSexModel = new List<SexModel>();
                 DynamicParameters dp = new DynamicParameters();
-                dp.Add("QueryString", sexModelQuery.QueryString, DbType.String, ParameterDirection.Input);
-                dp.Add("ActualPageNumber", sexModelQuery.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
-                dp.Add("RowsPerPage", sexModelQuery.RowsPerPage, DbType.Int32, ParameterDirection.Input);
-                dp.Add("SorterColumn", sexModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
-                dp.Add("SortToggler", sexModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
-                dp.Add("TotalRows", sexModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
+                dp.Add("QueryString", sexSelectAllPaged.QueryString, DbType.String, ParameterDirection.Input);
+                dp.Add("ActualPageNumber", sexSelectAllPaged.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
+                dp.Add("RowsPerPage", sexSelectAllPaged.RowsPerPage, DbType.Int32, ParameterDirection.Input);
+                dp.Add("SorterColumn", sexSelectAllPaged.SorterColumn, DbType.String, ParameterDirection.Input);
+                dp.Add("SortToggler", sexSelectAllPaged.SortToggler, DbType.Boolean, ParameterDirection.Input);
+                dp.Add("TotalRows", sexSelectAllPaged.TotalRows, DbType.Int32, ParameterDirection.Output);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    sexModelQuery.lstSexModel = (List<SexModel>)sqlConnection.Query<SexModel>("[dbo].[BasicCulture.Sex.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
-                    sexModelQuery.TotalRows = dp.Get<int>("TotalRows");
+                    sexSelectAllPaged.lstSexModel = (List<SexModel>)sqlConnection.Query<SexModel>("[dbo].[BasicCulture.Sex.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
+                    sexSelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 
-                sexModelQuery.TotalPages = Library.Math.Divide(sexModelQuery.TotalRows, sexModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+                sexSelectAllPaged.TotalPages = Library.Math.Divide(sexSelectAllPaged.TotalRows, sexSelectAllPaged.RowsPerPage, Library.Math.RoundType.RoundUp);
 
-                return sexModelQuery;
+                
+
+                return sexSelectAllPaged;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -335,12 +365,12 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
                 
-                dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
-				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+                dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
 				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -369,12 +399,12 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
 
-                dp.Add("Name", sex.Name, DbType.String, ParameterDirection.Input);
-				dp.Add("Active", sex.Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", sex.UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", sex.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+                dp.Add("Active", sex.Active, DbType.Boolean, ParameterDirection.Input);
 				dp.Add("DateTimeCreation", sex.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("DateTimeLastModification", sex.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", sex.UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", sex.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Name", sex.Name, DbType.String, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
                 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -395,7 +425,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
         /// <returns>The ID of the last registry inserted in Sex table</returns>
-        public int Insert(string Name, bool Active, int UserCreationId, int UserLastModificationId, DateTime DateTimeCreation, DateTime DateTimeLastModification)
+        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Name)
         {
             try
             {
@@ -403,12 +433,12 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
 
-                dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
-				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+                dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
 				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -438,12 +468,12 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
                 DataTable DataTable = new DataTable();
 
                 dp.Add("SexId", SexId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
 				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -473,12 +503,12 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
                 DataTable DataTable = new DataTable();
 
                 dp.Add("SexId", sex.SexId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Name", sex.Name, DbType.String, ParameterDirection.Input);
 				dp.Add("Active", sex.Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", sex.UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", sex.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("DateTimeCreation", sex.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("DateTimeLastModification", sex.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", sex.UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", sex.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Name", sex.Name, DbType.String, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -499,7 +529,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
         /// <returns>The number of rows updated in Sex table</returns>
-        public int UpdateBySexId(int SexId, string Name, bool Active, int UserCreationId, int UserLastModificationId, DateTime DateTimeCreation, DateTime DateTimeLastModification)
+        public int UpdateBySexId(int SexId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Name)
         {
             try
             {
@@ -508,12 +538,12 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
                 DataTable DataTable = new DataTable();
 
                 dp.Add("SexId", SexId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
 				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -635,12 +665,12 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
         public override string ToString()
         {
             return $"SexId: {SexId}, " +
-				$"Name: {Name}, " +
 				$"Active: {Active}, " +
+				$"DateTimeCreation: {DateTimeCreation}, " +
+				$"DateTimeLastModification: {DateTimeLastModification}, " +
 				$"UserCreationId: {UserCreationId}, " +
 				$"UserLastModificationId: {UserLastModificationId}, " +
-				$"DateTimeCreation: {DateTimeCreation}, " +
-				$"DateTimeLastModification: {DateTimeLastModification}";
+				$"Name: {Name}";
         }
 
         public string ToStringOnlyValuesForHTML()
@@ -655,13 +685,19 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
     </td><td align=""left"" valign=""top"">
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Name}</span>
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Active}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td><td align=""left"" valign=""top"">
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Active}</span>
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{DateTimeCreation}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{DateTimeLastModification}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td><td align=""left"" valign=""top"">
@@ -679,32 +715,11 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
     </td><td align=""left"" valign=""top"">
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{DateTimeCreation}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{DateTimeLastModification}</span>
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Name}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td>
                 </tr>";
         }
-    }
-
-    /// <summary>
-    /// Virtual model used for [dbo].[BasicCulture.Sex.SelectAllPaged] stored procedure
-    /// </summary>
-    public partial class sexModelQuery 
-    {
-        public string QueryString { get; set; }
-        public int ActualPageNumber { get; set; }
-        public int RowsPerPage { get; set; }
-        public string SorterColumn { get; set; }
-        public bool SortToggler { get; set; }
-        public int TotalRows { get; set; }
-        public int TotalPages { get; set; }
-        public List<SexModel> lstSexModel { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using CsvHelper;
 using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.BasicCulture.Models;
+using FiyiRequirements.Areas.BasicCulture.DTOs;
 using FiyiRequirements.Areas.BasicCulture.Protocols;
 using FiyiRequirements.Library;
 using System;
@@ -15,14 +16,14 @@ using System.IO;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 20/12/2022 20:18:05
+//Last modification on: 21/02/2023 17:54:25
 
 namespace FiyiRequirements.Areas.BasicCulture.Services
 {
@@ -31,7 +32,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
     /// Name:              C# Service. <br/>
     /// Function:          Allow you to separate data contract stored in C# model from business with your clients. <br/>
     /// Also, allow dependency injection inside controllers/web apis<br/>
-    /// Last modification: 20/12/2022 20:18:05
+    /// Last modification: 21/02/2023 17:54:25
     /// </summary>
     public partial class SexService : SexProtocol
     {
@@ -53,9 +54,9 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
             return new SexModel().SelectAllToList();
         }
 
-        public sexModelQuery SelectAllPagedToModel(sexModelQuery sexModelQuery)
+        public sexSelectAllPaged SelectAllPagedToModel(sexSelectAllPaged sexSelectAllPaged)
         {
-            return new SexModel().SelectAllPagedToModel(sexModelQuery);
+            return new SexModel().SelectAllPagedToModel(sexSelectAllPaged);
         } 
         #endregion
 
@@ -187,12 +188,17 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Name&nbsp;&nbsp;&nbsp;</span>
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Active&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Active&nbsp;&nbsp;&nbsp;</span>
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeCreation&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeLastModification&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
@@ -207,12 +213,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeCreation&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeLastModification&nbsp;&nbsp;&nbsp;</span>
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Name&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th>
@@ -249,15 +250,20 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
                     dtColumnSexIdFordtSexCopy.ColumnName = "SexId";
                     dtSexCopy.Columns.Add(dtColumnSexIdFordtSexCopy);
 
-                    DataColumn dtColumnNameFordtSexCopy = new DataColumn();
-                    dtColumnNameFordtSexCopy.DataType = typeof(string);
-                    dtColumnNameFordtSexCopy.ColumnName = "Name";
-                    dtSexCopy.Columns.Add(dtColumnNameFordtSexCopy);
-
                     DataColumn dtColumnActiveFordtSexCopy = new DataColumn();
                     dtColumnActiveFordtSexCopy.DataType = typeof(string);
                     dtColumnActiveFordtSexCopy.ColumnName = "Active";
                     dtSexCopy.Columns.Add(dtColumnActiveFordtSexCopy);
+
+                    DataColumn dtColumnDateTimeCreationFordtSexCopy = new DataColumn();
+                    dtColumnDateTimeCreationFordtSexCopy.DataType = typeof(string);
+                    dtColumnDateTimeCreationFordtSexCopy.ColumnName = "DateTimeCreation";
+                    dtSexCopy.Columns.Add(dtColumnDateTimeCreationFordtSexCopy);
+
+                    DataColumn dtColumnDateTimeLastModificationFordtSexCopy = new DataColumn();
+                    dtColumnDateTimeLastModificationFordtSexCopy.DataType = typeof(string);
+                    dtColumnDateTimeLastModificationFordtSexCopy.ColumnName = "DateTimeLastModification";
+                    dtSexCopy.Columns.Add(dtColumnDateTimeLastModificationFordtSexCopy);
 
                     DataColumn dtColumnUserCreationIdFordtSexCopy = new DataColumn();
                     dtColumnUserCreationIdFordtSexCopy.DataType = typeof(string);
@@ -269,15 +275,10 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
                     dtColumnUserLastModificationIdFordtSexCopy.ColumnName = "UserLastModificationId";
                     dtSexCopy.Columns.Add(dtColumnUserLastModificationIdFordtSexCopy);
 
-                    DataColumn dtColumnDateTimeCreationFordtSexCopy = new DataColumn();
-                    dtColumnDateTimeCreationFordtSexCopy.DataType = typeof(string);
-                    dtColumnDateTimeCreationFordtSexCopy.ColumnName = "DateTimeCreation";
-                    dtSexCopy.Columns.Add(dtColumnDateTimeCreationFordtSexCopy);
-
-                    DataColumn dtColumnDateTimeLastModificationFordtSexCopy = new DataColumn();
-                    dtColumnDateTimeLastModificationFordtSexCopy.DataType = typeof(string);
-                    dtColumnDateTimeLastModificationFordtSexCopy.ColumnName = "DateTimeLastModification";
-                    dtSexCopy.Columns.Add(dtColumnDateTimeLastModificationFordtSexCopy);
+                    DataColumn dtColumnNameFordtSexCopy = new DataColumn();
+                    dtColumnNameFordtSexCopy.DataType = typeof(string);
+                    dtColumnNameFordtSexCopy.ColumnName = "Name";
+                    dtSexCopy.Columns.Add(dtColumnNameFordtSexCopy);
 
                     
                 #endregion
@@ -313,15 +314,20 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
                     dtColumnSexIdFordtSexCopy.ColumnName = "SexId";
                     dtSexCopy.Columns.Add(dtColumnSexIdFordtSexCopy);
 
-                    DataColumn dtColumnNameFordtSexCopy = new DataColumn();
-                    dtColumnNameFordtSexCopy.DataType = typeof(string);
-                    dtColumnNameFordtSexCopy.ColumnName = "Name";
-                    dtSexCopy.Columns.Add(dtColumnNameFordtSexCopy);
-
                     DataColumn dtColumnActiveFordtSexCopy = new DataColumn();
                     dtColumnActiveFordtSexCopy.DataType = typeof(string);
                     dtColumnActiveFordtSexCopy.ColumnName = "Active";
                     dtSexCopy.Columns.Add(dtColumnActiveFordtSexCopy);
+
+                    DataColumn dtColumnDateTimeCreationFordtSexCopy = new DataColumn();
+                    dtColumnDateTimeCreationFordtSexCopy.DataType = typeof(string);
+                    dtColumnDateTimeCreationFordtSexCopy.ColumnName = "DateTimeCreation";
+                    dtSexCopy.Columns.Add(dtColumnDateTimeCreationFordtSexCopy);
+
+                    DataColumn dtColumnDateTimeLastModificationFordtSexCopy = new DataColumn();
+                    dtColumnDateTimeLastModificationFordtSexCopy.DataType = typeof(string);
+                    dtColumnDateTimeLastModificationFordtSexCopy.ColumnName = "DateTimeLastModification";
+                    dtSexCopy.Columns.Add(dtColumnDateTimeLastModificationFordtSexCopy);
 
                     DataColumn dtColumnUserCreationIdFordtSexCopy = new DataColumn();
                     dtColumnUserCreationIdFordtSexCopy.DataType = typeof(string);
@@ -333,15 +339,10 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
                     dtColumnUserLastModificationIdFordtSexCopy.ColumnName = "UserLastModificationId";
                     dtSexCopy.Columns.Add(dtColumnUserLastModificationIdFordtSexCopy);
 
-                    DataColumn dtColumnDateTimeCreationFordtSexCopy = new DataColumn();
-                    dtColumnDateTimeCreationFordtSexCopy.DataType = typeof(string);
-                    dtColumnDateTimeCreationFordtSexCopy.ColumnName = "DateTimeCreation";
-                    dtSexCopy.Columns.Add(dtColumnDateTimeCreationFordtSexCopy);
-
-                    DataColumn dtColumnDateTimeLastModificationFordtSexCopy = new DataColumn();
-                    dtColumnDateTimeLastModificationFordtSexCopy.DataType = typeof(string);
-                    dtColumnDateTimeLastModificationFordtSexCopy.ColumnName = "DateTimeLastModification";
-                    dtSexCopy.Columns.Add(dtColumnDateTimeLastModificationFordtSexCopy);
+                    DataColumn dtColumnNameFordtSexCopy = new DataColumn();
+                    dtColumnNameFordtSexCopy.DataType = typeof(string);
+                    dtColumnNameFordtSexCopy.ColumnName = "Name";
+                    dtSexCopy.Columns.Add(dtColumnNameFordtSexCopy);
 
                     
                     #endregion
