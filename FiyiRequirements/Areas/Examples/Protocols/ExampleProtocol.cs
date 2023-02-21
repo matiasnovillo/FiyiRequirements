@@ -1,3 +1,4 @@
+using FiyiRequirements.Areas.Examples.DTOs;
 using FiyiRequirements.Areas.Examples.Models;
 using FiyiRequirements.Library;
 using System;
@@ -14,7 +15,7 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 15/02/2023 16:56:40
+//Last modification on: 21/02/2023 18:16:41
 
 namespace FiyiRequirements.Areas.Examples.Protocols
 {
@@ -24,7 +25,7 @@ namespace FiyiRequirements.Areas.Examples.Protocols
     /// Function:          This protocol/interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 15/02/2023 16:56:40
+    /// Last modification: 21/02/2023 18:16:41
     /// </summary>
     public partial interface ExampleProtocol
     {
@@ -38,7 +39,7 @@ namespace FiyiRequirements.Areas.Examples.Protocols
 
         List<ExampleModel> SelectAllToList();
 
-        exampleModelQuery SelectAllPagedToModel(exampleModelQuery exampleModelQuery);
+        exampleSelectAllPaged SelectAllPagedToModel(exampleSelectAllPaged exampleSelectAllPaged);
         #endregion
 
         #region Non-Queries

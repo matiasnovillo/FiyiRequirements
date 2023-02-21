@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
+using FiyiRequirements.Areas.Examples.DTOs;
 using FiyiRequirements.Areas.Examples.Filters;
 using FiyiRequirements.Areas.Examples.Protocols;
 using FiyiRequirements.Areas.Examples.Models;
@@ -24,7 +25,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 15/02/2023 16:56:40
+//Last modification on: 21/02/2023 18:16:41
 
 namespace FiyiRequirements.Areas.Examples.Controllers
 {
@@ -32,7 +33,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 15/02/2023 16:56:40
+    /// Last modification: 21/02/2023 18:16:41
     /// </summary>
     [ApiController]
     [ExampleFilter]
@@ -113,14 +114,14 @@ namespace FiyiRequirements.Areas.Examples.Controllers
         }
 
         [HttpPost("~/api/Examples/Example/1/SelectAllPagedToJSON")]
-        public exampleModelQuery SelectAllPagedToJSON([FromBody] exampleModelQuery exampleModelQuery)
+        public exampleSelectAllPaged SelectAllPagedToJSON([FromBody] exampleSelectAllPaged exampleSelectAllPaged)
         {
             try
             {
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _ExampleProtocol.SelectAllPagedToModel(exampleModelQuery);
+                 return _ExampleProtocol.SelectAllPagedToModel(exampleSelectAllPaged);
             }
             catch (Exception ex)
             {
@@ -190,15 +191,15 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 {
                     ForeignKeyDropDown = Convert.ToInt32(HttpContext.Request.Form["examples-example-foreignkeydropdown-input"]);
                 }
-                //else
-                //{ return StatusCode(400, "It's not allowed to save zero values in ForeignKeyDropDown"); }
+                else
+                { return StatusCode(400, "It's not allowed to save zero values in ForeignKeyDropDown"); }
                 int ForeignKeyOption = 0; 
                 if (Convert.ToInt32(HttpContext.Request.Form["examples-example-foreignkeyoption-input"]) != 0)
                 {
                     ForeignKeyOption = Convert.ToInt32(HttpContext.Request.Form["examples-example-foreignkeyoption-input"]);
                 }
-                //else
-                //{ return StatusCode(400, "It's not allowed to save zero values in ForeignKeyOption"); }
+                else
+                { return StatusCode(400, "It's not allowed to save zero values in ForeignKeyOption"); }
                 string TextHexColour = HttpContext.Request.Form["examples-example-texthexcolour-input"];
                 TimeSpan Time = TimeSpan.Parse(HttpContext.Request.Form["examples-example-time-input"]);
                 

@@ -1,4 +1,5 @@
 using Dapper;
+using FiyiRequirements.Areas.Examples.DTOs;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -28,13 +29,13 @@ namespace FiyiRequirements.Areas.Examples.Models
     ///                    make temporal copies with random data. <br/>
     /// Fields:            23 <br/> 
     /// Sub-models:      0 models <br/>
-    /// Last modification: 21/02/2023 13:45:23
+    /// Last modification: 21/02/2023 18:16:41
     /// </summary>
     [Serializable]
     public partial class ExampleModel
     {
         [NotMapped]
-        private string _ConnectionString = "data source =.; initial catalog = fiyistack_FiyiRequirements; Integrated Security = SSPI; MultipleActiveResultSets=True;Pooling=false;Persist Security Info=True;App=EntityFramework;TrustServerCertificate=True";
+        private string _ConnectionString = ConnectionStrings.ConnectionStrings.Development();
 
         #region Fields
         [Library.ModelAttributeValidator.Key("ExampleId")]
@@ -431,30 +432,30 @@ namespace FiyiRequirements.Areas.Examples.Models
             catch (Exception ex) { throw ex; }
         }
 
-        public exampleModelQuery SelectAllPagedToModel(exampleModelQuery exampleModelQuery)
+        public exampleSelectAllPaged SelectAllPagedToModel(exampleSelectAllPaged exampleSelectAllPaged)
         {
             try
             {
-                exampleModelQuery.lstExampleModel = new List<ExampleModel>();
+                exampleSelectAllPaged.lstExampleModel = new List<ExampleModel>();
                 DynamicParameters dp = new DynamicParameters();
-                dp.Add("QueryString", exampleModelQuery.QueryString, DbType.String, ParameterDirection.Input);
-                dp.Add("ActualPageNumber", exampleModelQuery.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
-                dp.Add("RowsPerPage", exampleModelQuery.RowsPerPage, DbType.Int32, ParameterDirection.Input);
-                dp.Add("SorterColumn", exampleModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
-                dp.Add("SortToggler", exampleModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
-                dp.Add("TotalRows", exampleModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
+                dp.Add("QueryString", exampleSelectAllPaged.QueryString, DbType.String, ParameterDirection.Input);
+                dp.Add("ActualPageNumber", exampleSelectAllPaged.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
+                dp.Add("RowsPerPage", exampleSelectAllPaged.RowsPerPage, DbType.Int32, ParameterDirection.Input);
+                dp.Add("SorterColumn", exampleSelectAllPaged.SorterColumn, DbType.String, ParameterDirection.Input);
+                dp.Add("SortToggler", exampleSelectAllPaged.SortToggler, DbType.Boolean, ParameterDirection.Input);
+                dp.Add("TotalRows", exampleSelectAllPaged.TotalRows, DbType.Int32, ParameterDirection.Output);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    exampleModelQuery.lstExampleModel = (List<ExampleModel>)sqlConnection.Query<ExampleModel>("[dbo].[Examples.Example.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
-                    exampleModelQuery.TotalRows = dp.Get<int>("TotalRows");
+                    exampleSelectAllPaged.lstExampleModel = (List<ExampleModel>)sqlConnection.Query<ExampleModel>("[dbo].[Examples.Example.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
+                    exampleSelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 
-                exampleModelQuery.TotalPages = Library.Math.Divide(exampleModelQuery.TotalRows, exampleModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+                exampleSelectAllPaged.TotalPages = Library.Math.Divide(exampleSelectAllPaged.TotalRows, exampleSelectAllPaged.RowsPerPage, Library.Math.RoundType.RoundUp);
 
                 
 
-                return exampleModelQuery;
+                return exampleSelectAllPaged;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -1037,20 +1038,5 @@ namespace FiyiRequirements.Areas.Examples.Models
     </td>
                 </tr>";
         }
-    }
-
-    /// <summary>
-    /// Virtual model used for [dbo].[Examples.Example.SelectAllPaged] stored procedure
-    /// </summary>
-    public partial class exampleModelQuery 
-    {
-        public string QueryString { get; set; }
-        public int ActualPageNumber { get; set; }
-        public int RowsPerPage { get; set; }
-        public string SorterColumn { get; set; }
-        public bool SortToggler { get; set; }
-        public int TotalRows { get; set; }
-        public int TotalPages { get; set; }
-        public List<ExampleModel> lstExampleModel { get; set; }
     }
 }

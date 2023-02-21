@@ -3,6 +3,7 @@ using CsvHelper;
 using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.Examples.Models;
+using FiyiRequirements.Areas.Examples.DTOs;
 using FiyiRequirements.Areas.Examples.Protocols;
 using FiyiRequirements.Library;
 using System;
@@ -22,7 +23,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 15/02/2023 16:56:40
+//Last modification on: 21/02/2023 18:16:41
 
 namespace FiyiRequirements.Areas.Examples.Services
 {
@@ -31,7 +32,7 @@ namespace FiyiRequirements.Areas.Examples.Services
     /// Name:              C# Service. <br/>
     /// Function:          Allow you to separate data contract stored in C# model from business with your clients. <br/>
     /// Also, allow dependency injection inside controllers/web apis<br/>
-    /// Last modification: 15/02/2023 16:56:40
+    /// Last modification: 21/02/2023 18:16:41
     /// </summary>
     public partial class ExampleService : ExampleProtocol
     {
@@ -53,9 +54,9 @@ namespace FiyiRequirements.Areas.Examples.Services
             return new ExampleModel().SelectAllToList();
         }
 
-        public exampleModelQuery SelectAllPagedToModel(exampleModelQuery exampleModelQuery)
+        public exampleSelectAllPaged SelectAllPagedToModel(exampleSelectAllPaged exampleSelectAllPaged)
         {
-            return new ExampleModel().SelectAllPagedToModel(exampleModelQuery);
+            return new ExampleModel().SelectAllPagedToModel(exampleSelectAllPaged);
         } 
         #endregion
 
