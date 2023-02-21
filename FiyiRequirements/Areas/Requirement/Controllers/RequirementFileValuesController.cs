@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
+using FiyiRequirements.Areas.Requirement.DTOs;
 using FiyiRequirements.Areas.Requirement.Filters;
 using FiyiRequirements.Areas.Requirement.Protocols;
 using FiyiRequirements.Areas.Requirement.Models;
@@ -24,7 +25,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 16/02/2023 11:46:57
+//Last modification on: 21/02/2023 20:30:35
 
 namespace FiyiRequirements.Areas.Requirement.Controllers
 {
@@ -32,7 +33,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 16/02/2023 11:46:57
+    /// Last modification: 21/02/2023 20:30:35
     /// </summary>
     [ApiController]
     [RequirementFileFilter]
@@ -113,14 +114,14 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
         }
 
         [HttpPost("~/api/Requirement/RequirementFile/1/SelectAllPagedToJSON/{RequirementId:int}")]
-        public requirementfileModelQuery SelectAllPagedToJSON([FromBody] requirementfileModelQuery requirementfileModelQuery, int RequirementId)
+        public requirementfileSelectAllPaged SelectAllPagedToJSON([FromBody] requirementfileSelectAllPaged requirementfileSelectAllPaged, int RequirementId)
         {
             try
             {
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _RequirementFileProtocol.SelectAllPagedToModel(requirementfileModelQuery, RequirementId);
+                 return _RequirementFileProtocol.SelectAllPagedToModel(requirementfileSelectAllPaged, RequirementId);
             }
             catch (Exception ex)
             {
@@ -193,32 +194,8 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                     
                 NewEnteredId = _RequirementFileProtocol.Insert(RequirementFileModel);
 
-                //Look for sent files
-                if (HttpContext.Request.Form.Files.Count != 0)
-                {
-                    int i = 0; //Used to iterate in HttpContext.Request.Form.Files
-                    foreach (var File in Request.Form.Files)
-                    {
-                        if (File.Length > 0)
-                        {
-                            var FileName = HttpContext.Request.Form.Files[i].FileName;
-                            var FilePath1 = $@"{_WebHostEnvironment.WebRootPath}/Uploads/Requirement/RequirementFile/";
-
-                            using (var FileStream = new FileStream($@"{FilePath1}{FileName}", FileMode.Create))
-                            {
-                                
-                                await File.CopyToAsync(FileStream); // Read file to stream
-                                byte[] array = new byte[FileStream.Length]; // Stream to byte array
-                                FileStream.Seek(0, SeekOrigin.Begin);
-                                FileStream.Read(array, 0, array.Length);
-                            }
-
-                            i += 1;
-                        }
-                    }
-                }
-
                 return StatusCode(200, NewEnteredId);
+
             }
             catch (Exception ex) 
             { 

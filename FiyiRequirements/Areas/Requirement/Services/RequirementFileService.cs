@@ -3,6 +3,7 @@ using CsvHelper;
 using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.Requirement.Models;
+using FiyiRequirements.Areas.Requirement.DTOs;
 using FiyiRequirements.Areas.Requirement.Protocols;
 using FiyiRequirements.Library;
 using System;
@@ -15,14 +16,14 @@ using System.IO;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 29/12/2022 10:16:50
+//Last modification on: 21/02/2023 20:30:35
 
 namespace FiyiRequirements.Areas.Requirement.Services
 {
@@ -31,7 +32,7 @@ namespace FiyiRequirements.Areas.Requirement.Services
     /// Name:              C# Service. <br/>
     /// Function:          Allow you to separate data contract stored in C# model from business with your clients. <br/>
     /// Also, allow dependency injection inside controllers/web apis<br/>
-    /// Last modification: 29/12/2022 10:16:50
+    /// Last modification: 21/02/2023 20:30:35
     /// </summary>
     public partial class RequirementFileService : RequirementFileProtocol
     {
@@ -53,9 +54,9 @@ namespace FiyiRequirements.Areas.Requirement.Services
             return new RequirementFileModel().SelectAllToList();
         }
 
-        public requirementfileModelQuery SelectAllPagedToModel(requirementfileModelQuery requirementfileModelQuery, int RequirementId)
+        public requirementfileSelectAllPaged SelectAllPagedToModel(requirementfileSelectAllPaged requirementfileSelectAllPaged, int RequirementId)
         {
-            return new RequirementFileModel().SelectAllPagedToModel(requirementfileModelQuery, RequirementId);
+            return new RequirementFileModel().SelectAllPagedToModel(requirementfileSelectAllPaged, RequirementId);
         } 
         #endregion
 
@@ -212,12 +213,12 @@ namespace FiyiRequirements.Areas.Requirement.Services
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">RequirementId&nbsp;&nbsp;&nbsp;</span>
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">FilePath&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">FilePath&nbsp;&nbsp;&nbsp;</span>
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">RequirementId&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th>
@@ -279,15 +280,15 @@ namespace FiyiRequirements.Areas.Requirement.Services
                     dtColumnUserLastModificationIdFordtRequirementFileCopy.ColumnName = "UserLastModificationId";
                     dtRequirementFileCopy.Columns.Add(dtColumnUserLastModificationIdFordtRequirementFileCopy);
 
-                    DataColumn dtColumnRequirementIdFordtRequirementFileCopy = new DataColumn();
-                    dtColumnRequirementIdFordtRequirementFileCopy.DataType = typeof(string);
-                    dtColumnRequirementIdFordtRequirementFileCopy.ColumnName = "RequirementId";
-                    dtRequirementFileCopy.Columns.Add(dtColumnRequirementIdFordtRequirementFileCopy);
-
                     DataColumn dtColumnFilePathFordtRequirementFileCopy = new DataColumn();
                     dtColumnFilePathFordtRequirementFileCopy.DataType = typeof(string);
                     dtColumnFilePathFordtRequirementFileCopy.ColumnName = "FilePath";
                     dtRequirementFileCopy.Columns.Add(dtColumnFilePathFordtRequirementFileCopy);
+
+                    DataColumn dtColumnRequirementIdFordtRequirementFileCopy = new DataColumn();
+                    dtColumnRequirementIdFordtRequirementFileCopy.DataType = typeof(string);
+                    dtColumnRequirementIdFordtRequirementFileCopy.ColumnName = "RequirementId";
+                    dtRequirementFileCopy.Columns.Add(dtColumnRequirementIdFordtRequirementFileCopy);
 
                     
                 #endregion
@@ -348,15 +349,15 @@ namespace FiyiRequirements.Areas.Requirement.Services
                     dtColumnUserLastModificationIdFordtRequirementFileCopy.ColumnName = "UserLastModificationId";
                     dtRequirementFileCopy.Columns.Add(dtColumnUserLastModificationIdFordtRequirementFileCopy);
 
-                    DataColumn dtColumnRequirementIdFordtRequirementFileCopy = new DataColumn();
-                    dtColumnRequirementIdFordtRequirementFileCopy.DataType = typeof(string);
-                    dtColumnRequirementIdFordtRequirementFileCopy.ColumnName = "RequirementId";
-                    dtRequirementFileCopy.Columns.Add(dtColumnRequirementIdFordtRequirementFileCopy);
-
                     DataColumn dtColumnFilePathFordtRequirementFileCopy = new DataColumn();
                     dtColumnFilePathFordtRequirementFileCopy.DataType = typeof(string);
                     dtColumnFilePathFordtRequirementFileCopy.ColumnName = "FilePath";
                     dtRequirementFileCopy.Columns.Add(dtColumnFilePathFordtRequirementFileCopy);
+
+                    DataColumn dtColumnRequirementIdFordtRequirementFileCopy = new DataColumn();
+                    dtColumnRequirementIdFordtRequirementFileCopy.DataType = typeof(string);
+                    dtColumnRequirementIdFordtRequirementFileCopy.ColumnName = "RequirementId";
+                    dtRequirementFileCopy.Columns.Add(dtColumnRequirementIdFordtRequirementFileCopy);
 
                     
                     #endregion

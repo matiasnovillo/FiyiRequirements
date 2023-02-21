@@ -1,4 +1,5 @@
 using Dapper;
+using FiyiRequirements.Areas.Requirement.DTOs;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -28,13 +29,13 @@ namespace FiyiRequirements.Areas.Requirement.Models
     ///                    make temporal copies with random data. <br/>
     /// Fields:            8 <br/> 
     /// Sub-models:      0 models <br/>
-    /// Last modification: 29/12/2022 10:16:50
+    /// Last modification: 21/02/2023 20:30:35
     /// </summary>
     [Serializable]
     public partial class RequirementFileModel
     {
         [NotMapped]
-        private string _ConnectionString = "data source =.; initial catalog = fiyistack_FiyiRequirements; Integrated Security = SSPI; MultipleActiveResultSets=True;Pooling=false;Persist Security Info=True;App=EntityFramework;TrustServerCertificate=True";
+        private string _ConnectionString = ConnectionStrings.ConnectionStrings.Development();
 
         #region Fields
         [Library.ModelAttributeValidator.Key("RequirementFileId")]
@@ -69,11 +70,11 @@ namespace FiyiRequirements.Areas.Requirement.Models
         [Library.ModelAttributeValidator.Key("UserLastModificationId")]
         public int UserLastModificationId { get; set; }
 
-        [Library.ModelAttributeValidator.Key("RequirementId")]
-        public int RequirementId { get; set; }
-
         [Library.ModelAttributeValidator.String("FilePath", false, 1, 8000, "")]
         public string FilePath { get; set; }
+
+        [Library.ModelAttributeValidator.Key("RequirementId")]
+        public int RequirementId { get; set; }
 
         public string UserCreationIdFantasyName { get; set; }
 
@@ -81,7 +82,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         #endregion
 
         #region Sub-lists
-        
+
         #endregion
 
         #region Constructors
@@ -144,8 +145,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
 					this.DateTimeLastModification = requirementfile.DateTimeLastModification;
 					this.UserCreationId = requirementfile.UserCreationId;
 					this.UserLastModificationId = requirementfile.UserLastModificationId;
-					this.RequirementId = requirementfile.RequirementId;
 					this.FilePath = requirementfile.FilePath;
+					this.RequirementId = requirementfile.RequirementId;
                 }
             }
             catch (Exception ex) { throw ex; }
@@ -159,7 +160,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Fields:       8 <br/> 
         /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
-        public RequirementFileModel(int RequirementFileId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int RequirementId, string FilePath)
+        public RequirementFileModel(int RequirementFileId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string FilePath, int RequirementId)
         {
             try
             {
@@ -172,8 +173,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				this.DateTimeLastModification = DateTimeLastModification;
 				this.UserCreationId = UserCreationId;
 				this.UserLastModificationId = UserLastModificationId;
-				this.RequirementId = RequirementId;
 				this.FilePath = FilePath;
+				this.RequirementId = RequirementId;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -198,8 +199,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				DateTimeLastModification = requirementfile.DateTimeLastModification;
 				UserCreationId = requirementfile.UserCreationId;
 				UserLastModificationId = requirementfile.UserLastModificationId;
-				RequirementId = requirementfile.RequirementId;
 				FilePath = requirementfile.FilePath;
+				RequirementId = requirementfile.RequirementId;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -307,8 +308,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
 					RequirementFileModel.DateTimeLastModification = requirementfile.DateTimeLastModification;
 					RequirementFileModel.UserCreationId = requirementfile.UserCreationId;
 					RequirementFileModel.UserLastModificationId = requirementfile.UserLastModificationId;
-					RequirementFileModel.RequirementId = requirementfile.RequirementId;
 					RequirementFileModel.FilePath = requirementfile.FilePath;
+					RequirementFileModel.RequirementId = requirementfile.RequirementId;
                 }
 
                 return RequirementFileModel;
@@ -333,32 +334,21 @@ namespace FiyiRequirements.Areas.Requirement.Models
             catch (Exception ex) { throw ex; }
         }
 
-        public requirementfileModelQuery SelectAllPagedToModel(requirementfileModelQuery requirementfileModelQuery, int RequirementId)
+        public requirementfileSelectAllPaged SelectAllPagedToModel(requirementfileSelectAllPaged requirementfileSelectAllPaged, int RequirementId)
         {
             try
             {
-                requirementfileModelQuery.lstRequirementFileModel = new List<RequirementFileModel>();
+                requirementfileSelectAllPaged.lstRequirementFileModel = new List<RequirementFileModel>();
                 DynamicParameters dp = new DynamicParameters();
-                dp.Add("QueryString", requirementfileModelQuery.requirementfileQueryString, DbType.String, ParameterDirection.Input);
-                dp.Add("ActualPageNumber", requirementfileModelQuery.requirementfileActualPageNumber, DbType.Int32, ParameterDirection.Input);
-                dp.Add("RowsPerPage", requirementfileModelQuery.requirementfileRowsPerPage, DbType.Int32, ParameterDirection.Input);
-                dp.Add("SorterColumn", requirementfileModelQuery.requirementfileSorterColumn, DbType.String, ParameterDirection.Input);
-                dp.Add("SortToggler", requirementfileModelQuery.requirementfileSortToggler, DbType.Boolean, ParameterDirection.Input);
-                dp.Add("TotalRows", requirementfileModelQuery.requirementfileTotalRows, DbType.Int32, ParameterDirection.Output);
 
                 dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    requirementfileModelQuery.lstRequirementFileModel = (List<RequirementFileModel>)sqlConnection.Query<RequirementFileModel>("[dbo].[Requirement.RequirementFile.SelectAllPagedByRequirementIdCustom]", dp, commandType: CommandType.StoredProcedure);
-                    requirementfileModelQuery.requirementfileTotalRows = dp.Get<int>("TotalRows");
+                    requirementfileSelectAllPaged.lstRequirementFileModel = (List<RequirementFileModel>)sqlConnection.Query<RequirementFileModel>("[dbo].[Requirement.RequirementFile.SelectAllByRequirementIdCustom]", dp, commandType: CommandType.StoredProcedure);
                 }
 
-                requirementfileModelQuery.requirementfileTotalPages = Library.Math.Divide(requirementfileModelQuery.requirementfileTotalRows, requirementfileModelQuery.requirementfileRowsPerPage, Library.Math.RoundType.RoundUp);
-
-                
-
-                return requirementfileModelQuery;
+                return requirementfileSelectAllPaged;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -382,8 +372,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("FilePath", FilePath, DbType.String, ParameterDirection.Input);
+				dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -417,8 +407,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("DateTimeLastModification", requirementfile.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("UserCreationId", requirementfile.UserCreationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserLastModificationId", requirementfile.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("RequirementId", requirementfile.RequirementId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("FilePath", requirementfile.FilePath, DbType.String, ParameterDirection.Input);
+				dp.Add("RequirementId", requirementfile.RequirementId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
                 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -439,7 +429,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
         /// <returns>The ID of the last registry inserted in RequirementFile table</returns>
-        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int RequirementId, string FilePath)
+        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string FilePath, int RequirementId)
         {
             try
             {
@@ -452,8 +442,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("FilePath", FilePath, DbType.String, ParameterDirection.Input);
+				dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -488,8 +478,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("FilePath", FilePath, DbType.String, ParameterDirection.Input);
+				dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -524,8 +514,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("DateTimeLastModification", requirementfile.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("UserCreationId", requirementfile.UserCreationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserLastModificationId", requirementfile.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("RequirementId", requirementfile.RequirementId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("FilePath", requirementfile.FilePath, DbType.String, ParameterDirection.Input);
+				dp.Add("RequirementId", requirementfile.RequirementId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -546,7 +536,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
         /// <returns>The number of rows updated in RequirementFile table</returns>
-        public int UpdateByRequirementFileId(int RequirementFileId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int RequirementId, string FilePath)
+        public int UpdateByRequirementFileId(int RequirementFileId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string FilePath, int RequirementId)
         {
             try
             {
@@ -560,8 +550,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("FilePath", FilePath, DbType.String, ParameterDirection.Input);
+				dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -688,8 +678,8 @@ namespace FiyiRequirements.Areas.Requirement.Models
 				$"DateTimeLastModification: {DateTimeLastModification}, " +
 				$"UserCreationId: {UserCreationId}, " +
 				$"UserLastModificationId: {UserLastModificationId}, " +
-				$"RequirementId: {RequirementId}, " +
-				$"FilePath: {FilePath}";
+				$"FilePath: {FilePath}, " +
+				$"RequirementId: {RequirementId}";
         }
 
         public string ToStringOnlyValuesForHTML()
@@ -734,32 +724,17 @@ namespace FiyiRequirements.Areas.Requirement.Models
     </td><td align=""left"" valign=""top"">
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{RequirementId}</span>
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{FilePath}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td><td align=""left"" valign=""top"">
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{FilePath}</span>
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{RequirementId}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td>
                 </tr>";
         }
-    }
-
-    /// <summary>
-    /// Virtual model used for [dbo].[Requirement.RequirementFile.SelectAllPaged] stored procedure
-    /// </summary>
-    public partial class requirementfileModelQuery 
-    {
-        public string requirementfileQueryString { get; set; }
-        public int requirementfileActualPageNumber { get; set; }
-        public int requirementfileRowsPerPage { get; set; }
-        public string requirementfileSorterColumn { get; set; }
-        public bool requirementfileSortToggler { get; set; }
-        public int requirementfileTotalRows { get; set; }
-        public int requirementfileTotalPages { get; set; }
-        public List<RequirementFileModel> lstRequirementFileModel { get; set; }
     }
 }
