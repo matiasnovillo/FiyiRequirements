@@ -3,6 +3,7 @@ using CsvHelper;
 using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.Requirement.Models;
+using FiyiRequirements.Areas.Requirement.DTOs;
 using FiyiRequirements.Areas.Requirement.Protocols;
 using FiyiRequirements.Areas.CMSCore.Models;
 using FiyiRequirements.Library;
@@ -16,14 +17,14 @@ using System.IO;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 27/12/2022 20:52:58
+//Last modification on: 21/02/2023 18:24:38
 
 namespace FiyiRequirements.Areas.Requirement.Services
 {
@@ -32,7 +33,7 @@ namespace FiyiRequirements.Areas.Requirement.Services
     /// Name:              C# Service. <br/>
     /// Function:          Allow you to separate data contract stored in C# model from business with your clients. <br/>
     /// Also, allow dependency injection inside controllers/web apis<br/>
-    /// Last modification: 27/12/2022 20:52:58
+    /// Last modification: 21/02/2023 18:24:38
     /// </summary>
     public partial class RequirementService : RequirementProtocol
     {
@@ -54,11 +55,11 @@ namespace FiyiRequirements.Areas.Requirement.Services
             return new RequirementModel().SelectAllToList();
         }
 
-        public requirementModelQuery SelectAllPagedToModel(requirementModelQuery requirementModelQuery, int UserId)
+        public requirementSelectAllPaged SelectAllPagedToModel(requirementSelectAllPaged requirementSelectAllPaged, int UserId)
         {
             UserModel UserModel = new UserModel(UserId);
 
-            return new RequirementModel().SelectAllPagedToModel(requirementModelQuery, UserId, UserModel.RoleId);
+            return new RequirementModel().SelectAllPagedToModel(requirementSelectAllPaged, UserId, UserModel.RoleId);
         } 
         #endregion
 

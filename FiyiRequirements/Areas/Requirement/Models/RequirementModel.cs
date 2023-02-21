@@ -1,4 +1,5 @@
 using Dapper;
+using FiyiRequirements.Areas.Requirement.DTOs;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -27,14 +28,14 @@ namespace FiyiRequirements.Areas.Requirement.Models
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
     /// Fields:            11 <br/> 
-    /// Sub-models:      2 models <br/>
-    /// Last modification: 27/12/2022 20:52:58
+    /// Sub-models:      3 models <br/>
+    /// Last modification: 21/02/2023 18:24:38
     /// </summary>
     [Serializable]
     public partial class RequirementModel
     {
         [NotMapped]
-        private string _ConnectionString = "data source =.; initial catalog = fiyistack_FiyiRequirements; Integrated Security = SSPI; MultipleActiveResultSets=True;Pooling=false;Persist Security Info=True;App=EntityFramework;TrustServerCertificate=True";
+        private string _ConnectionString = ConnectionStrings.ConnectionStrings.Development();
 
         #region Fields
         [Library.ModelAttributeValidator.Key("RequirementId")]
@@ -72,7 +73,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
         [Library.ModelAttributeValidator.String("Title", false, 1, 100, "")]
         public string Title { get; set; }
 
-        [Library.ModelAttributeValidator.String("Body", false, 1, 8000, "")]
         public string Body { get; set; }
 
         [Library.ModelAttributeValidator.Key("RequirementStateId")]
@@ -96,8 +96,9 @@ namespace FiyiRequirements.Areas.Requirement.Models
         #endregion
 
         #region Sub-lists
-        public virtual List<RequirementChangehistoryModel> lstRequirementChangehistoryModel { get; set; } //Foreign Key name: RequirementId 
-		public virtual List<RequirementFileModel> lstRequirementFileModel { get; set; } //Foreign Key name: RequirementId 
+        public virtual List<RequirementFileModel> lstRequirementFileModel { get; set; } //Foreign Key name: RequirementId 
+		public virtual List<RequirementNoteModel> lstRequirementNoteModel { get; set; } //Foreign Key name: RequirementId 
+		public virtual List<RequirementChangehistoryModel> lstRequirementChangehistoryModel { get; set; } //Foreign Key name: RequirementId 
         #endregion
 
         #region Constructors
@@ -107,7 +108,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Note 1:       Generally used to have fast access to functions of object. <br/>
         /// Note 2:       Need construction with [new] reserved word, as all constructors. <br/>
         /// Fields:       11 <br/> 
-        /// Dependencies: 2 models depend on this model <br/>
+        /// Dependencies: 3 models depend on this model <br/>
         /// </summary>
         public RequirementModel()
         {
@@ -116,8 +117,9 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 RequirementId = 0;
 
                 //Initialize sub-lists
-                lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
                 lstRequirementFileModel = new List<RequirementFileModel>();
+                lstRequirementNoteModel = new List<RequirementNoteModel>();
+                lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
                 
             }
             catch (Exception ex) { throw ex; }
@@ -128,7 +130,7 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Function:     Create this model with stored information in database using RequirementId <br/>
         /// Note:         Raise exception on duplicated IDs <br/>
         /// Fields:       11 <br/> 
-        /// Dependencies: 2 models depend on this model <br/>
+        /// Dependencies: 3 models depend on this model <br/>
         /// </summary>
         public RequirementModel(int RequirementId)
         {
@@ -137,8 +139,9 @@ namespace FiyiRequirements.Areas.Requirement.Models
                 List<RequirementModel> lstRequirementModel = new List<RequirementModel>();
 
                 //Initialize sub-lists
-                lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
                 lstRequirementFileModel = new List<RequirementFileModel>();
+                lstRequirementNoteModel = new List<RequirementNoteModel>();
+                lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
                 
                 
                 DynamicParameters dp = new DynamicParameters();
@@ -180,15 +183,16 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Function:     Create this model with filled parameters <br/>
         /// Note:         Raise exception on duplicated IDs <br/>
         /// Fields:       11 <br/> 
-        /// Dependencies: 2 models depend on this model <br/>
+        /// Dependencies: 3 models depend on this model <br/>
         /// </summary>
         public RequirementModel(int RequirementId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Title, string Body, int RequirementStateId, int RequirementPriorityId, int UserEmployeeId)
         {
             try
             {
                 //Initialize sub-lists
-                lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
                 lstRequirementFileModel = new List<RequirementFileModel>();
+                lstRequirementNoteModel = new List<RequirementNoteModel>();
+                lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
                 
 
                 this.RequirementId = RequirementId;
@@ -211,15 +215,16 @@ namespace FiyiRequirements.Areas.Requirement.Models
         /// Function:     Create this model (copy) using the given model (original), requirement, passed by parameter. <br/>
         /// Note:         This constructor is generally used to execute functions using the copied fields <br/>
         /// Fields:       11 <br/> 
-        /// Dependencies: 2 models depend on this model <br/>
+        /// Dependencies: 3 models depend on this model <br/>
         /// </summary>
         public RequirementModel(RequirementModel requirement)
         {
             try
             {
                 //Initialize sub-lists
-                lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
                 lstRequirementFileModel = new List<RequirementFileModel>();
+                lstRequirementNoteModel = new List<RequirementNoteModel>();
+                lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
                 
 
                 RequirementId = requirement.RequirementId;
@@ -369,53 +374,35 @@ namespace FiyiRequirements.Areas.Requirement.Models
             catch (Exception ex) { throw ex; }
         }
 
-        public requirementModelQuery SelectAllPagedToModel(requirementModelQuery requirementModelQuery, int UserId, int RoleId)
+        public requirementSelectAllPaged SelectAllPagedToModel(requirementSelectAllPaged requirementSelectAllPaged, int UserId, int RoleId)
         {
             try
             {
-                requirementModelQuery.lstRequirementModel = new List<RequirementModel>();
+                requirementSelectAllPaged.lstRequirementModel = new List<RequirementModel>();
                 DynamicParameters dp = new DynamicParameters();
-                dp.Add("QueryString", requirementModelQuery.QueryString, DbType.String, ParameterDirection.Input);
-                dp.Add("ActualPageNumber", requirementModelQuery.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
-                dp.Add("RowsPerPage", requirementModelQuery.RowsPerPage, DbType.Int32, ParameterDirection.Input);
-                dp.Add("SorterColumn", requirementModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
-                dp.Add("SortToggler", requirementModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
-                dp.Add("TotalRows", requirementModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
+                dp.Add("QueryString", requirementSelectAllPaged.QueryString, DbType.String, ParameterDirection.Input);
+                dp.Add("ActualPageNumber", requirementSelectAllPaged.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
+                dp.Add("RowsPerPage", requirementSelectAllPaged.RowsPerPage, DbType.Int32, ParameterDirection.Input);
+                dp.Add("SorterColumn", requirementSelectAllPaged.SorterColumn, DbType.String, ParameterDirection.Input);
+                dp.Add("SortToggler", requirementSelectAllPaged.SortToggler, DbType.Boolean, ParameterDirection.Input);
+                dp.Add("TotalRows", requirementSelectAllPaged.TotalRows, DbType.Int32, ParameterDirection.Output);
 
                 dp.Add("UserId", UserId, DbType.Int32, ParameterDirection.Input);
                 dp.Add("RoleId", RoleId, DbType.Int32, ParameterDirection.Input);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    requirementModelQuery.lstRequirementModel = (List<RequirementModel>)sqlConnection.Query<RequirementModel>("[dbo].[Requirement.Requirement.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
-                    requirementModelQuery.TotalRows = dp.Get<int>("TotalRows");
+                    requirementSelectAllPaged.lstRequirementModel = (List<RequirementModel>)sqlConnection.Query<RequirementModel>("[dbo].[Requirement.Requirement.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
+                    requirementSelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 
-                requirementModelQuery.TotalPages = Library.Math.Divide(requirementModelQuery.TotalRows, requirementModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+                requirementSelectAllPaged.TotalPages = Library.Math.Divide(requirementSelectAllPaged.TotalRows, requirementSelectAllPaged.RowsPerPage, Library.Math.RoundType.RoundUp);
 
                 //Loop through lists and sublists
-                for (int i = 0; i < requirementModelQuery.lstRequirementModel.Count; i++)
-                {
-                    DynamicParameters dpForRequirementChangehistoryModel = new DynamicParameters();
-                    dpForRequirementChangehistoryModel.Add("RequirementId", requirementModelQuery.lstRequirementModel[i].RequirementId, DbType.Int32, ParameterDirection.Input);
-                    using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
-                    {
-                        List<RequirementChangehistoryModel> lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
-                        lstRequirementChangehistoryModel = (List<RequirementChangehistoryModel>)sqlConnection.Query<RequirementChangehistoryModel>("[dbo].[Requirement.RequirementChangehistory.SelectAllByRequirementIdCustom]", dpForRequirementChangehistoryModel, commandType: CommandType.StoredProcedure);
-                        
-                        //Add list item inside another list
-                        foreach (var RequirementChangehistoryModel in lstRequirementChangehistoryModel)
-                        {
-                            requirementModelQuery.lstRequirementModel[i].lstRequirementChangehistoryModel.Add(RequirementChangehistoryModel);
-                        }
-                    }
-                }
-                
-                //Loop through lists and sublists
-                for (int i = 0; i < requirementModelQuery.lstRequirementModel.Count; i++)
+                for (int i = 0; i < requirementSelectAllPaged.lstRequirementModel.Count; i++)
                 {
                     DynamicParameters dpForRequirementFileModel = new DynamicParameters();
-                    dpForRequirementFileModel.Add("RequirementId", requirementModelQuery.lstRequirementModel[i].RequirementId, DbType.Int32, ParameterDirection.Input);
+                    dpForRequirementFileModel.Add("RequirementId", requirementSelectAllPaged.lstRequirementModel[i].RequirementId, DbType.Int32, ParameterDirection.Input);
                     using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                     {
                         List<RequirementFileModel> lstRequirementFileModel = new List<RequirementFileModel>();
@@ -424,14 +411,50 @@ namespace FiyiRequirements.Areas.Requirement.Models
                         //Add list item inside another list
                         foreach (var RequirementFileModel in lstRequirementFileModel)
                         {
-                            requirementModelQuery.lstRequirementModel[i].lstRequirementFileModel.Add(RequirementFileModel);
+                            requirementSelectAllPaged.lstRequirementModel[i].lstRequirementFileModel.Add(RequirementFileModel);
+                        }
+                    }
+                }
+                
+                //Loop through lists and sublists
+                for (int i = 0; i < requirementSelectAllPaged.lstRequirementModel.Count; i++)
+                {
+                    DynamicParameters dpForRequirementNoteModel = new DynamicParameters();
+                    dpForRequirementNoteModel.Add("RequirementId", requirementSelectAllPaged.lstRequirementModel[i].RequirementId, DbType.Int32, ParameterDirection.Input);
+                    using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
+                    {
+                        List<RequirementNoteModel> lstRequirementNoteModel = new List<RequirementNoteModel>();
+                        lstRequirementNoteModel = (List<RequirementNoteModel>)sqlConnection.Query<RequirementNoteModel>("[dbo].[Requirement.RequirementNote.SelectAllByRequirementIdCustom]", dpForRequirementNoteModel, commandType: CommandType.StoredProcedure);
+                        
+                        //Add list item inside another list
+                        foreach (var RequirementNoteModel in lstRequirementNoteModel)
+                        {
+                            requirementSelectAllPaged.lstRequirementModel[i].lstRequirementNoteModel.Add(RequirementNoteModel);
+                        }
+                    }
+                }
+                
+                //Loop through lists and sublists
+                for (int i = 0; i < requirementSelectAllPaged.lstRequirementModel.Count; i++)
+                {
+                    DynamicParameters dpForRequirementChangehistoryModel = new DynamicParameters();
+                    dpForRequirementChangehistoryModel.Add("RequirementId", requirementSelectAllPaged.lstRequirementModel[i].RequirementId, DbType.Int32, ParameterDirection.Input);
+                    using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
+                    {
+                        List<RequirementChangehistoryModel> lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
+                        lstRequirementChangehistoryModel = (List<RequirementChangehistoryModel>)sqlConnection.Query<RequirementChangehistoryModel>("[dbo].[Requirement.RequirementChangehistory.SelectAllByRequirementIdCustom]", dpForRequirementChangehistoryModel, commandType: CommandType.StoredProcedure);
+                        
+                        //Add list item inside another list
+                        foreach (var RequirementChangehistoryModel in lstRequirementChangehistoryModel)
+                        {
+                            requirementSelectAllPaged.lstRequirementModel[i].lstRequirementChangehistoryModel.Add(RequirementChangehistoryModel);
                         }
                     }
                 }
                 
                 
 
-                return requirementModelQuery;
+                return requirementSelectAllPaged;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -858,20 +881,5 @@ namespace FiyiRequirements.Areas.Requirement.Models
     </td>
                 </tr>";
         }
-    }
-
-    /// <summary>
-    /// Virtual model used for [dbo].[Requirement.Requirement.SelectAllPaged] stored procedure
-    /// </summary>
-    public partial class requirementModelQuery 
-    {
-        public string QueryString { get; set; }
-        public int ActualPageNumber { get; set; }
-        public int RowsPerPage { get; set; }
-        public string SorterColumn { get; set; }
-        public bool SortToggler { get; set; }
-        public int TotalRows { get; set; }
-        public int TotalPages { get; set; }
-        public List<RequirementModel> lstRequirementModel { get; set; }
     }
 }
