@@ -3,6 +3,7 @@ using CsvHelper;
 using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.BasicCulture.Models;
+using FiyiRequirements.Areas.BasicCulture.DTOs;
 using FiyiRequirements.Areas.BasicCulture.Protocols;
 using FiyiRequirements.Library;
 using System;
@@ -15,14 +16,14 @@ using System.IO;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 20/12/2022 20:12:21
+//Last modification on: 21/02/2023 17:48:26
 
 namespace FiyiRequirements.Areas.BasicCulture.Services
 {
@@ -31,7 +32,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
     /// Name:              C# Service. <br/>
     /// Function:          Allow you to separate data contract stored in C# model from business with your clients. <br/>
     /// Also, allow dependency injection inside controllers/web apis<br/>
-    /// Last modification: 20/12/2022 20:12:21
+    /// Last modification: 21/02/2023 17:48:26
     /// </summary>
     public partial class PlanetService : PlanetProtocol
     {
@@ -53,9 +54,9 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
             return new PlanetModel().SelectAllToList();
         }
 
-        public planetModelQuery SelectAllPagedToModel(planetModelQuery planetModelQuery)
+        public planetSelectAllPaged SelectAllPagedToModel(planetSelectAllPaged planetSelectAllPaged)
         {
-            return new PlanetModel().SelectAllPagedToModel(planetModelQuery);
+            return new PlanetModel().SelectAllPagedToModel(planetSelectAllPaged);
         } 
         #endregion
 
@@ -187,17 +188,17 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Name&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Code&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
                 <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Active&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeCreation&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeLastModification&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
@@ -212,12 +213,12 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeCreation&nbsp;&nbsp;&nbsp;</span>
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Name&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeLastModification&nbsp;&nbsp;&nbsp;</span>
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Code&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th>
@@ -254,20 +255,20 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
                     dtColumnPlanetIdFordtPlanetCopy.ColumnName = "PlanetId";
                     dtPlanetCopy.Columns.Add(dtColumnPlanetIdFordtPlanetCopy);
 
-                    DataColumn dtColumnNameFordtPlanetCopy = new DataColumn();
-                    dtColumnNameFordtPlanetCopy.DataType = typeof(string);
-                    dtColumnNameFordtPlanetCopy.ColumnName = "Name";
-                    dtPlanetCopy.Columns.Add(dtColumnNameFordtPlanetCopy);
-
-                    DataColumn dtColumnCodeFordtPlanetCopy = new DataColumn();
-                    dtColumnCodeFordtPlanetCopy.DataType = typeof(string);
-                    dtColumnCodeFordtPlanetCopy.ColumnName = "Code";
-                    dtPlanetCopy.Columns.Add(dtColumnCodeFordtPlanetCopy);
-
                     DataColumn dtColumnActiveFordtPlanetCopy = new DataColumn();
                     dtColumnActiveFordtPlanetCopy.DataType = typeof(string);
                     dtColumnActiveFordtPlanetCopy.ColumnName = "Active";
                     dtPlanetCopy.Columns.Add(dtColumnActiveFordtPlanetCopy);
+
+                    DataColumn dtColumnDateTimeCreationFordtPlanetCopy = new DataColumn();
+                    dtColumnDateTimeCreationFordtPlanetCopy.DataType = typeof(string);
+                    dtColumnDateTimeCreationFordtPlanetCopy.ColumnName = "DateTimeCreation";
+                    dtPlanetCopy.Columns.Add(dtColumnDateTimeCreationFordtPlanetCopy);
+
+                    DataColumn dtColumnDateTimeLastModificationFordtPlanetCopy = new DataColumn();
+                    dtColumnDateTimeLastModificationFordtPlanetCopy.DataType = typeof(string);
+                    dtColumnDateTimeLastModificationFordtPlanetCopy.ColumnName = "DateTimeLastModification";
+                    dtPlanetCopy.Columns.Add(dtColumnDateTimeLastModificationFordtPlanetCopy);
 
                     DataColumn dtColumnUserCreationIdFordtPlanetCopy = new DataColumn();
                     dtColumnUserCreationIdFordtPlanetCopy.DataType = typeof(string);
@@ -279,15 +280,15 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
                     dtColumnUserLastModificationIdFordtPlanetCopy.ColumnName = "UserLastModificationId";
                     dtPlanetCopy.Columns.Add(dtColumnUserLastModificationIdFordtPlanetCopy);
 
-                    DataColumn dtColumnDateTimeCreationFordtPlanetCopy = new DataColumn();
-                    dtColumnDateTimeCreationFordtPlanetCopy.DataType = typeof(string);
-                    dtColumnDateTimeCreationFordtPlanetCopy.ColumnName = "DateTimeCreation";
-                    dtPlanetCopy.Columns.Add(dtColumnDateTimeCreationFordtPlanetCopy);
+                    DataColumn dtColumnNameFordtPlanetCopy = new DataColumn();
+                    dtColumnNameFordtPlanetCopy.DataType = typeof(string);
+                    dtColumnNameFordtPlanetCopy.ColumnName = "Name";
+                    dtPlanetCopy.Columns.Add(dtColumnNameFordtPlanetCopy);
 
-                    DataColumn dtColumnDateTimeLastModificationFordtPlanetCopy = new DataColumn();
-                    dtColumnDateTimeLastModificationFordtPlanetCopy.DataType = typeof(string);
-                    dtColumnDateTimeLastModificationFordtPlanetCopy.ColumnName = "DateTimeLastModification";
-                    dtPlanetCopy.Columns.Add(dtColumnDateTimeLastModificationFordtPlanetCopy);
+                    DataColumn dtColumnCodeFordtPlanetCopy = new DataColumn();
+                    dtColumnCodeFordtPlanetCopy.DataType = typeof(string);
+                    dtColumnCodeFordtPlanetCopy.ColumnName = "Code";
+                    dtPlanetCopy.Columns.Add(dtColumnCodeFordtPlanetCopy);
 
                     
                 #endregion
@@ -323,20 +324,20 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
                     dtColumnPlanetIdFordtPlanetCopy.ColumnName = "PlanetId";
                     dtPlanetCopy.Columns.Add(dtColumnPlanetIdFordtPlanetCopy);
 
-                    DataColumn dtColumnNameFordtPlanetCopy = new DataColumn();
-                    dtColumnNameFordtPlanetCopy.DataType = typeof(string);
-                    dtColumnNameFordtPlanetCopy.ColumnName = "Name";
-                    dtPlanetCopy.Columns.Add(dtColumnNameFordtPlanetCopy);
-
-                    DataColumn dtColumnCodeFordtPlanetCopy = new DataColumn();
-                    dtColumnCodeFordtPlanetCopy.DataType = typeof(string);
-                    dtColumnCodeFordtPlanetCopy.ColumnName = "Code";
-                    dtPlanetCopy.Columns.Add(dtColumnCodeFordtPlanetCopy);
-
                     DataColumn dtColumnActiveFordtPlanetCopy = new DataColumn();
                     dtColumnActiveFordtPlanetCopy.DataType = typeof(string);
                     dtColumnActiveFordtPlanetCopy.ColumnName = "Active";
                     dtPlanetCopy.Columns.Add(dtColumnActiveFordtPlanetCopy);
+
+                    DataColumn dtColumnDateTimeCreationFordtPlanetCopy = new DataColumn();
+                    dtColumnDateTimeCreationFordtPlanetCopy.DataType = typeof(string);
+                    dtColumnDateTimeCreationFordtPlanetCopy.ColumnName = "DateTimeCreation";
+                    dtPlanetCopy.Columns.Add(dtColumnDateTimeCreationFordtPlanetCopy);
+
+                    DataColumn dtColumnDateTimeLastModificationFordtPlanetCopy = new DataColumn();
+                    dtColumnDateTimeLastModificationFordtPlanetCopy.DataType = typeof(string);
+                    dtColumnDateTimeLastModificationFordtPlanetCopy.ColumnName = "DateTimeLastModification";
+                    dtPlanetCopy.Columns.Add(dtColumnDateTimeLastModificationFordtPlanetCopy);
 
                     DataColumn dtColumnUserCreationIdFordtPlanetCopy = new DataColumn();
                     dtColumnUserCreationIdFordtPlanetCopy.DataType = typeof(string);
@@ -348,15 +349,15 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
                     dtColumnUserLastModificationIdFordtPlanetCopy.ColumnName = "UserLastModificationId";
                     dtPlanetCopy.Columns.Add(dtColumnUserLastModificationIdFordtPlanetCopy);
 
-                    DataColumn dtColumnDateTimeCreationFordtPlanetCopy = new DataColumn();
-                    dtColumnDateTimeCreationFordtPlanetCopy.DataType = typeof(string);
-                    dtColumnDateTimeCreationFordtPlanetCopy.ColumnName = "DateTimeCreation";
-                    dtPlanetCopy.Columns.Add(dtColumnDateTimeCreationFordtPlanetCopy);
+                    DataColumn dtColumnNameFordtPlanetCopy = new DataColumn();
+                    dtColumnNameFordtPlanetCopy.DataType = typeof(string);
+                    dtColumnNameFordtPlanetCopy.ColumnName = "Name";
+                    dtPlanetCopy.Columns.Add(dtColumnNameFordtPlanetCopy);
 
-                    DataColumn dtColumnDateTimeLastModificationFordtPlanetCopy = new DataColumn();
-                    dtColumnDateTimeLastModificationFordtPlanetCopy.DataType = typeof(string);
-                    dtColumnDateTimeLastModificationFordtPlanetCopy.ColumnName = "DateTimeLastModification";
-                    dtPlanetCopy.Columns.Add(dtColumnDateTimeLastModificationFordtPlanetCopy);
+                    DataColumn dtColumnCodeFordtPlanetCopy = new DataColumn();
+                    dtColumnCodeFordtPlanetCopy.DataType = typeof(string);
+                    dtColumnCodeFordtPlanetCopy.ColumnName = "Code";
+                    dtPlanetCopy.Columns.Add(dtColumnCodeFordtPlanetCopy);
 
                     
                     #endregion

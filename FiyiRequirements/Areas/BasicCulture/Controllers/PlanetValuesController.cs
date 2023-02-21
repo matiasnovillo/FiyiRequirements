@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
+using FiyiRequirements.Areas.BasicCulture.DTOs;
 using FiyiRequirements.Areas.BasicCulture.Filters;
 using FiyiRequirements.Areas.BasicCulture.Protocols;
 using FiyiRequirements.Areas.BasicCulture.Models;
@@ -24,7 +25,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 15/02/2023 17:38:02
+//Last modification on: 21/02/2023 17:48:26
 
 namespace FiyiRequirements.Areas.BasicCulture.Controllers
 {
@@ -32,7 +33,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 15/02/2023 17:38:02
+    /// Last modification: 21/02/2023 17:48:26
     /// </summary>
     [ApiController]
     [PlanetFilter]
@@ -113,14 +114,14 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
         }
 
         [HttpPost("~/api/BasicCulture/Planet/1/SelectAllPagedToJSON")]
-        public planetModelQuery SelectAllPagedToJSON([FromBody] planetModelQuery planetModelQuery)
+        public planetSelectAllPaged SelectAllPagedToJSON([FromBody] planetSelectAllPaged planetSelectAllPaged)
         {
             try
             {
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _PlanetProtocol.SelectAllPagedToModel(planetModelQuery);
+                 return _PlanetProtocol.SelectAllPagedToModel(planetSelectAllPaged);
             }
             catch (Exception ex)
             {
