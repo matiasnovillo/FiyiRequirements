@@ -3,6 +3,7 @@ using CsvHelper;
 using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.BasicCore.Models;
+using FiyiRequirements.Areas.BasicCore.DTOs;
 using FiyiRequirements.Areas.BasicCore.Protocols;
 using FiyiRequirements.Library;
 using System;
@@ -10,20 +11,19 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.IO;
-using FiyiRequirements.Areas.BasicCore.DTOs;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 20/12/2022 19:54:13
+//Last modification on: 21/02/2023 16:28:51
 
 namespace FiyiRequirements.Areas.BasicCore.Services
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.BasicCore.Services
     /// Name:              C# Service. <br/>
     /// Function:          Allow you to separate data contract stored in C# model from business with your clients. <br/>
     /// Also, allow dependency injection inside controllers/web apis<br/>
-    /// Last modification: 20/12/2022 19:54:13
+    /// Last modification: 21/02/2023 16:28:51
     /// </summary>
     public partial class FailureService : FailureProtocol
     {
@@ -54,9 +54,9 @@ namespace FiyiRequirements.Areas.BasicCore.Services
             return new FailureModel().SelectAllToList();
         }
 
-        public failureSelectAllPaged SelectAllPagedToModel(failureSelectAllPaged failureModelQuery)
+        public failureSelectAllPaged SelectAllPagedToModel(failureSelectAllPaged failureSelectAllPaged)
         {
-            return new FailureModel().SelectAllPagedToModel(failureModelQuery);
+            return new FailureModel().SelectAllPagedToModel(failureSelectAllPaged);
         } 
         #endregion
 
@@ -188,17 +188,42 @@ namespace FiyiRequirements.Areas.BasicCore.Services
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Active&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeCreation&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeLastModification&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">UserCreationId&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">UserLastModificationId&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
                 <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">HTTPCode&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">EmergencyLevel&nbsp;&nbsp;&nbsp;</span>
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Message&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Message&nbsp;&nbsp;&nbsp;</span>
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">EmergencyLevel&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
@@ -214,31 +239,6 @@ namespace FiyiRequirements.Areas.BasicCore.Services
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
                 <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Comment&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Active&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">UserCreationId&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">UserLastModificationId&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeCreation&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeLastModification&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th>
@@ -275,20 +275,45 @@ namespace FiyiRequirements.Areas.BasicCore.Services
                     dtColumnFailureIdFordtFailureCopy.ColumnName = "FailureId";
                     dtFailureCopy.Columns.Add(dtColumnFailureIdFordtFailureCopy);
 
+                    DataColumn dtColumnActiveFordtFailureCopy = new DataColumn();
+                    dtColumnActiveFordtFailureCopy.DataType = typeof(string);
+                    dtColumnActiveFordtFailureCopy.ColumnName = "Active";
+                    dtFailureCopy.Columns.Add(dtColumnActiveFordtFailureCopy);
+
+                    DataColumn dtColumnDateTimeCreationFordtFailureCopy = new DataColumn();
+                    dtColumnDateTimeCreationFordtFailureCopy.DataType = typeof(string);
+                    dtColumnDateTimeCreationFordtFailureCopy.ColumnName = "DateTimeCreation";
+                    dtFailureCopy.Columns.Add(dtColumnDateTimeCreationFordtFailureCopy);
+
+                    DataColumn dtColumnDateTimeLastModificationFordtFailureCopy = new DataColumn();
+                    dtColumnDateTimeLastModificationFordtFailureCopy.DataType = typeof(string);
+                    dtColumnDateTimeLastModificationFordtFailureCopy.ColumnName = "DateTimeLastModification";
+                    dtFailureCopy.Columns.Add(dtColumnDateTimeLastModificationFordtFailureCopy);
+
+                    DataColumn dtColumnUserCreationIdFordtFailureCopy = new DataColumn();
+                    dtColumnUserCreationIdFordtFailureCopy.DataType = typeof(string);
+                    dtColumnUserCreationIdFordtFailureCopy.ColumnName = "UserCreationId";
+                    dtFailureCopy.Columns.Add(dtColumnUserCreationIdFordtFailureCopy);
+
+                    DataColumn dtColumnUserLastModificationIdFordtFailureCopy = new DataColumn();
+                    dtColumnUserLastModificationIdFordtFailureCopy.DataType = typeof(string);
+                    dtColumnUserLastModificationIdFordtFailureCopy.ColumnName = "UserLastModificationId";
+                    dtFailureCopy.Columns.Add(dtColumnUserLastModificationIdFordtFailureCopy);
+
                     DataColumn dtColumnHTTPCodeFordtFailureCopy = new DataColumn();
                     dtColumnHTTPCodeFordtFailureCopy.DataType = typeof(string);
                     dtColumnHTTPCodeFordtFailureCopy.ColumnName = "HTTPCode";
                     dtFailureCopy.Columns.Add(dtColumnHTTPCodeFordtFailureCopy);
 
-                    DataColumn dtColumnEmergencyLevelFordtFailureCopy = new DataColumn();
-                    dtColumnEmergencyLevelFordtFailureCopy.DataType = typeof(string);
-                    dtColumnEmergencyLevelFordtFailureCopy.ColumnName = "EmergencyLevel";
-                    dtFailureCopy.Columns.Add(dtColumnEmergencyLevelFordtFailureCopy);
-
                     DataColumn dtColumnMessageFordtFailureCopy = new DataColumn();
                     dtColumnMessageFordtFailureCopy.DataType = typeof(string);
                     dtColumnMessageFordtFailureCopy.ColumnName = "Message";
                     dtFailureCopy.Columns.Add(dtColumnMessageFordtFailureCopy);
+
+                    DataColumn dtColumnEmergencyLevelFordtFailureCopy = new DataColumn();
+                    dtColumnEmergencyLevelFordtFailureCopy.DataType = typeof(string);
+                    dtColumnEmergencyLevelFordtFailureCopy.ColumnName = "EmergencyLevel";
+                    dtFailureCopy.Columns.Add(dtColumnEmergencyLevelFordtFailureCopy);
 
                     DataColumn dtColumnStackTraceFordtFailureCopy = new DataColumn();
                     dtColumnStackTraceFordtFailureCopy.DataType = typeof(string);
@@ -304,31 +329,6 @@ namespace FiyiRequirements.Areas.BasicCore.Services
                     dtColumnCommentFordtFailureCopy.DataType = typeof(string);
                     dtColumnCommentFordtFailureCopy.ColumnName = "Comment";
                     dtFailureCopy.Columns.Add(dtColumnCommentFordtFailureCopy);
-
-                    DataColumn dtColumnActiveFordtFailureCopy = new DataColumn();
-                    dtColumnActiveFordtFailureCopy.DataType = typeof(string);
-                    dtColumnActiveFordtFailureCopy.ColumnName = "Active";
-                    dtFailureCopy.Columns.Add(dtColumnActiveFordtFailureCopy);
-
-                    DataColumn dtColumnUserCreationIdFordtFailureCopy = new DataColumn();
-                    dtColumnUserCreationIdFordtFailureCopy.DataType = typeof(string);
-                    dtColumnUserCreationIdFordtFailureCopy.ColumnName = "UserCreationId";
-                    dtFailureCopy.Columns.Add(dtColumnUserCreationIdFordtFailureCopy);
-
-                    DataColumn dtColumnUserLastModificationIdFordtFailureCopy = new DataColumn();
-                    dtColumnUserLastModificationIdFordtFailureCopy.DataType = typeof(string);
-                    dtColumnUserLastModificationIdFordtFailureCopy.ColumnName = "UserLastModificationId";
-                    dtFailureCopy.Columns.Add(dtColumnUserLastModificationIdFordtFailureCopy);
-
-                    DataColumn dtColumnDateTimeCreationFordtFailureCopy = new DataColumn();
-                    dtColumnDateTimeCreationFordtFailureCopy.DataType = typeof(string);
-                    dtColumnDateTimeCreationFordtFailureCopy.ColumnName = "DateTimeCreation";
-                    dtFailureCopy.Columns.Add(dtColumnDateTimeCreationFordtFailureCopy);
-
-                    DataColumn dtColumnDateTimeLastModificationFordtFailureCopy = new DataColumn();
-                    dtColumnDateTimeLastModificationFordtFailureCopy.DataType = typeof(string);
-                    dtColumnDateTimeLastModificationFordtFailureCopy.ColumnName = "DateTimeLastModification";
-                    dtFailureCopy.Columns.Add(dtColumnDateTimeLastModificationFordtFailureCopy);
 
                     
                 #endregion
@@ -364,20 +364,45 @@ namespace FiyiRequirements.Areas.BasicCore.Services
                     dtColumnFailureIdFordtFailureCopy.ColumnName = "FailureId";
                     dtFailureCopy.Columns.Add(dtColumnFailureIdFordtFailureCopy);
 
+                    DataColumn dtColumnActiveFordtFailureCopy = new DataColumn();
+                    dtColumnActiveFordtFailureCopy.DataType = typeof(string);
+                    dtColumnActiveFordtFailureCopy.ColumnName = "Active";
+                    dtFailureCopy.Columns.Add(dtColumnActiveFordtFailureCopy);
+
+                    DataColumn dtColumnDateTimeCreationFordtFailureCopy = new DataColumn();
+                    dtColumnDateTimeCreationFordtFailureCopy.DataType = typeof(string);
+                    dtColumnDateTimeCreationFordtFailureCopy.ColumnName = "DateTimeCreation";
+                    dtFailureCopy.Columns.Add(dtColumnDateTimeCreationFordtFailureCopy);
+
+                    DataColumn dtColumnDateTimeLastModificationFordtFailureCopy = new DataColumn();
+                    dtColumnDateTimeLastModificationFordtFailureCopy.DataType = typeof(string);
+                    dtColumnDateTimeLastModificationFordtFailureCopy.ColumnName = "DateTimeLastModification";
+                    dtFailureCopy.Columns.Add(dtColumnDateTimeLastModificationFordtFailureCopy);
+
+                    DataColumn dtColumnUserCreationIdFordtFailureCopy = new DataColumn();
+                    dtColumnUserCreationIdFordtFailureCopy.DataType = typeof(string);
+                    dtColumnUserCreationIdFordtFailureCopy.ColumnName = "UserCreationId";
+                    dtFailureCopy.Columns.Add(dtColumnUserCreationIdFordtFailureCopy);
+
+                    DataColumn dtColumnUserLastModificationIdFordtFailureCopy = new DataColumn();
+                    dtColumnUserLastModificationIdFordtFailureCopy.DataType = typeof(string);
+                    dtColumnUserLastModificationIdFordtFailureCopy.ColumnName = "UserLastModificationId";
+                    dtFailureCopy.Columns.Add(dtColumnUserLastModificationIdFordtFailureCopy);
+
                     DataColumn dtColumnHTTPCodeFordtFailureCopy = new DataColumn();
                     dtColumnHTTPCodeFordtFailureCopy.DataType = typeof(string);
                     dtColumnHTTPCodeFordtFailureCopy.ColumnName = "HTTPCode";
                     dtFailureCopy.Columns.Add(dtColumnHTTPCodeFordtFailureCopy);
 
-                    DataColumn dtColumnEmergencyLevelFordtFailureCopy = new DataColumn();
-                    dtColumnEmergencyLevelFordtFailureCopy.DataType = typeof(string);
-                    dtColumnEmergencyLevelFordtFailureCopy.ColumnName = "EmergencyLevel";
-                    dtFailureCopy.Columns.Add(dtColumnEmergencyLevelFordtFailureCopy);
-
                     DataColumn dtColumnMessageFordtFailureCopy = new DataColumn();
                     dtColumnMessageFordtFailureCopy.DataType = typeof(string);
                     dtColumnMessageFordtFailureCopy.ColumnName = "Message";
                     dtFailureCopy.Columns.Add(dtColumnMessageFordtFailureCopy);
+
+                    DataColumn dtColumnEmergencyLevelFordtFailureCopy = new DataColumn();
+                    dtColumnEmergencyLevelFordtFailureCopy.DataType = typeof(string);
+                    dtColumnEmergencyLevelFordtFailureCopy.ColumnName = "EmergencyLevel";
+                    dtFailureCopy.Columns.Add(dtColumnEmergencyLevelFordtFailureCopy);
 
                     DataColumn dtColumnStackTraceFordtFailureCopy = new DataColumn();
                     dtColumnStackTraceFordtFailureCopy.DataType = typeof(string);
@@ -393,31 +418,6 @@ namespace FiyiRequirements.Areas.BasicCore.Services
                     dtColumnCommentFordtFailureCopy.DataType = typeof(string);
                     dtColumnCommentFordtFailureCopy.ColumnName = "Comment";
                     dtFailureCopy.Columns.Add(dtColumnCommentFordtFailureCopy);
-
-                    DataColumn dtColumnActiveFordtFailureCopy = new DataColumn();
-                    dtColumnActiveFordtFailureCopy.DataType = typeof(string);
-                    dtColumnActiveFordtFailureCopy.ColumnName = "Active";
-                    dtFailureCopy.Columns.Add(dtColumnActiveFordtFailureCopy);
-
-                    DataColumn dtColumnUserCreationIdFordtFailureCopy = new DataColumn();
-                    dtColumnUserCreationIdFordtFailureCopy.DataType = typeof(string);
-                    dtColumnUserCreationIdFordtFailureCopy.ColumnName = "UserCreationId";
-                    dtFailureCopy.Columns.Add(dtColumnUserCreationIdFordtFailureCopy);
-
-                    DataColumn dtColumnUserLastModificationIdFordtFailureCopy = new DataColumn();
-                    dtColumnUserLastModificationIdFordtFailureCopy.DataType = typeof(string);
-                    dtColumnUserLastModificationIdFordtFailureCopy.ColumnName = "UserLastModificationId";
-                    dtFailureCopy.Columns.Add(dtColumnUserLastModificationIdFordtFailureCopy);
-
-                    DataColumn dtColumnDateTimeCreationFordtFailureCopy = new DataColumn();
-                    dtColumnDateTimeCreationFordtFailureCopy.DataType = typeof(string);
-                    dtColumnDateTimeCreationFordtFailureCopy.ColumnName = "DateTimeCreation";
-                    dtFailureCopy.Columns.Add(dtColumnDateTimeCreationFordtFailureCopy);
-
-                    DataColumn dtColumnDateTimeLastModificationFordtFailureCopy = new DataColumn();
-                    dtColumnDateTimeLastModificationFordtFailureCopy.DataType = typeof(string);
-                    dtColumnDateTimeLastModificationFordtFailureCopy.ColumnName = "DateTimeLastModification";
-                    dtFailureCopy.Columns.Add(dtColumnDateTimeLastModificationFordtFailureCopy);
 
                     
                     #endregion

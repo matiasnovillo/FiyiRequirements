@@ -112,7 +112,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
-        [HttpPut("~/api/Requirement/Requirement/1/SelectAllPagedToJSON")]
+        [HttpPost("~/api/Requirement/Requirement/1/SelectAllPagedToJSON")]
         public requirementModelQuery SelectAllPagedToJSON([FromBody] requirementModelQuery requirementModelQuery)
         {
             try

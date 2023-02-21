@@ -112,7 +112,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
             }
         }
 
-        [HttpPut("~/api/CMSCore/Role/1/SelectAllPagedToJSON")]
+        [HttpPost("~/api/CMSCore/Role/1/SelectAllPagedToJSON")]
         public roleModelQuery SelectAllPagedToJSON([FromBody] roleModelQuery roleModelQuery)
         {
             try

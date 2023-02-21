@@ -12,7 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -28,8 +28,8 @@ namespace FiyiRequirements.Areas.BasicCore.Models
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
     /// Fields:            12 <br/> 
-    /// Dependencies:      0 models <br/>
-    /// Last modification: 20/12/2022 19:54:13
+    /// Sub-models:      0 models <br/>
+    /// Last modification: 21/02/2023 16:28:51
     /// </summary>
     [Serializable]
     public partial class FailureModel
@@ -41,45 +41,52 @@ namespace FiyiRequirements.Areas.BasicCore.Models
         [Library.ModelAttributeValidator.Key("FailureId")]
         public int FailureId { get; set; }
 
-        [Library.ModelAttributeValidator.Int("HTTPCode", false, 1, 2147483647)]
-        public int HTTPCode { get; set; }
-
-        [Library.ModelAttributeValidator.Int("EmergencyLevel", false, 1, 2147483647)]
-        public int EmergencyLevel { get; set; }
-
-        [Library.ModelAttributeValidator.String("Message", false, 0, 8000, "")]
-        public string Message { get; set; }
-
-        [Library.ModelAttributeValidator.String("StackTrace", false, 0, 8000, "")]
-        public string StackTrace { get; set; }
-
-        [Library.ModelAttributeValidator.String("Source", false, 0, 8000, "")]
-        public string Source { get; set; }
-
-        [Library.ModelAttributeValidator.String("Comment", false, 0, 8000, "")]
-        public string Comment { get; set; }
-
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
         public bool Active { get; set; }
 
-        [Library.ModelAttributeValidator.Int("UserCreationId", false, 1, 2147483647)]
-        public int UserCreationId { get; set; }
-
-        [Library.ModelAttributeValidator.Int("UserLastModificationId", false, 1, 2147483647)]
-        public int UserLastModificationId { get; set; }
-
-        [Library.ModelAttributeValidator.DateTime("DateTimeCreation", false, "01/01/1753 0:00:00.001", "30/12/9998 23:59:59.999")]
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        [Library.ModelAttributeValidator.DateTime("DateTimeCreation", false, "1753-01-01T00:00", "9998-12-30T23:59")]
         public DateTime DateTimeCreation { get; set; }
 
-        [Library.ModelAttributeValidator.DateTime("DateTimeLastModification", false, "01/01/1753 0:00:00.001", "30/12/9998 23:59:59.999")]
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        [Library.ModelAttributeValidator.DateTime("DateTimeLastModification", false, "1753-01-01T00:00", "9998-12-30T23:59")]
         public DateTime DateTimeLastModification { get; set; }
 
-        public string UserCreationIdFantasyName { get; set; }
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        [Library.ModelAttributeValidator.Key("UserCreationId")]
+        public int UserCreationId { get; set; }
 
-        public string UserLastModificationIdFantasyName { get; set; }
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        [Library.ModelAttributeValidator.Key("UserLastModificationId")]
+        public int UserLastModificationId { get; set; }
+
+        [Library.ModelAttributeValidator.Int("HTTPCode", false, 0, 2147483647)]
+        public int HTTPCode { get; set; }
+
+        public string Message { get; set; }
+
+        [Library.ModelAttributeValidator.Int("EmergencyLevel", false, 0, 2147483647)]
+        public int EmergencyLevel { get; set; }
+
+        public string StackTrace { get; set; }
+
+        public string Source { get; set; }
+
+        public string Comment { get; set; }
         #endregion
 
-        #region Models that depend on this model
-
+        #region Sub-lists
+        
         #endregion
 
         #region Constructors
@@ -93,7 +100,13 @@ namespace FiyiRequirements.Areas.BasicCore.Models
         /// </summary>
         public FailureModel()
         {
-            try { FailureId = 0; }
+            try 
+            {
+                FailureId = 0;
+
+                //Initialize sub-lists
+                
+            }
             catch (Exception ex) { throw ex; }
         }
 
@@ -109,6 +122,10 @@ namespace FiyiRequirements.Areas.BasicCore.Models
             try
             {
                 List<FailureModel> lstFailureModel = new List<FailureModel>();
+
+                //Initialize sub-lists
+                
+                
                 DynamicParameters dp = new DynamicParameters();
 
                 dp.Add("FailureId", FailureId, DbType.Int32, ParameterDirection.Input);
@@ -127,17 +144,17 @@ namespace FiyiRequirements.Areas.BasicCore.Models
                 foreach (FailureModel failure in lstFailureModel)
                 {
                     this.FailureId = failure.FailureId;
+					this.Active = failure.Active;
+					this.DateTimeCreation = failure.DateTimeCreation;
+					this.DateTimeLastModification = failure.DateTimeLastModification;
+					this.UserCreationId = failure.UserCreationId;
+					this.UserLastModificationId = failure.UserLastModificationId;
 					this.HTTPCode = failure.HTTPCode;
-					this.EmergencyLevel = failure.EmergencyLevel;
 					this.Message = failure.Message;
+					this.EmergencyLevel = failure.EmergencyLevel;
 					this.StackTrace = failure.StackTrace;
 					this.Source = failure.Source;
 					this.Comment = failure.Comment;
-					this.Active = failure.Active;
-					this.UserCreationId = failure.UserCreationId;
-					this.UserLastModificationId = failure.UserLastModificationId;
-					this.DateTimeCreation = failure.DateTimeCreation;
-					this.DateTimeLastModification = failure.DateTimeLastModification;
                 }
             }
             catch (Exception ex) { throw ex; }
@@ -151,22 +168,25 @@ namespace FiyiRequirements.Areas.BasicCore.Models
         /// Fields:       12 <br/> 
         /// Dependencies: 0 models depend on this model <br/>
         /// </summary>
-        public FailureModel(int FailureId, int HTTPCode, int EmergencyLevel, string Message, string StackTrace, string Source, string Comment, bool Active, int UserCreationId, int UserLastModificationId, DateTime DateTimeCreation, DateTime DateTimeLastModification)
+        public FailureModel(int FailureId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int HTTPCode, string Message, int EmergencyLevel, string StackTrace, string Source, string Comment)
         {
             try
             {
+                //Initialize sub-lists
+                
+
                 this.FailureId = FailureId;
+				this.Active = Active;
+				this.DateTimeCreation = DateTimeCreation;
+				this.DateTimeLastModification = DateTimeLastModification;
+				this.UserCreationId = UserCreationId;
+				this.UserLastModificationId = UserLastModificationId;
 				this.HTTPCode = HTTPCode;
-				this.EmergencyLevel = EmergencyLevel;
 				this.Message = Message;
+				this.EmergencyLevel = EmergencyLevel;
 				this.StackTrace = StackTrace;
 				this.Source = Source;
 				this.Comment = Comment;
-				this.Active = Active;
-				this.UserCreationId = UserCreationId;
-				this.UserLastModificationId = UserLastModificationId;
-				this.DateTimeCreation = DateTimeCreation;
-				this.DateTimeLastModification = DateTimeLastModification;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -182,18 +202,21 @@ namespace FiyiRequirements.Areas.BasicCore.Models
         {
             try
             {
+                //Initialize sub-lists
+                
+
                 FailureId = failure.FailureId;
+				Active = failure.Active;
+				DateTimeCreation = failure.DateTimeCreation;
+				DateTimeLastModification = failure.DateTimeLastModification;
+				UserCreationId = failure.UserCreationId;
+				UserLastModificationId = failure.UserLastModificationId;
 				HTTPCode = failure.HTTPCode;
-				EmergencyLevel = failure.EmergencyLevel;
 				Message = failure.Message;
+				EmergencyLevel = failure.EmergencyLevel;
 				StackTrace = failure.StackTrace;
 				Source = failure.Source;
 				Comment = failure.Comment;
-				Active = failure.Active;
-				UserCreationId = failure.UserCreationId;
-				UserLastModificationId = failure.UserLastModificationId;
-				DateTimeCreation = failure.DateTimeCreation;
-				DateTimeLastModification = failure.DateTimeLastModification;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -296,17 +319,17 @@ namespace FiyiRequirements.Areas.BasicCore.Models
                 foreach (FailureModel failure in lstFailureModel)
                 {
                     FailureModel.FailureId = failure.FailureId;
+					FailureModel.Active = failure.Active;
+					FailureModel.DateTimeCreation = failure.DateTimeCreation;
+					FailureModel.DateTimeLastModification = failure.DateTimeLastModification;
+					FailureModel.UserCreationId = failure.UserCreationId;
+					FailureModel.UserLastModificationId = failure.UserLastModificationId;
 					FailureModel.HTTPCode = failure.HTTPCode;
-					FailureModel.EmergencyLevel = failure.EmergencyLevel;
 					FailureModel.Message = failure.Message;
+					FailureModel.EmergencyLevel = failure.EmergencyLevel;
 					FailureModel.StackTrace = failure.StackTrace;
 					FailureModel.Source = failure.Source;
 					FailureModel.Comment = failure.Comment;
-					FailureModel.Active = failure.Active;
-					FailureModel.UserCreationId = failure.UserCreationId;
-					FailureModel.UserLastModificationId = failure.UserLastModificationId;
-					FailureModel.DateTimeCreation = failure.DateTimeCreation;
-					FailureModel.DateTimeLastModification = failure.DateTimeLastModification;
                 }
 
                 return FailureModel;
@@ -346,11 +369,13 @@ namespace FiyiRequirements.Areas.BasicCore.Models
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    failureSelectAllPaged.lstFailureModel = (List<FailureModel>)sqlConnection.Query<FailureModel>("[dbo].[BasicCore.Failure.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
+                    failureSelectAllPaged.lstFailureModel = (List<FailureModel>)sqlConnection.Query<FailureModel>("[dbo].[BasicCore.Failure.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
                     failureSelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 
                 failureSelectAllPaged.TotalPages = Library.Math.Divide(failureSelectAllPaged.TotalRows, failureSelectAllPaged.RowsPerPage, Library.Math.RoundType.RoundUp);
+
+                
 
                 return failureSelectAllPaged;
             }
@@ -371,17 +396,17 @@ namespace FiyiRequirements.Areas.BasicCore.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
                 
-                dp.Add("HTTPCode", HTTPCode, DbType.Int32, ParameterDirection.Input);
-				dp.Add("EmergencyLevel", EmergencyLevel, DbType.Int32, ParameterDirection.Input);
+                dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("HTTPCode", HTTPCode, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Message", Message, DbType.String, ParameterDirection.Input);
+				dp.Add("EmergencyLevel", EmergencyLevel, DbType.Int32, ParameterDirection.Input);
 				dp.Add("StackTrace", StackTrace, DbType.String, ParameterDirection.Input);
 				dp.Add("Source", Source, DbType.String, ParameterDirection.Input);
 				dp.Add("Comment", Comment, DbType.String, ParameterDirection.Input);
-				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -410,17 +435,17 @@ namespace FiyiRequirements.Areas.BasicCore.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
 
-                dp.Add("HTTPCode", failure.HTTPCode, DbType.Int32, ParameterDirection.Input);
-				dp.Add("EmergencyLevel", failure.EmergencyLevel, DbType.Int32, ParameterDirection.Input);
+                dp.Add("Active", failure.Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", failure.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", failure.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", failure.UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", failure.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("HTTPCode", failure.HTTPCode, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Message", failure.Message, DbType.String, ParameterDirection.Input);
+				dp.Add("EmergencyLevel", failure.EmergencyLevel, DbType.Int32, ParameterDirection.Input);
 				dp.Add("StackTrace", failure.StackTrace, DbType.String, ParameterDirection.Input);
 				dp.Add("Source", failure.Source, DbType.String, ParameterDirection.Input);
 				dp.Add("Comment", failure.Comment, DbType.String, ParameterDirection.Input);
-				dp.Add("Active", failure.Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", failure.UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", failure.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", failure.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", failure.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
                 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -441,7 +466,7 @@ namespace FiyiRequirements.Areas.BasicCore.Models
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
         /// <returns>The ID of the last registry inserted in Failure table</returns>
-        public int Insert(int HTTPCode, int EmergencyLevel, string Message, string StackTrace, string Source, string Comment, bool Active, int UserCreationId, int UserLastModificationId, DateTime DateTimeCreation, DateTime DateTimeLastModification)
+        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int HTTPCode, string Message, int EmergencyLevel, string StackTrace, string Source, string Comment)
         {
             try
             {
@@ -449,17 +474,17 @@ namespace FiyiRequirements.Areas.BasicCore.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
 
-                dp.Add("HTTPCode", HTTPCode, DbType.Int32, ParameterDirection.Input);
-				dp.Add("EmergencyLevel", EmergencyLevel, DbType.Int32, ParameterDirection.Input);
+                dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("HTTPCode", HTTPCode, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Message", Message, DbType.String, ParameterDirection.Input);
+				dp.Add("EmergencyLevel", EmergencyLevel, DbType.Int32, ParameterDirection.Input);
 				dp.Add("StackTrace", StackTrace, DbType.String, ParameterDirection.Input);
 				dp.Add("Source", Source, DbType.String, ParameterDirection.Input);
 				dp.Add("Comment", Comment, DbType.String, ParameterDirection.Input);
-				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -489,17 +514,17 @@ namespace FiyiRequirements.Areas.BasicCore.Models
                 DataTable DataTable = new DataTable();
 
                 dp.Add("FailureId", FailureId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("HTTPCode", HTTPCode, DbType.Int32, ParameterDirection.Input);
-				dp.Add("EmergencyLevel", EmergencyLevel, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Message", Message, DbType.String, ParameterDirection.Input);
+				dp.Add("EmergencyLevel", EmergencyLevel, DbType.Int32, ParameterDirection.Input);
 				dp.Add("StackTrace", StackTrace, DbType.String, ParameterDirection.Input);
 				dp.Add("Source", Source, DbType.String, ParameterDirection.Input);
 				dp.Add("Comment", Comment, DbType.String, ParameterDirection.Input);
-				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -529,17 +554,17 @@ namespace FiyiRequirements.Areas.BasicCore.Models
                 DataTable DataTable = new DataTable();
 
                 dp.Add("FailureId", failure.FailureId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Active", failure.Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", failure.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", failure.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", failure.UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", failure.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("HTTPCode", failure.HTTPCode, DbType.Int32, ParameterDirection.Input);
-				dp.Add("EmergencyLevel", failure.EmergencyLevel, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Message", failure.Message, DbType.String, ParameterDirection.Input);
+				dp.Add("EmergencyLevel", failure.EmergencyLevel, DbType.Int32, ParameterDirection.Input);
 				dp.Add("StackTrace", failure.StackTrace, DbType.String, ParameterDirection.Input);
 				dp.Add("Source", failure.Source, DbType.String, ParameterDirection.Input);
 				dp.Add("Comment", failure.Comment, DbType.String, ParameterDirection.Input);
-				dp.Add("Active", failure.Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", failure.UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", failure.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", failure.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", failure.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -560,7 +585,7 @@ namespace FiyiRequirements.Areas.BasicCore.Models
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
         /// <returns>The number of rows updated in Failure table</returns>
-        public int UpdateByFailureId(int FailureId, int HTTPCode, int EmergencyLevel, string Message, string StackTrace, string Source, string Comment, bool Active, int UserCreationId, int UserLastModificationId, DateTime DateTimeCreation, DateTime DateTimeLastModification)
+        public int UpdateByFailureId(int FailureId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, int HTTPCode, string Message, int EmergencyLevel, string StackTrace, string Source, string Comment)
         {
             try
             {
@@ -569,17 +594,17 @@ namespace FiyiRequirements.Areas.BasicCore.Models
                 DataTable DataTable = new DataTable();
 
                 dp.Add("FailureId", FailureId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("HTTPCode", HTTPCode, DbType.Int32, ParameterDirection.Input);
-				dp.Add("EmergencyLevel", EmergencyLevel, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Message", Message, DbType.String, ParameterDirection.Input);
+				dp.Add("EmergencyLevel", EmergencyLevel, DbType.Int32, ParameterDirection.Input);
 				dp.Add("StackTrace", StackTrace, DbType.String, ParameterDirection.Input);
 				dp.Add("Source", Source, DbType.String, ParameterDirection.Input);
 				dp.Add("Comment", Comment, DbType.String, ParameterDirection.Input);
-				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -701,17 +726,17 @@ namespace FiyiRequirements.Areas.BasicCore.Models
         public override string ToString()
         {
             return $"FailureId: {FailureId}, " +
-				$"HTTPCode: {HTTPCode}, " +
-				$"EmergencyLevel: {EmergencyLevel}, " +
-				$"Message: {Message}, " +
-				$"StackTrace: {StackTrace}, " +
-				$"Source: {Source}, " +
-				$"Comment: {Comment}, " +
 				$"Active: {Active}, " +
+				$"DateTimeCreation: {DateTimeCreation}, " +
+				$"DateTimeLastModification: {DateTimeLastModification}, " +
 				$"UserCreationId: {UserCreationId}, " +
 				$"UserLastModificationId: {UserLastModificationId}, " +
-				$"DateTimeCreation: {DateTimeCreation}, " +
-				$"DateTimeLastModification: {DateTimeLastModification}";
+				$"HTTPCode: {HTTPCode}, " +
+				$"Message: {Message}, " +
+				$"EmergencyLevel: {EmergencyLevel}, " +
+				$"StackTrace: {StackTrace}, " +
+				$"Source: {Source}, " +
+				$"Comment: {Comment}";
         }
 
         public string ToStringOnlyValuesForHTML()
@@ -726,19 +751,49 @@ namespace FiyiRequirements.Areas.BasicCore.Models
     </td><td align=""left"" valign=""top"">
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Active}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{DateTimeCreation}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{DateTimeLastModification}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserCreationId}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserLastModificationId}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
             <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{HTTPCode}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td><td align=""left"" valign=""top"">
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{EmergencyLevel}</span>
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Message}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td><td align=""left"" valign=""top"">
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Message}</span>
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{EmergencyLevel}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td><td align=""left"" valign=""top"">
@@ -757,36 +812,6 @@ namespace FiyiRequirements.Areas.BasicCore.Models
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
             <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Comment}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Active}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserCreationId}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserLastModificationId}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{DateTimeCreation}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{DateTimeLastModification}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td>

@@ -112,7 +112,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
-        [HttpPut("~/api/BasicCulture/City/1/SelectAllPagedToJSON")]
+        [HttpPost("~/api/BasicCulture/City/1/SelectAllPagedToJSON")]
         public cityModelQuery SelectAllPagedToJSON([FromBody] cityModelQuery cityModelQuery)
         {
             try

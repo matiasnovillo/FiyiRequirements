@@ -112,7 +112,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
             }
         }
 
-        [HttpPut("~/api/CMSCore/Menu/1/SelectAllPagedToJSON")]
+        [HttpPost("~/api/CMSCore/Menu/1/SelectAllPagedToJSON")]
         public menuModelQuery SelectAllPagedToJSON([FromBody] menuModelQuery menuModelQuery)
         {
             try

@@ -112,7 +112,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
             }
         }
 
-        [HttpPut("~/api/Requirement/RequirementChangehistory/1/SelectAllPagedToJSON/{RequirementId:int}")]
+        [HttpPost("~/api/Requirement/RequirementChangehistory/1/SelectAllPagedToJSON/{RequirementId:int}")]
         public requirementchangehistoryModelQuery SelectAllPagedToJSON([FromBody] requirementchangehistoryModelQuery requirementchangehistoryModelQuery, int RequirementId)
         {
             try

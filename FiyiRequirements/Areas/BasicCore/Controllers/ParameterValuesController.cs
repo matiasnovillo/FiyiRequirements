@@ -113,7 +113,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
             }
         }
 
-        [HttpPut("~/api/BasicCore/Parameter/1/SelectAllPagedToJSON")]
+        [HttpPost("~/api/BasicCore/Parameter/1/SelectAllPagedToJSON")]
         public parameterSelectAllPaged SelectAllPagedToJSON([FromBody] parameterSelectAllPaged parameterSelectAllPaged)
         {
             try

@@ -112,7 +112,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
-        [HttpPut("~/api/BasicCulture/Country/1/SelectAllPagedToJSON")]
+        [HttpPost("~/api/BasicCulture/Country/1/SelectAllPagedToJSON")]
         public countryModelQuery SelectAllPagedToJSON([FromBody] countryModelQuery countryModelQuery)
         {
             try

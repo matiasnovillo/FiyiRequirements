@@ -112,7 +112,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
-        [HttpPut("~/api/BasicCulture/Planet/1/SelectAllPagedToJSON")]
+        [HttpPost("~/api/BasicCulture/Planet/1/SelectAllPagedToJSON")]
         public planetModelQuery SelectAllPagedToJSON([FromBody] planetModelQuery planetModelQuery)
         {
             try

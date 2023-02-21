@@ -55,7 +55,7 @@ export class RoleModel {
             "Accept": "application/json",
             "Content-Type": "application/json; charset=utf-8"
         };
-        return Rx.from(ajax.put(URL, Body, Header));
+        return Rx.from(ajax.post(URL, Body, Header));
     }
 
     //Non-Queries

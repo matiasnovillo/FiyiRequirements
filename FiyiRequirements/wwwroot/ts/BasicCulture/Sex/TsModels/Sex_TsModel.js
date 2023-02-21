@@ -42,7 +42,7 @@ var SexModel = /** @class */ (function () {
             "Accept": "application/json",
             "Content-Type": "application/json; charset=utf-8"
         };
-        return Rx.from(ajax_1.ajax.put(URL, Body, Header));
+        return Rx.from(ajax_1.ajax.post(URL, Body, Header));
     };
     //Non-Queries
     SexModel.DeleteBySexId = function (SexId) {

@@ -112,7 +112,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
             }
         }
 
-        [HttpPut("~/api/Examples/Example/1/SelectAllPagedToJSON")]
+        [HttpPost("~/api/Examples/Example/1/SelectAllPagedToJSON")]
         public exampleModelQuery SelectAllPagedToJSON([FromBody] exampleModelQuery exampleModelQuery)
         {
             try

@@ -113,7 +113,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
             }
         }
 
-        [HttpPut("~/api/CMSCore/User/1/SelectAllPagedToJSON")]
+        [HttpPost("~/api/CMSCore/User/1/SelectAllPagedToJSON")]
         public userModelQuery SelectAllPagedToJSON([FromBody] userModelQuery userModelQuery)
         {
             try
@@ -470,7 +470,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
 
         }
 
-        [HttpPut("~/api/CMSCore/User/1/ChangePassword")]
+        [HttpPost("~/api/CMSCore/User/1/ChangePassword")]
 
         public IActionResult ChangePassword()
         {
@@ -551,7 +551,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
             }
         }
 
-        [HttpPut("~/api/CMSCore/User/1/RecoverPassword")]
+        [HttpPost("~/api/CMSCore/User/1/RecoverPassword")]
 
         public IActionResult RecoverPassword()
         {
@@ -585,7 +585,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
             }
         }
 
-        [HttpPut("~/api/CMSCore/User/1/Logout")]
+        [HttpPost("~/api/CMSCore/User/1/Logout")]
 
         public IActionResult Logout()
         {

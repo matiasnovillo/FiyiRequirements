@@ -112,7 +112,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
-        [HttpPut("~/api/BasicCulture/Sex/1/SelectAllPagedToJSON")]
+        [HttpPost("~/api/BasicCulture/Sex/1/SelectAllPagedToJSON")]
         public sexModelQuery SelectAllPagedToJSON([FromBody] sexModelQuery sexModelQuery)
         {
             try
