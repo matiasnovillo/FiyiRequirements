@@ -237,23 +237,22 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                                        
 
                     RowsAffected = _RequirementProtocol.UpdateByRequirementId(RequirementModel);
+
+                    //RequirementChangehistory
+                    RequirementChangehistoryModel requirementChangehistoryModel = new RequirementChangehistoryModel()
+                    {
+                        Active = true,
+                        DateTimeCreation = DateTime.Now,
+                        DateTimeLastModification = DateTime.Now,
+                        UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                        UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                        RequirementId = RequirementId,
+                        RequirementPriorityId = RequirementPriorityId,
+                        RequirementStateId = RequirementStateId
+                    };
+
+                    requirementChangehistoryModel.Insert();
                 }
-
-                //RequirementChangehistory
-                RequirementChangehistoryModel requirementChangehistoryModel = new RequirementChangehistoryModel()
-                {
-                    Active = true,
-                    DateTimeCreation = DateTime.Now,
-                    DateTimeLastModification = DateTime.Now,
-                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
-                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
-                    RequirementId = RequirementId,
-                    RequirementPriorityId = RequirementPriorityId,
-                    RequirementStateId = RequirementStateId
-                };
-
-                requirementChangehistoryModel.Insert();
-                
 
                 //Look for sent files
                 if (HttpContext.Request.Form.Files.Count != 0)

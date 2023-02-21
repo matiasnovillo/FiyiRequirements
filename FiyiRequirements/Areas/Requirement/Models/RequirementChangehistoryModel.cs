@@ -78,10 +78,18 @@ namespace FiyiRequirements.Areas.Requirement.Models
 
         [Library.ModelAttributeValidator.Key("RequirementPriorityId")]
         public int RequirementPriorityId { get; set; }
+
+        public string UserCreationIdFantasyName { get; set;}
+        
+        public string UserLastModificationIdFantasyName { get; set;}
+        
+        public string RequirementPriorityIdName { get; set;}
+        
+        public string RequirementStateIdName { get; set;}
         #endregion
 
         #region Sub-lists
-        
+
         #endregion
 
         #region Constructors
@@ -343,24 +351,13 @@ namespace FiyiRequirements.Areas.Requirement.Models
             {
                 requirementchangehistorySelectAllPaged.lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
                 DynamicParameters dp = new DynamicParameters();
-                dp.Add("QueryString", requirementchangehistorySelectAllPaged.QueryString, DbType.String, ParameterDirection.Input);
-                dp.Add("ActualPageNumber", requirementchangehistorySelectAllPaged.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
-                dp.Add("RowsPerPage", requirementchangehistorySelectAllPaged.RowsPerPage, DbType.Int32, ParameterDirection.Input);
-                dp.Add("SorterColumn", requirementchangehistorySelectAllPaged.SorterColumn, DbType.String, ParameterDirection.Input);
-                dp.Add("SortToggler", requirementchangehistorySelectAllPaged.SortToggler, DbType.Boolean, ParameterDirection.Input);
-                dp.Add("TotalRows", requirementchangehistorySelectAllPaged.TotalRows, DbType.Int32, ParameterDirection.Output);
 
                 dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    requirementchangehistorySelectAllPaged.lstRequirementChangehistoryModel = (List<RequirementChangehistoryModel>)sqlConnection.Query<RequirementChangehistoryModel>("[dbo].[Requirement.RequirementChangehistory.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
-                    requirementchangehistorySelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
+                    requirementchangehistorySelectAllPaged.lstRequirementChangehistoryModel = (List<RequirementChangehistoryModel>)sqlConnection.Query<RequirementChangehistoryModel>("[dbo].[Requirement.RequirementChangehistory.SelectAllByRequirementIdCustom]", dp, commandType: CommandType.StoredProcedure);
                 }
-
-                requirementchangehistorySelectAllPaged.TotalPages = Library.Math.Divide(requirementchangehistorySelectAllPaged.TotalRows, requirementchangehistorySelectAllPaged.RowsPerPage, Library.Math.RoundType.RoundUp);
-
-                
 
                 return requirementchangehistorySelectAllPaged;
             }
