@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
+using FiyiRequirements.Areas.BasicCulture.DTOs;
 using FiyiRequirements.Areas.BasicCulture.Filters;
 using FiyiRequirements.Areas.BasicCulture.Protocols;
 using FiyiRequirements.Areas.BasicCulture.Models;
@@ -24,7 +25,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 15/02/2023 17:41:07
+//Last modification on: 21/02/2023 17:45:06
 
 namespace FiyiRequirements.Areas.BasicCulture.Controllers
 {
@@ -32,7 +33,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 15/02/2023 17:41:07
+    /// Last modification: 21/02/2023 17:45:06
     /// </summary>
     [ApiController]
     [CountryFilter]
@@ -113,14 +114,14 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
         }
 
         [HttpPost("~/api/BasicCulture/Country/1/SelectAllPagedToJSON")]
-        public countryModelQuery SelectAllPagedToJSON([FromBody] countryModelQuery countryModelQuery)
+        public countrySelectAllPaged SelectAllPagedToJSON([FromBody] countrySelectAllPaged countrySelectAllPaged)
         {
             try
             {
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _CountryProtocol.SelectAllPagedToModel(countryModelQuery);
+                 return _CountryProtocol.SelectAllPagedToModel(countrySelectAllPaged);
             }
             catch (Exception ex)
             {

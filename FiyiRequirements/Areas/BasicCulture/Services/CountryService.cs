@@ -3,6 +3,7 @@ using CsvHelper;
 using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.BasicCulture.Models;
+using FiyiRequirements.Areas.BasicCulture.DTOs;
 using FiyiRequirements.Areas.BasicCulture.Protocols;
 using FiyiRequirements.Library;
 using System;
@@ -15,14 +16,14 @@ using System.IO;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 20/12/2022 20:09:01
+//Last modification on: 21/02/2023 17:45:06
 
 namespace FiyiRequirements.Areas.BasicCulture.Services
 {
@@ -31,7 +32,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
     /// Name:              C# Service. <br/>
     /// Function:          Allow you to separate data contract stored in C# model from business with your clients. <br/>
     /// Also, allow dependency injection inside controllers/web apis<br/>
-    /// Last modification: 20/12/2022 20:09:01
+    /// Last modification: 21/02/2023 17:45:06
     /// </summary>
     public partial class CountryService : CountryProtocol
     {
@@ -53,9 +54,9 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
             return new CountryModel().SelectAllToList();
         }
 
-        public countryModelQuery SelectAllPagedToModel(countryModelQuery countryModelQuery)
+        public countrySelectAllPaged SelectAllPagedToModel(countrySelectAllPaged countrySelectAllPaged)
         {
-            return new CountryModel().SelectAllPagedToModel(countryModelQuery);
+            return new CountryModel().SelectAllPagedToModel(countrySelectAllPaged);
         } 
         #endregion
 
@@ -187,6 +188,31 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Active&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeCreation&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeLastModification&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">UserCreationId&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">UserLastModificationId&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
                 <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Name&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
@@ -203,31 +229,6 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
                 <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">PlanetId&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Active&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">UserCreationId&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">UserLastModificationId&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeCreation&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeLastModification&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th>
@@ -264,6 +265,31 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
                     dtColumnCountryIdFordtCountryCopy.ColumnName = "CountryId";
                     dtCountryCopy.Columns.Add(dtColumnCountryIdFordtCountryCopy);
 
+                    DataColumn dtColumnActiveFordtCountryCopy = new DataColumn();
+                    dtColumnActiveFordtCountryCopy.DataType = typeof(string);
+                    dtColumnActiveFordtCountryCopy.ColumnName = "Active";
+                    dtCountryCopy.Columns.Add(dtColumnActiveFordtCountryCopy);
+
+                    DataColumn dtColumnDateTimeCreationFordtCountryCopy = new DataColumn();
+                    dtColumnDateTimeCreationFordtCountryCopy.DataType = typeof(string);
+                    dtColumnDateTimeCreationFordtCountryCopy.ColumnName = "DateTimeCreation";
+                    dtCountryCopy.Columns.Add(dtColumnDateTimeCreationFordtCountryCopy);
+
+                    DataColumn dtColumnDateTimeLastModificationFordtCountryCopy = new DataColumn();
+                    dtColumnDateTimeLastModificationFordtCountryCopy.DataType = typeof(string);
+                    dtColumnDateTimeLastModificationFordtCountryCopy.ColumnName = "DateTimeLastModification";
+                    dtCountryCopy.Columns.Add(dtColumnDateTimeLastModificationFordtCountryCopy);
+
+                    DataColumn dtColumnUserCreationIdFordtCountryCopy = new DataColumn();
+                    dtColumnUserCreationIdFordtCountryCopy.DataType = typeof(string);
+                    dtColumnUserCreationIdFordtCountryCopy.ColumnName = "UserCreationId";
+                    dtCountryCopy.Columns.Add(dtColumnUserCreationIdFordtCountryCopy);
+
+                    DataColumn dtColumnUserLastModificationIdFordtCountryCopy = new DataColumn();
+                    dtColumnUserLastModificationIdFordtCountryCopy.DataType = typeof(string);
+                    dtColumnUserLastModificationIdFordtCountryCopy.ColumnName = "UserLastModificationId";
+                    dtCountryCopy.Columns.Add(dtColumnUserLastModificationIdFordtCountryCopy);
+
                     DataColumn dtColumnNameFordtCountryCopy = new DataColumn();
                     dtColumnNameFordtCountryCopy.DataType = typeof(string);
                     dtColumnNameFordtCountryCopy.ColumnName = "Name";
@@ -283,31 +309,6 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
                     dtColumnPlanetIdFordtCountryCopy.DataType = typeof(string);
                     dtColumnPlanetIdFordtCountryCopy.ColumnName = "PlanetId";
                     dtCountryCopy.Columns.Add(dtColumnPlanetIdFordtCountryCopy);
-
-                    DataColumn dtColumnActiveFordtCountryCopy = new DataColumn();
-                    dtColumnActiveFordtCountryCopy.DataType = typeof(string);
-                    dtColumnActiveFordtCountryCopy.ColumnName = "Active";
-                    dtCountryCopy.Columns.Add(dtColumnActiveFordtCountryCopy);
-
-                    DataColumn dtColumnUserCreationIdFordtCountryCopy = new DataColumn();
-                    dtColumnUserCreationIdFordtCountryCopy.DataType = typeof(string);
-                    dtColumnUserCreationIdFordtCountryCopy.ColumnName = "UserCreationId";
-                    dtCountryCopy.Columns.Add(dtColumnUserCreationIdFordtCountryCopy);
-
-                    DataColumn dtColumnUserLastModificationIdFordtCountryCopy = new DataColumn();
-                    dtColumnUserLastModificationIdFordtCountryCopy.DataType = typeof(string);
-                    dtColumnUserLastModificationIdFordtCountryCopy.ColumnName = "UserLastModificationId";
-                    dtCountryCopy.Columns.Add(dtColumnUserLastModificationIdFordtCountryCopy);
-
-                    DataColumn dtColumnDateTimeCreationFordtCountryCopy = new DataColumn();
-                    dtColumnDateTimeCreationFordtCountryCopy.DataType = typeof(string);
-                    dtColumnDateTimeCreationFordtCountryCopy.ColumnName = "DateTimeCreation";
-                    dtCountryCopy.Columns.Add(dtColumnDateTimeCreationFordtCountryCopy);
-
-                    DataColumn dtColumnDateTimeLastModificationFordtCountryCopy = new DataColumn();
-                    dtColumnDateTimeLastModificationFordtCountryCopy.DataType = typeof(string);
-                    dtColumnDateTimeLastModificationFordtCountryCopy.ColumnName = "DateTimeLastModification";
-                    dtCountryCopy.Columns.Add(dtColumnDateTimeLastModificationFordtCountryCopy);
 
                     
                 #endregion
@@ -343,6 +344,31 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
                     dtColumnCountryIdFordtCountryCopy.ColumnName = "CountryId";
                     dtCountryCopy.Columns.Add(dtColumnCountryIdFordtCountryCopy);
 
+                    DataColumn dtColumnActiveFordtCountryCopy = new DataColumn();
+                    dtColumnActiveFordtCountryCopy.DataType = typeof(string);
+                    dtColumnActiveFordtCountryCopy.ColumnName = "Active";
+                    dtCountryCopy.Columns.Add(dtColumnActiveFordtCountryCopy);
+
+                    DataColumn dtColumnDateTimeCreationFordtCountryCopy = new DataColumn();
+                    dtColumnDateTimeCreationFordtCountryCopy.DataType = typeof(string);
+                    dtColumnDateTimeCreationFordtCountryCopy.ColumnName = "DateTimeCreation";
+                    dtCountryCopy.Columns.Add(dtColumnDateTimeCreationFordtCountryCopy);
+
+                    DataColumn dtColumnDateTimeLastModificationFordtCountryCopy = new DataColumn();
+                    dtColumnDateTimeLastModificationFordtCountryCopy.DataType = typeof(string);
+                    dtColumnDateTimeLastModificationFordtCountryCopy.ColumnName = "DateTimeLastModification";
+                    dtCountryCopy.Columns.Add(dtColumnDateTimeLastModificationFordtCountryCopy);
+
+                    DataColumn dtColumnUserCreationIdFordtCountryCopy = new DataColumn();
+                    dtColumnUserCreationIdFordtCountryCopy.DataType = typeof(string);
+                    dtColumnUserCreationIdFordtCountryCopy.ColumnName = "UserCreationId";
+                    dtCountryCopy.Columns.Add(dtColumnUserCreationIdFordtCountryCopy);
+
+                    DataColumn dtColumnUserLastModificationIdFordtCountryCopy = new DataColumn();
+                    dtColumnUserLastModificationIdFordtCountryCopy.DataType = typeof(string);
+                    dtColumnUserLastModificationIdFordtCountryCopy.ColumnName = "UserLastModificationId";
+                    dtCountryCopy.Columns.Add(dtColumnUserLastModificationIdFordtCountryCopy);
+
                     DataColumn dtColumnNameFordtCountryCopy = new DataColumn();
                     dtColumnNameFordtCountryCopy.DataType = typeof(string);
                     dtColumnNameFordtCountryCopy.ColumnName = "Name";
@@ -362,31 +388,6 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
                     dtColumnPlanetIdFordtCountryCopy.DataType = typeof(string);
                     dtColumnPlanetIdFordtCountryCopy.ColumnName = "PlanetId";
                     dtCountryCopy.Columns.Add(dtColumnPlanetIdFordtCountryCopy);
-
-                    DataColumn dtColumnActiveFordtCountryCopy = new DataColumn();
-                    dtColumnActiveFordtCountryCopy.DataType = typeof(string);
-                    dtColumnActiveFordtCountryCopy.ColumnName = "Active";
-                    dtCountryCopy.Columns.Add(dtColumnActiveFordtCountryCopy);
-
-                    DataColumn dtColumnUserCreationIdFordtCountryCopy = new DataColumn();
-                    dtColumnUserCreationIdFordtCountryCopy.DataType = typeof(string);
-                    dtColumnUserCreationIdFordtCountryCopy.ColumnName = "UserCreationId";
-                    dtCountryCopy.Columns.Add(dtColumnUserCreationIdFordtCountryCopy);
-
-                    DataColumn dtColumnUserLastModificationIdFordtCountryCopy = new DataColumn();
-                    dtColumnUserLastModificationIdFordtCountryCopy.DataType = typeof(string);
-                    dtColumnUserLastModificationIdFordtCountryCopy.ColumnName = "UserLastModificationId";
-                    dtCountryCopy.Columns.Add(dtColumnUserLastModificationIdFordtCountryCopy);
-
-                    DataColumn dtColumnDateTimeCreationFordtCountryCopy = new DataColumn();
-                    dtColumnDateTimeCreationFordtCountryCopy.DataType = typeof(string);
-                    dtColumnDateTimeCreationFordtCountryCopy.ColumnName = "DateTimeCreation";
-                    dtCountryCopy.Columns.Add(dtColumnDateTimeCreationFordtCountryCopy);
-
-                    DataColumn dtColumnDateTimeLastModificationFordtCountryCopy = new DataColumn();
-                    dtColumnDateTimeLastModificationFordtCountryCopy.DataType = typeof(string);
-                    dtColumnDateTimeLastModificationFordtCountryCopy.ColumnName = "DateTimeLastModification";
-                    dtCountryCopy.Columns.Add(dtColumnDateTimeLastModificationFordtCountryCopy);
 
                     
                     #endregion

@@ -1,4 +1,5 @@
 using Dapper;
+using FiyiRequirements.Areas.BasicCulture.DTOs;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -27,8 +28,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
     /// Fields:            10 <br/> 
-    /// Dependencies:      1 models <br/>
-    /// Last modification: 20/12/2022 20:09:01
+    /// Sub-models:      1 models <br/>
+    /// Last modification: 21/02/2023 17:45:06
     /// </summary>
     [Serializable]
     public partial class CountryModel
@@ -39,6 +40,35 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
         #region Fields
         [Library.ModelAttributeValidator.Key("CountryId")]
         public int CountryId { get; set; }
+
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        public bool Active { get; set; }
+
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        [Library.ModelAttributeValidator.DateTime("DateTimeCreation", false, "1753-01-01T00:00", "9998-12-30T23:59")]
+        public DateTime DateTimeCreation { get; set; }
+
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        [Library.ModelAttributeValidator.DateTime("DateTimeLastModification", false, "1753-01-01T00:00", "9998-12-30T23:59")]
+        public DateTime DateTimeLastModification { get; set; }
+
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        [Library.ModelAttributeValidator.Key("UserCreationId")]
+        public int UserCreationId { get; set; }
+
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        [Library.ModelAttributeValidator.Key("UserLastModificationId")]
+        public int UserLastModificationId { get; set; }
 
         [Library.ModelAttributeValidator.String("Name", false, 1, 500, "")]
         public string Name { get; set; }
@@ -51,29 +81,9 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
 
         [Library.ModelAttributeValidator.Key("PlanetId")]
         public int PlanetId { get; set; }
-
-        public bool Active { get; set; }
-
-        [Library.ModelAttributeValidator.Int("UserCreationId", false, 1, 2147483647)]
-        public int UserCreationId { get; set; }
-
-        [Library.ModelAttributeValidator.Int("UserLastModificationId", false, 1, 2147483647)]
-        public int UserLastModificationId { get; set; }
-
-        [Library.ModelAttributeValidator.DateTime("DateTimeCreation", false, "01/01/1753 0:00:00.001", "30/12/9998 23:59:59.999")]
-        public DateTime DateTimeCreation { get; set; }
-
-        [Library.ModelAttributeValidator.DateTime("DateTimeLastModification", false, "01/01/1753 0:00:00.001", "30/12/9998 23:59:59.999")]
-        public DateTime DateTimeLastModification { get; set; }
-
-        public string UserCreationIdFantasyName { get; set; }
-
-        public string UserLastModificationIdFantasyName { get; set; }
-
-        public string PlanetIdName { get; set; }
         #endregion
 
-        #region Models that depend on this model
+        #region Sub-lists
         public virtual List<ProvinceModel> lstProvinceModel { get; set; } //Foreign Key name: CountryId 
         #endregion
 
@@ -88,7 +98,14 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
         /// </summary>
         public CountryModel()
         {
-            try { CountryId = 0; }
+            try 
+            {
+                CountryId = 0;
+
+                //Initialize sub-lists
+                lstProvinceModel = new List<ProvinceModel>();
+                
+            }
             catch (Exception ex) { throw ex; }
         }
 
@@ -104,6 +121,11 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
             try
             {
                 List<CountryModel> lstCountryModel = new List<CountryModel>();
+
+                //Initialize sub-lists
+                lstProvinceModel = new List<ProvinceModel>();
+                
+                
                 DynamicParameters dp = new DynamicParameters();
 
                 dp.Add("CountryId", CountryId, DbType.Int32, ParameterDirection.Input);
@@ -122,15 +144,15 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
                 foreach (CountryModel country in lstCountryModel)
                 {
                     this.CountryId = country.CountryId;
+					this.Active = country.Active;
+					this.DateTimeCreation = country.DateTimeCreation;
+					this.DateTimeLastModification = country.DateTimeLastModification;
+					this.UserCreationId = country.UserCreationId;
+					this.UserLastModificationId = country.UserLastModificationId;
 					this.Name = country.Name;
 					this.GeographicalCoordinates = country.GeographicalCoordinates;
 					this.Code = country.Code;
 					this.PlanetId = country.PlanetId;
-					this.Active = country.Active;
-					this.UserCreationId = country.UserCreationId;
-					this.UserLastModificationId = country.UserLastModificationId;
-					this.DateTimeCreation = country.DateTimeCreation;
-					this.DateTimeLastModification = country.DateTimeLastModification;
                 }
             }
             catch (Exception ex) { throw ex; }
@@ -144,20 +166,24 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
         /// Fields:       10 <br/> 
         /// Dependencies: 1 models depend on this model <br/>
         /// </summary>
-        public CountryModel(int CountryId, string Name, string GeographicalCoordinates, string Code, int PlanetId, bool Active, int UserCreationId, int UserLastModificationId, DateTime DateTimeCreation, DateTime DateTimeLastModification)
+        public CountryModel(int CountryId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Name, string GeographicalCoordinates, string Code, int PlanetId)
         {
             try
             {
+                //Initialize sub-lists
+                lstProvinceModel = new List<ProvinceModel>();
+                
+
                 this.CountryId = CountryId;
+				this.Active = Active;
+				this.DateTimeCreation = DateTimeCreation;
+				this.DateTimeLastModification = DateTimeLastModification;
+				this.UserCreationId = UserCreationId;
+				this.UserLastModificationId = UserLastModificationId;
 				this.Name = Name;
 				this.GeographicalCoordinates = GeographicalCoordinates;
 				this.Code = Code;
 				this.PlanetId = PlanetId;
-				this.Active = Active;
-				this.UserCreationId = UserCreationId;
-				this.UserLastModificationId = UserLastModificationId;
-				this.DateTimeCreation = DateTimeCreation;
-				this.DateTimeLastModification = DateTimeLastModification;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -173,16 +199,20 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
         {
             try
             {
+                //Initialize sub-lists
+                lstProvinceModel = new List<ProvinceModel>();
+                
+
                 CountryId = country.CountryId;
+				Active = country.Active;
+				DateTimeCreation = country.DateTimeCreation;
+				DateTimeLastModification = country.DateTimeLastModification;
+				UserCreationId = country.UserCreationId;
+				UserLastModificationId = country.UserLastModificationId;
 				Name = country.Name;
 				GeographicalCoordinates = country.GeographicalCoordinates;
 				Code = country.Code;
 				PlanetId = country.PlanetId;
-				Active = country.Active;
-				UserCreationId = country.UserCreationId;
-				UserLastModificationId = country.UserLastModificationId;
-				DateTimeCreation = country.DateTimeCreation;
-				DateTimeLastModification = country.DateTimeLastModification;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -285,15 +315,15 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
                 foreach (CountryModel country in lstCountryModel)
                 {
                     CountryModel.CountryId = country.CountryId;
+					CountryModel.Active = country.Active;
+					CountryModel.DateTimeCreation = country.DateTimeCreation;
+					CountryModel.DateTimeLastModification = country.DateTimeLastModification;
+					CountryModel.UserCreationId = country.UserCreationId;
+					CountryModel.UserLastModificationId = country.UserLastModificationId;
 					CountryModel.Name = country.Name;
 					CountryModel.GeographicalCoordinates = country.GeographicalCoordinates;
 					CountryModel.Code = country.Code;
 					CountryModel.PlanetId = country.PlanetId;
-					CountryModel.Active = country.Active;
-					CountryModel.UserCreationId = country.UserCreationId;
-					CountryModel.UserLastModificationId = country.UserLastModificationId;
-					CountryModel.DateTimeCreation = country.DateTimeCreation;
-					CountryModel.DateTimeLastModification = country.DateTimeLastModification;
                 }
 
                 return CountryModel;
@@ -318,28 +348,28 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
             catch (Exception ex) { throw ex; }
         }
 
-        public countryModelQuery SelectAllPagedToModel(countryModelQuery countryModelQuery)
+        public countrySelectAllPaged SelectAllPagedToModel(countrySelectAllPaged countrySelectAllPaged)
         {
             try
             {
-                countryModelQuery.lstCountryModel = new List<CountryModel>();
+                countrySelectAllPaged.lstCountryModel = new List<CountryModel>();
                 DynamicParameters dp = new DynamicParameters();
-                dp.Add("QueryString", countryModelQuery.QueryString, DbType.String, ParameterDirection.Input);
-                dp.Add("ActualPageNumber", countryModelQuery.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
-                dp.Add("RowsPerPage", countryModelQuery.RowsPerPage, DbType.Int32, ParameterDirection.Input);
-                dp.Add("SorterColumn", countryModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
-                dp.Add("SortToggler", countryModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
-                dp.Add("TotalRows", countryModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
+                dp.Add("QueryString", countrySelectAllPaged.QueryString, DbType.String, ParameterDirection.Input);
+                dp.Add("ActualPageNumber", countrySelectAllPaged.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
+                dp.Add("RowsPerPage", countrySelectAllPaged.RowsPerPage, DbType.Int32, ParameterDirection.Input);
+                dp.Add("SorterColumn", countrySelectAllPaged.SorterColumn, DbType.String, ParameterDirection.Input);
+                dp.Add("SortToggler", countrySelectAllPaged.SortToggler, DbType.Boolean, ParameterDirection.Input);
+                dp.Add("TotalRows", countrySelectAllPaged.TotalRows, DbType.Int32, ParameterDirection.Output);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    countryModelQuery.lstCountryModel = (List<CountryModel>)sqlConnection.Query<CountryModel>("[dbo].[BasicCulture.Country.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
-                    countryModelQuery.TotalRows = dp.Get<int>("TotalRows");
+                    countrySelectAllPaged.lstCountryModel = (List<CountryModel>)sqlConnection.Query<CountryModel>("[dbo].[BasicCulture.Country.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
+                    countrySelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 
-                countryModelQuery.TotalPages = Library.Math.Divide(countryModelQuery.TotalRows, countryModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+                countrySelectAllPaged.TotalPages = Library.Math.Divide(countrySelectAllPaged.TotalRows, countrySelectAllPaged.RowsPerPage, Library.Math.RoundType.RoundUp);
 
-                return countryModelQuery;
+                return countrySelectAllPaged;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -358,15 +388,15 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
                 
-                dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
+                dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
 				dp.Add("GeographicalCoordinates", GeographicalCoordinates, DbType.String, ParameterDirection.Input);
 				dp.Add("Code", Code, DbType.String, ParameterDirection.Input);
 				dp.Add("PlanetId", PlanetId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -395,15 +425,15 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
 
-                dp.Add("Name", country.Name, DbType.String, ParameterDirection.Input);
+                dp.Add("Active", country.Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", country.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", country.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", country.UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", country.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Name", country.Name, DbType.String, ParameterDirection.Input);
 				dp.Add("GeographicalCoordinates", country.GeographicalCoordinates, DbType.String, ParameterDirection.Input);
 				dp.Add("Code", country.Code, DbType.String, ParameterDirection.Input);
 				dp.Add("PlanetId", country.PlanetId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Active", country.Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", country.UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", country.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", country.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", country.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
                 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -424,7 +454,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
         /// <returns>The ID of the last registry inserted in Country table</returns>
-        public int Insert(string Name, string GeographicalCoordinates, string Code, int PlanetId, bool Active, int UserCreationId, int UserLastModificationId, DateTime DateTimeCreation, DateTime DateTimeLastModification)
+        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Name, string GeographicalCoordinates, string Code, int PlanetId)
         {
             try
             {
@@ -432,15 +462,15 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
 
-                dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
+                dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
 				dp.Add("GeographicalCoordinates", GeographicalCoordinates, DbType.String, ParameterDirection.Input);
 				dp.Add("Code", Code, DbType.String, ParameterDirection.Input);
 				dp.Add("PlanetId", PlanetId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -470,15 +500,15 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
                 DataTable DataTable = new DataTable();
 
                 dp.Add("CountryId", CountryId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
 				dp.Add("GeographicalCoordinates", GeographicalCoordinates, DbType.String, ParameterDirection.Input);
 				dp.Add("Code", Code, DbType.String, ParameterDirection.Input);
 				dp.Add("PlanetId", PlanetId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -508,15 +538,15 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
                 DataTable DataTable = new DataTable();
 
                 dp.Add("CountryId", country.CountryId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Active", country.Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", country.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", country.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", country.UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", country.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Name", country.Name, DbType.String, ParameterDirection.Input);
 				dp.Add("GeographicalCoordinates", country.GeographicalCoordinates, DbType.String, ParameterDirection.Input);
 				dp.Add("Code", country.Code, DbType.String, ParameterDirection.Input);
 				dp.Add("PlanetId", country.PlanetId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Active", country.Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", country.UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", country.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", country.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", country.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -537,7 +567,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
         /// <returns>The number of rows updated in Country table</returns>
-        public int UpdateByCountryId(int CountryId, string Name, string GeographicalCoordinates, string Code, int PlanetId, bool Active, int UserCreationId, int UserLastModificationId, DateTime DateTimeCreation, DateTime DateTimeLastModification)
+        public int UpdateByCountryId(int CountryId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string Name, string GeographicalCoordinates, string Code, int PlanetId)
         {
             try
             {
@@ -546,15 +576,15 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
                 DataTable DataTable = new DataTable();
 
                 dp.Add("CountryId", CountryId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("Name", Name, DbType.String, ParameterDirection.Input);
 				dp.Add("GeographicalCoordinates", GeographicalCoordinates, DbType.String, ParameterDirection.Input);
 				dp.Add("Code", Code, DbType.String, ParameterDirection.Input);
 				dp.Add("PlanetId", PlanetId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
@@ -676,15 +706,15 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
         public override string ToString()
         {
             return $"CountryId: {CountryId}, " +
+				$"Active: {Active}, " +
+				$"DateTimeCreation: {DateTimeCreation}, " +
+				$"DateTimeLastModification: {DateTimeLastModification}, " +
+				$"UserCreationId: {UserCreationId}, " +
+				$"UserLastModificationId: {UserLastModificationId}, " +
 				$"Name: {Name}, " +
 				$"GeographicalCoordinates: {GeographicalCoordinates}, " +
 				$"Code: {Code}, " +
-				$"PlanetId: {PlanetId}, " +
-				$"Active: {Active}, " +
-				$"UserCreationId: {UserCreationId}, " +
-				$"UserLastModificationId: {UserLastModificationId}, " +
-				$"DateTimeCreation: {DateTimeCreation}, " +
-				$"DateTimeLastModification: {DateTimeLastModification}";
+				$"PlanetId: {PlanetId}";
         }
 
         public string ToStringOnlyValuesForHTML()
@@ -694,6 +724,36 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
             <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{CountryId}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Active}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{DateTimeCreation}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{DateTimeLastModification}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserCreationId}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserLastModificationId}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td><td align=""left"" valign=""top"">
@@ -720,53 +780,8 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
             <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{PlanetId}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Active}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserCreationId}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserLastModificationId}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{DateTimeCreation}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{DateTimeLastModification}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td>
                 </tr>";
         }
-    }
-
-    /// <summary>
-    /// Virtual model used for [dbo].[BasicCulture.Country.SelectAllPaged] stored procedure
-    /// </summary>
-    public partial class countryModelQuery 
-    {
-        public string QueryString { get; set; }
-        public int ActualPageNumber { get; set; }
-        public int RowsPerPage { get; set; }
-        public string SorterColumn { get; set; }
-        public bool SortToggler { get; set; }
-        public int TotalRows { get; set; }
-        public int TotalPages { get; set; }
-        public List<CountryModel> lstCountryModel { get; set; }
     }
 }
