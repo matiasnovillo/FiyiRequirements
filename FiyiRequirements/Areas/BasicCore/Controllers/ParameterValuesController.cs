@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
+using FiyiRequirements.Areas.BasicCore.DTOs;
 using FiyiRequirements.Areas.BasicCore.Filters;
 using FiyiRequirements.Areas.BasicCore.Protocols;
 using FiyiRequirements.Areas.BasicCore.Models;
@@ -12,7 +13,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using System.Text;
 using System.IO;
-using FiyiRequirements.Areas.BasicCore.DTOs;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -25,7 +25,7 @@ using FiyiRequirements.Areas.BasicCore.DTOs;
  * 
  */
 
-//Last modification on: 15/02/2023 17:34:54
+//Last modification on: 21/02/2023 17:37:17
 
 namespace FiyiRequirements.Areas.BasicCore.Controllers
 {
@@ -33,7 +33,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 15/02/2023 17:34:54
+    /// Last modification: 21/02/2023 17:37:17
     /// </summary>
     [ApiController]
     [ParameterFilter]

@@ -1,8 +1,20 @@
-﻿using FiyiRequirements.Areas.BasicCore.Models;
+using FiyiRequirements.Areas.BasicCore.Models;
 using System.Collections.Generic;
+
+/*
+ * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
+ * 
+ * Coded by fiyistack.com
+ * Copyright © 2023
+ * 
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ * 
+ */
 
 namespace FiyiRequirements.Areas.BasicCore.DTOs
 {
+
     /// <summary>
     /// Virtual model used for [dbo].[BasicCore.Parameter.SelectAllPaged] stored procedure
     /// </summary>
