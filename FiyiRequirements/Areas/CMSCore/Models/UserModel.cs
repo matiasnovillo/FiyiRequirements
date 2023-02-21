@@ -1,4 +1,5 @@
 using Dapper;
+using FiyiRequirements.Areas.CMSCore.DTOs;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -27,8 +28,8 @@ namespace FiyiRequirements.Areas.CMSCore.Models
     ///                    Also, let you make other related actions with the model in question or
     ///                    make temporal copies with random data. <br/>
     /// Fields:            11 <br/> 
-    /// Dependencies:      0 models <br/>
-    /// Last modification: 20/12/2022 21:44:06
+    /// Sub-models:      1 models <br/>
+    /// Last modification: 21/02/2023 18:02:07
     /// </summary>
     [Serializable]
     public partial class UserModel
@@ -39,6 +40,35 @@ namespace FiyiRequirements.Areas.CMSCore.Models
         #region Fields
         [Library.ModelAttributeValidator.Key("UserId")]
         public int UserId { get; set; }
+
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        public bool Active { get; set; }
+
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        [Library.ModelAttributeValidator.DateTime("DateTimeCreation", false, "1753-01-01T00:00", "9998-12-30T23:59")]
+        public DateTime DateTimeCreation { get; set; }
+
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        [Library.ModelAttributeValidator.DateTime("DateTimeLastModification", false, "1753-01-01T00:00", "9998-12-30T23:59")]
+        public DateTime DateTimeLastModification { get; set; }
+
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        [Library.ModelAttributeValidator.Key("UserCreationId")]
+        public int UserCreationId { get; set; }
+
+        ///<summary>
+        /// For auditing purposes
+        ///</summary>
+        [Library.ModelAttributeValidator.Key("UserLastModificationId")]
+        public int UserLastModificationId { get; set; }
 
         [Library.ModelAttributeValidator.String("FantasyName", false, 1, 200, "")]
         public string FantasyName { get; set; }
@@ -52,32 +82,12 @@ namespace FiyiRequirements.Areas.CMSCore.Models
         [Library.ModelAttributeValidator.Key("RoleId")]
         public int RoleId { get; set; }
 
-        public bool Active { get; set; }
-
-        [Library.ModelAttributeValidator.Int("UserCreationId", false, 1, 2147483647)]
-        public int UserCreationId { get; set; }
-
-        [Library.ModelAttributeValidator.Int("UserLastModificationId", false, 1, 2147483647)]
-        public int UserLastModificationId { get; set; }
-
-        [Library.ModelAttributeValidator.DateTime("DateTimeCreation", false, "01/01/1753 0:00:00.001", "30/12/9998 23:59:59.999")]
-        public DateTime DateTimeCreation { get; set; }
-
-        [Library.ModelAttributeValidator.DateTime("DateTimeLastModification", false, "01/01/1753 0:00:00.001", "30/12/9998 23:59:59.999")]
-        public DateTime DateTimeLastModification { get; set; }
-
-        [Library.ModelAttributeValidator.String("RegistrationToken", false, 1, 8000, "")]
+        [Library.ModelAttributeValidator.String("RegistrationToken", true, 1, 8000, "")]
         public string RegistrationToken { get; set; }
-
-        public string UserCreationIdFantasyName { get; set; }
-
-        public string UserLastModificationIdFantasyName { get; set; }
-
-        public string RoleIdName { get; set; }
         #endregion
 
-        #region Models that depend on this model
-
+        #region Sub-lists
+        
         #endregion
 
         #region Constructors
@@ -87,11 +97,17 @@ namespace FiyiRequirements.Areas.CMSCore.Models
         /// Note 1:       Generally used to have fast access to functions of object. <br/>
         /// Note 2:       Need construction with [new] reserved word, as all constructors. <br/>
         /// Fields:       11 <br/> 
-        /// Dependencies: 0 models depend on this model <br/>
+        /// Dependencies: 1 models depend on this model <br/>
         /// </summary>
         public UserModel()
         {
-            try { UserId = 0; }
+            try 
+            {
+                UserId = 0;
+
+                //Initialize sub-lists
+                
+            }
             catch (Exception ex) { throw ex; }
         }
 
@@ -100,13 +116,16 @@ namespace FiyiRequirements.Areas.CMSCore.Models
         /// Function:     Create this model with stored information in database using UserId <br/>
         /// Note:         Raise exception on duplicated IDs <br/>
         /// Fields:       11 <br/> 
-        /// Dependencies: 0 models depend on this model <br/>
+        /// Dependencies: 1 models depend on this model <br/>
         /// </summary>
         public UserModel(int UserId)
         {
             try
             {
                 List<UserModel> lstUserModel = new List<UserModel>();
+
+                //Initialize sub-lists
+                
                 DynamicParameters dp = new DynamicParameters();
 
                 dp.Add("UserId", UserId, DbType.Int32, ParameterDirection.Input);
@@ -125,15 +144,15 @@ namespace FiyiRequirements.Areas.CMSCore.Models
                 foreach (UserModel user in lstUserModel)
                 {
                     this.UserId = user.UserId;
+					this.Active = user.Active;
+					this.DateTimeCreation = user.DateTimeCreation;
+					this.DateTimeLastModification = user.DateTimeLastModification;
+					this.UserCreationId = user.UserCreationId;
+					this.UserLastModificationId = user.UserLastModificationId;
 					this.FantasyName = user.FantasyName;
 					this.Email = user.Email;
 					this.Password = user.Password;
 					this.RoleId = user.RoleId;
-					this.Active = user.Active;
-					this.UserCreationId = user.UserCreationId;
-					this.UserLastModificationId = user.UserLastModificationId;
-					this.DateTimeCreation = user.DateTimeCreation;
-					this.DateTimeLastModification = user.DateTimeLastModification;
 					this.RegistrationToken = user.RegistrationToken;
                 }
             }
@@ -146,22 +165,24 @@ namespace FiyiRequirements.Areas.CMSCore.Models
         /// Function:     Create this model with filled parameters <br/>
         /// Note:         Raise exception on duplicated IDs <br/>
         /// Fields:       11 <br/> 
-        /// Dependencies: 0 models depend on this model <br/>
+        /// Dependencies: 1 models depend on this model <br/>
         /// </summary>
-        public UserModel(int UserId, string FantasyName, string Email, string Password, int RoleId, bool Active, int UserCreationId, int UserLastModificationId, DateTime DateTimeCreation, DateTime DateTimeLastModification, string RegistrationToken)
+        public UserModel(int UserId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string FantasyName, string Email, string Password, int RoleId, string RegistrationToken)
         {
             try
             {
+                //Initialize sub-lists
+
                 this.UserId = UserId;
+				this.Active = Active;
+				this.DateTimeCreation = DateTimeCreation;
+				this.DateTimeLastModification = DateTimeLastModification;
+				this.UserCreationId = UserCreationId;
+				this.UserLastModificationId = UserLastModificationId;
 				this.FantasyName = FantasyName;
 				this.Email = Email;
 				this.Password = Password;
 				this.RoleId = RoleId;
-				this.Active = Active;
-				this.UserCreationId = UserCreationId;
-				this.UserLastModificationId = UserLastModificationId;
-				this.DateTimeCreation = DateTimeCreation;
-				this.DateTimeLastModification = DateTimeLastModification;
 				this.RegistrationToken = RegistrationToken;
             }
             catch (Exception ex) { throw ex; }
@@ -172,22 +193,24 @@ namespace FiyiRequirements.Areas.CMSCore.Models
         /// Function:     Create this model (copy) using the given model (original), user, passed by parameter. <br/>
         /// Note:         This constructor is generally used to execute functions using the copied fields <br/>
         /// Fields:       11 <br/> 
-        /// Dependencies: 0 models depend on this model <br/>
+        /// Dependencies: 1 models depend on this model <br/>
         /// </summary>
         public UserModel(UserModel user)
         {
             try
             {
+                //Initialize sub-lists
+
                 UserId = user.UserId;
+				Active = user.Active;
+				DateTimeCreation = user.DateTimeCreation;
+				DateTimeLastModification = user.DateTimeLastModification;
+				UserCreationId = user.UserCreationId;
+				UserLastModificationId = user.UserLastModificationId;
 				FantasyName = user.FantasyName;
 				Email = user.Email;
 				Password = user.Password;
 				RoleId = user.RoleId;
-				Active = user.Active;
-				UserCreationId = user.UserCreationId;
-				UserLastModificationId = user.UserLastModificationId;
-				DateTimeCreation = user.DateTimeCreation;
-				DateTimeLastModification = user.DateTimeLastModification;
 				RegistrationToken = user.RegistrationToken;
             }
             catch (Exception ex) { throw ex; }
@@ -291,15 +314,15 @@ namespace FiyiRequirements.Areas.CMSCore.Models
                 foreach (UserModel user in lstUserModel)
                 {
                     UserModel.UserId = user.UserId;
+					UserModel.Active = user.Active;
+					UserModel.DateTimeCreation = user.DateTimeCreation;
+					UserModel.DateTimeLastModification = user.DateTimeLastModification;
+					UserModel.UserCreationId = user.UserCreationId;
+					UserModel.UserLastModificationId = user.UserLastModificationId;
 					UserModel.FantasyName = user.FantasyName;
 					UserModel.Email = user.Email;
 					UserModel.Password = user.Password;
 					UserModel.RoleId = user.RoleId;
-					UserModel.Active = user.Active;
-					UserModel.UserCreationId = user.UserCreationId;
-					UserModel.UserLastModificationId = user.UserLastModificationId;
-					UserModel.DateTimeCreation = user.DateTimeCreation;
-					UserModel.DateTimeLastModification = user.DateTimeLastModification;
 					UserModel.RegistrationToken = user.RegistrationToken;
                 }
 
@@ -343,28 +366,28 @@ namespace FiyiRequirements.Areas.CMSCore.Models
             catch (Exception ex) { throw ex; }
         }
 
-        public userModelQuery SelectAllPagedToModel(userModelQuery userModelQuery)
+        public userSelectAllPaged SelectAllPagedToModel(userSelectAllPaged userSelectAllPaged)
         {
             try
             {
-                userModelQuery.lstUserModel = new List<UserModel>();
+                userSelectAllPaged.lstUserModel = new List<UserModel>();
                 DynamicParameters dp = new DynamicParameters();
-                dp.Add("QueryString", userModelQuery.QueryString, DbType.String, ParameterDirection.Input);
-                dp.Add("ActualPageNumber", userModelQuery.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
-                dp.Add("RowsPerPage", userModelQuery.RowsPerPage, DbType.Int32, ParameterDirection.Input);
-                dp.Add("SorterColumn", userModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
-                dp.Add("SortToggler", userModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
-                dp.Add("TotalRows", userModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
+                dp.Add("QueryString", userSelectAllPaged.QueryString, DbType.String, ParameterDirection.Input);
+                dp.Add("ActualPageNumber", userSelectAllPaged.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
+                dp.Add("RowsPerPage", userSelectAllPaged.RowsPerPage, DbType.Int32, ParameterDirection.Input);
+                dp.Add("SorterColumn", userSelectAllPaged.SorterColumn, DbType.String, ParameterDirection.Input);
+                dp.Add("SortToggler", userSelectAllPaged.SortToggler, DbType.Boolean, ParameterDirection.Input);
+                dp.Add("TotalRows", userSelectAllPaged.TotalRows, DbType.Int32, ParameterDirection.Output);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    userModelQuery.lstUserModel = (List<UserModel>)sqlConnection.Query<UserModel>("[dbo].[CMSCore.User.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
-                    userModelQuery.TotalRows = dp.Get<int>("TotalRows");
+                    userSelectAllPaged.lstUserModel = (List<UserModel>)sqlConnection.Query<UserModel>("[dbo].[CMSCore.User.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
+                    userSelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 
-                userModelQuery.TotalPages = Library.Math.Divide(userModelQuery.TotalRows, userModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+                userSelectAllPaged.TotalPages = Library.Math.Divide(userSelectAllPaged.TotalRows, userSelectAllPaged.RowsPerPage, Library.Math.RoundType.RoundUp);
 
-                return userModelQuery;
+                return userSelectAllPaged;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -498,15 +521,15 @@ namespace FiyiRequirements.Areas.CMSCore.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
                 
-                dp.Add("FantasyName", FantasyName, DbType.String, ParameterDirection.Input);
+                dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("FantasyName", FantasyName, DbType.String, ParameterDirection.Input);
 				dp.Add("Email", Email, DbType.String, ParameterDirection.Input);
 				dp.Add("Password", Password, DbType.String, ParameterDirection.Input);
 				dp.Add("RoleId", RoleId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("RegistrationToken", RegistrationToken, DbType.String, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
@@ -536,15 +559,15 @@ namespace FiyiRequirements.Areas.CMSCore.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
 
-                dp.Add("FantasyName", user.FantasyName, DbType.String, ParameterDirection.Input);
+                dp.Add("Active", user.Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", user.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", user.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", user.UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", user.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("FantasyName", user.FantasyName, DbType.String, ParameterDirection.Input);
 				dp.Add("Email", user.Email, DbType.String, ParameterDirection.Input);
 				dp.Add("Password", user.Password, DbType.String, ParameterDirection.Input);
 				dp.Add("RoleId", user.RoleId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Active", user.Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", user.UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", user.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", user.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", user.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("RegistrationToken", user.RegistrationToken, DbType.String, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
                 
@@ -566,7 +589,7 @@ namespace FiyiRequirements.Areas.CMSCore.Models
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
         /// <returns>The ID of the last registry inserted in User table</returns>
-        public int Insert(string FantasyName, string Email, string Password, int RoleId, bool Active, int UserCreationId, int UserLastModificationId, DateTime DateTimeCreation, DateTime DateTimeLastModification, string RegistrationToken)
+        public int Insert(bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string FantasyName, string Email, string Password, int RoleId, string RegistrationToken)
         {
             try
             {
@@ -574,15 +597,15 @@ namespace FiyiRequirements.Areas.CMSCore.Models
                 DynamicParameters dp = new DynamicParameters();
                 DataTable DataTable = new DataTable();
 
-                dp.Add("FantasyName", FantasyName, DbType.String, ParameterDirection.Input);
+                dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("FantasyName", FantasyName, DbType.String, ParameterDirection.Input);
 				dp.Add("Email", Email, DbType.String, ParameterDirection.Input);
 				dp.Add("Password", Password, DbType.String, ParameterDirection.Input);
 				dp.Add("RoleId", RoleId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("RegistrationToken", RegistrationToken, DbType.String, ParameterDirection.Input);
                 dp.Add("NewEnteredId", NewEnteredId, DbType.Int32, ParameterDirection.Output);
         
@@ -613,15 +636,15 @@ namespace FiyiRequirements.Areas.CMSCore.Models
                 DataTable DataTable = new DataTable();
 
                 dp.Add("UserId", UserId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("FantasyName", FantasyName, DbType.String, ParameterDirection.Input);
 				dp.Add("Email", Email, DbType.String, ParameterDirection.Input);
 				dp.Add("Password", Password, DbType.String, ParameterDirection.Input);
 				dp.Add("RoleId", RoleId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("RegistrationToken", RegistrationToken, DbType.String, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
@@ -652,15 +675,15 @@ namespace FiyiRequirements.Areas.CMSCore.Models
                 DataTable DataTable = new DataTable();
 
                 dp.Add("UserId", user.UserId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Active", user.Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", user.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", user.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", user.UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", user.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("FantasyName", user.FantasyName, DbType.String, ParameterDirection.Input);
 				dp.Add("Email", user.Email, DbType.String, ParameterDirection.Input);
 				dp.Add("Password", user.Password, DbType.String, ParameterDirection.Input);
 				dp.Add("RoleId", user.RoleId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Active", user.Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", user.UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", user.UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", user.DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", user.DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("RegistrationToken", user.RegistrationToken, DbType.String, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
@@ -682,7 +705,7 @@ namespace FiyiRequirements.Areas.CMSCore.Models
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
         /// <returns>The number of rows updated in User table</returns>
-        public int UpdateByUserId(int UserId, string FantasyName, string Email, string Password, int RoleId, bool Active, int UserCreationId, int UserLastModificationId, DateTime DateTimeCreation, DateTime DateTimeLastModification, string RegistrationToken)
+        public int UpdateByUserId(int UserId, bool Active, DateTime DateTimeCreation, DateTime DateTimeLastModification, int UserCreationId, int UserLastModificationId, string FantasyName, string Email, string Password, int RoleId, string RegistrationToken)
         {
             try
             {
@@ -691,15 +714,15 @@ namespace FiyiRequirements.Areas.CMSCore.Models
                 DataTable DataTable = new DataTable();
 
                 dp.Add("UserId", UserId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
+				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
+				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
+				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
 				dp.Add("FantasyName", FantasyName, DbType.String, ParameterDirection.Input);
 				dp.Add("Email", Email, DbType.String, ParameterDirection.Input);
 				dp.Add("Password", Password, DbType.String, ParameterDirection.Input);
 				dp.Add("RoleId", RoleId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("Active", Active, DbType.Boolean, ParameterDirection.Input);
-				dp.Add("UserCreationId", UserCreationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("UserLastModificationId", UserLastModificationId, DbType.Int32, ParameterDirection.Input);
-				dp.Add("DateTimeCreation", DateTimeCreation, DbType.DateTime, ParameterDirection.Input);
-				dp.Add("DateTimeLastModification", DateTimeLastModification, DbType.DateTime, ParameterDirection.Input);
 				dp.Add("RegistrationToken", RegistrationToken, DbType.String, ParameterDirection.Input);
                 dp.Add("RowsAffected", RowsAffected, DbType.Int32, ParameterDirection.Output);
         
@@ -794,7 +817,7 @@ namespace FiyiRequirements.Areas.CMSCore.Models
             }
             catch (Exception ex) { throw ex; }
         }
-        
+
         public int ChangePassword(int UserId, string NewPassword)
         {
             try
@@ -848,15 +871,15 @@ namespace FiyiRequirements.Areas.CMSCore.Models
         public override string ToString()
         {
             return $"UserId: {UserId}, " +
+				$"Active: {Active}, " +
+				$"DateTimeCreation: {DateTimeCreation}, " +
+				$"DateTimeLastModification: {DateTimeLastModification}, " +
+				$"UserCreationId: {UserCreationId}, " +
+				$"UserLastModificationId: {UserLastModificationId}, " +
 				$"FantasyName: {FantasyName}, " +
 				$"Email: {Email}, " +
 				$"Password: {Password}, " +
 				$"RoleId: {RoleId}, " +
-				$"Active: {Active}, " +
-				$"UserCreationId: {UserCreationId}, " +
-				$"UserLastModificationId: {UserLastModificationId}, " +
-				$"DateTimeCreation: {DateTimeCreation}, " +
-				$"DateTimeLastModification: {DateTimeLastModification}, " +
 				$"RegistrationToken: {RegistrationToken}";
         }
 
@@ -867,6 +890,36 @@ namespace FiyiRequirements.Areas.CMSCore.Models
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
             <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserId}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Active}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{DateTimeCreation}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{DateTimeLastModification}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserCreationId}</span>
+        </font>
+        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
+    </td><td align=""left"" valign=""top"">
+        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
+        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
+            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserLastModificationId}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td><td align=""left"" valign=""top"">
@@ -896,56 +949,11 @@ namespace FiyiRequirements.Areas.CMSCore.Models
     </td><td align=""left"" valign=""top"">
         <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
         <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{Active}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserCreationId}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{UserLastModificationId}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{DateTimeCreation}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
-            <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{DateTimeLastModification}</span>
-        </font>
-        <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
-    </td><td align=""left"" valign=""top"">
-        <div style=""height: 12px; line-height: 12px; font-size: 10px;"">&nbsp;</div>
-        <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px;"">
             <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px;"">{RegistrationToken}</span>
         </font>
         <div style=""height: 40px; line-height: 40px; font-size: 38px;"">&nbsp;</div>
     </td>
                 </tr>";
         }
-    }
-
-    /// <summary>
-    /// Virtual model used for [dbo].[CMSCore.User.SelectAllPaged] stored procedure
-    /// </summary>
-    public partial class userModelQuery 
-    {
-        public string QueryString { get; set; }
-        public int ActualPageNumber { get; set; }
-        public int RowsPerPage { get; set; }
-        public string SorterColumn { get; set; }
-        public bool SortToggler { get; set; }
-        public int TotalRows { get; set; }
-        public int TotalPages { get; set; }
-        public List<UserModel> lstUserModel { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using CsvHelper;
 using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.CMSCore.Models;
+using FiyiRequirements.Areas.CMSCore.DTOs;
 using FiyiRequirements.Areas.CMSCore.Protocols;
 using FiyiRequirements.Library;
 using System;
@@ -18,14 +19,14 @@ using System.Text;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 20/12/2022 21:44:06
+//Last modification on: 21/02/2023 18:02:07
 
 namespace FiyiRequirements.Areas.CMSCore.Services
 {
@@ -34,7 +35,7 @@ namespace FiyiRequirements.Areas.CMSCore.Services
     /// Name:              C# Service. <br/>
     /// Function:          Allow you to separate data contract stored in C# model from business with your clients. <br/>
     /// Also, allow dependency injection inside controllers/web apis<br/>
-    /// Last modification: 20/12/2022 21:44:06
+    /// Last modification: 21/02/2023 18:02:07
     /// </summary>
     public partial class UserService : UserProtocol
     {
@@ -56,9 +57,9 @@ namespace FiyiRequirements.Areas.CMSCore.Services
             return new UserModel().SelectAllToList();
         }
 
-        public userModelQuery SelectAllPagedToModel(userModelQuery userModelQuery)
+        public userSelectAllPaged SelectAllPagedToModel(userSelectAllPaged userSelectAllPaged)
         {
-            return new UserModel().SelectAllPagedToModel(userModelQuery);
+            return new UserModel().SelectAllPagedToModel(userSelectAllPaged);
         } 
         #endregion
 
@@ -619,6 +620,31 @@ html {{ -webkit-text-size-adjust: none; -ms-text-size-adjust: none;}}
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Active&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeCreation&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeLastModification&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">UserCreationId&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">UserLastModificationId&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
                 <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">FantasyName&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
@@ -635,31 +661,6 @@ html {{ -webkit-text-size-adjust: none; -ms-text-size-adjust: none;}}
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
                 <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">RoleId&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Active&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">UserCreationId&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">UserLastModificationId&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeCreation&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeLastModification&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
@@ -701,6 +702,31 @@ html {{ -webkit-text-size-adjust: none; -ms-text-size-adjust: none;}}
                     dtColumnUserIdFordtUserCopy.ColumnName = "UserId";
                     dtUserCopy.Columns.Add(dtColumnUserIdFordtUserCopy);
 
+                    DataColumn dtColumnActiveFordtUserCopy = new DataColumn();
+                    dtColumnActiveFordtUserCopy.DataType = typeof(string);
+                    dtColumnActiveFordtUserCopy.ColumnName = "Active";
+                    dtUserCopy.Columns.Add(dtColumnActiveFordtUserCopy);
+
+                    DataColumn dtColumnDateTimeCreationFordtUserCopy = new DataColumn();
+                    dtColumnDateTimeCreationFordtUserCopy.DataType = typeof(string);
+                    dtColumnDateTimeCreationFordtUserCopy.ColumnName = "DateTimeCreation";
+                    dtUserCopy.Columns.Add(dtColumnDateTimeCreationFordtUserCopy);
+
+                    DataColumn dtColumnDateTimeLastModificationFordtUserCopy = new DataColumn();
+                    dtColumnDateTimeLastModificationFordtUserCopy.DataType = typeof(string);
+                    dtColumnDateTimeLastModificationFordtUserCopy.ColumnName = "DateTimeLastModification";
+                    dtUserCopy.Columns.Add(dtColumnDateTimeLastModificationFordtUserCopy);
+
+                    DataColumn dtColumnUserCreationIdFordtUserCopy = new DataColumn();
+                    dtColumnUserCreationIdFordtUserCopy.DataType = typeof(string);
+                    dtColumnUserCreationIdFordtUserCopy.ColumnName = "UserCreationId";
+                    dtUserCopy.Columns.Add(dtColumnUserCreationIdFordtUserCopy);
+
+                    DataColumn dtColumnUserLastModificationIdFordtUserCopy = new DataColumn();
+                    dtColumnUserLastModificationIdFordtUserCopy.DataType = typeof(string);
+                    dtColumnUserLastModificationIdFordtUserCopy.ColumnName = "UserLastModificationId";
+                    dtUserCopy.Columns.Add(dtColumnUserLastModificationIdFordtUserCopy);
+
                     DataColumn dtColumnFantasyNameFordtUserCopy = new DataColumn();
                     dtColumnFantasyNameFordtUserCopy.DataType = typeof(string);
                     dtColumnFantasyNameFordtUserCopy.ColumnName = "FantasyName";
@@ -720,31 +746,6 @@ html {{ -webkit-text-size-adjust: none; -ms-text-size-adjust: none;}}
                     dtColumnRoleIdFordtUserCopy.DataType = typeof(string);
                     dtColumnRoleIdFordtUserCopy.ColumnName = "RoleId";
                     dtUserCopy.Columns.Add(dtColumnRoleIdFordtUserCopy);
-
-                    DataColumn dtColumnActiveFordtUserCopy = new DataColumn();
-                    dtColumnActiveFordtUserCopy.DataType = typeof(string);
-                    dtColumnActiveFordtUserCopy.ColumnName = "Active";
-                    dtUserCopy.Columns.Add(dtColumnActiveFordtUserCopy);
-
-                    DataColumn dtColumnUserCreationIdFordtUserCopy = new DataColumn();
-                    dtColumnUserCreationIdFordtUserCopy.DataType = typeof(string);
-                    dtColumnUserCreationIdFordtUserCopy.ColumnName = "UserCreationId";
-                    dtUserCopy.Columns.Add(dtColumnUserCreationIdFordtUserCopy);
-
-                    DataColumn dtColumnUserLastModificationIdFordtUserCopy = new DataColumn();
-                    dtColumnUserLastModificationIdFordtUserCopy.DataType = typeof(string);
-                    dtColumnUserLastModificationIdFordtUserCopy.ColumnName = "UserLastModificationId";
-                    dtUserCopy.Columns.Add(dtColumnUserLastModificationIdFordtUserCopy);
-
-                    DataColumn dtColumnDateTimeCreationFordtUserCopy = new DataColumn();
-                    dtColumnDateTimeCreationFordtUserCopy.DataType = typeof(string);
-                    dtColumnDateTimeCreationFordtUserCopy.ColumnName = "DateTimeCreation";
-                    dtUserCopy.Columns.Add(dtColumnDateTimeCreationFordtUserCopy);
-
-                    DataColumn dtColumnDateTimeLastModificationFordtUserCopy = new DataColumn();
-                    dtColumnDateTimeLastModificationFordtUserCopy.DataType = typeof(string);
-                    dtColumnDateTimeLastModificationFordtUserCopy.ColumnName = "DateTimeLastModification";
-                    dtUserCopy.Columns.Add(dtColumnDateTimeLastModificationFordtUserCopy);
 
                     DataColumn dtColumnRegistrationTokenFordtUserCopy = new DataColumn();
                     dtColumnRegistrationTokenFordtUserCopy.DataType = typeof(string);
@@ -785,6 +786,31 @@ html {{ -webkit-text-size-adjust: none; -ms-text-size-adjust: none;}}
                     dtColumnUserIdFordtUserCopy.ColumnName = "UserId";
                     dtUserCopy.Columns.Add(dtColumnUserIdFordtUserCopy);
 
+                    DataColumn dtColumnActiveFordtUserCopy = new DataColumn();
+                    dtColumnActiveFordtUserCopy.DataType = typeof(string);
+                    dtColumnActiveFordtUserCopy.ColumnName = "Active";
+                    dtUserCopy.Columns.Add(dtColumnActiveFordtUserCopy);
+
+                    DataColumn dtColumnDateTimeCreationFordtUserCopy = new DataColumn();
+                    dtColumnDateTimeCreationFordtUserCopy.DataType = typeof(string);
+                    dtColumnDateTimeCreationFordtUserCopy.ColumnName = "DateTimeCreation";
+                    dtUserCopy.Columns.Add(dtColumnDateTimeCreationFordtUserCopy);
+
+                    DataColumn dtColumnDateTimeLastModificationFordtUserCopy = new DataColumn();
+                    dtColumnDateTimeLastModificationFordtUserCopy.DataType = typeof(string);
+                    dtColumnDateTimeLastModificationFordtUserCopy.ColumnName = "DateTimeLastModification";
+                    dtUserCopy.Columns.Add(dtColumnDateTimeLastModificationFordtUserCopy);
+
+                    DataColumn dtColumnUserCreationIdFordtUserCopy = new DataColumn();
+                    dtColumnUserCreationIdFordtUserCopy.DataType = typeof(string);
+                    dtColumnUserCreationIdFordtUserCopy.ColumnName = "UserCreationId";
+                    dtUserCopy.Columns.Add(dtColumnUserCreationIdFordtUserCopy);
+
+                    DataColumn dtColumnUserLastModificationIdFordtUserCopy = new DataColumn();
+                    dtColumnUserLastModificationIdFordtUserCopy.DataType = typeof(string);
+                    dtColumnUserLastModificationIdFordtUserCopy.ColumnName = "UserLastModificationId";
+                    dtUserCopy.Columns.Add(dtColumnUserLastModificationIdFordtUserCopy);
+
                     DataColumn dtColumnFantasyNameFordtUserCopy = new DataColumn();
                     dtColumnFantasyNameFordtUserCopy.DataType = typeof(string);
                     dtColumnFantasyNameFordtUserCopy.ColumnName = "FantasyName";
@@ -804,31 +830,6 @@ html {{ -webkit-text-size-adjust: none; -ms-text-size-adjust: none;}}
                     dtColumnRoleIdFordtUserCopy.DataType = typeof(string);
                     dtColumnRoleIdFordtUserCopy.ColumnName = "RoleId";
                     dtUserCopy.Columns.Add(dtColumnRoleIdFordtUserCopy);
-
-                    DataColumn dtColumnActiveFordtUserCopy = new DataColumn();
-                    dtColumnActiveFordtUserCopy.DataType = typeof(string);
-                    dtColumnActiveFordtUserCopy.ColumnName = "Active";
-                    dtUserCopy.Columns.Add(dtColumnActiveFordtUserCopy);
-
-                    DataColumn dtColumnUserCreationIdFordtUserCopy = new DataColumn();
-                    dtColumnUserCreationIdFordtUserCopy.DataType = typeof(string);
-                    dtColumnUserCreationIdFordtUserCopy.ColumnName = "UserCreationId";
-                    dtUserCopy.Columns.Add(dtColumnUserCreationIdFordtUserCopy);
-
-                    DataColumn dtColumnUserLastModificationIdFordtUserCopy = new DataColumn();
-                    dtColumnUserLastModificationIdFordtUserCopy.DataType = typeof(string);
-                    dtColumnUserLastModificationIdFordtUserCopy.ColumnName = "UserLastModificationId";
-                    dtUserCopy.Columns.Add(dtColumnUserLastModificationIdFordtUserCopy);
-
-                    DataColumn dtColumnDateTimeCreationFordtUserCopy = new DataColumn();
-                    dtColumnDateTimeCreationFordtUserCopy.DataType = typeof(string);
-                    dtColumnDateTimeCreationFordtUserCopy.ColumnName = "DateTimeCreation";
-                    dtUserCopy.Columns.Add(dtColumnDateTimeCreationFordtUserCopy);
-
-                    DataColumn dtColumnDateTimeLastModificationFordtUserCopy = new DataColumn();
-                    dtColumnDateTimeLastModificationFordtUserCopy.DataType = typeof(string);
-                    dtColumnDateTimeLastModificationFordtUserCopy.ColumnName = "DateTimeLastModification";
-                    dtUserCopy.Columns.Add(dtColumnDateTimeLastModificationFordtUserCopy);
 
                     DataColumn dtColumnRegistrationTokenFordtUserCopy = new DataColumn();
                     dtColumnRegistrationTokenFordtUserCopy.DataType = typeof(string);

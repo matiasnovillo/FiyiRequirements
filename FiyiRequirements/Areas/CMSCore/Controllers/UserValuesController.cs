@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
+using FiyiRequirements.Areas.CMSCore.DTOs;
 using FiyiRequirements.Areas.CMSCore.Filters;
 using FiyiRequirements.Areas.CMSCore.Protocols;
 using FiyiRequirements.Areas.CMSCore.Models;
@@ -25,7 +26,7 @@ using SixLaborsCaptcha.Core;
  * 
  */
 
-//Last modification on: 15/02/2023 18:50:53
+//Last modification on: 21/02/2023 18:02:07
 
 namespace FiyiRequirements.Areas.CMSCore.Controllers
 {
@@ -33,7 +34,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 15/02/2023 18:50:53
+    /// Last modification: 21/02/2023 18:02:07
     /// </summary>
     [ApiController]
     [UserFilter]
@@ -114,14 +115,14 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPost("~/api/CMSCore/User/1/SelectAllPagedToJSON")]
-        public userModelQuery SelectAllPagedToJSON([FromBody] userModelQuery userModelQuery)
+        public userSelectAllPaged SelectAllPagedToJSON([FromBody] userSelectAllPaged userSelectAllPaged)
         {
             try
             {
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _UserProtocol.SelectAllPagedToModel(userModelQuery);
+                 return _UserProtocol.SelectAllPagedToModel(userSelectAllPaged);
             }
             catch (Exception ex)
             {
