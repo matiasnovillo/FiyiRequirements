@@ -28,7 +28,7 @@ namespace FiyiRequirements.Areas.Examples.Models
     ///                    make temporal copies with random data. <br/>
     /// Fields:            23 <br/> 
     /// Sub-models:      0 models <br/>
-    /// Last modification: 15/02/2023 16:56:40
+    /// Last modification: 21/02/2023 13:45:23
     /// </summary>
     [Serializable]
     public partial class ExampleModel
@@ -98,10 +98,8 @@ namespace FiyiRequirements.Areas.Examples.Models
         [Library.ModelAttributeValidator.String("TextTag", true, 5, 20, "")]
         public string TextTag { get; set; }
 
-        [Library.ModelAttributeValidator.String("TextTextArea", true, 5, 20, "")]
         public string TextTextArea { get; set; }
 
-        [Library.ModelAttributeValidator.String("TextTextEditor", true, 5, 20, "")]
         public string TextTextEditor { get; set; }
 
         [Library.ModelAttributeValidator.String("TextURL", true, 5, 20, "")]

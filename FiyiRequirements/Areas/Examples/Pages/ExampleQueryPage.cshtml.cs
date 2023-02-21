@@ -16,7 +16,7 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 15/02/2023 16:56:40
+//Last modification on: 21/02/2023 13:45:23
 
 namespace FiyiRequirements.Areas.Examples.Pages
 {
@@ -24,7 +24,7 @@ namespace FiyiRequirements.Areas.Examples.Pages
     /// Stack:             9 <br/>
     /// Name:              C# Razor Page. <br/>
     /// Function:          Allow you to show HTML files using Razor Page technology. <br/>
-    /// Last modification: 15/02/2023 16:56:40
+    /// Last modification: 21/02/2023 13:45:23
     /// </summary>
     [ExampleFilter]
     public partial class ExampleQueryPageModel : PageModel
