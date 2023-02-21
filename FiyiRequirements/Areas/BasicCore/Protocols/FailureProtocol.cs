@@ -1,3 +1,4 @@
+using FiyiRequirements.Areas.BasicCore.DTOs;
 using FiyiRequirements.Areas.BasicCore.Models;
 using FiyiRequirements.Library;
 using System;
@@ -38,7 +39,7 @@ namespace FiyiRequirements.Areas.BasicCore.Protocols
 
         List<FailureModel> SelectAllToList();
 
-        failureModelQuery SelectAllPagedToModel(failureModelQuery failureModelQuery);
+        failureSelectAllPaged SelectAllPagedToModel(failureSelectAllPaged failureSelectAllPaged);
         #endregion
 
         #region Non-Queries

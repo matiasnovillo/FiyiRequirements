@@ -1,4 +1,5 @@
 using Dapper;
+using FiyiRequirements.Areas.BasicCore.DTOs;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -330,28 +331,28 @@ namespace FiyiRequirements.Areas.BasicCore.Models
             catch (Exception ex) { throw ex; }
         }
 
-        public failureModelQuery SelectAllPagedToModel(failureModelQuery failureModelQuery)
+        public failureSelectAllPaged SelectAllPagedToModel(failureSelectAllPaged failureSelectAllPaged)
         {
             try
             {
-                failureModelQuery.lstFailureModel = new List<FailureModel>();
+                failureSelectAllPaged.lstFailureModel = new List<FailureModel>();
                 DynamicParameters dp = new DynamicParameters();
-                dp.Add("QueryString", failureModelQuery.QueryString, DbType.String, ParameterDirection.Input);
-                dp.Add("ActualPageNumber", failureModelQuery.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
-                dp.Add("RowsPerPage", failureModelQuery.RowsPerPage, DbType.Int32, ParameterDirection.Input);
-                dp.Add("SorterColumn", failureModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
-                dp.Add("SortToggler", failureModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
-                dp.Add("TotalRows", failureModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
+                dp.Add("QueryString", failureSelectAllPaged.QueryString, DbType.String, ParameterDirection.Input);
+                dp.Add("ActualPageNumber", failureSelectAllPaged.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
+                dp.Add("RowsPerPage", failureSelectAllPaged.RowsPerPage, DbType.Int32, ParameterDirection.Input);
+                dp.Add("SorterColumn", failureSelectAllPaged.SorterColumn, DbType.String, ParameterDirection.Input);
+                dp.Add("SortToggler", failureSelectAllPaged.SortToggler, DbType.Boolean, ParameterDirection.Input);
+                dp.Add("TotalRows", failureSelectAllPaged.TotalRows, DbType.Int32, ParameterDirection.Output);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    failureModelQuery.lstFailureModel = (List<FailureModel>)sqlConnection.Query<FailureModel>("[dbo].[BasicCore.Failure.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
-                    failureModelQuery.TotalRows = dp.Get<int>("TotalRows");
+                    failureSelectAllPaged.lstFailureModel = (List<FailureModel>)sqlConnection.Query<FailureModel>("[dbo].[BasicCore.Failure.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
+                    failureSelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 
-                failureModelQuery.TotalPages = Library.Math.Divide(failureModelQuery.TotalRows, failureModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+                failureSelectAllPaged.TotalPages = Library.Math.Divide(failureSelectAllPaged.TotalRows, failureSelectAllPaged.RowsPerPage, Library.Math.RoundType.RoundUp);
 
-                return failureModelQuery;
+                return failureSelectAllPaged;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -791,20 +792,5 @@ namespace FiyiRequirements.Areas.BasicCore.Models
     </td>
                 </tr>";
         }
-    }
-
-    /// <summary>
-    /// Virtual model used for [dbo].[BasicCore.Failure.SelectAllPaged] stored procedure
-    /// </summary>
-    public partial class failureModelQuery 
-    {
-        public string QueryString { get; set; }
-        public int ActualPageNumber { get; set; }
-        public int RowsPerPage { get; set; }
-        public string SorterColumn { get; set; }
-        public bool SortToggler { get; set; }
-        public int TotalRows { get; set; }
-        public int TotalPages { get; set; }
-        public List<FailureModel> lstFailureModel { get; set; }
     }
 }

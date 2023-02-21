@@ -1,4 +1,5 @@
 using Dapper;
+using FiyiRequirements.Areas.BasicCore.DTOs;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -308,28 +309,28 @@ namespace FiyiRequirements.Areas.BasicCore.Models
             catch (Exception ex) { throw ex; }
         }
 
-        public parameterModelQuery SelectAllPagedToModel(parameterModelQuery parameterModelQuery)
+        public parameterSelectAllPaged SelectAllPagedToModel(parameterSelectAllPaged parameterSelectAllPaged)
         {
             try
             {
-                parameterModelQuery.lstParameterModel = new List<ParameterModel>();
+                parameterSelectAllPaged.lstParameterModel = new List<ParameterModel>();
                 DynamicParameters dp = new DynamicParameters();
-                dp.Add("QueryString", parameterModelQuery.QueryString, DbType.String, ParameterDirection.Input);
-                dp.Add("ActualPageNumber", parameterModelQuery.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
-                dp.Add("RowsPerPage", parameterModelQuery.RowsPerPage, DbType.Int32, ParameterDirection.Input);
-                dp.Add("SorterColumn", parameterModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
-                dp.Add("SortToggler", parameterModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
-                dp.Add("TotalRows", parameterModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
+                dp.Add("QueryString", parameterSelectAllPaged.QueryString, DbType.String, ParameterDirection.Input);
+                dp.Add("ActualPageNumber", parameterSelectAllPaged.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
+                dp.Add("RowsPerPage", parameterSelectAllPaged.RowsPerPage, DbType.Int32, ParameterDirection.Input);
+                dp.Add("SorterColumn", parameterSelectAllPaged.SorterColumn, DbType.String, ParameterDirection.Input);
+                dp.Add("SortToggler", parameterSelectAllPaged.SortToggler, DbType.Boolean, ParameterDirection.Input);
+                dp.Add("TotalRows", parameterSelectAllPaged.TotalRows, DbType.Int32, ParameterDirection.Output);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    parameterModelQuery.lstParameterModel = (List<ParameterModel>)sqlConnection.Query<ParameterModel>("[dbo].[BasicCore.Parameter.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
-                    parameterModelQuery.TotalRows = dp.Get<int>("TotalRows");
+                    parameterSelectAllPaged.lstParameterModel = (List<ParameterModel>)sqlConnection.Query<ParameterModel>("[dbo].[BasicCore.Parameter.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
+                    parameterSelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 
-                parameterModelQuery.TotalPages = Library.Math.Divide(parameterModelQuery.TotalRows, parameterModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+                parameterSelectAllPaged.TotalPages = Library.Math.Divide(parameterSelectAllPaged.TotalRows, parameterSelectAllPaged.RowsPerPage, Library.Math.RoundType.RoundUp);
 
-                return parameterModelQuery;
+                return parameterSelectAllPaged;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -749,20 +750,5 @@ namespace FiyiRequirements.Areas.BasicCore.Models
     </td>
                 </tr>";
         }
-    }
-
-    /// <summary>
-    /// Virtual model used for [dbo].[BasicCore.Parameter.SelectAllPaged] stored procedure
-    /// </summary>
-    public partial class parameterModelQuery
-    {
-        public string QueryString { get; set; }
-        public int ActualPageNumber { get; set; }
-        public int RowsPerPage { get; set; }
-        public string SorterColumn { get; set; }
-        public bool SortToggler { get; set; }
-        public int TotalRows { get; set; }
-        public int TotalPages { get; set; }
-        public List<ParameterModel> lstParameterModel { get; set; }
     }
 }

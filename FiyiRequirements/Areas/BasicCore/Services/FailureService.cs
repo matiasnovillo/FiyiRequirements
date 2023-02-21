@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.IO;
+using FiyiRequirements.Areas.BasicCore.DTOs;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -53,7 +54,7 @@ namespace FiyiRequirements.Areas.BasicCore.Services
             return new FailureModel().SelectAllToList();
         }
 
-        public failureModelQuery SelectAllPagedToModel(failureModelQuery failureModelQuery)
+        public failureSelectAllPaged SelectAllPagedToModel(failureSelectAllPaged failureModelQuery)
         {
             return new FailureModel().SelectAllPagedToModel(failureModelQuery);
         } 

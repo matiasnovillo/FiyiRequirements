@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using System.Text;
 using System.IO;
+using FiyiRequirements.Areas.BasicCore.DTOs;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -113,14 +114,14 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
         }
 
         [HttpPut("~/api/BasicCore/Parameter/1/SelectAllPagedToJSON")]
-        public parameterModelQuery SelectAllPagedToJSON([FromBody] parameterModelQuery parameterModelQuery)
+        public parameterSelectAllPaged SelectAllPagedToJSON([FromBody] parameterSelectAllPaged parameterSelectAllPaged)
         {
             try
             {
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _ParameterProtocol.SelectAllPagedToModel(parameterModelQuery);
+                 return _ParameterProtocol.SelectAllPagedToModel(parameterSelectAllPaged);
             }
             catch (Exception ex)
             {

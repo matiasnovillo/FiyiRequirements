@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.IO;
+using FiyiRequirements.Areas.BasicCore.DTOs;
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -53,9 +54,9 @@ namespace FiyiRequirements.Areas.BasicCore.Services
             return new ParameterModel().SelectAllToList();
         }
 
-        public parameterModelQuery SelectAllPagedToModel(parameterModelQuery parameterModelQuery)
+        public parameterSelectAllPaged SelectAllPagedToModel(parameterSelectAllPaged parameterSelectAllPaged)
         {
-            return new ParameterModel().SelectAllPagedToModel(parameterModelQuery);
+            return new ParameterModel().SelectAllPagedToModel(parameterSelectAllPaged);
         } 
         #endregion
 
