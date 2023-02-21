@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
+using FiyiRequirements.Areas.CMSCore.DTOs;
 using FiyiRequirements.Areas.CMSCore.Filters;
 using FiyiRequirements.Areas.CMSCore.Protocols;
 using FiyiRequirements.Areas.CMSCore.Models;
@@ -24,7 +25,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 15/02/2023 18:47:10
+//Last modification on: 21/02/2023 17:59:08
 
 namespace FiyiRequirements.Areas.CMSCore.Controllers
 {
@@ -32,7 +33,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 15/02/2023 18:47:10
+    /// Last modification: 21/02/2023 17:59:08
     /// </summary>
     [ApiController]
     [RoleFilter]
@@ -113,14 +114,14 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPost("~/api/CMSCore/Role/1/SelectAllPagedToJSON")]
-        public roleModelQuery SelectAllPagedToJSON([FromBody] roleModelQuery roleModelQuery)
+        public roleSelectAllPaged SelectAllPagedToJSON([FromBody] roleSelectAllPaged roleSelectAllPaged)
         {
             try
             {
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _RoleProtocol.SelectAllPagedToModel(roleModelQuery);
+                 return _RoleProtocol.SelectAllPagedToModel(roleSelectAllPaged);
             }
             catch (Exception ex)
             {

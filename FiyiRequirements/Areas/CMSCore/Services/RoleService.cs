@@ -3,6 +3,7 @@ using CsvHelper;
 using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.CMSCore.Models;
+using FiyiRequirements.Areas.CMSCore.DTOs;
 using FiyiRequirements.Areas.CMSCore.Protocols;
 using FiyiRequirements.Library;
 using System;
@@ -15,14 +16,14 @@ using System.IO;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 20/12/2022 20:47:32
+//Last modification on: 21/02/2023 17:59:08
 
 namespace FiyiRequirements.Areas.CMSCore.Services
 {
@@ -31,7 +32,7 @@ namespace FiyiRequirements.Areas.CMSCore.Services
     /// Name:              C# Service. <br/>
     /// Function:          Allow you to separate data contract stored in C# model from business with your clients. <br/>
     /// Also, allow dependency injection inside controllers/web apis<br/>
-    /// Last modification: 20/12/2022 20:47:32
+    /// Last modification: 21/02/2023 17:59:08
     /// </summary>
     public partial class RoleService : RoleProtocol
     {
@@ -53,9 +54,9 @@ namespace FiyiRequirements.Areas.CMSCore.Services
             return new RoleModel().SelectAllToList();
         }
 
-        public roleModelQuery SelectAllPagedToModel(roleModelQuery roleModelQuery)
+        public roleSelectAllPaged SelectAllPagedToModel(roleSelectAllPaged roleSelectAllPaged)
         {
-            return new RoleModel().SelectAllPagedToModel(roleModelQuery);
+            return new RoleModel().SelectAllPagedToModel(roleSelectAllPaged);
         } 
         #endregion
 
@@ -187,12 +188,17 @@ namespace FiyiRequirements.Areas.CMSCore.Services
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Name&nbsp;&nbsp;&nbsp;</span>
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Active&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Active&nbsp;&nbsp;&nbsp;</span>
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeCreation&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeLastModification&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
@@ -207,12 +213,7 @@ namespace FiyiRequirements.Areas.CMSCore.Services
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
             <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeCreation&nbsp;&nbsp;&nbsp;</span>
-            </font>
-            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
-        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
-            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
-                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTimeLastModification&nbsp;&nbsp;&nbsp;</span>
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Name&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th>
@@ -249,15 +250,20 @@ namespace FiyiRequirements.Areas.CMSCore.Services
                     dtColumnRoleIdFordtRoleCopy.ColumnName = "RoleId";
                     dtRoleCopy.Columns.Add(dtColumnRoleIdFordtRoleCopy);
 
-                    DataColumn dtColumnNameFordtRoleCopy = new DataColumn();
-                    dtColumnNameFordtRoleCopy.DataType = typeof(string);
-                    dtColumnNameFordtRoleCopy.ColumnName = "Name";
-                    dtRoleCopy.Columns.Add(dtColumnNameFordtRoleCopy);
-
                     DataColumn dtColumnActiveFordtRoleCopy = new DataColumn();
                     dtColumnActiveFordtRoleCopy.DataType = typeof(string);
                     dtColumnActiveFordtRoleCopy.ColumnName = "Active";
                     dtRoleCopy.Columns.Add(dtColumnActiveFordtRoleCopy);
+
+                    DataColumn dtColumnDateTimeCreationFordtRoleCopy = new DataColumn();
+                    dtColumnDateTimeCreationFordtRoleCopy.DataType = typeof(string);
+                    dtColumnDateTimeCreationFordtRoleCopy.ColumnName = "DateTimeCreation";
+                    dtRoleCopy.Columns.Add(dtColumnDateTimeCreationFordtRoleCopy);
+
+                    DataColumn dtColumnDateTimeLastModificationFordtRoleCopy = new DataColumn();
+                    dtColumnDateTimeLastModificationFordtRoleCopy.DataType = typeof(string);
+                    dtColumnDateTimeLastModificationFordtRoleCopy.ColumnName = "DateTimeLastModification";
+                    dtRoleCopy.Columns.Add(dtColumnDateTimeLastModificationFordtRoleCopy);
 
                     DataColumn dtColumnUserCreationIdFordtRoleCopy = new DataColumn();
                     dtColumnUserCreationIdFordtRoleCopy.DataType = typeof(string);
@@ -269,15 +275,10 @@ namespace FiyiRequirements.Areas.CMSCore.Services
                     dtColumnUserLastModificationIdFordtRoleCopy.ColumnName = "UserLastModificationId";
                     dtRoleCopy.Columns.Add(dtColumnUserLastModificationIdFordtRoleCopy);
 
-                    DataColumn dtColumnDateTimeCreationFordtRoleCopy = new DataColumn();
-                    dtColumnDateTimeCreationFordtRoleCopy.DataType = typeof(string);
-                    dtColumnDateTimeCreationFordtRoleCopy.ColumnName = "DateTimeCreation";
-                    dtRoleCopy.Columns.Add(dtColumnDateTimeCreationFordtRoleCopy);
-
-                    DataColumn dtColumnDateTimeLastModificationFordtRoleCopy = new DataColumn();
-                    dtColumnDateTimeLastModificationFordtRoleCopy.DataType = typeof(string);
-                    dtColumnDateTimeLastModificationFordtRoleCopy.ColumnName = "DateTimeLastModification";
-                    dtRoleCopy.Columns.Add(dtColumnDateTimeLastModificationFordtRoleCopy);
+                    DataColumn dtColumnNameFordtRoleCopy = new DataColumn();
+                    dtColumnNameFordtRoleCopy.DataType = typeof(string);
+                    dtColumnNameFordtRoleCopy.ColumnName = "Name";
+                    dtRoleCopy.Columns.Add(dtColumnNameFordtRoleCopy);
 
                     
                 #endregion
@@ -313,15 +314,20 @@ namespace FiyiRequirements.Areas.CMSCore.Services
                     dtColumnRoleIdFordtRoleCopy.ColumnName = "RoleId";
                     dtRoleCopy.Columns.Add(dtColumnRoleIdFordtRoleCopy);
 
-                    DataColumn dtColumnNameFordtRoleCopy = new DataColumn();
-                    dtColumnNameFordtRoleCopy.DataType = typeof(string);
-                    dtColumnNameFordtRoleCopy.ColumnName = "Name";
-                    dtRoleCopy.Columns.Add(dtColumnNameFordtRoleCopy);
-
                     DataColumn dtColumnActiveFordtRoleCopy = new DataColumn();
                     dtColumnActiveFordtRoleCopy.DataType = typeof(string);
                     dtColumnActiveFordtRoleCopy.ColumnName = "Active";
                     dtRoleCopy.Columns.Add(dtColumnActiveFordtRoleCopy);
+
+                    DataColumn dtColumnDateTimeCreationFordtRoleCopy = new DataColumn();
+                    dtColumnDateTimeCreationFordtRoleCopy.DataType = typeof(string);
+                    dtColumnDateTimeCreationFordtRoleCopy.ColumnName = "DateTimeCreation";
+                    dtRoleCopy.Columns.Add(dtColumnDateTimeCreationFordtRoleCopy);
+
+                    DataColumn dtColumnDateTimeLastModificationFordtRoleCopy = new DataColumn();
+                    dtColumnDateTimeLastModificationFordtRoleCopy.DataType = typeof(string);
+                    dtColumnDateTimeLastModificationFordtRoleCopy.ColumnName = "DateTimeLastModification";
+                    dtRoleCopy.Columns.Add(dtColumnDateTimeLastModificationFordtRoleCopy);
 
                     DataColumn dtColumnUserCreationIdFordtRoleCopy = new DataColumn();
                     dtColumnUserCreationIdFordtRoleCopy.DataType = typeof(string);
@@ -333,15 +339,10 @@ namespace FiyiRequirements.Areas.CMSCore.Services
                     dtColumnUserLastModificationIdFordtRoleCopy.ColumnName = "UserLastModificationId";
                     dtRoleCopy.Columns.Add(dtColumnUserLastModificationIdFordtRoleCopy);
 
-                    DataColumn dtColumnDateTimeCreationFordtRoleCopy = new DataColumn();
-                    dtColumnDateTimeCreationFordtRoleCopy.DataType = typeof(string);
-                    dtColumnDateTimeCreationFordtRoleCopy.ColumnName = "DateTimeCreation";
-                    dtRoleCopy.Columns.Add(dtColumnDateTimeCreationFordtRoleCopy);
-
-                    DataColumn dtColumnDateTimeLastModificationFordtRoleCopy = new DataColumn();
-                    dtColumnDateTimeLastModificationFordtRoleCopy.DataType = typeof(string);
-                    dtColumnDateTimeLastModificationFordtRoleCopy.ColumnName = "DateTimeLastModification";
-                    dtRoleCopy.Columns.Add(dtColumnDateTimeLastModificationFordtRoleCopy);
+                    DataColumn dtColumnNameFordtRoleCopy = new DataColumn();
+                    dtColumnNameFordtRoleCopy.DataType = typeof(string);
+                    dtColumnNameFordtRoleCopy.ColumnName = "Name";
+                    dtRoleCopy.Columns.Add(dtColumnNameFordtRoleCopy);
 
                     
                     #endregion
