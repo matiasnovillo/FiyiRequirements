@@ -23,7 +23,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 21/02/2023 16:28:51
+//Last modification on: 21/02/2023 17:35:10
 
 namespace FiyiRequirements.Areas.BasicCore.Services
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.BasicCore.Services
     /// Name:              C# Service. <br/>
     /// Function:          Allow you to separate data contract stored in C# model from business with your clients. <br/>
     /// Also, allow dependency injection inside controllers/web apis<br/>
-    /// Last modification: 21/02/2023 16:28:51
+    /// Last modification: 21/02/2023 17:35:10
     /// </summary>
     public partial class FailureService : FailureProtocol
     {

@@ -29,7 +29,7 @@ namespace FiyiRequirements.Areas.BasicCore.Models
     ///                    make temporal copies with random data. <br/>
     /// Fields:            12 <br/> 
     /// Sub-models:      0 models <br/>
-    /// Last modification: 21/02/2023 16:28:51
+    /// Last modification: 21/02/2023 17:35:10
     /// </summary>
     [Serializable]
     public partial class FailureModel
