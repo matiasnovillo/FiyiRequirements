@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
+using FiyiRequirements.Areas.CMSCore.DTOs;
 using FiyiRequirements.Areas.CMSCore.Filters;
 using FiyiRequirements.Areas.CMSCore.Protocols;
 using FiyiRequirements.Areas.CMSCore.Models;
@@ -24,7 +25,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 15/02/2023 18:14:40
+//Last modification on: 21/02/2023 17:56:41
 
 namespace FiyiRequirements.Areas.CMSCore.Controllers
 {
@@ -32,7 +33,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 15/02/2023 18:14:40
+    /// Last modification: 21/02/2023 17:56:41
     /// </summary>
     [ApiController]
     [MenuFilter]
@@ -113,14 +114,14 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
         }
 
         [HttpPost("~/api/CMSCore/Menu/1/SelectAllPagedToJSON")]
-        public menuModelQuery SelectAllPagedToJSON([FromBody] menuModelQuery menuModelQuery)
+        public menuSelectAllPaged SelectAllPagedToJSON([FromBody] menuSelectAllPaged menuSelectAllPaged)
         {
             try
             {
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _MenuProtocol.SelectAllPagedToModel(menuModelQuery);
+                 return _MenuProtocol.SelectAllPagedToModel(menuSelectAllPaged);
             }
             catch (Exception ex)
             {

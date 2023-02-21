@@ -1,3 +1,4 @@
+using FiyiRequirements.Areas.CMSCore.DTOs;
 using FiyiRequirements.Areas.CMSCore.Models;
 using FiyiRequirements.Library;
 using System;
@@ -14,7 +15,7 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 15/02/2023 18:14:40
+//Last modification on: 21/02/2023 17:56:41
 
 namespace FiyiRequirements.Areas.CMSCore.Protocols
 {
@@ -24,7 +25,7 @@ namespace FiyiRequirements.Areas.CMSCore.Protocols
     /// Function:          This protocol/interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 15/02/2023 18:14:40
+    /// Last modification: 21/02/2023 17:56:41
     /// </summary>
     public partial interface MenuProtocol
     {
@@ -38,7 +39,7 @@ namespace FiyiRequirements.Areas.CMSCore.Protocols
 
         List<MenuModel> SelectAllToList();
 
-        menuModelQuery SelectAllPagedToModel(menuModelQuery menuModelQuery);
+        menuSelectAllPaged SelectAllPagedToModel(menuSelectAllPaged menuSelectAllPaged);
         #endregion
 
         #region Non-Queries

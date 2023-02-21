@@ -1,4 +1,5 @@
 using Dapper;
+using FiyiRequirements.Areas.CMSCore.DTOs;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace FiyiRequirements.Areas.CMSCore.Models
     ///                    make temporal copies with random data. <br/>
     /// Fields:            11 <br/> 
     /// Sub-models:      0 models <br/>
-    /// Last modification: 15/02/2023 18:14:40
+    /// Last modification: 21/02/2023 17:56:41
     /// </summary>
     [Serializable]
     public partial class MenuModel
@@ -350,30 +351,30 @@ namespace FiyiRequirements.Areas.CMSCore.Models
             catch (Exception ex) { throw ex; }
         }
 
-        public menuModelQuery SelectAllPagedToModel(menuModelQuery menuModelQuery)
+        public menuSelectAllPaged SelectAllPagedToModel(menuSelectAllPaged menuSelectAllPaged)
         {
             try
             {
-                menuModelQuery.lstMenuModel = new List<MenuModel>();
+                menuSelectAllPaged.lstMenuModel = new List<MenuModel>();
                 DynamicParameters dp = new DynamicParameters();
-                dp.Add("QueryString", menuModelQuery.QueryString, DbType.String, ParameterDirection.Input);
-                dp.Add("ActualPageNumber", menuModelQuery.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
-                dp.Add("RowsPerPage", menuModelQuery.RowsPerPage, DbType.Int32, ParameterDirection.Input);
-                dp.Add("SorterColumn", menuModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
-                dp.Add("SortToggler", menuModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
-                dp.Add("TotalRows", menuModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
+                dp.Add("QueryString", menuSelectAllPaged.QueryString, DbType.String, ParameterDirection.Input);
+                dp.Add("ActualPageNumber", menuSelectAllPaged.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
+                dp.Add("RowsPerPage", menuSelectAllPaged.RowsPerPage, DbType.Int32, ParameterDirection.Input);
+                dp.Add("SorterColumn", menuSelectAllPaged.SorterColumn, DbType.String, ParameterDirection.Input);
+                dp.Add("SortToggler", menuSelectAllPaged.SortToggler, DbType.Boolean, ParameterDirection.Input);
+                dp.Add("TotalRows", menuSelectAllPaged.TotalRows, DbType.Int32, ParameterDirection.Output);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    menuModelQuery.lstMenuModel = (List<MenuModel>)sqlConnection.Query<MenuModel>("[dbo].[CMSCore.Menu.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
-                    menuModelQuery.TotalRows = dp.Get<int>("TotalRows");
+                    menuSelectAllPaged.lstMenuModel = (List<MenuModel>)sqlConnection.Query<MenuModel>("[dbo].[CMSCore.Menu.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
+                    menuSelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 
-                menuModelQuery.TotalPages = Library.Math.Divide(menuModelQuery.TotalRows, menuModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+                menuSelectAllPaged.TotalPages = Library.Math.Divide(menuSelectAllPaged.TotalRows, menuSelectAllPaged.RowsPerPage, Library.Math.RoundType.RoundUp);
 
                 
 
-                return menuModelQuery;
+                return menuSelectAllPaged;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -800,20 +801,5 @@ namespace FiyiRequirements.Areas.CMSCore.Models
     </td>
                 </tr>";
         }
-    }
-
-    /// <summary>
-    /// Virtual model used for [dbo].[CMSCore.Menu.SelectAllPaged] stored procedure
-    /// </summary>
-    public partial class menuModelQuery 
-    {
-        public string QueryString { get; set; }
-        public int ActualPageNumber { get; set; }
-        public int RowsPerPage { get; set; }
-        public string SorterColumn { get; set; }
-        public bool SortToggler { get; set; }
-        public int TotalRows { get; set; }
-        public int TotalPages { get; set; }
-        public List<MenuModel> lstMenuModel { get; set; }
     }
 }
