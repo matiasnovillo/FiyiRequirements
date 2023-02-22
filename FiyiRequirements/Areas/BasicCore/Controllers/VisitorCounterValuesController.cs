@@ -25,7 +25,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 22/02/2023 7:45:50
+//Last modification on: 22/02/2023 15:17:36
 
 namespace FiyiRequirements.Areas.BasicCore.Controllers
 {
@@ -33,7 +33,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 22/02/2023 7:45:50
+    /// Last modification: 22/02/2023 15:17:36
     /// </summary>
     [ApiController]
     [VisitorCounterFilter]
@@ -146,7 +146,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
         }
 
         [HttpGet("~/api/BasicCore/VisitorCounter/1/SelectAllToVisitorsPerMonthChart")]
-        public List<visitorsCounterPerMonth> SelectAllToVisitorsPerMonthChart()
+        public List<visitorCounterPerMonth> SelectAllToVisitorsPerMonthChart()
         {
             try
             {
@@ -176,10 +176,42 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 return null;
             }
         }
+
+        [HttpGet("~/api/BasicCore/VisitorCounter/1/SelectAllToVisitorsCounterPageChart")]
+        public List<visitorCountPageVisits> SelectAllToVisitorsCounterPageChart()
+        {
+            try
+            {
+                var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
+                if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
+
+                return _VisitorCounterProtocol.SelectAllToVisitorsCounterPageChart();
+            }
+            catch (Exception ex)
+            {
+                DateTime Now = DateTime.Now;
+                FailureModel FailureModel = new FailureModel()
+                {
+                    HTTPCode = 500,
+                    Message = ex.Message,
+                    EmergencyLevel = 1,
+                    StackTrace = ex.StackTrace ?? "",
+                    Source = ex.Source ?? "",
+                    Comment = "",
+                    Active = true,
+                    UserCreationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    UserLastModificationId = HttpContext.Session.GetInt32("UserId") ?? 1,
+                    DateTimeCreation = Now,
+                    DateTimeLastModification = Now
+                };
+                FailureModel.Insert();
+                return null;
+            }
+        }
         #endregion
 
         #region Non-Queries
-        //[Produces("text/plain")] //For production mode, uncomment this line
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCore/VisitorCounter/1/InsertOrUpdateAsync")]
         public async Task<IActionResult> InsertOrUpdateAsync()
         {
@@ -198,6 +230,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 int VisitorCounterId = Convert.ToInt32(HttpContext.Request.Form["basiccore-visitorcounter-visitorcounterid-input"]);
                 
                 DateTime DateTime = Convert.ToDateTime(HttpContext.Request.Form["basiccore-visitorcounter-datetime-input"]);
+                string Page = HttpContext.Request.Form["basiccore-visitorcounter-page-input"];
                 
                 #endregion
 
@@ -215,6 +248,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                         DateTimeCreation = DateTime.Now,
                         DateTimeLastModification = DateTime.Now,
                         DateTime = DateTime,
+                        Page = Page,
                         
                     };
                     
@@ -228,6 +262,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                     VisitorCounterModel.UserLastModificationId = UserId;
                     VisitorCounterModel.DateTimeLastModification = DateTime.Now;
                     VisitorCounterModel.DateTime = DateTime;
+                    VisitorCounterModel.Page = Page;
                                        
 
                     RowsAffected = _VisitorCounterProtocol.UpdateByVisitorCounterId(VisitorCounterModel);
@@ -290,7 +325,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
             }
         }
 
-        //[Produces("text/plain")] //For production mode, uncomment this line
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpDelete("~/api/BasicCore/VisitorCounter/1/DeleteByVisitorCounterId/{VisitorCounterId:int}")]
         public IActionResult DeleteByVisitorCounterId(int VisitorCounterId)
         {
@@ -324,7 +359,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
             }
         }
 
-        //[Produces("text/plain")] //For production mode, uncomment this line
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCore/VisitorCounter/1/DeleteManyOrAll/{DeleteType}")]
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
@@ -359,7 +394,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
             }
         }
 
-        //[Produces("text/plain")] //For production mode, uncomment this line
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCore/VisitorCounter/1/CopyByVisitorCounterId/{VisitorCounterId:int}")]
         public IActionResult CopyByVisitorCounterId(int VisitorCounterId)
         {
@@ -394,7 +429,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
             }
         }
 
-        //[Produces("text/plain")] //For production mode, uncomment this line
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCore/VisitorCounter/1/CopyManyOrAll/{CopyType}")]
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
@@ -438,7 +473,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
         #endregion
 
         #region Other actions
-        //[Produces("text/plain")] //For production mode, uncomment this line
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCore/VisitorCounter/1/ExportAsPDF/{ExportationType}")]
         public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
         {
@@ -473,7 +508,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
             }
         }
 
-        //[Produces("text/plain")] //For production mode, uncomment this line
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCore/VisitorCounter/1/ExportAsExcel/{ExportationType}")]
         public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
         {
@@ -508,7 +543,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
             }
         }
 
-        //[Produces("text/plain")] //For production mode, uncomment this line
+        //[Produces("text/plain")] For production mode, uncomment this line
         [HttpPost("~/api/BasicCore/VisitorCounter/1/ExportAsCSV/{ExportationType}")]
         public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
         {

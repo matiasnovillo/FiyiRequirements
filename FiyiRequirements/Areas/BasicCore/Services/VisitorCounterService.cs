@@ -23,7 +23,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 22/02/2023 7:45:50
+//Last modification on: 22/02/2023 15:17:36
 
 namespace FiyiRequirements.Areas.BasicCore.Services
 {
@@ -32,7 +32,7 @@ namespace FiyiRequirements.Areas.BasicCore.Services
     /// Name:              C# Service. <br/>
     /// Function:          Allow you to separate data contract stored in C# model from business with your clients. <br/>
     /// Also, allow dependency injection inside controllers/web apis<br/>
-    /// Last modification: 22/02/2023 7:45:50
+    /// Last modification: 22/02/2023 15:17:36
     /// </summary>
     public partial class VisitorCounterService : VisitorCounterProtocol
     {
@@ -59,9 +59,14 @@ namespace FiyiRequirements.Areas.BasicCore.Services
             return new VisitorCounterModel().SelectAllPagedToModel(visitorcounterSelectAllPaged);
         }
 
-        public List<visitorsCounterPerMonth> SelectAllToVisitorsPerMonthChart()
+        public List<visitorCounterPerMonth> SelectAllToVisitorsPerMonthChart()
         {
             return new VisitorCounterModel().SelectAllToVisitorsPerMonthChart();
+        }
+
+        public List<visitorCountPageVisits> SelectAllToVisitorsCounterPageChart()
+        {
+            return new VisitorCounterModel().SelectAllToVisitorsCounterPageChart();
         }
         #endregion
 
@@ -221,6 +226,11 @@ namespace FiyiRequirements.Areas.BasicCore.Services
                 <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">DateTime&nbsp;&nbsp;&nbsp;</span>
             </font>
             <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
+        </th><th align=""left"" valign=""top"" style=""border-width: 1px; border-style: solid; border-color: #e8e8e8; border-top: none; border-left: none; border-right: none;"">
+            <font face=""'Source Sans Pro', sans-serif"" color=""#000000"" style=""font-size: 20px; line-height: 28px; font-weight: 600;"">
+                <span style=""font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #000000; font-size: 20px; line-height: 28px; font-weight: 600;"">Page&nbsp;&nbsp;&nbsp;</span>
+            </font>
+            <div style=""height: 10px; line-height: 10px; font-size: 8px;"">&nbsp;</div>
         </th>
     </tr>
     {RowsAsHTML}
@@ -285,6 +295,11 @@ namespace FiyiRequirements.Areas.BasicCore.Services
                     dtColumnDateTimeFordtVisitorCounterCopy.ColumnName = "DateTime";
                     dtVisitorCounterCopy.Columns.Add(dtColumnDateTimeFordtVisitorCounterCopy);
 
+                    DataColumn dtColumnPageFordtVisitorCounterCopy = new DataColumn();
+                    dtColumnPageFordtVisitorCounterCopy.DataType = typeof(string);
+                    dtColumnPageFordtVisitorCounterCopy.ColumnName = "Page";
+                    dtVisitorCounterCopy.Columns.Add(dtColumnPageFordtVisitorCounterCopy);
+
                     
                 #endregion
 
@@ -348,6 +363,11 @@ namespace FiyiRequirements.Areas.BasicCore.Services
                     dtColumnDateTimeFordtVisitorCounterCopy.DataType = typeof(string);
                     dtColumnDateTimeFordtVisitorCounterCopy.ColumnName = "DateTime";
                     dtVisitorCounterCopy.Columns.Add(dtColumnDateTimeFordtVisitorCounterCopy);
+
+                    DataColumn dtColumnPageFordtVisitorCounterCopy = new DataColumn();
+                    dtColumnPageFordtVisitorCounterCopy.DataType = typeof(string);
+                    dtColumnPageFordtVisitorCounterCopy.ColumnName = "Page";
+                    dtVisitorCounterCopy.Columns.Add(dtColumnPageFordtVisitorCounterCopy);
 
                     
                     #endregion
