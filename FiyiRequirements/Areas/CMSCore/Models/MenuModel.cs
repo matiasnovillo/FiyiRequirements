@@ -84,10 +84,14 @@ namespace FiyiRequirements.Areas.CMSCore.Models
 
         [Library.ModelAttributeValidator.String("IconURLPath", false, 1, 8000, "")]
         public string IconURLPath { get; set; }
+
+        public string UserCreationIdFantasyName { get; set; }
+
+        public string UserLastModificationIdFantasyName { get; set; }
         #endregion
 
         #region Sub-lists
-        
+
         #endregion
 
         #region Constructors
@@ -366,7 +370,7 @@ namespace FiyiRequirements.Areas.CMSCore.Models
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    menuSelectAllPaged.lstMenuModel = (List<MenuModel>)sqlConnection.Query<MenuModel>("[dbo].[CMSCore.Menu.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
+                    menuSelectAllPaged.lstMenuModel = (List<MenuModel>)sqlConnection.Query<MenuModel>("[dbo].[CMSCore.Menu.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
                     menuSelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 
