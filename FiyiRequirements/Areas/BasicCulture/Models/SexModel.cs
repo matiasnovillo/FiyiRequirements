@@ -72,10 +72,14 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
 
         [Library.ModelAttributeValidator.String("Name", false, 1, 500, "")]
         public string Name { get; set; }
+
+        public string UserCreationIdFantasyName { get; set; }
+
+        public string UserLastModificationIdFantasyName { get; set; }
         #endregion
 
         #region Sub-lists
-        
+
         #endregion
 
         #region Constructors
@@ -338,7 +342,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    sexSelectAllPaged.lstSexModel = (List<SexModel>)sqlConnection.Query<SexModel>("[dbo].[BasicCulture.Sex.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
+                    sexSelectAllPaged.lstSexModel = (List<SexModel>)sqlConnection.Query<SexModel>("[dbo].[BasicCulture.Sex.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
                     sexSelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 
