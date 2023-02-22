@@ -75,6 +75,10 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
 
         [Library.ModelAttributeValidator.String("Code", false, 1, 100, "")]
         public string Code { get; set; }
+
+        public string UserCreationIdFantasyName { get; set; }
+
+        public string UserLastModificationIdFantasyName { get; set; }
         #endregion
 
         #region Sub-lists
@@ -349,7 +353,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    planetSelectAllPaged.lstPlanetModel = (List<PlanetModel>)sqlConnection.Query<PlanetModel>("[dbo].[BasicCulture.Planet.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
+                    planetSelectAllPaged.lstPlanetModel = (List<PlanetModel>)sqlConnection.Query<PlanetModel>("[dbo].[BasicCulture.Planet.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
                     planetSelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 

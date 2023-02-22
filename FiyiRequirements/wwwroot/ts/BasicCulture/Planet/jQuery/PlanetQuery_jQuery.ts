@@ -178,12 +178,12 @@ class PlanetQuery {
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.UserCreationId}
+            <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
         </strong>
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.UserLastModificationId}
+            <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
         </strong>
     </td>
     <td class="text-left">
