@@ -1,4 +1,5 @@
 using Dapper;
+using FiyiRequirements.Areas.Requirement.DTOs;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -28,13 +29,13 @@ namespace FiyiRequirements.Areas.Requirement.Models
     ///                    make temporal copies with random data. <br/>
     /// Fields:            8 <br/> 
     /// Sub-models:      2 models <br/>
-    /// Last modification: 25/12/2022 18:13:11
+    /// Last modification: 21/02/2023 21:10:11
     /// </summary>
     [Serializable]
     public partial class RequirementPriorityModel
     {
         [NotMapped]
-        private string _ConnectionString = "data source =.; initial catalog = fiyistack_FiyiRequirements; Integrated Security = SSPI; MultipleActiveResultSets=True;Pooling=false;Persist Security Info=True;App=EntityFramework;TrustServerCertificate=True";
+        private string _ConnectionString = ConnectionStrings.ConnectionStrings.Development();
 
         #region Fields
         [Library.ModelAttributeValidator.Key("RequirementPriorityId")]
@@ -72,16 +73,15 @@ namespace FiyiRequirements.Areas.Requirement.Models
         [Library.ModelAttributeValidator.String("Name", false, 1, 100, "")]
         public string Name { get; set; }
 
-        [Library.ModelAttributeValidator.String("Description", false, 1, 2000, "")]
         public string Description { get; set; }
 
         public string UserCreationIdFantasyName { get; set; }
 
         public string UserLastModificationIdFantasyName { get; set; }
-    #endregion
+        #endregion
 
-    #region Sub-lists
-    public virtual List<RequirementModel> lstRequirementModel { get; set; } //Foreign Key name: RequirementPriorityId 
+        #region Sub-lists
+        public virtual List<RequirementModel> lstRequirementModel { get; set; } //Foreign Key name: RequirementPriorityId 
 		public virtual List<RequirementChangehistoryModel> lstRequirementChangehistoryModel { get; set; } //Foreign Key name: RequirementPriorityId 
         #endregion
 
@@ -342,32 +342,32 @@ namespace FiyiRequirements.Areas.Requirement.Models
             catch (Exception ex) { throw ex; }
         }
 
-        public requirementpriorityModelQuery SelectAllPagedToModel(requirementpriorityModelQuery requirementpriorityModelQuery)
+        public requirementprioritySelectAllPaged SelectAllPagedToModel(requirementprioritySelectAllPaged requirementprioritySelectAllPaged)
         {
             try
             {
-                requirementpriorityModelQuery.lstRequirementPriorityModel = new List<RequirementPriorityModel>();
+                requirementprioritySelectAllPaged.lstRequirementPriorityModel = new List<RequirementPriorityModel>();
                 DynamicParameters dp = new DynamicParameters();
-                dp.Add("QueryString", requirementpriorityModelQuery.QueryString, DbType.String, ParameterDirection.Input);
-                dp.Add("ActualPageNumber", requirementpriorityModelQuery.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
-                dp.Add("RowsPerPage", requirementpriorityModelQuery.RowsPerPage, DbType.Int32, ParameterDirection.Input);
-                dp.Add("SorterColumn", requirementpriorityModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
-                dp.Add("SortToggler", requirementpriorityModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
-                dp.Add("TotalRows", requirementpriorityModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
+                dp.Add("QueryString", requirementprioritySelectAllPaged.QueryString, DbType.String, ParameterDirection.Input);
+                dp.Add("ActualPageNumber", requirementprioritySelectAllPaged.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
+                dp.Add("RowsPerPage", requirementprioritySelectAllPaged.RowsPerPage, DbType.Int32, ParameterDirection.Input);
+                dp.Add("SorterColumn", requirementprioritySelectAllPaged.SorterColumn, DbType.String, ParameterDirection.Input);
+                dp.Add("SortToggler", requirementprioritySelectAllPaged.SortToggler, DbType.Boolean, ParameterDirection.Input);
+                dp.Add("TotalRows", requirementprioritySelectAllPaged.TotalRows, DbType.Int32, ParameterDirection.Output);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    requirementpriorityModelQuery.lstRequirementPriorityModel = (List<RequirementPriorityModel>)sqlConnection.Query<RequirementPriorityModel>("[dbo].[Requirement.RequirementPriority.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
-                    requirementpriorityModelQuery.TotalRows = dp.Get<int>("TotalRows");
+                    requirementprioritySelectAllPaged.lstRequirementPriorityModel = (List<RequirementPriorityModel>)sqlConnection.Query<RequirementPriorityModel>("[dbo].[Requirement.RequirementPriority.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
+                    requirementprioritySelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 
-                requirementpriorityModelQuery.TotalPages = Library.Math.Divide(requirementpriorityModelQuery.TotalRows, requirementpriorityModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+                requirementprioritySelectAllPaged.TotalPages = Library.Math.Divide(requirementprioritySelectAllPaged.TotalRows, requirementprioritySelectAllPaged.RowsPerPage, Library.Math.RoundType.RoundUp);
 
                 //Loop through lists and sublists
-                for (int i = 0; i < requirementpriorityModelQuery.lstRequirementPriorityModel.Count; i++)
+                for (int i = 0; i < requirementprioritySelectAllPaged.lstRequirementPriorityModel.Count; i++)
                 {
                     DynamicParameters dpForRequirementModel = new DynamicParameters();
-                    dpForRequirementModel.Add("RequirementPriorityId", requirementpriorityModelQuery.lstRequirementPriorityModel[i].RequirementPriorityId, DbType.Int32, ParameterDirection.Input);
+                    dpForRequirementModel.Add("RequirementPriorityId", requirementprioritySelectAllPaged.lstRequirementPriorityModel[i].RequirementPriorityId, DbType.Int32, ParameterDirection.Input);
                     using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                     {
                         List<RequirementModel> lstRequirementModel = new List<RequirementModel>();
@@ -376,16 +376,16 @@ namespace FiyiRequirements.Areas.Requirement.Models
                         //Add list item inside another list
                         foreach (var RequirementModel in lstRequirementModel)
                         {
-                            requirementpriorityModelQuery.lstRequirementPriorityModel[i].lstRequirementModel.Add(RequirementModel);
+                            requirementprioritySelectAllPaged.lstRequirementPriorityModel[i].lstRequirementModel.Add(RequirementModel);
                         }
                     }
                 }
                 
                 //Loop through lists and sublists
-                for (int i = 0; i < requirementpriorityModelQuery.lstRequirementPriorityModel.Count; i++)
+                for (int i = 0; i < requirementprioritySelectAllPaged.lstRequirementPriorityModel.Count; i++)
                 {
                     DynamicParameters dpForRequirementChangehistoryModel = new DynamicParameters();
-                    dpForRequirementChangehistoryModel.Add("RequirementPriorityId", requirementpriorityModelQuery.lstRequirementPriorityModel[i].RequirementPriorityId, DbType.Int32, ParameterDirection.Input);
+                    dpForRequirementChangehistoryModel.Add("RequirementPriorityId", requirementprioritySelectAllPaged.lstRequirementPriorityModel[i].RequirementPriorityId, DbType.Int32, ParameterDirection.Input);
                     using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                     {
                         List<RequirementChangehistoryModel> lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
@@ -394,14 +394,14 @@ namespace FiyiRequirements.Areas.Requirement.Models
                         //Add list item inside another list
                         foreach (var RequirementChangehistoryModel in lstRequirementChangehistoryModel)
                         {
-                            requirementpriorityModelQuery.lstRequirementPriorityModel[i].lstRequirementChangehistoryModel.Add(RequirementChangehistoryModel);
+                            requirementprioritySelectAllPaged.lstRequirementPriorityModel[i].lstRequirementChangehistoryModel.Add(RequirementChangehistoryModel);
                         }
                     }
                 }
                 
                 
 
-                return requirementpriorityModelQuery;
+                return requirementprioritySelectAllPaged;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -789,20 +789,5 @@ namespace FiyiRequirements.Areas.Requirement.Models
     </td>
                 </tr>";
         }
-    }
-
-    /// <summary>
-    /// Virtual model used for [dbo].[Requirement.RequirementPriority.SelectAllPaged] stored procedure
-    /// </summary>
-    public partial class requirementpriorityModelQuery 
-    {
-        public string QueryString { get; set; }
-        public int ActualPageNumber { get; set; }
-        public int RowsPerPage { get; set; }
-        public string SorterColumn { get; set; }
-        public bool SortToggler { get; set; }
-        public int TotalRows { get; set; }
-        public int TotalPages { get; set; }
-        public List<RequirementPriorityModel> lstRequirementPriorityModel { get; set; }
     }
 }

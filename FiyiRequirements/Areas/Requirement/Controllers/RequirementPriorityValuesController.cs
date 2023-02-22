@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
+using FiyiRequirements.Areas.Requirement.DTOs;
 using FiyiRequirements.Areas.Requirement.Filters;
 using FiyiRequirements.Areas.Requirement.Protocols;
 using FiyiRequirements.Areas.Requirement.Models;
@@ -24,7 +25,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 16/02/2023 8:41:40
+//Last modification on: 21/02/2023 21:10:11
 
 namespace FiyiRequirements.Areas.Requirement.Controllers
 {
@@ -32,7 +33,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 16/02/2023 8:41:40
+    /// Last modification: 21/02/2023 21:10:11
     /// </summary>
     [ApiController]
     [RequirementPriorityFilter]
@@ -113,14 +114,14 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
         }
 
         [HttpPost("~/api/Requirement/RequirementPriority/1/SelectAllPagedToJSON")]
-        public requirementpriorityModelQuery SelectAllPagedToJSON([FromBody] requirementpriorityModelQuery requirementpriorityModelQuery)
+        public requirementprioritySelectAllPaged SelectAllPagedToJSON([FromBody] requirementprioritySelectAllPaged requirementprioritySelectAllPaged)
         {
             try
             {
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _RequirementPriorityProtocol.SelectAllPagedToModel(requirementpriorityModelQuery);
+                 return _RequirementPriorityProtocol.SelectAllPagedToModel(requirementprioritySelectAllPaged);
             }
             catch (Exception ex)
             {
