@@ -83,10 +83,14 @@ namespace FiyiRequirements.Areas.BasicCore.Models
         public string Source { get; set; }
 
         public string Comment { get; set; }
+
+        public string UserCreationIdFantasyName { get; set; }
+
+        public string UserLastModificationIdFantasyName { get; set; }
         #endregion
 
         #region Sub-lists
-        
+
         #endregion
 
         #region Constructors
@@ -369,7 +373,7 @@ namespace FiyiRequirements.Areas.BasicCore.Models
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    failureSelectAllPaged.lstFailureModel = (List<FailureModel>)sqlConnection.Query<FailureModel>("[dbo].[BasicCore.Failure.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
+                    failureSelectAllPaged.lstFailureModel = (List<FailureModel>)sqlConnection.Query<FailureModel>("[dbo].[BasicCore.Failure.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
                     failureSelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 
