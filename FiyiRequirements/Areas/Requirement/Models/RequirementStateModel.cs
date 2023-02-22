@@ -1,4 +1,5 @@
 using Dapper;
+using FiyiRequirements.Areas.Requirement.DTOs;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -28,13 +29,13 @@ namespace FiyiRequirements.Areas.Requirement.Models
     ///                    make temporal copies with random data. <br/>
     /// Fields:            7 <br/> 
     /// Sub-models:      2 models <br/>
-    /// Last modification: 25/12/2022 18:16:36
+    /// Last modification: 21/02/2023 21:13:53
     /// </summary>
     [Serializable]
     public partial class RequirementStateModel
     {
         [NotMapped]
-        private string _ConnectionString = "data source =.; initial catalog = fiyistack_FiyiRequirements; Integrated Security = SSPI; MultipleActiveResultSets=True;Pooling=false;Persist Security Info=True;App=EntityFramework;TrustServerCertificate=True";
+        private string _ConnectionString = ConnectionStrings.ConnectionStrings.Development();
 
         #region Fields
         [Library.ModelAttributeValidator.Key("RequirementStateId")]
@@ -335,32 +336,32 @@ namespace FiyiRequirements.Areas.Requirement.Models
             catch (Exception ex) { throw ex; }
         }
 
-        public requirementstateModelQuery SelectAllPagedToModel(requirementstateModelQuery requirementstateModelQuery)
+        public requirementstateSelectAllPaged SelectAllPagedToModel(requirementstateSelectAllPaged requirementstateSelectAllPaged)
         {
             try
             {
-                requirementstateModelQuery.lstRequirementStateModel = new List<RequirementStateModel>();
+                requirementstateSelectAllPaged.lstRequirementStateModel = new List<RequirementStateModel>();
                 DynamicParameters dp = new DynamicParameters();
-                dp.Add("QueryString", requirementstateModelQuery.QueryString, DbType.String, ParameterDirection.Input);
-                dp.Add("ActualPageNumber", requirementstateModelQuery.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
-                dp.Add("RowsPerPage", requirementstateModelQuery.RowsPerPage, DbType.Int32, ParameterDirection.Input);
-                dp.Add("SorterColumn", requirementstateModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
-                dp.Add("SortToggler", requirementstateModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
-                dp.Add("TotalRows", requirementstateModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
+                dp.Add("QueryString", requirementstateSelectAllPaged.QueryString, DbType.String, ParameterDirection.Input);
+                dp.Add("ActualPageNumber", requirementstateSelectAllPaged.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
+                dp.Add("RowsPerPage", requirementstateSelectAllPaged.RowsPerPage, DbType.Int32, ParameterDirection.Input);
+                dp.Add("SorterColumn", requirementstateSelectAllPaged.SorterColumn, DbType.String, ParameterDirection.Input);
+                dp.Add("SortToggler", requirementstateSelectAllPaged.SortToggler, DbType.Boolean, ParameterDirection.Input);
+                dp.Add("TotalRows", requirementstateSelectAllPaged.TotalRows, DbType.Int32, ParameterDirection.Output);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    requirementstateModelQuery.lstRequirementStateModel = (List<RequirementStateModel>)sqlConnection.Query<RequirementStateModel>("[dbo].[Requirement.RequirementState.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
-                    requirementstateModelQuery.TotalRows = dp.Get<int>("TotalRows");
+                    requirementstateSelectAllPaged.lstRequirementStateModel = (List<RequirementStateModel>)sqlConnection.Query<RequirementStateModel>("[dbo].[Requirement.RequirementState.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
+                    requirementstateSelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 
-                requirementstateModelQuery.TotalPages = Library.Math.Divide(requirementstateModelQuery.TotalRows, requirementstateModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+                requirementstateSelectAllPaged.TotalPages = Library.Math.Divide(requirementstateSelectAllPaged.TotalRows, requirementstateSelectAllPaged.RowsPerPage, Library.Math.RoundType.RoundUp);
 
                 //Loop through lists and sublists
-                for (int i = 0; i < requirementstateModelQuery.lstRequirementStateModel.Count; i++)
+                for (int i = 0; i < requirementstateSelectAllPaged.lstRequirementStateModel.Count; i++)
                 {
                     DynamicParameters dpForRequirementModel = new DynamicParameters();
-                    dpForRequirementModel.Add("RequirementStateId", requirementstateModelQuery.lstRequirementStateModel[i].RequirementStateId, DbType.Int32, ParameterDirection.Input);
+                    dpForRequirementModel.Add("RequirementStateId", requirementstateSelectAllPaged.lstRequirementStateModel[i].RequirementStateId, DbType.Int32, ParameterDirection.Input);
                     using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                     {
                         List<RequirementModel> lstRequirementModel = new List<RequirementModel>();
@@ -369,16 +370,16 @@ namespace FiyiRequirements.Areas.Requirement.Models
                         //Add list item inside another list
                         foreach (var RequirementModel in lstRequirementModel)
                         {
-                            requirementstateModelQuery.lstRequirementStateModel[i].lstRequirementModel.Add(RequirementModel);
+                            requirementstateSelectAllPaged.lstRequirementStateModel[i].lstRequirementModel.Add(RequirementModel);
                         }
                     }
                 }
                 
                 //Loop through lists and sublists
-                for (int i = 0; i < requirementstateModelQuery.lstRequirementStateModel.Count; i++)
+                for (int i = 0; i < requirementstateSelectAllPaged.lstRequirementStateModel.Count; i++)
                 {
                     DynamicParameters dpForRequirementChangehistoryModel = new DynamicParameters();
-                    dpForRequirementChangehistoryModel.Add("RequirementStateId", requirementstateModelQuery.lstRequirementStateModel[i].RequirementStateId, DbType.Int32, ParameterDirection.Input);
+                    dpForRequirementChangehistoryModel.Add("RequirementStateId", requirementstateSelectAllPaged.lstRequirementStateModel[i].RequirementStateId, DbType.Int32, ParameterDirection.Input);
                     using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                     {
                         List<RequirementChangehistoryModel> lstRequirementChangehistoryModel = new List<RequirementChangehistoryModel>();
@@ -387,14 +388,14 @@ namespace FiyiRequirements.Areas.Requirement.Models
                         //Add list item inside another list
                         foreach (var RequirementChangehistoryModel in lstRequirementChangehistoryModel)
                         {
-                            requirementstateModelQuery.lstRequirementStateModel[i].lstRequirementChangehistoryModel.Add(RequirementChangehistoryModel);
+                            requirementstateSelectAllPaged.lstRequirementStateModel[i].lstRequirementChangehistoryModel.Add(RequirementChangehistoryModel);
                         }
                     }
                 }
                 
                 
 
-                return requirementstateModelQuery;
+                return requirementstateSelectAllPaged;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -769,20 +770,5 @@ namespace FiyiRequirements.Areas.Requirement.Models
     </td>
                 </tr>";
         }
-    }
-
-    /// <summary>
-    /// Virtual model used for [dbo].[Requirement.RequirementState.SelectAllPaged] stored procedure
-    /// </summary>
-    public partial class requirementstateModelQuery 
-    {
-        public string QueryString { get; set; }
-        public int ActualPageNumber { get; set; }
-        public int RowsPerPage { get; set; }
-        public string SorterColumn { get; set; }
-        public bool SortToggler { get; set; }
-        public int TotalRows { get; set; }
-        public int TotalPages { get; set; }
-        public List<RequirementStateModel> lstRequirementStateModel { get; set; }
     }
 }
