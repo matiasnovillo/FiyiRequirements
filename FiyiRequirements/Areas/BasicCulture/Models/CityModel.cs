@@ -81,10 +81,16 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
 
         [Library.ModelAttributeValidator.Key("ProvinceId")]
         public int ProvinceId { get; set; }
+
+        public string UserCreationIdFantasyName { get; set; }
+
+        public string UserLastModificationIdFantasyName { get; set; }
+
+        public string ProvinceIdName { get; set; }
         #endregion
 
         #region Sub-lists
-        
+
         #endregion
 
         #region Constructors
@@ -359,7 +365,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Models
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    citySelectAllPaged.lstCityModel = (List<CityModel>)sqlConnection.Query<CityModel>("[dbo].[BasicCulture.City.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
+                    citySelectAllPaged.lstCityModel = (List<CityModel>)sqlConnection.Query<CityModel>("[dbo].[BasicCulture.City.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
                     citySelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 
