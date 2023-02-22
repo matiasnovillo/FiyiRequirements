@@ -58,6 +58,8 @@
          failurejquery: ["./wwwroot/ts/BasicCore/Failure/jQuery/FailureQuery_jQuery"],
          parametertsmodel: ["./wwwroot/ts/BasicCore/Parameter/TsModels/Parameter_TsModel"],
          parameterjquery: ["./wwwroot/ts/BasicCore/Parameter/jQuery/ParameterQuery_jQuery"],
+         visitorcountertsmodel: ["./wwwroot/ts/BasicCore/VisitorCounter/TsModels/VisitorCounter_TsModel"],
+         visitorcounterjquery: ["./wwwroot/ts/BasicCore/VisitorCounter/jQuery/VisitorCounterQuery_jQuery"],
 
          citytsmodel: ["./wwwroot/ts/BasicCulture/City/TsModels/City_TsModel"], //Area: BasicCulture
          cityjquery: ["./wwwroot/ts/BasicCulture/City/jQuery/CityQuery_jQuery"],

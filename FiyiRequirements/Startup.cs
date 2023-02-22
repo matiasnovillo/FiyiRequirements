@@ -16,6 +16,7 @@ using FiyiRequirements.Areas.Requirement.Protocols;
 using FiyiRequirements.Areas.Requirement.Services;
 using FiyiRequirements.Areas.Examples.Protocols;
 using FiyiRequirements.Areas.Examples.Services;
+using FiyiRequirements.Areas.BasicCore.Models;
 
 namespace FiyiRequirements
 {
@@ -49,6 +50,7 @@ namespace FiyiRequirements
             //Area: BasicCore
             services.AddScoped<FailureProtocol, FailureService>();
             services.AddScoped<ParameterProtocol, ParameterService>();
+            services.AddScoped<VisitorCounterProtocol, VisitorCounterService>();
             //Area: BasicCulture
             services.AddScoped<CityProtocol, CityService>();
             services.AddScoped<ProvinceProtocol, ProvinceService>();
@@ -87,6 +89,18 @@ namespace FiyiRequirements
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            VisitorCounterModel VisitorCounterModel = new VisitorCounterModel()
+            {
+                Active = true,
+                DateTime = DateTime.Now,
+                DateTimeCreation = DateTime.Now,
+                DateTimeLastModification = DateTime.Now,
+                UserCreationId = 1,
+                UserLastModificationId = 1,
+            };
+
+            VisitorCounterModel.Insert();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

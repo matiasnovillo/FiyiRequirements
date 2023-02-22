@@ -44,34 +44,13 @@
               </div>
             </div>
             <div class="card-body">
-                <canvas id="myChart"></canvas>
+                <canvas id="visitors-per-month-chart"></canvas>
             </div>
           </div>
         </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-  const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: 'Visitors per month',
-        data: [12, 19, 3, 5, 39, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-</script>
+<script src="/js/BasicCore/jquery-3.6.1.min.js"></script>
+<script src="/js/BasicCore/chart.js"></script>
+<script src="/js/BasicCore/VisitorCounter/visitors-per-month-chart.js"></script>
