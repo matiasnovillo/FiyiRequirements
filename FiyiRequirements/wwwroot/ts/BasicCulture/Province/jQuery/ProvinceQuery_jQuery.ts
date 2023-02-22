@@ -213,7 +213,7 @@ class ProvinceQuery {
     </td>
     <td class="text-left">
         <strong>
-            <i class="fas fa-key"></i> ${row.CountryId}
+            <i class="fas fa-key"></i> ${row.CountryIdName}
         </strong>
     </td>
     
