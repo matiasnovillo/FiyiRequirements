@@ -44,7 +44,7 @@
                     }
                 };
                 //Open connection
-                xmlHttpRequest.open("PUT", "/api/CMSCore/User/1/RecoverPassword", false);
+                xmlHttpRequest.open("POST", "/api/CMSCore/User/1/RecoverPassword", false);
                 //Send request
                 xmlHttpRequest.send(formData);
             }

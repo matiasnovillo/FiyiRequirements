@@ -34,7 +34,7 @@ $("#logout-button").on("click", function (e) {
         }
     };
     //Open connection
-    xmlHttpRequest.open("PUT", "/api/CMSCore/User/1/Logout", false);
+    xmlHttpRequest.open("POST", "/api/CMSCore/User/1/Logout", false);
     //Send request
     xmlHttpRequest.send(formData);
 });

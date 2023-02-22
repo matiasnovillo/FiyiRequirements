@@ -56,7 +56,7 @@ $(document).ready(function () {
                     }
                 };
                 //Open connection
-                xmlHttpRequest.open("PUT", "/api/CMSCore/User/1/ChangePassword", false);
+                xmlHttpRequest.open("POST", "/api/CMSCore/User/1/ChangePassword", false);
                 //Send request
                 xmlHttpRequest.send(formData);
             }
