@@ -72,6 +72,10 @@ namespace FiyiRequirements.Areas.CMSCore.Models
 
         [Library.ModelAttributeValidator.String("Name", false, 1, 200, "")]
         public string Name { get; set; }
+
+        public string UserCreationIdFantasyName { get; set; }
+
+        public string UserLastModificationIdFantasyName { get; set; }
         #endregion
 
         #region Sub-lists
@@ -342,7 +346,7 @@ namespace FiyiRequirements.Areas.CMSCore.Models
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    roleSelectAllPaged.lstRoleModel = (List<RoleModel>)sqlConnection.Query<RoleModel>("[dbo].[CMSCore.Role.SelectAllPaged]", dp, commandType: CommandType.StoredProcedure);
+                    roleSelectAllPaged.lstRoleModel = (List<RoleModel>)sqlConnection.Query<RoleModel>("[dbo].[CMSCore.Role.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
                     roleSelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 

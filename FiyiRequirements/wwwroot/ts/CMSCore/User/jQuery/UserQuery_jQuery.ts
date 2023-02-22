@@ -302,7 +302,7 @@ class UserQuery {
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           RoleId <i class="fas fa-key"></i> ${row.RoleId}
+                           RoleId <i class="fas fa-key"></i> ${row.RoleIdName}
                         </span>
                         <br/>
                         <span class="text-white mb-4">

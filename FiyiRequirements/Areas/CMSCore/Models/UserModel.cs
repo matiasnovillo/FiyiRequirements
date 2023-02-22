@@ -84,10 +84,16 @@ namespace FiyiRequirements.Areas.CMSCore.Models
 
         [Library.ModelAttributeValidator.String("RegistrationToken", true, 1, 8000, "")]
         public string RegistrationToken { get; set; }
+
+        public string UserCreationIdFantasyName { get; set; }
+
+        public string UserLastModificationIdFantasyName { get; set; }
+
+        public string RoleIdName { get; set; }
         #endregion
 
         #region Sub-lists
-        
+
         #endregion
 
         #region Constructors
