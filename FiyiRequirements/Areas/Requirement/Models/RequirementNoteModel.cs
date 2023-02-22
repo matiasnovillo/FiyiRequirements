@@ -1,4 +1,5 @@
 using Dapper;
+using FiyiRequirements.Areas.Requirement.DTOs;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
@@ -28,13 +29,13 @@ namespace FiyiRequirements.Areas.Requirement.Models
     ///                    make temporal copies with random data. <br/>
     /// Fields:            9 <br/> 
     /// Sub-models:      0 models <br/>
-    /// Last modification: 28/12/2022 17:28:12
+    /// Last modification: 21/02/2023 20:56:35
     /// </summary>
     [Serializable]
     public partial class RequirementNoteModel
     {
         [NotMapped]
-        private string _ConnectionString = "data source =.; initial catalog = fiyistack_FiyiRequirements; Integrated Security = SSPI; MultipleActiveResultSets=True;Pooling=false;Persist Security Info=True;App=EntityFramework;TrustServerCertificate=True";
+        private string _ConnectionString = ConnectionStrings.ConnectionStrings.Development();
 
         #region Fields
         [Library.ModelAttributeValidator.Key("RequirementNoteId")]
@@ -72,7 +73,6 @@ namespace FiyiRequirements.Areas.Requirement.Models
         [Library.ModelAttributeValidator.String("Title", false, 1, 100, "")]
         public string Title { get; set; }
 
-        [Library.ModelAttributeValidator.String("Body", false, 1, 8000, "")]
         public string Body { get; set; }
 
         [Library.ModelAttributeValidator.Key("RequirementId")]
@@ -81,22 +81,22 @@ namespace FiyiRequirements.Areas.Requirement.Models
         public string UserCreationIdFantasyName { get; set; }
 
         public string UserLastModificationIdFantasyName { get; set; }
-    #endregion
+        #endregion
 
         #region Sub-lists
 
-    #endregion
+        #endregion
 
         #region Constructors
-    /// <summary>
-    /// Stack:        3 <br/>
-    /// Function:     Create fastly this model with field RequirementNoteId = 0 <br/>
-    /// Note 1:       Generally used to have fast access to functions of object. <br/>
-    /// Note 2:       Need construction with [new] reserved word, as all constructors. <br/>
-    /// Fields:       9 <br/> 
-    /// Dependencies: 0 models depend on this model <br/>
-    /// </summary>
-    public RequirementNoteModel()
+        /// <summary>
+        /// Stack:        3 <br/>
+        /// Function:     Create fastly this model with field RequirementNoteId = 0 <br/>
+        /// Note 1:       Generally used to have fast access to functions of object. <br/>
+        /// Note 2:       Need construction with [new] reserved word, as all constructors. <br/>
+        /// Fields:       9 <br/> 
+        /// Dependencies: 0 models depend on this model <br/>
+        /// </summary>
+        public RequirementNoteModel()
         {
             try 
             {
@@ -340,32 +340,32 @@ namespace FiyiRequirements.Areas.Requirement.Models
             catch (Exception ex) { throw ex; }
         }
 
-        public requirementnoteModelQuery SelectAllPagedToModel(requirementnoteModelQuery requirementnoteModelQuery, int RequirementId)
+        public requirementnoteSelectAllPaged SelectAllPagedToModel(requirementnoteSelectAllPaged requirementnoteSelectAllPaged, int RequirementId)
         {
             try
             {
-                requirementnoteModelQuery.lstRequirementNoteModel = new List<RequirementNoteModel>();
+                requirementnoteSelectAllPaged.lstRequirementNoteModel = new List<RequirementNoteModel>();
                 DynamicParameters dp = new DynamicParameters();
-                dp.Add("QueryString", requirementnoteModelQuery.QueryString, DbType.String, ParameterDirection.Input);
-                dp.Add("ActualPageNumber", requirementnoteModelQuery.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
-                dp.Add("RowsPerPage", requirementnoteModelQuery.RowsPerPage, DbType.Int32, ParameterDirection.Input);
-                dp.Add("SorterColumn", requirementnoteModelQuery.SorterColumn, DbType.String, ParameterDirection.Input);
-                dp.Add("SortToggler", requirementnoteModelQuery.SortToggler, DbType.Boolean, ParameterDirection.Input);
-                dp.Add("TotalRows", requirementnoteModelQuery.TotalRows, DbType.Int32, ParameterDirection.Output);
+                dp.Add("QueryString", requirementnoteSelectAllPaged.QueryString, DbType.String, ParameterDirection.Input);
+                dp.Add("ActualPageNumber", requirementnoteSelectAllPaged.ActualPageNumber, DbType.Int32, ParameterDirection.Input);
+                dp.Add("RowsPerPage", requirementnoteSelectAllPaged.RowsPerPage, DbType.Int32, ParameterDirection.Input);
+                dp.Add("SorterColumn", requirementnoteSelectAllPaged.SorterColumn, DbType.String, ParameterDirection.Input);
+                dp.Add("SortToggler", requirementnoteSelectAllPaged.SortToggler, DbType.Boolean, ParameterDirection.Input);
+                dp.Add("TotalRows", requirementnoteSelectAllPaged.TotalRows, DbType.Int32, ParameterDirection.Output);
 
                 dp.Add("RequirementId", RequirementId, DbType.Int32, ParameterDirection.Input);
 
                 using (SqlConnection sqlConnection = new SqlConnection(_ConnectionString))
                 {
-                    requirementnoteModelQuery.lstRequirementNoteModel = (List<RequirementNoteModel>)sqlConnection.Query<RequirementNoteModel>("[dbo].[Requirement.RequirementNote.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
-                    requirementnoteModelQuery.TotalRows = dp.Get<int>("TotalRows");
+                    requirementnoteSelectAllPaged.lstRequirementNoteModel = (List<RequirementNoteModel>)sqlConnection.Query<RequirementNoteModel>("[dbo].[Requirement.RequirementNote.SelectAllPagedCustom]", dp, commandType: CommandType.StoredProcedure);
+                    requirementnoteSelectAllPaged.TotalRows = dp.Get<int>("TotalRows");
                 }
 
-                requirementnoteModelQuery.TotalPages = Library.Math.Divide(requirementnoteModelQuery.TotalRows, requirementnoteModelQuery.RowsPerPage, Library.Math.RoundType.RoundUp);
+                requirementnoteSelectAllPaged.TotalPages = Library.Math.Divide(requirementnoteSelectAllPaged.TotalRows, requirementnoteSelectAllPaged.RowsPerPage, Library.Math.RoundType.RoundUp);
 
                 
 
-                return requirementnoteModelQuery;
+                return requirementnoteSelectAllPaged;
             }
             catch (Exception ex) { throw ex; }
         }
@@ -766,20 +766,5 @@ namespace FiyiRequirements.Areas.Requirement.Models
     </td>
                 </tr>";
         }
-    }
-
-    /// <summary>
-    /// Virtual model used for [dbo].[Requirement.RequirementNote.SelectAllPaged] stored procedure
-    /// </summary>
-    public partial class requirementnoteModelQuery 
-    {
-        public string QueryString { get; set; }
-        public int ActualPageNumber { get; set; }
-        public int RowsPerPage { get; set; }
-        public string SorterColumn { get; set; }
-        public bool SortToggler { get; set; }
-        public int TotalRows { get; set; }
-        public int TotalPages { get; set; }
-        public List<RequirementNoteModel> lstRequirementNoteModel { get; set; }
     }
 }

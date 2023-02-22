@@ -3,6 +3,7 @@ using CsvHelper;
 using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.Requirement.Models;
+using FiyiRequirements.Areas.Requirement.DTOs;
 using FiyiRequirements.Areas.Requirement.Protocols;
 using FiyiRequirements.Library;
 using System;
@@ -15,14 +16,14 @@ using System.IO;
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
  * 
  * Coded by fiyistack.com
- * Copyright © 2022
+ * Copyright © 2023
  * 
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
  * 
  */
 
-//Last modification on: 28/12/2022 17:28:12
+//Last modification on: 21/02/2023 20:56:35
 
 namespace FiyiRequirements.Areas.Requirement.Services
 {
@@ -31,7 +32,7 @@ namespace FiyiRequirements.Areas.Requirement.Services
     /// Name:              C# Service. <br/>
     /// Function:          Allow you to separate data contract stored in C# model from business with your clients. <br/>
     /// Also, allow dependency injection inside controllers/web apis<br/>
-    /// Last modification: 28/12/2022 17:28:12
+    /// Last modification: 21/02/2023 20:56:35
     /// </summary>
     public partial class RequirementNoteService : RequirementNoteProtocol
     {
@@ -53,9 +54,9 @@ namespace FiyiRequirements.Areas.Requirement.Services
             return new RequirementNoteModel().SelectAllToList();
         }
 
-        public requirementnoteModelQuery SelectAllPagedToModel(requirementnoteModelQuery requirementnoteModelQuery, int RequirementId)
+        public requirementnoteSelectAllPaged SelectAllPagedToModel(requirementnoteSelectAllPaged requirementnoteSelectAllPaged, int RequirementId)
         {
-            return new RequirementNoteModel().SelectAllPagedToModel(requirementnoteModelQuery, RequirementId);
+            return new RequirementNoteModel().SelectAllPagedToModel(requirementnoteSelectAllPaged, RequirementId);
         } 
         #endregion
 

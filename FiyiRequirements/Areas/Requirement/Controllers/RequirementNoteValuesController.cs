@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
+using FiyiRequirements.Areas.Requirement.DTOs;
 using FiyiRequirements.Areas.Requirement.Filters;
 using FiyiRequirements.Areas.Requirement.Protocols;
 using FiyiRequirements.Areas.Requirement.Models;
@@ -24,7 +25,7 @@ using System.IO;
  * 
  */
 
-//Last modification on: 16/02/2023 11:50:27
+//Last modification on: 21/02/2023 20:56:35
 
 namespace FiyiRequirements.Areas.Requirement.Controllers
 {
@@ -32,7 +33,7 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
     /// Stack:             6<br/>
     /// Name:              C# Web API Controller. <br/>
     /// Function:          Allow you to intercept HTPP calls and comunicate with his C# Service using dependency injection.<br/>
-    /// Last modification: 16/02/2023 11:50:27
+    /// Last modification: 21/02/2023 20:56:35
     /// </summary>
     [ApiController]
     [RequirementNoteFilter]
@@ -113,14 +114,14 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
         }
 
         [HttpPost("~/api/Requirement/RequirementNote/1/SelectAllPagedToJSON/{RequirementId:int}")]
-        public requirementnoteModelQuery SelectAllPagedToJSON([FromBody] requirementnoteModelQuery requirementnoteModelQuery, int RequirementId)
+        public requirementnoteSelectAllPaged SelectAllPagedToJSON([FromBody] requirementnoteSelectAllPaged requirementnoteSelectAllPaged, int RequirementId)
         {
             try
             {
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _RequirementNoteProtocol.SelectAllPagedToModel(requirementnoteModelQuery, RequirementId);
+                 return _RequirementNoteProtocol.SelectAllPagedToModel(requirementnoteSelectAllPaged, RequirementId);
             }
             catch (Exception ex)
             {
@@ -174,7 +175,6 @@ namespace FiyiRequirements.Areas.Requirement.Controllers
                 #endregion
 
                 int NewEnteredId = 0;
-                int RowsAffected = 0;
 
                 //Insert
                 RequirementNoteModel RequirementNoteModel = new RequirementNoteModel()
