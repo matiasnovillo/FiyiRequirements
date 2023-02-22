@@ -77,10 +77,14 @@ namespace FiyiRequirements.Areas.BasicCore.Models
         public string Value { get; set; }
 
         public bool IsPrivate { get; set; }
+
+        public string UserCreationIdFantasyName { get; set; }
+
+        public string UserLastModificationIdFantasyName { get; set; }
         #endregion
 
         #region Sub-lists
-        
+
         #endregion
 
         #region Constructors

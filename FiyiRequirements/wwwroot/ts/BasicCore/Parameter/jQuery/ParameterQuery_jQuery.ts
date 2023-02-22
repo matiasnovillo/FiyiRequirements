@@ -258,11 +258,11 @@ class ParameterQuery {
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           User Creation <i class="fas fa-key"></i> ${row.UserCreationId}
+                           User Creation <i class="fas fa-key"></i> ${row.UserCreationIdFantasyName}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
-                           User Last Modification <i class="fas fa-key"></i> ${row.UserLastModificationId}
+                           User Last Modification <i class="fas fa-key"></i> ${row.UserLastModificationIdFantasyName}
                         </span>
                         <br/>
                         <span class="text-white mb-4">
