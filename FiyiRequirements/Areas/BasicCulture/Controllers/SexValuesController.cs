@@ -147,7 +147,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
         #endregion
 
         #region Non-Queries
-        //[Produces("text/plain")] For production mode, uncomment this line
+        //[Produces("text/plain")] //For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/Sex/1/InsertOrUpdateAsync")]
         public async Task<IActionResult> InsertOrUpdateAsync()
         {
@@ -258,7 +258,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
-        //[Produces("text/plain")] For production mode, uncomment this line
+        //[Produces("text/plain")] //For production mode, uncomment this line
         [HttpDelete("~/api/BasicCulture/Sex/1/DeleteBySexId/{SexId:int}")]
         public IActionResult DeleteBySexId(int SexId)
         {
@@ -292,7 +292,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
-        //[Produces("text/plain")] For production mode, uncomment this line
+        //[Produces("text/plain")] //For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/Sex/1/DeleteManyOrAll/{DeleteType}")]
         public IActionResult DeleteManyOrAll([FromBody] Ajax Ajax, string DeleteType)
         {
@@ -327,7 +327,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
-        //[Produces("text/plain")] For production mode, uncomment this line
+        //[Produces("text/plain")] //For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/Sex/1/CopyBySexId/{SexId:int}")]
         public IActionResult CopyBySexId(int SexId)
         {
@@ -362,7 +362,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
-        //[Produces("text/plain")] For production mode, uncomment this line
+        //[Produces("text/plain")] //For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/Sex/1/CopyManyOrAll/{CopyType}")]
         public IActionResult CopyManyOrAll([FromBody] Ajax Ajax, string CopyType)
         {
@@ -406,7 +406,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
         #endregion
 
         #region Other actions
-        //[Produces("text/plain")] For production mode, uncomment this line
+        //[Produces("text/plain")] //For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/Sex/1/ExportAsPDF/{ExportationType}")]
         public IActionResult ExportAsPDF([FromBody] Ajax Ajax, string ExportationType)
         {
@@ -441,7 +441,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
-        //[Produces("text/plain")] For production mode, uncomment this line
+        //[Produces("text/plain")] //For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/Sex/1/ExportAsExcel/{ExportationType}")]
         public IActionResult ExportAsExcel([FromBody] Ajax Ajax, string ExportationType)
         {
@@ -476,7 +476,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
             }
         }
 
-        //[Produces("text/plain")] For production mode, uncomment this line
+        //[Produces("text/plain")] //For production mode, uncomment this line
         [HttpPost("~/api/BasicCulture/Sex/1/ExportAsCSV/{ExportationType}")]
         public IActionResult ExportAsCSV([FromBody] Ajax Ajax, string ExportationType)
         {
