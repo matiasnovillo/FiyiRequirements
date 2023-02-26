@@ -1,5 +1,5 @@
-using FiyiRequirements.Areas.BasicCore.DTOs;
-using FiyiRequirements.Areas.BasicCore.Models;
+using FiyiRequirements.Areas.Requirement.DTOs;
+using FiyiRequirements.Areas.Requirement.Models;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -15,58 +15,58 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 21/02/2023 17:35:10
+//Last modification on: 21/02/2023 21:10:11
 
-namespace FiyiRequirements.Areas.BasicCore.Protocols
+namespace FiyiRequirements.Areas.Requirement.Interfaces
 {
     /// <summary>
     /// Stack:             5<br/>
-    /// Name:              C# Protocol/Interface. <br/>
-    /// Function:          This protocol/interface allow you to standardize the C# service associated. 
+    /// Name:              C# Interface. <br/>
+    /// Function:          This interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 21/02/2023 17:35:10
+    /// Last modification: 21/02/2023 21:10:11
     /// </summary>
-    public partial interface FailureProtocol
+    public partial interface IRequirementPriority
     {
         #region Queries
         /// <summary>
         /// Note: Raise exception when the query find duplicated IDs
         /// </summary>
-        /// <param name="FailureId"></param>
+        /// <param name="RequirementPriorityId"></param>
         /// <returns></returns>
-        FailureModel Select1ByFailureIdToModel(int FailureId);
+        RequirementPriorityModel Select1ByRequirementPriorityIdToModel(int RequirementPriorityId);
 
-        List<FailureModel> SelectAllToList();
+        List<RequirementPriorityModel> SelectAllToList();
 
-        failureSelectAllPaged SelectAllPagedToModel(failureSelectAllPaged failureSelectAllPaged);
+        requirementprioritySelectAllPaged SelectAllPagedToModel(requirementprioritySelectAllPaged requirementprioritySelectAllPaged);
         #endregion
 
         #region Non-Queries
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <param name="Failure"></param>
-        /// <returns>NewEnteredId: The ID of the last registry inserted in Failure table</returns>
-        int Insert(FailureModel Failure);
+        /// <param name="RequirementPriority"></param>
+        /// <returns>NewEnteredId: The ID of the last registry inserted in RequirementPriority table</returns>
+        int Insert(RequirementPriorityModel RequirementPriority);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <param name="Failure"></param>
-        /// <returns>The number of rows updated in Failure table</returns>
-        int UpdateByFailureId(FailureModel Failure);
+        /// <param name="RequirementPriority"></param>
+        /// <returns>The number of rows updated in RequirementPriority table</returns>
+        int UpdateByRequirementPriorityId(RequirementPriorityModel RequirementPriority);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull deletion in database
         /// </summary>
-        /// <param name="FailureId"></param>
-        /// <returns>The number of rows deleted in Failure table</returns>
-        int DeleteByFailureId(int FailureId);
+        /// <param name="RequirementPriorityId"></param>
+        /// <returns>The number of rows deleted in RequirementPriority table</returns>
+        int DeleteByRequirementPriorityId(int RequirementPriorityId);
 
         void DeleteManyOrAll(Ajax Ajax, string DeleteType);
 
-        int CopyByFailureId(int FailureId);
+        int CopyByRequirementPriorityId(int RequirementPriorityId);
 
         int[] CopyManyOrAll(Ajax Ajax, string CopyType);
         #endregion

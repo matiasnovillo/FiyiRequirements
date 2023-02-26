@@ -3,7 +3,7 @@ using CsvHelper;
 using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.CMSCore.Models;
-using FiyiRequirements.Areas.CMSCore.Protocols;
+using FiyiRequirements.Areas.CMSCore.Interfaces;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -33,7 +33,7 @@ namespace FiyiRequirements.Areas.CMSCore.Services
     /// Also, allow dependency injection inside controllers/web apis<br/>
     /// Last modification: 20/12/2022 20:28:32
     /// </summary>
-    public partial class RoleMenuService : RoleMenuProtocol
+    public partial class RoleMenuService : IRoleMenu
     {
         private readonly IHttpContextAccessor _IHttpContextAccessor;
 

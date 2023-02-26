@@ -15,60 +15,68 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 21/02/2023 17:59:08
+//Last modification on: 21/02/2023 18:02:07
 
-namespace FiyiRequirements.Areas.CMSCore.Protocols
+namespace FiyiRequirements.Areas.CMSCore.Interfaces
 {
     /// <summary>
     /// Stack:             5<br/>
-    /// Name:              C# Protocol/Interface. <br/>
-    /// Function:          This protocol/interface allow you to standardize the C# service associated. 
+    /// Name:              C# Interface. <br/>
+    /// Function:          This interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 21/02/2023 17:59:08
+    /// Last modification: 21/02/2023 18:02:07
     /// </summary>
-    public partial interface RoleProtocol
+    public partial interface IUser
     {
         #region Queries
         /// <summary>
         /// Note: Raise exception when the query find duplicated IDs
         /// </summary>
-        /// <param name="RoleId"></param>
+        /// <param name="UserId"></param>
         /// <returns></returns>
-        RoleModel Select1ByRoleIdToModel(int RoleId);
+        UserModel Select1ByUserIdToModel(int UserId);
 
-        List<RoleModel> SelectAllToList();
+        List<UserModel> SelectAllToList();
 
-        roleSelectAllPaged SelectAllPagedToModel(roleSelectAllPaged roleSelectAllPaged);
+        userSelectAllPaged SelectAllPagedToModel(userSelectAllPaged userSelectAllPaged);
         #endregion
 
         #region Non-Queries
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <param name="Role"></param>
-        /// <returns>NewEnteredId: The ID of the last registry inserted in Role table</returns>
-        int Insert(RoleModel Role);
+        /// <param name="User"></param>
+        /// <returns>NewEnteredId: The ID of the last registry inserted in User table</returns>
+        int Insert(UserModel User);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <param name="Role"></param>
-        /// <returns>The number of rows updated in Role table</returns>
-        int UpdateByRoleId(RoleModel Role);
+        /// <param name="User"></param>
+        /// <returns>The number of rows updated in User table</returns>
+        int UpdateByUserId(UserModel User);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull deletion in database
         /// </summary>
-        /// <param name="RoleId"></param>
-        /// <returns>The number of rows deleted in Role table</returns>
-        int DeleteByRoleId(int RoleId);
+        /// <param name="UserId"></param>
+        /// <returns>The number of rows deleted in User table</returns>
+        int DeleteByUserId(int UserId);
 
         void DeleteManyOrAll(Ajax Ajax, string DeleteType);
 
-        int CopyByRoleId(int RoleId);
+        int CopyByUserId(int UserId);
 
         int[] CopyManyOrAll(Ajax Ajax, string CopyType);
+
+        UserModel Login(string UserFantasyNameOrEmail, string Password);
+
+        string ChangePassword(int UserId, string ActualPassword, string NewPassword);
+
+        string Register(string FantasyName, string Email, string Password);
+
+        string RecoverPassword(string Email);
         #endregion
 
         #region Other actions

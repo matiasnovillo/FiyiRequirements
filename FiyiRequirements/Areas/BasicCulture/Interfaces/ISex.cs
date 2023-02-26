@@ -1,5 +1,5 @@
-using FiyiRequirements.Areas.CMSCore.DTOs;
-using FiyiRequirements.Areas.CMSCore.Models;
+using FiyiRequirements.Areas.BasicCulture.DTOs;
+using FiyiRequirements.Areas.BasicCulture.Models;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -15,58 +15,58 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 21/02/2023 17:56:41
+//Last modification on: 21/02/2023 17:54:25
 
-namespace FiyiRequirements.Areas.CMSCore.Protocols
+namespace FiyiRequirements.Areas.BasicCulture.Interfaces
 {
     /// <summary>
     /// Stack:             5<br/>
-    /// Name:              C# Protocol/Interface. <br/>
-    /// Function:          This protocol/interface allow you to standardize the C# service associated. 
+    /// Name:              C# Interface. <br/>
+    /// Function:          This interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 21/02/2023 17:56:41
+    /// Last modification: 21/02/2023 17:54:25
     /// </summary>
-    public partial interface MenuProtocol
+    public partial interface ISex
     {
         #region Queries
         /// <summary>
         /// Note: Raise exception when the query find duplicated IDs
         /// </summary>
-        /// <param name="MenuId"></param>
+        /// <param name="SexId"></param>
         /// <returns></returns>
-        MenuModel Select1ByMenuIdToModel(int MenuId);
+        SexModel Select1BySexIdToModel(int SexId);
 
-        List<MenuModel> SelectAllToList();
+        List<SexModel> SelectAllToList();
 
-        menuSelectAllPaged SelectAllPagedToModel(menuSelectAllPaged menuSelectAllPaged);
+        sexSelectAllPaged SelectAllPagedToModel(sexSelectAllPaged sexSelectAllPaged);
         #endregion
 
         #region Non-Queries
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <param name="Menu"></param>
-        /// <returns>NewEnteredId: The ID of the last registry inserted in Menu table</returns>
-        int Insert(MenuModel Menu);
+        /// <param name="Sex"></param>
+        /// <returns>NewEnteredId: The ID of the last registry inserted in Sex table</returns>
+        int Insert(SexModel Sex);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <param name="Menu"></param>
-        /// <returns>The number of rows updated in Menu table</returns>
-        int UpdateByMenuId(MenuModel Menu);
+        /// <param name="Sex"></param>
+        /// <returns>The number of rows updated in Sex table</returns>
+        int UpdateBySexId(SexModel Sex);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull deletion in database
         /// </summary>
-        /// <param name="MenuId"></param>
-        /// <returns>The number of rows deleted in Menu table</returns>
-        int DeleteByMenuId(int MenuId);
+        /// <param name="SexId"></param>
+        /// <returns>The number of rows deleted in Sex table</returns>
+        int DeleteBySexId(int SexId);
 
         void DeleteManyOrAll(Ajax Ajax, string DeleteType);
 
-        int CopyByMenuId(int MenuId);
+        int CopyBySexId(int SexId);
 
         int[] CopyManyOrAll(Ajax Ajax, string CopyType);
         #endregion

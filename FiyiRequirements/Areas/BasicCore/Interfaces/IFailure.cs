@@ -15,62 +15,58 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 22/02/2023 15:17:36
+//Last modification on: 21/02/2023 17:35:10
 
-namespace FiyiRequirements.Areas.BasicCore.Protocols
+namespace FiyiRequirements.Areas.BasicCore.Interfaces
 {
     /// <summary>
     /// Stack:             5<br/>
-    /// Name:              C# Protocol/Interface. <br/>
-    /// Function:          This protocol/interface allow you to standardize the C# service associated. 
+    /// Name:              C# Interface. <br/>
+    /// Function:          This interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 22/02/2023 15:17:36
+    /// Last modification: 21/02/2023 17:35:10
     /// </summary>
-    public partial interface VisitorCounterProtocol
+    public partial interface IFailure
     {
         #region Queries
         /// <summary>
         /// Note: Raise exception when the query find duplicated IDs
         /// </summary>
-        /// <param name="VisitorCounterId"></param>
+        /// <param name="FailureId"></param>
         /// <returns></returns>
-        VisitorCounterModel Select1ByVisitorCounterIdToModel(int VisitorCounterId);
+        FailureModel Select1ByFailureIdToModel(int FailureId);
 
-        List<VisitorCounterModel> SelectAllToList();
+        List<FailureModel> SelectAllToList();
 
-        visitorcounterSelectAllPaged SelectAllPagedToModel(visitorcounterSelectAllPaged visitorcounterSelectAllPaged);
-
-        List<visitorCounterPerMonth> SelectAllToVisitorsPerMonthChart();
-
-        List<visitorCountPageVisits> SelectAllToVisitorsCounterPageChart();
+        failureSelectAllPaged SelectAllPagedToModel(failureSelectAllPaged failureSelectAllPaged);
         #endregion
 
         #region Non-Queries
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <param name="VisitorCounter"></param>
-        /// <returns>NewEnteredId: The ID of the last registry inserted in VisitorCounter table</returns>
-        int Insert(VisitorCounterModel VisitorCounter);
+        /// <param name="Failure"></param>
+        /// <returns>NewEnteredId: The ID of the last registry inserted in Failure table</returns>
+        int Insert(FailureModel Failure);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <param name="VisitorCounter"></param>
-        /// <returns>The number of rows updated in VisitorCounter table</returns>
-        int UpdateByVisitorCounterId(VisitorCounterModel VisitorCounter);
+        /// <param name="Failure"></param>
+        /// <returns>The number of rows updated in Failure table</returns>
+        int UpdateByFailureId(FailureModel Failure);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull deletion in database
         /// </summary>
-        /// <param name="VisitorCounterId"></param>
-        /// <returns>The number of rows deleted in VisitorCounter table</returns>
-        int DeleteByVisitorCounterId(int VisitorCounterId);
+        /// <param name="FailureId"></param>
+        /// <returns>The number of rows deleted in Failure table</returns>
+        int DeleteByFailureId(int FailureId);
 
         void DeleteManyOrAll(Ajax Ajax, string DeleteType);
 
-        int CopyByVisitorCounterId(int VisitorCounterId);
+        int CopyByFailureId(int FailureId);
 
         int[] CopyManyOrAll(Ajax Ajax, string CopyType);
         #endregion

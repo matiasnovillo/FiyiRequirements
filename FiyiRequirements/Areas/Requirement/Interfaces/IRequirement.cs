@@ -1,5 +1,5 @@
-using FiyiRequirements.Areas.CMSCore.DTOs;
-using FiyiRequirements.Areas.CMSCore.Models;
+using FiyiRequirements.Areas.Requirement.DTOs;
+using FiyiRequirements.Areas.Requirement.Models;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -15,68 +15,60 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 21/02/2023 18:02:07
+//Last modification on: 21/02/2023 18:24:38
 
-namespace FiyiRequirements.Areas.CMSCore.Protocols
+namespace FiyiRequirements.Areas.Requirement.Interfaces
 {
     /// <summary>
     /// Stack:             5<br/>
-    /// Name:              C# Protocol/Interface. <br/>
-    /// Function:          This protocol/interface allow you to standardize the C# service associated. 
+    /// Name:              C# Interface. <br/>
+    /// Function:          This interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 21/02/2023 18:02:07
+    /// Last modification: 21/02/2023 18:24:38
     /// </summary>
-    public partial interface UserProtocol
+    public partial interface IRequirement
     {
         #region Queries
         /// <summary>
         /// Note: Raise exception when the query find duplicated IDs
         /// </summary>
-        /// <param name="UserId"></param>
+        /// <param name="RequirementId"></param>
         /// <returns></returns>
-        UserModel Select1ByUserIdToModel(int UserId);
+        RequirementModel Select1ByRequirementIdToModel(int RequirementId);
 
-        List<UserModel> SelectAllToList();
+        List<RequirementModel> SelectAllToList();
 
-        userSelectAllPaged SelectAllPagedToModel(userSelectAllPaged userSelectAllPaged);
+        requirementSelectAllPaged SelectAllPagedToModel(requirementSelectAllPaged requirementSelectAllPaged, int UserId);
         #endregion
 
         #region Non-Queries
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <param name="User"></param>
-        /// <returns>NewEnteredId: The ID of the last registry inserted in User table</returns>
-        int Insert(UserModel User);
+        /// <param name="Requirement"></param>
+        /// <returns>NewEnteredId: The ID of the last registry inserted in Requirement table</returns>
+        int Insert(RequirementModel Requirement);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <param name="User"></param>
-        /// <returns>The number of rows updated in User table</returns>
-        int UpdateByUserId(UserModel User);
+        /// <param name="Requirement"></param>
+        /// <returns>The number of rows updated in Requirement table</returns>
+        int UpdateByRequirementId(RequirementModel Requirement);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull deletion in database
         /// </summary>
-        /// <param name="UserId"></param>
-        /// <returns>The number of rows deleted in User table</returns>
-        int DeleteByUserId(int UserId);
+        /// <param name="RequirementId"></param>
+        /// <returns>The number of rows deleted in Requirement table</returns>
+        int DeleteByRequirementId(int RequirementId);
 
         void DeleteManyOrAll(Ajax Ajax, string DeleteType);
 
-        int CopyByUserId(int UserId);
+        int CopyByRequirementId(int RequirementId);
 
         int[] CopyManyOrAll(Ajax Ajax, string CopyType);
-
-        UserModel Login(string UserFantasyNameOrEmail, string Password);
-
-        string ChangePassword(int UserId, string ActualPassword, string NewPassword);
-
-        string Register(string FantasyName, string Email, string Password);
-
-        string RecoverPassword(string Email);
         #endregion
 
         #region Other actions

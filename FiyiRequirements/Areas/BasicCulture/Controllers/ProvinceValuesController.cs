@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
 using FiyiRequirements.Areas.BasicCulture.DTOs;
 using FiyiRequirements.Areas.BasicCulture.Filters;
-using FiyiRequirements.Areas.BasicCulture.Protocols;
+using FiyiRequirements.Areas.BasicCulture.Interfaces;
 using FiyiRequirements.Areas.BasicCulture.Models;
 using FiyiRequirements.Library;
 using System.Threading.Tasks;
@@ -40,12 +40,12 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
     public partial class ProvinceValuesController : ControllerBase
     {
         private readonly IWebHostEnvironment _WebHostEnvironment;
-        private readonly ProvinceProtocol _ProvinceProtocol;
+        private readonly IProvince _IProvince;
 
-        public ProvinceValuesController(IWebHostEnvironment WebHostEnvironment, ProvinceProtocol ProvinceProtocol) 
+        public ProvinceValuesController(IWebHostEnvironment WebHostEnvironment, IProvince IProvince) 
         {
             _WebHostEnvironment = WebHostEnvironment;
-            _ProvinceProtocol = ProvinceProtocol;
+            _IProvince = IProvince;
         }
 
         #region Queries
@@ -57,7 +57,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _ProvinceProtocol.Select1ByProvinceIdToModel(ProvinceId);
+                return _IProvince.Select1ByProvinceIdToModel(ProvinceId);
             }
             catch (Exception ex) 
             { 
@@ -89,7 +89,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _ProvinceProtocol.SelectAllToList();
+                return _IProvince.SelectAllToList();
             }
             catch (Exception ex) 
             { 
@@ -121,7 +121,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _ProvinceProtocol.SelectAllPagedToModel(provinceSelectAllPaged);
+                 return _IProvince.SelectAllPagedToModel(provinceSelectAllPaged);
             }
             catch (Exception ex)
             {
@@ -198,7 +198,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                         
                     };
                     
-                    NewEnteredId = _ProvinceProtocol.Insert(ProvinceModel);
+                    NewEnteredId = _IProvince.Insert(ProvinceModel);
                 }
                 else
                 {
@@ -213,7 +213,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     ProvinceModel.CountryId = CountryId;
                                        
 
-                    RowsAffected = _ProvinceProtocol.UpdateByProvinceId(ProvinceModel);
+                    RowsAffected = _IProvince.UpdateByProvinceId(ProvinceModel);
                 }
                 
 
@@ -282,7 +282,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int RowsAffected = _ProvinceProtocol.DeleteByProvinceId(ProvinceId);
+                int RowsAffected = _IProvince.DeleteByProvinceId(ProvinceId);
                 return StatusCode(200, RowsAffected);
             }
             catch (Exception ex) 
@@ -316,7 +316,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                _ProvinceProtocol.DeleteManyOrAll(Ajax, DeleteType);
+                _IProvince.DeleteManyOrAll(Ajax, DeleteType);
 
                 return StatusCode(200, Ajax.AjaxForString);
             }
@@ -351,7 +351,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int NewEnteredId = _ProvinceProtocol.CopyByProvinceId(ProvinceId);
+                int NewEnteredId = _IProvince.CopyByProvinceId(ProvinceId);
 
                 return StatusCode(200, NewEnteredId);
             }
@@ -386,7 +386,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int[] NewEnteredIds = _ProvinceProtocol.CopyManyOrAll(Ajax, CopyType);
+                int[] NewEnteredIds = _IProvince.CopyManyOrAll(Ajax, CopyType);
                 string NewEnteredIdsAsString = "";
 
                 for (int i = 0; i < NewEnteredIds.Length; i++)
@@ -430,7 +430,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _ProvinceProtocol.ExportAsPDF(Ajax, ExportationType);
+                DateTime Now = _IProvince.ExportAsPDF(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -465,7 +465,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _ProvinceProtocol.ExportAsExcel(Ajax, ExportationType);
+                DateTime Now = _IProvince.ExportAsExcel(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -500,7 +500,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _ProvinceProtocol.ExportAsCSV(Ajax, ExportationType);
+                DateTime Now = _IProvince.ExportAsCSV(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }

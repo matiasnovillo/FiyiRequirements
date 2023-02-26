@@ -1,5 +1,5 @@
-using FiyiRequirements.Areas.BasicCulture.DTOs;
-using FiyiRequirements.Areas.BasicCulture.Models;
+using FiyiRequirements.Areas.Requirement.DTOs;
+using FiyiRequirements.Areas.Requirement.Models;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -15,58 +15,58 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 21/02/2023 17:45:06
+//Last modification on: 21/02/2023 20:30:35
 
-namespace FiyiRequirements.Areas.BasicCulture.Protocols
+namespace FiyiRequirements.Areas.Requirement.Interfaces
 {
     /// <summary>
     /// Stack:             5<br/>
-    /// Name:              C# Protocol/Interface. <br/>
-    /// Function:          This protocol/interface allow you to standardize the C# service associated. 
+    /// Name:              C# Interface. <br/>
+    /// Function:          This interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 21/02/2023 17:45:06
+    /// Last modification: 21/02/2023 20:30:35
     /// </summary>
-    public partial interface CountryProtocol
+    public partial interface IRequirementFile
     {
         #region Queries
         /// <summary>
         /// Note: Raise exception when the query find duplicated IDs
         /// </summary>
-        /// <param name="CountryId"></param>
+        /// <param name="RequirementFileId"></param>
         /// <returns></returns>
-        CountryModel Select1ByCountryIdToModel(int CountryId);
+        RequirementFileModel Select1ByRequirementFileIdToModel(int RequirementFileId);
 
-        List<CountryModel> SelectAllToList();
+        List<RequirementFileModel> SelectAllToList();
 
-        countrySelectAllPaged SelectAllPagedToModel(countrySelectAllPaged countrySelectAllPaged);
+        requirementfileSelectAllPaged SelectAllPagedToModel(requirementfileSelectAllPaged requirementfileSelectAllPaged, int RequirementId);
         #endregion
 
         #region Non-Queries
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <param name="Country"></param>
-        /// <returns>NewEnteredId: The ID of the last registry inserted in Country table</returns>
-        int Insert(CountryModel Country);
+        /// <param name="RequirementFile"></param>
+        /// <returns>NewEnteredId: The ID of the last registry inserted in RequirementFile table</returns>
+        int Insert(RequirementFileModel RequirementFile);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <param name="Country"></param>
-        /// <returns>The number of rows updated in Country table</returns>
-        int UpdateByCountryId(CountryModel Country);
+        /// <param name="RequirementFile"></param>
+        /// <returns>The number of rows updated in RequirementFile table</returns>
+        int UpdateByRequirementFileId(RequirementFileModel RequirementFile);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull deletion in database
         /// </summary>
-        /// <param name="CountryId"></param>
-        /// <returns>The number of rows deleted in Country table</returns>
-        int DeleteByCountryId(int CountryId);
+        /// <param name="RequirementFileId"></param>
+        /// <returns>The number of rows deleted in RequirementFile table</returns>
+        int DeleteByRequirementFileId(int RequirementFileId);
 
         void DeleteManyOrAll(Ajax Ajax, string DeleteType);
 
-        int CopyByCountryId(int CountryId);
+        int CopyByRequirementFileId(int RequirementFileId);
 
         int[] CopyManyOrAll(Ajax Ajax, string CopyType);
         #endregion

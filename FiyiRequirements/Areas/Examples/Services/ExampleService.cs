@@ -4,7 +4,7 @@ using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.Examples.Models;
 using FiyiRequirements.Areas.Examples.DTOs;
-using FiyiRequirements.Areas.Examples.Protocols;
+using FiyiRequirements.Areas.Examples.Interfaces;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace FiyiRequirements.Areas.Examples.Services
     /// Also, allow dependency injection inside controllers/web apis<br/>
     /// Last modification: 21/02/2023 18:16:41
     /// </summary>
-    public partial class ExampleService : ExampleProtocol
+    public partial class ExampleService : IExample
     {
         private readonly IHttpContextAccessor _IHttpContextAccessor;
 

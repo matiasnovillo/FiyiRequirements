@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
 using FiyiRequirements.Areas.CMSCore.DTOs;
 using FiyiRequirements.Areas.CMSCore.Filters;
-using FiyiRequirements.Areas.CMSCore.Protocols;
+using FiyiRequirements.Areas.CMSCore.Interfaces;
 using FiyiRequirements.Areas.CMSCore.Models;
 using FiyiRequirements.Library;
 using System.Threading.Tasks;
@@ -40,12 +40,12 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
     public partial class RoleValuesController : ControllerBase
     {
         private readonly IWebHostEnvironment _WebHostEnvironment;
-        private readonly RoleProtocol _RoleProtocol;
+        private readonly IRole _IRole;
 
-        public RoleValuesController(IWebHostEnvironment WebHostEnvironment, RoleProtocol RoleProtocol) 
+        public RoleValuesController(IWebHostEnvironment WebHostEnvironment, IRole IRole) 
         {
             _WebHostEnvironment = WebHostEnvironment;
-            _RoleProtocol = RoleProtocol;
+            _IRole = IRole;
         }
 
         #region Queries
@@ -57,7 +57,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _RoleProtocol.Select1ByRoleIdToModel(RoleId);
+                return _IRole.Select1ByRoleIdToModel(RoleId);
             }
             catch (Exception ex) 
             { 
@@ -89,7 +89,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _RoleProtocol.SelectAllToList();
+                return _IRole.SelectAllToList();
             }
             catch (Exception ex) 
             { 
@@ -121,7 +121,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _RoleProtocol.SelectAllPagedToModel(roleSelectAllPaged);
+                 return _IRole.SelectAllPagedToModel(roleSelectAllPaged);
             }
             catch (Exception ex)
             {
@@ -186,7 +186,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                         
                     };
                     
-                    NewEnteredId = _RoleProtocol.Insert(RoleModel);
+                    NewEnteredId = _IRole.Insert(RoleModel);
                 }
                 else
                 {
@@ -198,7 +198,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     RoleModel.Name = Name;
                                        
 
-                    RowsAffected = _RoleProtocol.UpdateByRoleId(RoleModel);
+                    RowsAffected = _IRole.UpdateByRoleId(RoleModel);
                 }
                 
 
@@ -267,7 +267,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int RowsAffected = _RoleProtocol.DeleteByRoleId(RoleId);
+                int RowsAffected = _IRole.DeleteByRoleId(RoleId);
                 return StatusCode(200, RowsAffected);
             }
             catch (Exception ex) 
@@ -301,7 +301,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                _RoleProtocol.DeleteManyOrAll(Ajax, DeleteType);
+                _IRole.DeleteManyOrAll(Ajax, DeleteType);
 
                 return StatusCode(200, Ajax.AjaxForString);
             }
@@ -336,7 +336,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int NewEnteredId = _RoleProtocol.CopyByRoleId(RoleId);
+                int NewEnteredId = _IRole.CopyByRoleId(RoleId);
 
                 return StatusCode(200, NewEnteredId);
             }
@@ -371,7 +371,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int[] NewEnteredIds = _RoleProtocol.CopyManyOrAll(Ajax, CopyType);
+                int[] NewEnteredIds = _IRole.CopyManyOrAll(Ajax, CopyType);
                 string NewEnteredIdsAsString = "";
 
                 for (int i = 0; i < NewEnteredIds.Length; i++)
@@ -415,7 +415,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _RoleProtocol.ExportAsPDF(Ajax, ExportationType);
+                DateTime Now = _IRole.ExportAsPDF(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -450,7 +450,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _RoleProtocol.ExportAsExcel(Ajax, ExportationType);
+                DateTime Now = _IRole.ExportAsExcel(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -485,7 +485,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _RoleProtocol.ExportAsCSV(Ajax, ExportationType);
+                DateTime Now = _IRole.ExportAsCSV(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }

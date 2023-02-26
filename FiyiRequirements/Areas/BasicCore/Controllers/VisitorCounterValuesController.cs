@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
 using FiyiRequirements.Areas.BasicCore.DTOs;
 using FiyiRequirements.Areas.BasicCore.Filters;
-using FiyiRequirements.Areas.BasicCore.Protocols;
+using FiyiRequirements.Areas.BasicCore.Interfaces;
 using FiyiRequirements.Areas.BasicCore.Models;
 using FiyiRequirements.Library;
 using System.Threading.Tasks;
@@ -40,12 +40,12 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
     public partial class VisitorCounterValuesController : ControllerBase
     {
         private readonly IWebHostEnvironment _WebHostEnvironment;
-        private readonly VisitorCounterProtocol _VisitorCounterProtocol;
+        private readonly IVisitorCounter _IVisitorCounter;
 
-        public VisitorCounterValuesController(IWebHostEnvironment WebHostEnvironment, VisitorCounterProtocol VisitorCounterProtocol) 
+        public VisitorCounterValuesController(IWebHostEnvironment WebHostEnvironment, IVisitorCounter IVisitorCounter) 
         {
             _WebHostEnvironment = WebHostEnvironment;
-            _VisitorCounterProtocol = VisitorCounterProtocol;
+            _IVisitorCounter = IVisitorCounter;
         }
 
         #region Queries
@@ -57,7 +57,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _VisitorCounterProtocol.Select1ByVisitorCounterIdToModel(VisitorCounterId);
+                return _IVisitorCounter.Select1ByVisitorCounterIdToModel(VisitorCounterId);
             }
             catch (Exception ex) 
             { 
@@ -89,7 +89,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _VisitorCounterProtocol.SelectAllToList();
+                return _IVisitorCounter.SelectAllToList();
             }
             catch (Exception ex) 
             { 
@@ -121,7 +121,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _VisitorCounterProtocol.SelectAllPagedToModel(visitorcounterSelectAllPaged);
+                 return _IVisitorCounter.SelectAllPagedToModel(visitorcounterSelectAllPaged);
             }
             catch (Exception ex)
             {
@@ -153,7 +153,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _VisitorCounterProtocol.SelectAllToVisitorsPerMonthChart();
+                return _IVisitorCounter.SelectAllToVisitorsPerMonthChart();
             }
             catch (Exception ex)
             {
@@ -185,7 +185,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _VisitorCounterProtocol.SelectAllToVisitorsCounterPageChart();
+                return _IVisitorCounter.SelectAllToVisitorsCounterPageChart();
             }
             catch (Exception ex)
             {
@@ -252,7 +252,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                         
                     };
                     
-                    NewEnteredId = _VisitorCounterProtocol.Insert(VisitorCounterModel);
+                    NewEnteredId = _IVisitorCounter.Insert(VisitorCounterModel);
                 }
                 else
                 {
@@ -265,7 +265,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                     VisitorCounterModel.Page = Page;
                                        
 
-                    RowsAffected = _VisitorCounterProtocol.UpdateByVisitorCounterId(VisitorCounterModel);
+                    RowsAffected = _IVisitorCounter.UpdateByVisitorCounterId(VisitorCounterModel);
                 }
                 
 
@@ -334,7 +334,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int RowsAffected = _VisitorCounterProtocol.DeleteByVisitorCounterId(VisitorCounterId);
+                int RowsAffected = _IVisitorCounter.DeleteByVisitorCounterId(VisitorCounterId);
                 return StatusCode(200, RowsAffected);
             }
             catch (Exception ex) 
@@ -368,7 +368,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                _VisitorCounterProtocol.DeleteManyOrAll(Ajax, DeleteType);
+                _IVisitorCounter.DeleteManyOrAll(Ajax, DeleteType);
 
                 return StatusCode(200, Ajax.AjaxForString);
             }
@@ -403,7 +403,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int NewEnteredId = _VisitorCounterProtocol.CopyByVisitorCounterId(VisitorCounterId);
+                int NewEnteredId = _IVisitorCounter.CopyByVisitorCounterId(VisitorCounterId);
 
                 return StatusCode(200, NewEnteredId);
             }
@@ -438,7 +438,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int[] NewEnteredIds = _VisitorCounterProtocol.CopyManyOrAll(Ajax, CopyType);
+                int[] NewEnteredIds = _IVisitorCounter.CopyManyOrAll(Ajax, CopyType);
                 string NewEnteredIdsAsString = "";
 
                 for (int i = 0; i < NewEnteredIds.Length; i++)
@@ -482,7 +482,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _VisitorCounterProtocol.ExportAsPDF(Ajax, ExportationType);
+                DateTime Now = _IVisitorCounter.ExportAsPDF(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -517,7 +517,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _VisitorCounterProtocol.ExportAsExcel(Ajax, ExportationType);
+                DateTime Now = _IVisitorCounter.ExportAsExcel(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -552,7 +552,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _VisitorCounterProtocol.ExportAsCSV(Ajax, ExportationType);
+                DateTime Now = _IVisitorCounter.ExportAsCSV(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }

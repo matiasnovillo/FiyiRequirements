@@ -4,7 +4,7 @@ using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.BasicCulture.Models;
 using FiyiRequirements.Areas.BasicCulture.DTOs;
-using FiyiRequirements.Areas.BasicCulture.Protocols;
+using FiyiRequirements.Areas.BasicCulture.Interfaces;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Services
     /// Also, allow dependency injection inside controllers/web apis<br/>
     /// Last modification: 21/02/2023 17:48:26
     /// </summary>
-    public partial class PlanetService : PlanetProtocol
+    public partial class PlanetService : IPlanet
     {
         private readonly IHttpContextAccessor _IHttpContextAccessor;
 

@@ -1,5 +1,5 @@
-using FiyiRequirements.Areas.Requirement.DTOs;
-using FiyiRequirements.Areas.Requirement.Models;
+using FiyiRequirements.Areas.CMSCore.DTOs;
+using FiyiRequirements.Areas.CMSCore.Models;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -15,58 +15,58 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 21/02/2023 21:13:53
+//Last modification on: 21/02/2023 17:56:41
 
-namespace FiyiRequirements.Areas.Requirement.Protocols
+namespace FiyiRequirements.Areas.CMSCore.Interfaces
 {
     /// <summary>
     /// Stack:             5<br/>
-    /// Name:              C# Protocol/Interface. <br/>
-    /// Function:          This protocol/interface allow you to standardize the C# service associated. 
+    /// Name:              C# Interface. <br/>
+    /// Function:          This interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 21/02/2023 21:13:53
+    /// Last modification: 21/02/2023 17:56:41
     /// </summary>
-    public partial interface RequirementStateProtocol
+    public partial interface IMenu
     {
         #region Queries
         /// <summary>
         /// Note: Raise exception when the query find duplicated IDs
         /// </summary>
-        /// <param name="RequirementStateId"></param>
+        /// <param name="MenuId"></param>
         /// <returns></returns>
-        RequirementStateModel Select1ByRequirementStateIdToModel(int RequirementStateId);
+        MenuModel Select1ByMenuIdToModel(int MenuId);
 
-        List<RequirementStateModel> SelectAllToList();
+        List<MenuModel> SelectAllToList();
 
-        requirementstateSelectAllPaged SelectAllPagedToModel(requirementstateSelectAllPaged requirementstateSelectAllPaged);
+        menuSelectAllPaged SelectAllPagedToModel(menuSelectAllPaged menuSelectAllPaged);
         #endregion
 
         #region Non-Queries
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <param name="RequirementState"></param>
-        /// <returns>NewEnteredId: The ID of the last registry inserted in RequirementState table</returns>
-        int Insert(RequirementStateModel RequirementState);
+        /// <param name="Menu"></param>
+        /// <returns>NewEnteredId: The ID of the last registry inserted in Menu table</returns>
+        int Insert(MenuModel Menu);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <param name="RequirementState"></param>
-        /// <returns>The number of rows updated in RequirementState table</returns>
-        int UpdateByRequirementStateId(RequirementStateModel RequirementState);
+        /// <param name="Menu"></param>
+        /// <returns>The number of rows updated in Menu table</returns>
+        int UpdateByMenuId(MenuModel Menu);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull deletion in database
         /// </summary>
-        /// <param name="RequirementStateId"></param>
-        /// <returns>The number of rows deleted in RequirementState table</returns>
-        int DeleteByRequirementStateId(int RequirementStateId);
+        /// <param name="MenuId"></param>
+        /// <returns>The number of rows deleted in Menu table</returns>
+        int DeleteByMenuId(int MenuId);
 
         void DeleteManyOrAll(Ajax Ajax, string DeleteType);
 
-        int CopyByRequirementStateId(int RequirementStateId);
+        int CopyByMenuId(int MenuId);
 
         int[] CopyManyOrAll(Ajax Ajax, string CopyType);
         #endregion

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
 using FiyiRequirements.Areas.Examples.DTOs;
 using FiyiRequirements.Areas.Examples.Filters;
-using FiyiRequirements.Areas.Examples.Protocols;
+using FiyiRequirements.Areas.Examples.Interfaces;
 using FiyiRequirements.Areas.Examples.Models;
 using FiyiRequirements.Library;
 using System.Threading.Tasks;
@@ -40,12 +40,12 @@ namespace FiyiRequirements.Areas.Examples.Controllers
     public partial class ExampleValuesController : ControllerBase
     {
         private readonly IWebHostEnvironment _WebHostEnvironment;
-        private readonly ExampleProtocol _ExampleProtocol;
+        private readonly IExample _IExample;
 
-        public ExampleValuesController(IWebHostEnvironment WebHostEnvironment, ExampleProtocol ExampleProtocol) 
+        public ExampleValuesController(IWebHostEnvironment WebHostEnvironment, IExample IExample) 
         {
             _WebHostEnvironment = WebHostEnvironment;
-            _ExampleProtocol = ExampleProtocol;
+            _IExample = IExample;
         }
 
         #region Queries
@@ -57,7 +57,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _ExampleProtocol.Select1ByExampleIdToModel(ExampleId);
+                return _IExample.Select1ByExampleIdToModel(ExampleId);
             }
             catch (Exception ex) 
             { 
@@ -89,7 +89,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _ExampleProtocol.SelectAllToList();
+                return _IExample.SelectAllToList();
             }
             catch (Exception ex) 
             { 
@@ -121,7 +121,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _ExampleProtocol.SelectAllPagedToModel(exampleSelectAllPaged);
+                 return _IExample.SelectAllPagedToModel(exampleSelectAllPaged);
             }
             catch (Exception ex)
             {
@@ -238,7 +238,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                         
                     };
                     
-                    NewEnteredId = _ExampleProtocol.Insert(ExampleModel);
+                    NewEnteredId = _IExample.Insert(ExampleModel);
                 }
                 else
                 {
@@ -266,7 +266,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                     ExampleModel.Time = Time;
                                        
 
-                    RowsAffected = _ExampleProtocol.UpdateByExampleId(ExampleModel);
+                    RowsAffected = _IExample.UpdateByExampleId(ExampleModel);
                 }
                 
 
@@ -335,7 +335,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int RowsAffected = _ExampleProtocol.DeleteByExampleId(ExampleId);
+                int RowsAffected = _IExample.DeleteByExampleId(ExampleId);
                 return StatusCode(200, RowsAffected);
             }
             catch (Exception ex) 
@@ -369,7 +369,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                _ExampleProtocol.DeleteManyOrAll(Ajax, DeleteType);
+                _IExample.DeleteManyOrAll(Ajax, DeleteType);
 
                 return StatusCode(200, Ajax.AjaxForString);
             }
@@ -404,7 +404,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int NewEnteredId = _ExampleProtocol.CopyByExampleId(ExampleId);
+                int NewEnteredId = _IExample.CopyByExampleId(ExampleId);
 
                 return StatusCode(200, NewEnteredId);
             }
@@ -439,7 +439,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int[] NewEnteredIds = _ExampleProtocol.CopyManyOrAll(Ajax, CopyType);
+                int[] NewEnteredIds = _IExample.CopyManyOrAll(Ajax, CopyType);
                 string NewEnteredIdsAsString = "";
 
                 for (int i = 0; i < NewEnteredIds.Length; i++)
@@ -483,7 +483,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _ExampleProtocol.ExportAsPDF(Ajax, ExportationType);
+                DateTime Now = _IExample.ExportAsPDF(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -518,7 +518,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _ExampleProtocol.ExportAsExcel(Ajax, ExportationType);
+                DateTime Now = _IExample.ExportAsExcel(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -553,7 +553,7 @@ namespace FiyiRequirements.Areas.Examples.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _ExampleProtocol.ExportAsCSV(Ajax, ExportationType);
+                DateTime Now = _IExample.ExportAsCSV(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }

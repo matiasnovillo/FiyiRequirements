@@ -4,7 +4,7 @@ using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.Requirement.Models;
 using FiyiRequirements.Areas.Requirement.DTOs;
-using FiyiRequirements.Areas.Requirement.Protocols;
+using FiyiRequirements.Areas.Requirement.Interfaces;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace FiyiRequirements.Areas.Requirement.Services
     /// Also, allow dependency injection inside controllers/web apis<br/>
     /// Last modification: 21/02/2023 20:30:35
     /// </summary>
-    public partial class RequirementFileService : RequirementFileProtocol
+    public partial class RequirementFileService : IRequirementFile
     {
         private readonly IHttpContextAccessor _IHttpContextAccessor;
 

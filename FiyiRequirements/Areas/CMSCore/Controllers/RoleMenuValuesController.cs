@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
 using FiyiRequirements.Areas.CMSCore.Filters;
-using FiyiRequirements.Areas.CMSCore.Protocols;
+using FiyiRequirements.Areas.CMSCore.Interfaces;
 using FiyiRequirements.Areas.CMSCore.Models;
 using FiyiRequirements.Library;
 using System.Threading.Tasks;
@@ -39,12 +39,12 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
     public partial class RoleMenuValuesController : ControllerBase
     {
         private readonly IWebHostEnvironment _WebHostEnvironment;
-        private readonly RoleMenuProtocol _RoleMenuProtocol;
+        private readonly IRoleMenu _IRoleMenu;
 
-        public RoleMenuValuesController(IWebHostEnvironment WebHostEnvironment, RoleMenuProtocol RoleMenuProtocol) 
+        public RoleMenuValuesController(IWebHostEnvironment WebHostEnvironment, IRoleMenu IRoleMenu) 
         {
             _WebHostEnvironment = WebHostEnvironment;
-            _RoleMenuProtocol = RoleMenuProtocol;
+            _IRoleMenu = IRoleMenu;
         }
 
         #region Queries
@@ -56,7 +56,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _RoleMenuProtocol.Select1ByRoleMenuIdToModel(RoleMenuId);
+                return _IRoleMenu.Select1ByRoleMenuIdToModel(RoleMenuId);
             }
             catch (Exception ex) 
             { 
@@ -88,7 +88,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _RoleMenuProtocol.SelectAllToList();
+                return _IRoleMenu.SelectAllToList();
             }
             catch (Exception ex) 
             { 
@@ -120,7 +120,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _RoleMenuProtocol.SelectAllPagedToModel(rolemenuModelQuery);
+                 return _IRoleMenu.SelectAllPagedToModel(rolemenuModelQuery);
             }
             catch (Exception ex)
             {
@@ -152,7 +152,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _RoleMenuProtocol.SelectAllByRoleIdToRoleMenuForChechboxes(RoleId);
+                return _IRoleMenu.SelectAllByRoleIdToRoleMenuForChechboxes(RoleId);
             }
             catch (Exception ex)
             {
@@ -229,7 +229,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                         
                     };
                     
-                    NewEnteredId = _RoleMenuProtocol.Insert(RoleMenuModel);
+                    NewEnteredId = _IRoleMenu.Insert(RoleMenuModel);
                 }
                 else
                 {
@@ -243,7 +243,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     RoleMenuModel.MenuId = MenuId;
                                        
 
-                    RowsAffected = _RoleMenuProtocol.UpdateByRoleMenuId(RoleMenuModel);
+                    RowsAffected = _IRoleMenu.UpdateByRoleMenuId(RoleMenuModel);
                 }
                 
 
@@ -330,7 +330,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
 
                 for (i = 0; i < MenuId.Length; i++)
                 {
-                    _RoleMenuProtocol.UpdateByRoleIdByMenuId(RoleId, MenuId[i], Selected[i]);
+                    _IRoleMenu.UpdateByRoleIdByMenuId(RoleId, MenuId[i], Selected[i]);
                 }
 
 
@@ -368,7 +368,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int RowsAffected = _RoleMenuProtocol.DeleteByRoleMenuId(RoleMenuId);
+                int RowsAffected = _IRoleMenu.DeleteByRoleMenuId(RoleMenuId);
                 return StatusCode(200, RowsAffected);
             }
             catch (Exception ex) 
@@ -402,7 +402,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                _RoleMenuProtocol.DeleteManyOrAll(Ajax, DeleteType);
+                _IRoleMenu.DeleteManyOrAll(Ajax, DeleteType);
 
                 return StatusCode(200, Ajax.AjaxForString);
             }
@@ -437,7 +437,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int NewEnteredId = _RoleMenuProtocol.CopyByRoleMenuId(RoleMenuId);
+                int NewEnteredId = _IRoleMenu.CopyByRoleMenuId(RoleMenuId);
 
                 return StatusCode(200, NewEnteredId);
             }
@@ -472,7 +472,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int[] NewEnteredIds = _RoleMenuProtocol.CopyManyOrAll(Ajax, CopyType);
+                int[] NewEnteredIds = _IRoleMenu.CopyManyOrAll(Ajax, CopyType);
                 string NewEnteredIdsAsString = "";
 
                 for (int i = 0; i < NewEnteredIds.Length; i++)
@@ -516,7 +516,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _RoleMenuProtocol.ExportAsPDF(Ajax, ExportationType);
+                DateTime Now = _IRoleMenu.ExportAsPDF(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -551,7 +551,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _RoleMenuProtocol.ExportAsExcel(Ajax, ExportationType);
+                DateTime Now = _IRoleMenu.ExportAsExcel(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -586,7 +586,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _RoleMenuProtocol.ExportAsCSV(Ajax, ExportationType);
+                DateTime Now = _IRoleMenu.ExportAsCSV(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }

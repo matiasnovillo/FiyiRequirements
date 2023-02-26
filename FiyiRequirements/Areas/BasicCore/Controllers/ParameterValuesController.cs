@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
 using FiyiRequirements.Areas.BasicCore.DTOs;
 using FiyiRequirements.Areas.BasicCore.Filters;
-using FiyiRequirements.Areas.BasicCore.Protocols;
+using FiyiRequirements.Areas.BasicCore.Interfaces;
 using FiyiRequirements.Areas.BasicCore.Models;
 using FiyiRequirements.Library;
 using System.Threading.Tasks;
@@ -40,12 +40,12 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
     public partial class ParameterValuesController : ControllerBase
     {
         private readonly IWebHostEnvironment _WebHostEnvironment;
-        private readonly ParameterProtocol _ParameterProtocol;
+        private readonly IParameter _IParameter;
 
-        public ParameterValuesController(IWebHostEnvironment WebHostEnvironment, ParameterProtocol ParameterProtocol) 
+        public ParameterValuesController(IWebHostEnvironment WebHostEnvironment, IParameter IParameter) 
         {
             _WebHostEnvironment = WebHostEnvironment;
-            _ParameterProtocol = ParameterProtocol;
+            _IParameter = IParameter;
         }
 
         #region Queries
@@ -57,7 +57,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _ParameterProtocol.Select1ByParameterIdToModel(ParameterId);
+                return _IParameter.Select1ByParameterIdToModel(ParameterId);
             }
             catch (Exception ex) 
             { 
@@ -89,7 +89,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _ParameterProtocol.SelectAllToList();
+                return _IParameter.SelectAllToList();
             }
             catch (Exception ex) 
             { 
@@ -121,7 +121,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _ParameterProtocol.SelectAllPagedToModel(parameterSelectAllPaged);
+                 return _IParameter.SelectAllPagedToModel(parameterSelectAllPaged);
             }
             catch (Exception ex)
             {
@@ -190,7 +190,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                         
                     };
                     
-                    NewEnteredId = _ParameterProtocol.Insert(ParameterModel);
+                    NewEnteredId = _IParameter.Insert(ParameterModel);
                 }
                 else
                 {
@@ -204,7 +204,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                     ParameterModel.IsPrivate = IsPrivate;
                                        
 
-                    RowsAffected = _ParameterProtocol.UpdateByParameterId(ParameterModel);
+                    RowsAffected = _IParameter.UpdateByParameterId(ParameterModel);
                 }
                 
 
@@ -273,7 +273,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int RowsAffected = _ParameterProtocol.DeleteByParameterId(ParameterId);
+                int RowsAffected = _IParameter.DeleteByParameterId(ParameterId);
                 return StatusCode(200, RowsAffected);
             }
             catch (Exception ex) 
@@ -307,7 +307,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                _ParameterProtocol.DeleteManyOrAll(Ajax, DeleteType);
+                _IParameter.DeleteManyOrAll(Ajax, DeleteType);
 
                 return StatusCode(200, Ajax.AjaxForString);
             }
@@ -342,7 +342,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int NewEnteredId = _ParameterProtocol.CopyByParameterId(ParameterId);
+                int NewEnteredId = _IParameter.CopyByParameterId(ParameterId);
 
                 return StatusCode(200, NewEnteredId);
             }
@@ -377,7 +377,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int[] NewEnteredIds = _ParameterProtocol.CopyManyOrAll(Ajax, CopyType);
+                int[] NewEnteredIds = _IParameter.CopyManyOrAll(Ajax, CopyType);
                 string NewEnteredIdsAsString = "";
 
                 for (int i = 0; i < NewEnteredIds.Length; i++)
@@ -421,7 +421,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _ParameterProtocol.ExportAsPDF(Ajax, ExportationType);
+                DateTime Now = _IParameter.ExportAsPDF(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -456,7 +456,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _ParameterProtocol.ExportAsExcel(Ajax, ExportationType);
+                DateTime Now = _IParameter.ExportAsExcel(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -491,7 +491,7 @@ namespace FiyiRequirements.Areas.BasicCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _ParameterProtocol.ExportAsCSV(Ajax, ExportationType);
+                DateTime Now = _IParameter.ExportAsCSV(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }

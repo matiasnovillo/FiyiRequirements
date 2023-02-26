@@ -1,5 +1,5 @@
-using FiyiRequirements.Areas.Requirement.DTOs;
-using FiyiRequirements.Areas.Requirement.Models;
+using FiyiRequirements.Areas.BasicCulture.DTOs;
+using FiyiRequirements.Areas.BasicCulture.Models;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -15,58 +15,58 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 21/02/2023 21:10:11
+//Last modification on: 21/02/2023 17:45:06
 
-namespace FiyiRequirements.Areas.Requirement.Protocols
+namespace FiyiRequirements.Areas.BasicCulture.Interfaces
 {
     /// <summary>
     /// Stack:             5<br/>
-    /// Name:              C# Protocol/Interface. <br/>
-    /// Function:          This protocol/interface allow you to standardize the C# service associated. 
+    /// Name:              C# Interface. <br/>
+    /// Function:          This interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 21/02/2023 21:10:11
+    /// Last modification: 21/02/2023 17:45:06
     /// </summary>
-    public partial interface RequirementPriorityProtocol
+    public partial interface ICountry
     {
         #region Queries
         /// <summary>
         /// Note: Raise exception when the query find duplicated IDs
         /// </summary>
-        /// <param name="RequirementPriorityId"></param>
+        /// <param name="CountryId"></param>
         /// <returns></returns>
-        RequirementPriorityModel Select1ByRequirementPriorityIdToModel(int RequirementPriorityId);
+        CountryModel Select1ByCountryIdToModel(int CountryId);
 
-        List<RequirementPriorityModel> SelectAllToList();
+        List<CountryModel> SelectAllToList();
 
-        requirementprioritySelectAllPaged SelectAllPagedToModel(requirementprioritySelectAllPaged requirementprioritySelectAllPaged);
+        countrySelectAllPaged SelectAllPagedToModel(countrySelectAllPaged countrySelectAllPaged);
         #endregion
 
         #region Non-Queries
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <param name="RequirementPriority"></param>
-        /// <returns>NewEnteredId: The ID of the last registry inserted in RequirementPriority table</returns>
-        int Insert(RequirementPriorityModel RequirementPriority);
+        /// <param name="Country"></param>
+        /// <returns>NewEnteredId: The ID of the last registry inserted in Country table</returns>
+        int Insert(CountryModel Country);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <param name="RequirementPriority"></param>
-        /// <returns>The number of rows updated in RequirementPriority table</returns>
-        int UpdateByRequirementPriorityId(RequirementPriorityModel RequirementPriority);
+        /// <param name="Country"></param>
+        /// <returns>The number of rows updated in Country table</returns>
+        int UpdateByCountryId(CountryModel Country);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull deletion in database
         /// </summary>
-        /// <param name="RequirementPriorityId"></param>
-        /// <returns>The number of rows deleted in RequirementPriority table</returns>
-        int DeleteByRequirementPriorityId(int RequirementPriorityId);
+        /// <param name="CountryId"></param>
+        /// <returns>The number of rows deleted in Country table</returns>
+        int DeleteByCountryId(int CountryId);
 
         void DeleteManyOrAll(Ajax Ajax, string DeleteType);
 
-        int CopyByRequirementPriorityId(int RequirementPriorityId);
+        int CopyByCountryId(int CountryId);
 
         int[] CopyManyOrAll(Ajax Ajax, string CopyType);
         #endregion

@@ -1,5 +1,5 @@
-using FiyiRequirements.Areas.Requirement.DTOs;
-using FiyiRequirements.Areas.Requirement.Models;
+using FiyiRequirements.Areas.BasicCulture.DTOs;
+using FiyiRequirements.Areas.BasicCulture.Models;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -15,58 +15,58 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 21/02/2023 20:30:35
+//Last modification on: 21/02/2023 17:51:29
 
-namespace FiyiRequirements.Areas.Requirement.Protocols
+namespace FiyiRequirements.Areas.BasicCulture.Interfaces
 {
     /// <summary>
     /// Stack:             5<br/>
-    /// Name:              C# Protocol/Interface. <br/>
-    /// Function:          This protocol/interface allow you to standardize the C# service associated. 
+    /// Name:              C# Interface. <br/>
+    /// Function:          This interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 21/02/2023 20:30:35
+    /// Last modification: 21/02/2023 17:51:29
     /// </summary>
-    public partial interface RequirementFileProtocol
+    public partial interface IProvince
     {
         #region Queries
         /// <summary>
         /// Note: Raise exception when the query find duplicated IDs
         /// </summary>
-        /// <param name="RequirementFileId"></param>
+        /// <param name="ProvinceId"></param>
         /// <returns></returns>
-        RequirementFileModel Select1ByRequirementFileIdToModel(int RequirementFileId);
+        ProvinceModel Select1ByProvinceIdToModel(int ProvinceId);
 
-        List<RequirementFileModel> SelectAllToList();
+        List<ProvinceModel> SelectAllToList();
 
-        requirementfileSelectAllPaged SelectAllPagedToModel(requirementfileSelectAllPaged requirementfileSelectAllPaged, int RequirementId);
+        provinceSelectAllPaged SelectAllPagedToModel(provinceSelectAllPaged provinceSelectAllPaged);
         #endregion
 
         #region Non-Queries
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <param name="RequirementFile"></param>
-        /// <returns>NewEnteredId: The ID of the last registry inserted in RequirementFile table</returns>
-        int Insert(RequirementFileModel RequirementFile);
+        /// <param name="Province"></param>
+        /// <returns>NewEnteredId: The ID of the last registry inserted in Province table</returns>
+        int Insert(ProvinceModel Province);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <param name="RequirementFile"></param>
-        /// <returns>The number of rows updated in RequirementFile table</returns>
-        int UpdateByRequirementFileId(RequirementFileModel RequirementFile);
+        /// <param name="Province"></param>
+        /// <returns>The number of rows updated in Province table</returns>
+        int UpdateByProvinceId(ProvinceModel Province);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull deletion in database
         /// </summary>
-        /// <param name="RequirementFileId"></param>
-        /// <returns>The number of rows deleted in RequirementFile table</returns>
-        int DeleteByRequirementFileId(int RequirementFileId);
+        /// <param name="ProvinceId"></param>
+        /// <returns>The number of rows deleted in Province table</returns>
+        int DeleteByProvinceId(int ProvinceId);
 
         void DeleteManyOrAll(Ajax Ajax, string DeleteType);
 
-        int CopyByRequirementFileId(int RequirementFileId);
+        int CopyByProvinceId(int ProvinceId);
 
         int[] CopyManyOrAll(Ajax Ajax, string CopyType);
         #endregion

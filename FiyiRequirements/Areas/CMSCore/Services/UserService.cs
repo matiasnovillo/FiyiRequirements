@@ -4,7 +4,7 @@ using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.CMSCore.Models;
 using FiyiRequirements.Areas.CMSCore.DTOs;
-using FiyiRequirements.Areas.CMSCore.Protocols;
+using FiyiRequirements.Areas.CMSCore.Interfaces;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -37,7 +37,7 @@ namespace FiyiRequirements.Areas.CMSCore.Services
     /// Also, allow dependency injection inside controllers/web apis<br/>
     /// Last modification: 21/02/2023 18:02:07
     /// </summary>
-    public partial class UserService : UserProtocol
+    public partial class UserService : IUser
     {
         private readonly IHttpContextAccessor _IHttpContextAccessor;
 

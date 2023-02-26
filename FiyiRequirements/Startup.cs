@@ -3,18 +3,18 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using FiyiRequirements.Areas.BasicCore.Protocols;
-using FiyiRequirements.Areas.CMSCore.Protocols;
+using FiyiRequirements.Areas.BasicCore.Interfaces;
+using FiyiRequirements.Areas.CMSCore.Interfaces;
 using FiyiRequirements.Areas.BasicCore.Services;
 using FiyiRequirements.Areas.CMSCore.Services;
 using FiyiRequirements.Library;
 using System;
 using SixLaborsCaptcha.Mvc.Core;
 using FiyiRequirements.Areas.BasicCulture.Services;
-using FiyiRequirements.Areas.BasicCulture.Protocols;
-using FiyiRequirements.Areas.Requirement.Protocols;
+using FiyiRequirements.Areas.BasicCulture.Interfaces;
+using FiyiRequirements.Areas.Requirement.Interfaces;
 using FiyiRequirements.Areas.Requirement.Services;
-using FiyiRequirements.Areas.Examples.Protocols;
+using FiyiRequirements.Areas.Examples.Interfaces;
 using FiyiRequirements.Areas.Examples.Services;
 
 namespace FiyiRequirements
@@ -47,29 +47,29 @@ namespace FiyiRequirements
             services.AddHttpContextAccessor();
 
             //Area: BasicCore
-            services.AddScoped<FailureProtocol, FailureService>();
-            services.AddScoped<ParameterProtocol, ParameterService>();
-            services.AddScoped<VisitorCounterProtocol, VisitorCounterService>();
+            services.AddScoped<IFailure, FailureService>();
+            services.AddScoped<IParameter, ParameterService>();
+            services.AddScoped<IVisitorCounter, VisitorCounterService>();
             //Area: BasicCulture
-            services.AddScoped<CityProtocol, CityService>();
-            services.AddScoped<ProvinceProtocol, ProvinceService>();
-            services.AddScoped<CountryProtocol, CountryService>();
-            services.AddScoped<PlanetProtocol, PlanetService>();
-            services.AddScoped<SexProtocol, SexService>();
+            services.AddScoped<ICity, CityService>();
+            services.AddScoped<IProvince, ProvinceService>();
+            services.AddScoped<ICountry, CountryService>();
+            services.AddScoped<IPlanet, PlanetService>();
+            services.AddScoped<ISex, SexService>();
             //Area: CMSCore
-            services.AddScoped<UserProtocol, UserService>();
-            services.AddScoped<MenuProtocol, MenuService>();
-            services.AddScoped<RoleMenuProtocol, RoleMenuService>();
-            services.AddScoped<RoleProtocol, RoleService>();
+            services.AddScoped<IUser, UserService>();
+            services.AddScoped<IMenu, MenuService>();
+            services.AddScoped<IRoleMenu, RoleMenuService>();
+            services.AddScoped<IRole, RoleService>();
             //Area: Requirements
-            services.AddScoped<RequirementProtocol, RequirementService>();
-            services.AddScoped<RequirementChangehistoryProtocol, RequirementChangehistoryService>();
-            services.AddScoped<RequirementFileProtocol, RequirementFileService>();
-            services.AddScoped<RequirementNoteProtocol, RequirementNoteService>();
-            services.AddScoped<RequirementPriorityProtocol, RequirementPriorityService>();
-            services.AddScoped<RequirementStateProtocol, RequirementStateService>();
+            services.AddScoped<IRequirement, RequirementService>();
+            services.AddScoped<IRequirementChangehistory, RequirementChangehistoryService>();
+            services.AddScoped<IRequirementFile, RequirementFileService>();
+            services.AddScoped<IRequirementNote, RequirementNoteService>();
+            services.AddScoped<IRequirementPriority, RequirementPriorityService>();
+            services.AddScoped<IRequirementState, RequirementStateService>();
             //Area: Examples
-            services.AddScoped<ExampleProtocol, ExampleService>();
+            services.AddScoped<IExample, ExampleService>();
 
             //Session configuration
             services.AddMvc();

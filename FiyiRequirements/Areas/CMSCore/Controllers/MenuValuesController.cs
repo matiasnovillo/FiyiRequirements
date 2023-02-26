@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
 using FiyiRequirements.Areas.CMSCore.DTOs;
 using FiyiRequirements.Areas.CMSCore.Filters;
-using FiyiRequirements.Areas.CMSCore.Protocols;
+using FiyiRequirements.Areas.CMSCore.Interfaces;
 using FiyiRequirements.Areas.CMSCore.Models;
 using FiyiRequirements.Library;
 using System.Threading.Tasks;
@@ -40,12 +40,12 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
     public partial class MenuValuesController : ControllerBase
     {
         private readonly IWebHostEnvironment _WebHostEnvironment;
-        private readonly MenuProtocol _MenuProtocol;
+        private readonly IMenu _IMenu;
 
-        public MenuValuesController(IWebHostEnvironment WebHostEnvironment, MenuProtocol MenuProtocol) 
+        public MenuValuesController(IWebHostEnvironment WebHostEnvironment, IMenu IMenu) 
         {
             _WebHostEnvironment = WebHostEnvironment;
-            _MenuProtocol = MenuProtocol;
+            _IMenu = IMenu;
         }
 
         #region Queries
@@ -57,7 +57,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _MenuProtocol.Select1ByMenuIdToModel(MenuId);
+                return _IMenu.Select1ByMenuIdToModel(MenuId);
             }
             catch (Exception ex) 
             { 
@@ -89,7 +89,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _MenuProtocol.SelectAllToList();
+                return _IMenu.SelectAllToList();
             }
             catch (Exception ex) 
             { 
@@ -121,7 +121,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _MenuProtocol.SelectAllPagedToModel(menuSelectAllPaged);
+                 return _IMenu.SelectAllPagedToModel(menuSelectAllPaged);
             }
             catch (Exception ex)
             {
@@ -194,7 +194,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                         
                     };
                     
-                    NewEnteredId = _MenuProtocol.Insert(MenuModel);
+                    NewEnteredId = _IMenu.Insert(MenuModel);
                 }
                 else
                 {
@@ -210,7 +210,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     MenuModel.IconURLPath = IconURLPath;
                                        
 
-                    RowsAffected = _MenuProtocol.UpdateByMenuId(MenuModel);
+                    RowsAffected = _IMenu.UpdateByMenuId(MenuModel);
                 }
                 
 
@@ -279,7 +279,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int RowsAffected = _MenuProtocol.DeleteByMenuId(MenuId);
+                int RowsAffected = _IMenu.DeleteByMenuId(MenuId);
                 return StatusCode(200, RowsAffected);
             }
             catch (Exception ex) 
@@ -313,7 +313,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                _MenuProtocol.DeleteManyOrAll(Ajax, DeleteType);
+                _IMenu.DeleteManyOrAll(Ajax, DeleteType);
 
                 return StatusCode(200, Ajax.AjaxForString);
             }
@@ -348,7 +348,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int NewEnteredId = _MenuProtocol.CopyByMenuId(MenuId);
+                int NewEnteredId = _IMenu.CopyByMenuId(MenuId);
 
                 return StatusCode(200, NewEnteredId);
             }
@@ -383,7 +383,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int[] NewEnteredIds = _MenuProtocol.CopyManyOrAll(Ajax, CopyType);
+                int[] NewEnteredIds = _IMenu.CopyManyOrAll(Ajax, CopyType);
                 string NewEnteredIdsAsString = "";
 
                 for (int i = 0; i < NewEnteredIds.Length; i++)
@@ -427,7 +427,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _MenuProtocol.ExportAsPDF(Ajax, ExportationType);
+                DateTime Now = _IMenu.ExportAsPDF(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -462,7 +462,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _MenuProtocol.ExportAsExcel(Ajax, ExportationType);
+                DateTime Now = _IMenu.ExportAsExcel(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -497,7 +497,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _MenuProtocol.ExportAsCSV(Ajax, ExportationType);
+                DateTime Now = _IMenu.ExportAsCSV(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
 using FiyiRequirements.Areas.BasicCulture.DTOs;
 using FiyiRequirements.Areas.BasicCulture.Filters;
-using FiyiRequirements.Areas.BasicCulture.Protocols;
+using FiyiRequirements.Areas.BasicCulture.Interfaces;
 using FiyiRequirements.Areas.BasicCulture.Models;
 using FiyiRequirements.Library;
 using System.Threading.Tasks;
@@ -40,12 +40,12 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
     public partial class SexValuesController : ControllerBase
     {
         private readonly IWebHostEnvironment _WebHostEnvironment;
-        private readonly SexProtocol _SexProtocol;
+        private readonly ISex _ISex;
 
-        public SexValuesController(IWebHostEnvironment WebHostEnvironment, SexProtocol SexProtocol) 
+        public SexValuesController(IWebHostEnvironment WebHostEnvironment, ISex ISex) 
         {
             _WebHostEnvironment = WebHostEnvironment;
-            _SexProtocol = SexProtocol;
+            _ISex = ISex;
         }
 
         #region Queries
@@ -57,7 +57,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _SexProtocol.Select1BySexIdToModel(SexId);
+                return _ISex.Select1BySexIdToModel(SexId);
             }
             catch (Exception ex) 
             { 
@@ -89,7 +89,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _SexProtocol.SelectAllToList();
+                return _ISex.SelectAllToList();
             }
             catch (Exception ex) 
             { 
@@ -121,7 +121,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _SexProtocol.SelectAllPagedToModel(sexSelectAllPaged);
+                 return _ISex.SelectAllPagedToModel(sexSelectAllPaged);
             }
             catch (Exception ex)
             {
@@ -186,7 +186,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                         
                     };
                     
-                    NewEnteredId = _SexProtocol.Insert(SexModel);
+                    NewEnteredId = _ISex.Insert(SexModel);
                 }
                 else
                 {
@@ -198,7 +198,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                     SexModel.Name = Name;
                                        
 
-                    RowsAffected = _SexProtocol.UpdateBySexId(SexModel);
+                    RowsAffected = _ISex.UpdateBySexId(SexModel);
                 }
                 
 
@@ -267,7 +267,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int RowsAffected = _SexProtocol.DeleteBySexId(SexId);
+                int RowsAffected = _ISex.DeleteBySexId(SexId);
                 return StatusCode(200, RowsAffected);
             }
             catch (Exception ex) 
@@ -301,7 +301,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                _SexProtocol.DeleteManyOrAll(Ajax, DeleteType);
+                _ISex.DeleteManyOrAll(Ajax, DeleteType);
 
                 return StatusCode(200, Ajax.AjaxForString);
             }
@@ -336,7 +336,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int NewEnteredId = _SexProtocol.CopyBySexId(SexId);
+                int NewEnteredId = _ISex.CopyBySexId(SexId);
 
                 return StatusCode(200, NewEnteredId);
             }
@@ -371,7 +371,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int[] NewEnteredIds = _SexProtocol.CopyManyOrAll(Ajax, CopyType);
+                int[] NewEnteredIds = _ISex.CopyManyOrAll(Ajax, CopyType);
                 string NewEnteredIdsAsString = "";
 
                 for (int i = 0; i < NewEnteredIds.Length; i++)
@@ -415,7 +415,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _SexProtocol.ExportAsPDF(Ajax, ExportationType);
+                DateTime Now = _ISex.ExportAsPDF(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -450,7 +450,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _SexProtocol.ExportAsExcel(Ajax, ExportationType);
+                DateTime Now = _ISex.ExportAsExcel(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -485,7 +485,7 @@ namespace FiyiRequirements.Areas.BasicCulture.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _SexProtocol.ExportAsCSV(Ajax, ExportationType);
+                DateTime Now = _ISex.ExportAsCSV(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }

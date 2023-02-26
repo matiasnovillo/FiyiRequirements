@@ -1,5 +1,5 @@
-using FiyiRequirements.Areas.BasicCore.DTOs;
-using FiyiRequirements.Areas.BasicCore.Models;
+using FiyiRequirements.Areas.Examples.DTOs;
+using FiyiRequirements.Areas.Examples.Models;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -15,58 +15,58 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 21/02/2023 17:37:17
+//Last modification on: 21/02/2023 18:16:41
 
-namespace FiyiRequirements.Areas.BasicCore.Protocols
+namespace FiyiRequirements.Areas.Examples.Interfaces
 {
     /// <summary>
     /// Stack:             5<br/>
-    /// Name:              C# Protocol/Interface. <br/>
-    /// Function:          This protocol/interface allow you to standardize the C# service associated. 
+    /// Name:              C# Interface. <br/>
+    /// Function:          This interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 21/02/2023 17:37:17
+    /// Last modification: 21/02/2023 18:16:41
     /// </summary>
-    public partial interface ParameterProtocol
+    public partial interface IExample
     {
         #region Queries
         /// <summary>
         /// Note: Raise exception when the query find duplicated IDs
         /// </summary>
-        /// <param name="ParameterId"></param>
+        /// <param name="ExampleId"></param>
         /// <returns></returns>
-        ParameterModel Select1ByParameterIdToModel(int ParameterId);
+        ExampleModel Select1ByExampleIdToModel(int ExampleId);
 
-        List<ParameterModel> SelectAllToList();
+        List<ExampleModel> SelectAllToList();
 
-        parameterSelectAllPaged SelectAllPagedToModel(parameterSelectAllPaged parameterSelectAllPaged);
+        exampleSelectAllPaged SelectAllPagedToModel(exampleSelectAllPaged exampleSelectAllPaged);
         #endregion
 
         #region Non-Queries
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <param name="Parameter"></param>
-        /// <returns>NewEnteredId: The ID of the last registry inserted in Parameter table</returns>
-        int Insert(ParameterModel Parameter);
+        /// <param name="Example"></param>
+        /// <returns>NewEnteredId: The ID of the last registry inserted in Example table</returns>
+        int Insert(ExampleModel Example);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <param name="Parameter"></param>
-        /// <returns>The number of rows updated in Parameter table</returns>
-        int UpdateByParameterId(ParameterModel Parameter);
+        /// <param name="Example"></param>
+        /// <returns>The number of rows updated in Example table</returns>
+        int UpdateByExampleId(ExampleModel Example);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull deletion in database
         /// </summary>
-        /// <param name="ParameterId"></param>
-        /// <returns>The number of rows deleted in Parameter table</returns>
-        int DeleteByParameterId(int ParameterId);
+        /// <param name="ExampleId"></param>
+        /// <returns>The number of rows deleted in Example table</returns>
+        int DeleteByExampleId(int ExampleId);
 
         void DeleteManyOrAll(Ajax Ajax, string DeleteType);
 
-        int CopyByParameterId(int ParameterId);
+        int CopyByExampleId(int ExampleId);
 
         int[] CopyManyOrAll(Ajax Ajax, string CopyType);
         #endregion

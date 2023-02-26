@@ -4,7 +4,7 @@ using IronPdf;
 using Microsoft.AspNetCore.Http;
 using FiyiRequirements.Areas.BasicCore.Models;
 using FiyiRequirements.Areas.BasicCore.DTOs;
-using FiyiRequirements.Areas.BasicCore.Protocols;
+using FiyiRequirements.Areas.BasicCore.Interfaces;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace FiyiRequirements.Areas.BasicCore.Services
     /// Also, allow dependency injection inside controllers/web apis<br/>
     /// Last modification: 22/02/2023 15:17:36
     /// </summary>
-    public partial class VisitorCounterService : VisitorCounterProtocol
+    public partial class VisitorCounterService : IVisitorCounter
     {
         private readonly IHttpContextAccessor _IHttpContextAccessor;
 

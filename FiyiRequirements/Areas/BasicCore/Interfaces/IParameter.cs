@@ -1,5 +1,5 @@
-using FiyiRequirements.Areas.Requirement.DTOs;
-using FiyiRequirements.Areas.Requirement.Models;
+using FiyiRequirements.Areas.BasicCore.DTOs;
+using FiyiRequirements.Areas.BasicCore.Models;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -15,58 +15,58 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 21/02/2023 18:24:38
+//Last modification on: 21/02/2023 17:37:17
 
-namespace FiyiRequirements.Areas.Requirement.Protocols
+namespace FiyiRequirements.Areas.BasicCore.Interfaces
 {
     /// <summary>
     /// Stack:             5<br/>
-    /// Name:              C# Protocol/Interface. <br/>
-    /// Function:          This protocol/interface allow you to standardize the C# service associated. 
+    /// Name:              C# Interface. <br/>
+    /// Function:          This interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 21/02/2023 18:24:38
+    /// Last modification: 21/02/2023 17:37:17
     /// </summary>
-    public partial interface RequirementProtocol
+    public partial interface IParameter
     {
         #region Queries
         /// <summary>
         /// Note: Raise exception when the query find duplicated IDs
         /// </summary>
-        /// <param name="RequirementId"></param>
+        /// <param name="ParameterId"></param>
         /// <returns></returns>
-        RequirementModel Select1ByRequirementIdToModel(int RequirementId);
+        ParameterModel Select1ByParameterIdToModel(int ParameterId);
 
-        List<RequirementModel> SelectAllToList();
+        List<ParameterModel> SelectAllToList();
 
-        requirementSelectAllPaged SelectAllPagedToModel(requirementSelectAllPaged requirementSelectAllPaged, int UserId);
+        parameterSelectAllPaged SelectAllPagedToModel(parameterSelectAllPaged parameterSelectAllPaged);
         #endregion
 
         #region Non-Queries
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <param name="Requirement"></param>
-        /// <returns>NewEnteredId: The ID of the last registry inserted in Requirement table</returns>
-        int Insert(RequirementModel Requirement);
+        /// <param name="Parameter"></param>
+        /// <returns>NewEnteredId: The ID of the last registry inserted in Parameter table</returns>
+        int Insert(ParameterModel Parameter);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <param name="Requirement"></param>
-        /// <returns>The number of rows updated in Requirement table</returns>
-        int UpdateByRequirementId(RequirementModel Requirement);
+        /// <param name="Parameter"></param>
+        /// <returns>The number of rows updated in Parameter table</returns>
+        int UpdateByParameterId(ParameterModel Parameter);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull deletion in database
         /// </summary>
-        /// <param name="RequirementId"></param>
-        /// <returns>The number of rows deleted in Requirement table</returns>
-        int DeleteByRequirementId(int RequirementId);
+        /// <param name="ParameterId"></param>
+        /// <returns>The number of rows deleted in Parameter table</returns>
+        int DeleteByParameterId(int ParameterId);
 
         void DeleteManyOrAll(Ajax Ajax, string DeleteType);
 
-        int CopyByRequirementId(int RequirementId);
+        int CopyByParameterId(int ParameterId);
 
         int[] CopyManyOrAll(Ajax Ajax, string CopyType);
         #endregion

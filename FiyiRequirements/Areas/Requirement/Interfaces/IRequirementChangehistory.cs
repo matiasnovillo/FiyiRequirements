@@ -1,5 +1,5 @@
-using FiyiRequirements.Areas.Examples.DTOs;
-using FiyiRequirements.Areas.Examples.Models;
+using FiyiRequirements.Areas.Requirement.DTOs;
+using FiyiRequirements.Areas.Requirement.Models;
 using FiyiRequirements.Library;
 using System;
 using System.Collections.Generic;
@@ -15,58 +15,58 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 21/02/2023 18:16:41
+//Last modification on: 21/02/2023 19:04:04
 
-namespace FiyiRequirements.Areas.Examples.Protocols
+namespace FiyiRequirements.Areas.Requirement.Interfaces
 {
     /// <summary>
     /// Stack:             5<br/>
-    /// Name:              C# Protocol/Interface. <br/>
-    /// Function:          This protocol/interface allow you to standardize the C# service associated. 
+    /// Name:              C# Interface. <br/>
+    /// Function:          This interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 21/02/2023 18:16:41
+    /// Last modification: 21/02/2023 19:04:04
     /// </summary>
-    public partial interface ExampleProtocol
+    public partial interface IRequirementChangehistory
     {
         #region Queries
         /// <summary>
         /// Note: Raise exception when the query find duplicated IDs
         /// </summary>
-        /// <param name="ExampleId"></param>
+        /// <param name="RequirementChangehistoryId"></param>
         /// <returns></returns>
-        ExampleModel Select1ByExampleIdToModel(int ExampleId);
+        RequirementChangehistoryModel Select1ByRequirementChangehistoryIdToModel(int RequirementChangehistoryId);
 
-        List<ExampleModel> SelectAllToList();
+        List<RequirementChangehistoryModel> SelectAllToList();
 
-        exampleSelectAllPaged SelectAllPagedToModel(exampleSelectAllPaged exampleSelectAllPaged);
+        requirementchangehistorySelectAllPaged SelectAllPagedToModel(requirementchangehistorySelectAllPaged requirementchangehistorySelectAllPaged, int RequirementId);
         #endregion
 
         #region Non-Queries
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <param name="Example"></param>
-        /// <returns>NewEnteredId: The ID of the last registry inserted in Example table</returns>
-        int Insert(ExampleModel Example);
+        /// <param name="RequirementChangehistory"></param>
+        /// <returns>NewEnteredId: The ID of the last registry inserted in RequirementChangehistory table</returns>
+        int Insert(RequirementChangehistoryModel RequirementChangehistory);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <param name="Example"></param>
-        /// <returns>The number of rows updated in Example table</returns>
-        int UpdateByExampleId(ExampleModel Example);
+        /// <param name="RequirementChangehistory"></param>
+        /// <returns>The number of rows updated in RequirementChangehistory table</returns>
+        int UpdateByRequirementChangehistoryId(RequirementChangehistoryModel RequirementChangehistory);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull deletion in database
         /// </summary>
-        /// <param name="ExampleId"></param>
-        /// <returns>The number of rows deleted in Example table</returns>
-        int DeleteByExampleId(int ExampleId);
+        /// <param name="RequirementChangehistoryId"></param>
+        /// <returns>The number of rows deleted in RequirementChangehistory table</returns>
+        int DeleteByRequirementChangehistoryId(int RequirementChangehistoryId);
 
         void DeleteManyOrAll(Ajax Ajax, string DeleteType);
 
-        int CopyByExampleId(int ExampleId);
+        int CopyByRequirementChangehistoryId(int RequirementChangehistoryId);
 
         int[] CopyManyOrAll(Ajax Ajax, string CopyType);
         #endregion

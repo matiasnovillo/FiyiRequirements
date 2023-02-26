@@ -15,58 +15,58 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 21/02/2023 17:54:25
+//Last modification on: 21/02/2023 17:48:26
 
-namespace FiyiRequirements.Areas.BasicCulture.Protocols
+namespace FiyiRequirements.Areas.BasicCulture.Interfaces
 {
     /// <summary>
     /// Stack:             5<br/>
-    /// Name:              C# Protocol/Interface. <br/>
-    /// Function:          This protocol/interface allow you to standardize the C# service associated. 
+    /// Name:              C# Interface. <br/>
+    /// Function:          This interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 21/02/2023 17:54:25
+    /// Last modification: 21/02/2023 17:48:26
     /// </summary>
-    public partial interface SexProtocol
+    public partial interface IPlanet
     {
         #region Queries
         /// <summary>
         /// Note: Raise exception when the query find duplicated IDs
         /// </summary>
-        /// <param name="SexId"></param>
+        /// <param name="PlanetId"></param>
         /// <returns></returns>
-        SexModel Select1BySexIdToModel(int SexId);
+        PlanetModel Select1ByPlanetIdToModel(int PlanetId);
 
-        List<SexModel> SelectAllToList();
+        List<PlanetModel> SelectAllToList();
 
-        sexSelectAllPaged SelectAllPagedToModel(sexSelectAllPaged sexSelectAllPaged);
+        planetSelectAllPaged SelectAllPagedToModel(planetSelectAllPaged planetSelectAllPaged);
         #endregion
 
         #region Non-Queries
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <param name="Sex"></param>
-        /// <returns>NewEnteredId: The ID of the last registry inserted in Sex table</returns>
-        int Insert(SexModel Sex);
+        /// <param name="Planet"></param>
+        /// <returns>NewEnteredId: The ID of the last registry inserted in Planet table</returns>
+        int Insert(PlanetModel Planet);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <param name="Sex"></param>
-        /// <returns>The number of rows updated in Sex table</returns>
-        int UpdateBySexId(SexModel Sex);
+        /// <param name="Planet"></param>
+        /// <returns>The number of rows updated in Planet table</returns>
+        int UpdateByPlanetId(PlanetModel Planet);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull deletion in database
         /// </summary>
-        /// <param name="SexId"></param>
-        /// <returns>The number of rows deleted in Sex table</returns>
-        int DeleteBySexId(int SexId);
+        /// <param name="PlanetId"></param>
+        /// <returns>The number of rows deleted in Planet table</returns>
+        int DeleteByPlanetId(int PlanetId);
 
         void DeleteManyOrAll(Ajax Ajax, string DeleteType);
 
-        int CopyBySexId(int SexId);
+        int CopyByPlanetId(int PlanetId);
 
         int[] CopyManyOrAll(Ajax Ajax, string CopyType);
         #endregion

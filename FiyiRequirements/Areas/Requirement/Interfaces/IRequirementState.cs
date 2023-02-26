@@ -15,58 +15,58 @@ using System.Collections.Generic;
  * 
  */
 
-//Last modification on: 21/02/2023 19:04:04
+//Last modification on: 21/02/2023 21:13:53
 
-namespace FiyiRequirements.Areas.Requirement.Protocols
+namespace FiyiRequirements.Areas.Requirement.Interfaces
 {
     /// <summary>
     /// Stack:             5<br/>
-    /// Name:              C# Protocol/Interface. <br/>
-    /// Function:          This protocol/interface allow you to standardize the C# service associated. 
+    /// Name:              C# Interface. <br/>
+    /// Function:          This interface allow you to standardize the C# service associated. 
     ///                    In other words, define the functions that has to implement the C# service. <br/>
     /// Note:              Raise exception in case of missing any function declared here but not in the service. <br/>
-    /// Last modification: 21/02/2023 19:04:04
+    /// Last modification: 21/02/2023 21:13:53
     /// </summary>
-    public partial interface RequirementChangehistoryProtocol
+    public partial interface IRequirementState
     {
         #region Queries
         /// <summary>
         /// Note: Raise exception when the query find duplicated IDs
         /// </summary>
-        /// <param name="RequirementChangehistoryId"></param>
+        /// <param name="RequirementStateId"></param>
         /// <returns></returns>
-        RequirementChangehistoryModel Select1ByRequirementChangehistoryIdToModel(int RequirementChangehistoryId);
+        RequirementStateModel Select1ByRequirementStateIdToModel(int RequirementStateId);
 
-        List<RequirementChangehistoryModel> SelectAllToList();
+        List<RequirementStateModel> SelectAllToList();
 
-        requirementchangehistorySelectAllPaged SelectAllPagedToModel(requirementchangehistorySelectAllPaged requirementchangehistorySelectAllPaged, int RequirementId);
+        requirementstateSelectAllPaged SelectAllPagedToModel(requirementstateSelectAllPaged requirementstateSelectAllPaged);
         #endregion
 
         #region Non-Queries
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull insertion in database
         /// </summary>
-        /// <param name="RequirementChangehistory"></param>
-        /// <returns>NewEnteredId: The ID of the last registry inserted in RequirementChangehistory table</returns>
-        int Insert(RequirementChangehistoryModel RequirementChangehistory);
+        /// <param name="RequirementState"></param>
+        /// <returns>NewEnteredId: The ID of the last registry inserted in RequirementState table</returns>
+        int Insert(RequirementStateModel RequirementState);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull update in database
         /// </summary>
-        /// <param name="RequirementChangehistory"></param>
-        /// <returns>The number of rows updated in RequirementChangehistory table</returns>
-        int UpdateByRequirementChangehistoryId(RequirementChangehistoryModel RequirementChangehistory);
+        /// <param name="RequirementState"></param>
+        /// <returns>The number of rows updated in RequirementState table</returns>
+        int UpdateByRequirementStateId(RequirementStateModel RequirementState);
 
         /// <summary>
         /// Note: Raise exception when the function did not made a succesfull deletion in database
         /// </summary>
-        /// <param name="RequirementChangehistoryId"></param>
-        /// <returns>The number of rows deleted in RequirementChangehistory table</returns>
-        int DeleteByRequirementChangehistoryId(int RequirementChangehistoryId);
+        /// <param name="RequirementStateId"></param>
+        /// <returns>The number of rows deleted in RequirementState table</returns>
+        int DeleteByRequirementStateId(int RequirementStateId);
 
         void DeleteManyOrAll(Ajax Ajax, string DeleteType);
 
-        int CopyByRequirementChangehistoryId(int RequirementChangehistoryId);
+        int CopyByRequirementStateId(int RequirementStateId);
 
         int[] CopyManyOrAll(Ajax Ajax, string CopyType);
         #endregion

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using FiyiRequirements.Areas.BasicCore.Models;
 using FiyiRequirements.Areas.CMSCore.DTOs;
 using FiyiRequirements.Areas.CMSCore.Filters;
-using FiyiRequirements.Areas.CMSCore.Protocols;
+using FiyiRequirements.Areas.CMSCore.Interfaces;
 using FiyiRequirements.Areas.CMSCore.Models;
 using FiyiRequirements.Library;
 using System.Threading.Tasks;
@@ -41,12 +41,12 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
     public partial class UserValuesController : ControllerBase
     {
         private readonly IWebHostEnvironment _WebHostEnvironment;
-        private readonly UserProtocol _UserProtocol;
+        private readonly IUser _IUser;
 
-        public UserValuesController(IWebHostEnvironment WebHostEnvironment, UserProtocol UserProtocol) 
+        public UserValuesController(IWebHostEnvironment WebHostEnvironment, IUser IUser) 
         {
             _WebHostEnvironment = WebHostEnvironment;
-            _UserProtocol = UserProtocol;
+            _IUser = IUser;
         }
 
         #region Queries
@@ -58,7 +58,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _UserProtocol.Select1ByUserIdToModel(UserId);
+                return _IUser.Select1ByUserIdToModel(UserId);
             }
             catch (Exception ex) 
             { 
@@ -90,7 +90,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                return _UserProtocol.SelectAllToList();
+                return _IUser.SelectAllToList();
             }
             catch (Exception ex) 
             { 
@@ -122,7 +122,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                 return _UserProtocol.SelectAllPagedToModel(userSelectAllPaged);
+                 return _IUser.SelectAllPagedToModel(userSelectAllPaged);
             }
             catch (Exception ex)
             {
@@ -205,7 +205,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                         
                     };
                     
-                    NewEnteredId = _UserProtocol.Insert(UserModel);
+                    NewEnteredId = _IUser.Insert(UserModel);
                 }
                 else
                 {
@@ -221,7 +221,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     UserModel.RegistrationToken = RegistrationToken;
                                        
 
-                    RowsAffected = _UserProtocol.UpdateByUserId(UserModel);
+                    RowsAffected = _IUser.UpdateByUserId(UserModel);
                 }
                 
 
@@ -290,7 +290,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int RowsAffected = _UserProtocol.DeleteByUserId(UserId);
+                int RowsAffected = _IUser.DeleteByUserId(UserId);
                 return StatusCode(200, RowsAffected);
             }
             catch (Exception ex) 
@@ -324,7 +324,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                _UserProtocol.DeleteManyOrAll(Ajax, DeleteType);
+                _IUser.DeleteManyOrAll(Ajax, DeleteType);
 
                 return StatusCode(200, Ajax.AjaxForString);
             }
@@ -359,7 +359,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int NewEnteredId = _UserProtocol.CopyByUserId(UserId);
+                int NewEnteredId = _IUser.CopyByUserId(UserId);
 
                 return StatusCode(200, NewEnteredId);
             }
@@ -394,7 +394,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                int[] NewEnteredIds = _UserProtocol.CopyManyOrAll(Ajax, CopyType);
+                int[] NewEnteredIds = _IUser.CopyManyOrAll(Ajax, CopyType);
                 string NewEnteredIdsAsString = "";
 
                 for (int i = 0; i < NewEnteredIds.Length; i++)
@@ -436,7 +436,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 string FantasyNameOrEmail = HttpContext.Request.Form["fantasynameoremail"];
                 string Password = HttpContext.Request.Form["password"];
 
-                UserModel UserModel = _UserProtocol.Login(FantasyNameOrEmail, Password);
+                UserModel UserModel = _IUser.Login(FantasyNameOrEmail, Password);
 
                 if (UserModel.UserId != 0)
                 {
@@ -481,7 +481,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 string ActualPassword = HttpContext.Request.Form["actual-password"];
                 string NewPassword = HttpContext.Request.Form["new-password"];
 
-                string Message = _UserProtocol.ChangePassword(UserId, ActualPassword, NewPassword);
+                string Message = _IUser.ChangePassword(UserId, ActualPassword, NewPassword);
 
                 return StatusCode(200, Message);
             }
@@ -526,7 +526,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                     return StatusCode(200, "The captcha is invalid");
                 }
 
-                string Message = _UserProtocol.Register(FantasyName, Email, Password);
+                string Message = _IUser.Register(FantasyName, Email, Password);
 
                 return StatusCode(200, Message);
             }
@@ -560,7 +560,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
             {
                 string Email = HttpContext.Request.Form["email"];
 
-                string Message = _UserProtocol.RecoverPassword(Email);
+                string Message = _IUser.RecoverPassword(Email);
 
                 return StatusCode(200, Message);
             }
@@ -629,7 +629,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _UserProtocol.ExportAsPDF(Ajax, ExportationType);
+                DateTime Now = _IUser.ExportAsPDF(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -664,7 +664,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _UserProtocol.ExportAsExcel(Ajax, ExportationType);
+                DateTime Now = _IUser.ExportAsExcel(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
@@ -699,7 +699,7 @@ namespace FiyiRequirements.Areas.CMSCore.Controllers
                 var SyncIO = HttpContext.Features.Get<IHttpBodyControlFeature>();
                 if (SyncIO != null) { SyncIO.AllowSynchronousIO = true; }
 
-                DateTime Now = _UserProtocol.ExportAsCSV(Ajax, ExportationType);
+                DateTime Now = _IUser.ExportAsCSV(Ajax, ExportationType);
 
                 return StatusCode(200, new Ajax() { AjaxForString = Now.ToString("yyyy_MM_dd_HH_mm_ss_fff") });
             }
