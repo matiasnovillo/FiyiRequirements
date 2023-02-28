@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.requirementfilemodelQuery = exports.RequirementFileModel = void 0;
+exports.RequirementFileModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var RequirementFileModel = /** @class */ (function () {
         var URL = "/api/Requirement/RequirementFile/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    RequirementFileModel.SelectAllPaged = function (requirementfilemodelQuery, RequirementId) {
+    RequirementFileModel.SelectAllPaged = function (requirementfileSelectAllPaged, RequirementId) {
         var URL = "/api/Requirement/RequirementFile/1/SelectAllPagedToJSON/" + RequirementId;
         var Body = {
-            requirementfileQueryString: requirementfilemodelQuery.requirementfileQueryString,
-            requirementfileActualPageNumber: requirementfilemodelQuery.requirementfileActualPageNumber,
-            requirementfileRowsPerPage: requirementfilemodelQuery.requirementfileRowsPerPage,
-            requirementfileSorterColumn: requirementfilemodelQuery.requirementfileSorterColumn,
-            requirementfileSortToggler: requirementfilemodelQuery.requirementfileSortToggler,
-            requirementfileRowCount: requirementfilemodelQuery.requirementfileTotalRows,
-            requirementfileTotalPages: requirementfilemodelQuery.requirementfileTotalPages,
-            lstRequirementFileModel: requirementfilemodelQuery.lstRequirementFileModel
+            requirementfileQueryString: requirementfileSelectAllPaged.requirementfileQueryString,
+            requirementfileActualPageNumber: requirementfileSelectAllPaged.requirementfileActualPageNumber,
+            requirementfileRowsPerPage: requirementfileSelectAllPaged.requirementfileRowsPerPage,
+            requirementfileSorterColumn: requirementfileSelectAllPaged.requirementfileSorterColumn,
+            requirementfileSortToggler: requirementfileSelectAllPaged.requirementfileSortToggler,
+            requirementfileRowCount: requirementfileSelectAllPaged.requirementfileTotalRows,
+            requirementfileTotalPages: requirementfileSelectAllPaged.requirementfileTotalPages,
+            lstRequirementFileModel: requirementfileSelectAllPaged.lstRequirementFileModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var RequirementFileModel = /** @class */ (function () {
     return RequirementFileModel;
 }());
 exports.RequirementFileModel = RequirementFileModel;
-var requirementfilemodelQuery = /** @class */ (function () {
-    function requirementfilemodelQuery() {
-    }
-    return requirementfilemodelQuery;
-}());
-exports.requirementfilemodelQuery = requirementfilemodelQuery;
 //# sourceMappingURL=RequirementFile_TsModel.js.map

@@ -1,5 +1,6 @@
 //Import libraries to use
-import { MenuModel, menumodelQuery } from "../../Menu/TsModels/Menu_TsModel";
+import { MenuModel } from "../../Menu/TsModels/Menu_TsModel";
+import { menuSelectAllPaged } from "../DTOs/menuSelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class MenuQuery {
-    static SelectAllPagedToHTML(request_menumodelQuery: menumodelQuery) {
+    static SelectAllPagedToHTML(request_menuSelectAllPaged: menuSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -109,13 +110,13 @@ class MenuQuery {
 
         var ListContent: string = ``;
 
-        MenuModel.SelectAllPaged(request_menumodelQuery).subscribe(
+        MenuModel.SelectAllPaged(request_menuSelectAllPaged).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_menuQuery = newrow.response as menumodelQuery;
+                        const response_menuQuery = newrow.response as menuSelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_menuQuery.QueryString ?? "";
@@ -476,7 +477,7 @@ class MenuQuery {
 
 function ValidateAndSearch() {
 
-    var _menumodelQuery: menumodelQuery = {
+    var _menuSelectAllPaged: menuSelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -486,7 +487,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    MenuQuery.SelectAllPagedToHTML(_menumodelQuery);
+    MenuQuery.SelectAllPagedToHTML(_menuSelectAllPaged);
 }
 
 //LOAD EVENT

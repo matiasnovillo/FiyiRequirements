@@ -1,5 +1,6 @@
 //Import libraries to use
-import { RoleModel, rolemodelQuery } from "../../Role/TsModels/Role_TsModel";
+import { RoleModel } from "../../Role/TsModels/Role_TsModel";
+import { roleSelectAllPaged } from "../DTOs/roleSelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class RoleQuery {
-    static SelectAllPagedToHTML(request_rolemodelQuery: rolemodelQuery) {
+    static SelectAllPagedToHTML(request_roleSelectAllPaged: roleSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -89,13 +90,13 @@ class RoleQuery {
 
         var ListContent: string = ``;
 
-        RoleModel.SelectAllPaged(request_rolemodelQuery).subscribe(
+        RoleModel.SelectAllPaged(request_roleSelectAllPaged).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_roleQuery = newrow.response as rolemodelQuery;
+                        const response_roleQuery = newrow.response as roleSelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_roleQuery.QueryString ?? "";
@@ -420,7 +421,7 @@ class RoleQuery {
 
 function ValidateAndSearch() {
 
-    var _rolemodelQuery: rolemodelQuery = {
+    var _roleSelectAllPaged: roleSelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -430,7 +431,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    RoleQuery.SelectAllPagedToHTML(_rolemodelQuery);
+    RoleQuery.SelectAllPagedToHTML(_roleSelectAllPaged);
 }
 
 //LOAD EVENT

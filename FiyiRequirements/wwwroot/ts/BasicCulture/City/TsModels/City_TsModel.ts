@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { citySelectAllPaged } from "../DTOs/citySelectAllPaged";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -43,17 +44,17 @@ export class CityModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(citymodelQuery: citymodelQuery) {
+    static SelectAllPaged(citySelectAllPaged: citySelectAllPaged) {
         let URL = "/api/BasicCulture/City/1/SelectAllPagedToJSON";
         let Body = {
-            QueryString: citymodelQuery.QueryString,
-            ActualPageNumber: citymodelQuery.ActualPageNumber,
-            RowsPerPage: citymodelQuery.RowsPerPage,
-            SorterColumn: citymodelQuery.SorterColumn,
-            SortToggler: citymodelQuery.SortToggler,
-            RowCount: citymodelQuery.TotalRows,
-            TotalPages: citymodelQuery.TotalPages,
-            lstCityModel: citymodelQuery.lstCityModel
+            QueryString: citySelectAllPaged.QueryString,
+            ActualPageNumber: citySelectAllPaged.ActualPageNumber,
+            RowsPerPage: citySelectAllPaged.RowsPerPage,
+            SorterColumn: citySelectAllPaged.SorterColumn,
+            SortToggler: citySelectAllPaged.SortToggler,
+            RowCount: citySelectAllPaged.TotalRows,
+            TotalPages: citySelectAllPaged.TotalPages,
+            lstCityModel: citySelectAllPaged.lstCityModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -99,15 +100,4 @@ export class CityModel {
         };
         return Rx.from(ajax.post(URL, Body, Header));
     }
-}
-
-export class citymodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
-    lstCityModel?: CityModel[] | undefined;
 }

@@ -56,47 +56,66 @@
 
          failuretsmodel: ["./wwwroot/ts/BasicCore/Failure/TsModels/Failure_TsModel"], //Area: BasicCore
          failurejquery: ["./wwwroot/ts/BasicCore/Failure/jQuery/FailureQuery_jQuery"],
+         failureselectallpaged: ["./wwwroot/ts/BasicCore/Failure/DTOs/failureSelectAllPaged"],
          parametertsmodel: ["./wwwroot/ts/BasicCore/Parameter/TsModels/Parameter_TsModel"],
          parameterjquery: ["./wwwroot/ts/BasicCore/Parameter/jQuery/ParameterQuery_jQuery"],
+         parameterselectallpaged: ["./wwwroot/ts/BasicCore/Parameter/DTOs/parameterSelectAllPaged"],
          visitorcountertsmodel: ["./wwwroot/ts/BasicCore/VisitorCounter/TsModels/VisitorCounter_TsModel"],
          visitorcounterjquery: ["./wwwroot/ts/BasicCore/VisitorCounter/jQuery/VisitorCounterQuery_jQuery"],
+         visitorcounterselectallpaged: ["./wwwroot/ts/BasicCore/VisitorCounter/DTOs/visitorcounterSelectAllPaged"],
 
          citytsmodel: ["./wwwroot/ts/BasicCulture/City/TsModels/City_TsModel"], //Area: BasicCulture
          cityjquery: ["./wwwroot/ts/BasicCulture/City/jQuery/CityQuery_jQuery"],
+         cityselectallpaged: ["./wwwroot/ts/BasicCulture/City/DTOs/citySelectAllPaged"],
          countrytsmodel: ["./wwwroot/ts/BasicCulture/Country/TsModels/Country_TsModel"],
          countryjquery: ["./wwwroot/ts/BasicCulture/Country/jQuery/CountryQuery_jQuery"],
+         countryselectallpaged: ["./wwwroot/ts/BasicCulture/Country/DTOs/countrySelectAllPaged"],
          provincetsmodel: ["./wwwroot/ts/BasicCulture/Province/TsModels/Province_TsModel"],
          provincejquery: ["./wwwroot/ts/BasicCulture/Province/jQuery/ProvinceQuery_jQuery"],
+         provinceselectallpaged: ["./wwwroot/ts/BasicCulture/Province/DTOs/provinceSelectAllPaged"],
          planettsmodel: ["./wwwroot/ts/BasicCulture/Planet/TsModels/Planet_TsModel"],
          planetjquery: ["./wwwroot/ts/BasicCulture/Planet/jQuery/PlanetQuery_jQuery"],
+         planetselectallpaged: ["./wwwroot/ts/BasicCulture/Planet/DTOs/planetSelectAllPaged"],
          sextsmodel: ["./wwwroot/ts/BasicCulture/Sex/TsModels/Sex_TsModel"],
          sexjquery: ["./wwwroot/ts/BasicCulture/Sex/jQuery/SexQuery_jQuery"],
+         sexselectallpaged: ["./wwwroot/ts/BasicCulture/Sex/DTOs/sexSelectAllPaged"],
 
          usertsmodel: ["./wwwroot/ts/CMSCore/User/TsModels/User_TsModel"],  //Area: CMSCore
          userjquery: ["./wwwroot/ts/CMSCore/User/jQuery/UserQuery_jQuery"],
+         userselectallpaged: ["./wwwroot/ts/CMSCore/User/DTOs/userSelectAllPaged"],
          menutsmodel: ["./wwwroot/ts/CMSCore/Menu/TsModels/Menu_TsModel"],
          menujquery: ["./wwwroot/ts/CMSCore/Menu/jQuery/MenuQuery_jQuery"],
+         menuselectallpaged: ["./wwwroot/ts/CMSCore/Menu/DTOs/menuSelectAllPaged"],
          roletsmodel: ["./wwwroot/ts/CMSCore/Role/TsModels/Role_TsModel"],
          rolejquery: ["./wwwroot/ts/CMSCore/Role/jQuery/RoleQuery_jQuery"],
+         roleselectallpaged: ["./wwwroot/ts/CMSCore/Role/DTOs/roleSelectAllPaged"],
          rolemenutsmodel: ["./wwwroot/ts/CMSCore/RoleMenu/TsModels/RoleMenu_TsModel"],
          rolemenujquery: ["./wwwroot/ts/CMSCore/RoleMenu/jQuery/RoleMenuQuery_jQuery"],
+         rolemenuselectallpaged: ["./wwwroot/ts/CMSCore/RoleMenu/DTOs/rolemenuSelectAllPaged"],
          pagepermissions: ["./wwwroot/ts/CMSCore/PagePermissions"],
 
          requirementtsmodel: ["./wwwroot/ts/Requirement/Requirement/TsModels/Requirement_TsModel"], //Area: Requirement
          requirementjquery: ["./wwwroot/ts/Requirement/Requirement/jQuery/RequirementQuery_jQuery"],
+         requirementselectallpaged: ["./wwwroot/ts/Requirement/Requirement/DTOs/requirementSelectAllPaged"],
          requirementchangehistorytsmodel: ["./wwwroot/ts/Requirement/RequirementChangehistory/TsModels/RequirementChangehistory_TsModel"],
          requirementchangehistoryjquery: ["./wwwroot/ts/Requirement/RequirementChangehistory/jQuery/RequirementChangehistoryQuery_jQuery"],
+         requirementchangehistoryselectallpaged: ["./wwwroot/ts/Requirement/RequirementChangehistory/DTOs/requirementchangehistorySelectAllPaged"],
          requirementfiletsmodel: ["./wwwroot/ts/Requirement/RequirementFile/TsModels/RequirementFile_TsModel"],
          requirementfilejquery: ["./wwwroot/ts/Requirement/RequirementFile/jQuery/RequirementFileQuery_jQuery"],
+         requirementfileselectallpaged: ["./wwwroot/ts/Requirement/RequirementFile/DTOs/requirementfileSelectAllPaged"],
          requirementnotetsmodel: ["./wwwroot/ts/Requirement/RequirementNote/TsModels/RequirementNote_TsModel"],
          requirementnotejquery: ["./wwwroot/ts/Requirement/RequirementNote/jQuery/RequirementNoteQuery_jQuery"],
+         requirementnoteselectallpaged: ["./wwwroot/ts/Requirement/RequirementNote/DTOs/requirementnoteSelectAllPaged"],
          requirementprioritytsmodel: ["./wwwroot/ts/Requirement/RequirementPriority/TsModels/RequirementPriority_TsModel"],
          requirementpriorityjquery: ["./wwwroot/ts/Requirement/RequirementPriority/jQuery/RequirementPriorityQuery_jQuery"],
+         requirementpriorityselectallpaged: ["./wwwroot/ts/Requirement/RequirementPriority/DTOs/requirementprioritySelectAllPaged"],
          requirementstatetsmodel: ["./wwwroot/ts/Requirement/RequirementState/TsModels/RequirementState_TsModel"],
          requirementstatejquery: ["./wwwroot/ts/Requirement/RequirementState/jQuery/RequirementStateQuery_jQuery"],
+         requirementstateselectallpaged: ["./wwwroot/ts/Requirement/RequirementState/DTOs/requirementstateSelectAllPaged"],
 
          exampletsmodel: ["./wwwroot/ts/Examples/Example/TsModels/Example_TsModel"], //Area: Examples
-         examplejquery: ["./wwwroot/ts/Examples/Example/jQuery/ExampleQuery_jQuery"]
+         examplejquery: ["./wwwroot/ts/Examples/Example/jQuery/ExampleQuery_jQuery"],
+         exampleselectallpaged: ["./wwwroot/ts/Examples/Example/DTOs/exampleSelectAllPaged"],
      },
      output: {
          filename: "[name].bundle.js",                       //Path to save bundles: __dirname + "/wwwroot/dist" (__dirname is a Node.js variable)

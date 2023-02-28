@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { roleSelectAllPaged } from "../DTOs/roleSelectAllPaged";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -39,17 +40,17 @@ export class RoleModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(rolemodelQuery: rolemodelQuery) {
+    static SelectAllPaged(roleSelectAllPaged: roleSelectAllPaged) {
         let URL = "/api/CMSCore/Role/1/SelectAllPagedToJSON";
         let Body = {
-            QueryString: rolemodelQuery.QueryString,
-            ActualPageNumber: rolemodelQuery.ActualPageNumber,
-            RowsPerPage: rolemodelQuery.RowsPerPage,
-            SorterColumn: rolemodelQuery.SorterColumn,
-            SortToggler: rolemodelQuery.SortToggler,
-            RowCount: rolemodelQuery.TotalRows,
-            TotalPages: rolemodelQuery.TotalPages,
-            lstRoleModel: rolemodelQuery.lstRoleModel
+            QueryString: roleSelectAllPaged.QueryString,
+            ActualPageNumber: roleSelectAllPaged.ActualPageNumber,
+            RowsPerPage: roleSelectAllPaged.RowsPerPage,
+            SorterColumn: roleSelectAllPaged.SorterColumn,
+            SortToggler: roleSelectAllPaged.SortToggler,
+            RowCount: roleSelectAllPaged.TotalRows,
+            TotalPages: roleSelectAllPaged.TotalPages,
+            lstRoleModel: roleSelectAllPaged.lstRoleModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -95,15 +96,4 @@ export class RoleModel {
         };
         return Rx.from(ajax.post(URL, Body, Header));
     }
-}
-
-export class rolemodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
-    lstRoleModel?: RoleModel[] | undefined;
 }

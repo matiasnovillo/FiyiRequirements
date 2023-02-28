@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.requirementmodelQuery = exports.RequirementModel = void 0;
+exports.RequirementModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var RequirementModel = /** @class */ (function () {
         var URL = "/api/Requirement/Requirement/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    RequirementModel.SelectAllPaged = function (requirementmodelQuery) {
+    RequirementModel.SelectAllPaged = function (requirementSelectAllPaged) {
         var URL = "/api/Requirement/Requirement/1/SelectAllPagedToJSON";
         var Body = {
-            QueryString: requirementmodelQuery.QueryString,
-            ActualPageNumber: requirementmodelQuery.ActualPageNumber,
-            RowsPerPage: requirementmodelQuery.RowsPerPage,
-            SorterColumn: requirementmodelQuery.SorterColumn,
-            SortToggler: requirementmodelQuery.SortToggler,
-            RowCount: requirementmodelQuery.TotalRows,
-            TotalPages: requirementmodelQuery.TotalPages,
-            lstRequirementModel: requirementmodelQuery.lstRequirementModel
+            QueryString: requirementSelectAllPaged.QueryString,
+            ActualPageNumber: requirementSelectAllPaged.ActualPageNumber,
+            RowsPerPage: requirementSelectAllPaged.RowsPerPage,
+            SorterColumn: requirementSelectAllPaged.SorterColumn,
+            SortToggler: requirementSelectAllPaged.SortToggler,
+            RowCount: requirementSelectAllPaged.TotalRows,
+            TotalPages: requirementSelectAllPaged.TotalPages,
+            lstRequirementModel: requirementSelectAllPaged.lstRequirementModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var RequirementModel = /** @class */ (function () {
     return RequirementModel;
 }());
 exports.RequirementModel = RequirementModel;
-var requirementmodelQuery = /** @class */ (function () {
-    function requirementmodelQuery() {
-    }
-    return requirementmodelQuery;
-}());
-exports.requirementmodelQuery = requirementmodelQuery;
 //# sourceMappingURL=Requirement_TsModel.js.map

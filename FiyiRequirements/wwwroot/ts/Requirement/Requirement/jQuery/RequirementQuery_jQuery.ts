@@ -1,5 +1,6 @@
 //Import libraries to use
-import { RequirementModel, requirementmodelQuery } from "../../Requirement/TsModels/Requirement_TsModel";
+import { RequirementModel } from "../../Requirement/TsModels/Requirement_TsModel";
+import { requirementSelectAllPaged } from "../DTOs/requirementSelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class RequirementQuery {
-    static SelectAllPagedToHTML(request_requirementmodelQuery: requirementmodelQuery) {
+    static SelectAllPagedToHTML(request_requirementSelectAllPaged: requirementSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -109,13 +110,13 @@ class RequirementQuery {
 
         var ListContent: string = ``;
 
-        RequirementModel.SelectAllPaged(request_requirementmodelQuery).subscribe(
+        RequirementModel.SelectAllPaged(request_requirementSelectAllPaged).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_requirementQuery = newrow.response as requirementmodelQuery;
+                        const response_requirementQuery = newrow.response as requirementSelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_requirementQuery.QueryString ?? "";
@@ -474,7 +475,7 @@ class RequirementQuery {
 
 function ValidateAndSearch() {
 
-    var _requirementmodelQuery: requirementmodelQuery = {
+    var _requirementSelectAllPaged: requirementSelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -484,7 +485,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    RequirementQuery.SelectAllPagedToHTML(_requirementmodelQuery);
+    RequirementQuery.SelectAllPagedToHTML(_requirementSelectAllPaged);
 }
 
 //LOAD EVENT

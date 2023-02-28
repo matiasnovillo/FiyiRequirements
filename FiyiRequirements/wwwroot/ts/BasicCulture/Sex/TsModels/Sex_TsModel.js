@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sexmodelQuery = exports.SexModel = void 0;
+exports.SexModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var SexModel = /** @class */ (function () {
         var URL = "/api/BasicCulture/Sex/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    SexModel.SelectAllPaged = function (sexmodelQuery) {
+    SexModel.SelectAllPaged = function (sexSelectAllPaged) {
         var URL = "/api/BasicCulture/Sex/1/SelectAllPagedToJSON";
         var Body = {
-            QueryString: sexmodelQuery.QueryString,
-            ActualPageNumber: sexmodelQuery.ActualPageNumber,
-            RowsPerPage: sexmodelQuery.RowsPerPage,
-            SorterColumn: sexmodelQuery.SorterColumn,
-            SortToggler: sexmodelQuery.SortToggler,
-            RowCount: sexmodelQuery.TotalRows,
-            TotalPages: sexmodelQuery.TotalPages,
-            lstSexModel: sexmodelQuery.lstSexModel
+            QueryString: sexSelectAllPaged.QueryString,
+            ActualPageNumber: sexSelectAllPaged.ActualPageNumber,
+            RowsPerPage: sexSelectAllPaged.RowsPerPage,
+            SorterColumn: sexSelectAllPaged.SorterColumn,
+            SortToggler: sexSelectAllPaged.SortToggler,
+            RowCount: sexSelectAllPaged.TotalRows,
+            TotalPages: sexSelectAllPaged.TotalPages,
+            lstSexModel: sexSelectAllPaged.lstSexModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var SexModel = /** @class */ (function () {
     return SexModel;
 }());
 exports.SexModel = SexModel;
-var sexmodelQuery = /** @class */ (function () {
-    function sexmodelQuery() {
-    }
-    return sexmodelQuery;
-}());
-exports.sexmodelQuery = sexmodelQuery;
 //# sourceMappingURL=Sex_TsModel.js.map

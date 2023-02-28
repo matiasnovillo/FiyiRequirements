@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.planetmodelQuery = exports.PlanetModel = void 0;
+exports.PlanetModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var PlanetModel = /** @class */ (function () {
         var URL = "/api/BasicCulture/Planet/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    PlanetModel.SelectAllPaged = function (planetmodelQuery) {
+    PlanetModel.SelectAllPaged = function (planetSelectAllPaged) {
         var URL = "/api/BasicCulture/Planet/1/SelectAllPagedToJSON";
         var Body = {
-            QueryString: planetmodelQuery.QueryString,
-            ActualPageNumber: planetmodelQuery.ActualPageNumber,
-            RowsPerPage: planetmodelQuery.RowsPerPage,
-            SorterColumn: planetmodelQuery.SorterColumn,
-            SortToggler: planetmodelQuery.SortToggler,
-            RowCount: planetmodelQuery.TotalRows,
-            TotalPages: planetmodelQuery.TotalPages,
-            lstPlanetModel: planetmodelQuery.lstPlanetModel
+            QueryString: planetSelectAllPaged.QueryString,
+            ActualPageNumber: planetSelectAllPaged.ActualPageNumber,
+            RowsPerPage: planetSelectAllPaged.RowsPerPage,
+            SorterColumn: planetSelectAllPaged.SorterColumn,
+            SortToggler: planetSelectAllPaged.SortToggler,
+            RowCount: planetSelectAllPaged.TotalRows,
+            TotalPages: planetSelectAllPaged.TotalPages,
+            lstPlanetModel: planetSelectAllPaged.lstPlanetModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var PlanetModel = /** @class */ (function () {
     return PlanetModel;
 }());
 exports.PlanetModel = PlanetModel;
-var planetmodelQuery = /** @class */ (function () {
-    function planetmodelQuery() {
-    }
-    return planetmodelQuery;
-}());
-exports.planetmodelQuery = planetmodelQuery;
 //# sourceMappingURL=Planet_TsModel.js.map

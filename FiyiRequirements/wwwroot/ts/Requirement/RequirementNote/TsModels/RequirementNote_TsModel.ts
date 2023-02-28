@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { requirementnoteSelectAllPaged } from "../DTOs/requirementnoteSelectAllPaged";
 
 
 /*
@@ -42,17 +43,17 @@ export class RequirementNoteModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(requirementnotemodelQuery: requirementnotemodelQuery, RequirementId: any) {
+    static SelectAllPaged(requirementnoteSelectAllPaged: requirementnoteSelectAllPaged, RequirementId: any) {
         let URL = "/api/Requirement/RequirementNote/1/SelectAllPagedToJSON/" + RequirementId;
         let Body = {
-            QueryString: requirementnotemodelQuery.QueryString,
-            ActualPageNumber: requirementnotemodelQuery.ActualPageNumber,
-            RowsPerPage: requirementnotemodelQuery.RowsPerPage,
-            SorterColumn: requirementnotemodelQuery.SorterColumn,
-            SortToggler: requirementnotemodelQuery.SortToggler,
-            RowCount: requirementnotemodelQuery.TotalRows,
-            TotalPages: requirementnotemodelQuery.TotalPages,
-            lstRequirementNoteModel: requirementnotemodelQuery.lstRequirementNoteModel
+            QueryString: requirementnoteSelectAllPaged.QueryString,
+            ActualPageNumber: requirementnoteSelectAllPaged.ActualPageNumber,
+            RowsPerPage: requirementnoteSelectAllPaged.RowsPerPage,
+            SorterColumn: requirementnoteSelectAllPaged.SorterColumn,
+            SortToggler: requirementnoteSelectAllPaged.SortToggler,
+            RowCount: requirementnoteSelectAllPaged.TotalRows,
+            TotalPages: requirementnoteSelectAllPaged.TotalPages,
+            lstRequirementNoteModel: requirementnoteSelectAllPaged.lstRequirementNoteModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -98,15 +99,4 @@ export class RequirementNoteModel {
         };
         return Rx.from(ajax.post(URL, Body, Header));
     }
-}
-
-export class requirementnotemodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
-    lstRequirementNoteModel?: RequirementNoteModel[] | undefined;
 }

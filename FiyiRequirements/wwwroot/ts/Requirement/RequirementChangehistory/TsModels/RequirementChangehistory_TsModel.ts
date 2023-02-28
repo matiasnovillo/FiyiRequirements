@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { requirementchangehistorySelectAllPaged } from "../DTOs/requirementchangehistorySelectAllPaged";
 
 
 /*
@@ -45,17 +46,17 @@ export class RequirementChangehistoryModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(requirementchangehistorymodelQuery: requirementchangehistorymodelQuery, RequirementId: any) {
+    static SelectAllPaged(requirementchangehistorySelectAllPaged: requirementchangehistorySelectAllPaged, RequirementId: any) {
         let URL = "/api/Requirement/RequirementChangehistory/1/SelectAllPagedToJSON/" + RequirementId;
         let Body = {
-            requirementchangehistoryQueryString: requirementchangehistorymodelQuery.requirementchangehistoryQueryString,
-            requirementchangehistoryActualPageNumber: requirementchangehistorymodelQuery.requirementchangehistoryActualPageNumber,
-            requirementchangehistoryRowsPerPage: requirementchangehistorymodelQuery.requirementchangehistoryRowsPerPage,
-            requirementchangehistorySorterColumn: requirementchangehistorymodelQuery.requirementchangehistorySorterColumn,
-            requirementchangehistorySortToggler: requirementchangehistorymodelQuery.requirementchangehistorySortToggler,
-            requirementchangehistoryRowCount: requirementchangehistorymodelQuery.requirementchangehistoryTotalRows,
-            requirementchangehistoryTotalPages: requirementchangehistorymodelQuery.requirementchangehistoryTotalPages,
-            lstRequirementChangehistoryModel: requirementchangehistorymodelQuery.lstRequirementChangehistoryModel
+            requirementchangehistoryQueryString: requirementchangehistorySelectAllPaged.requirementchangehistoryQueryString,
+            requirementchangehistoryActualPageNumber: requirementchangehistorySelectAllPaged.requirementchangehistoryActualPageNumber,
+            requirementchangehistoryRowsPerPage: requirementchangehistorySelectAllPaged.requirementchangehistoryRowsPerPage,
+            requirementchangehistorySorterColumn: requirementchangehistorySelectAllPaged.requirementchangehistorySorterColumn,
+            requirementchangehistorySortToggler: requirementchangehistorySelectAllPaged.requirementchangehistorySortToggler,
+            requirementchangehistoryRowCount: requirementchangehistorySelectAllPaged.requirementchangehistoryTotalRows,
+            requirementchangehistoryTotalPages: requirementchangehistorySelectAllPaged.requirementchangehistoryTotalPages,
+            lstRequirementChangehistoryModel: requirementchangehistorySelectAllPaged.lstRequirementChangehistoryModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -101,15 +102,4 @@ export class RequirementChangehistoryModel {
         };
         return Rx.from(ajax.post(URL, Body, Header));
     }
-}
-
-export class requirementchangehistorymodelQuery {
-    requirementchangehistoryQueryString ?: string;
-    requirementchangehistoryActualPageNumber?: number;
-    requirementchangehistoryRowsPerPage?: number;
-    requirementchangehistorySorterColumn?: string;
-    requirementchangehistorySortToggler?: boolean;
-    requirementchangehistoryTotalRows?: number;
-    requirementchangehistoryTotalPages?: number;
-    lstRequirementChangehistoryModel?: RequirementChangehistoryModel[] | undefined;
 }

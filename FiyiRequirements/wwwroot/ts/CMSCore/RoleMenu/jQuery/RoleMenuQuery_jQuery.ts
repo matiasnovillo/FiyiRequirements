@@ -1,5 +1,6 @@
 //Import libraries to use
-import { RoleMenuModel, rolemenumodelQuery } from "../../RoleMenu/TsModels/RoleMenu_TsModel";
+import { RoleMenuModel } from "../../RoleMenu/TsModels/RoleMenu_TsModel";
+import { rolemenuSelectAllPaged } from "../DTOs/rolemenuSelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -33,7 +34,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class RoleMenuQuery {
-    static SelectAllPagedToHTML(request_rolemenumodelQuery: rolemenumodelQuery) {
+    static SelectAllPagedToHTML(request_rolemenuSelectAllPaged: rolemenuSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -93,13 +94,13 @@ class RoleMenuQuery {
 
         var ListContent: string = ``;
 
-        RoleMenuModel.SelectAllPaged(request_rolemenumodelQuery).subscribe(
+        RoleMenuModel.SelectAllPaged(request_rolemenuSelectAllPaged).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_rolemenuQuery = newrow.response as rolemenumodelQuery;
+                        const response_rolemenuQuery = newrow.response as rolemenuSelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_rolemenuQuery.QueryString ?? "";
@@ -449,7 +450,7 @@ function ValidateAndSearch() {
     $("#cmscore-rolemenu-button-error-message-in-card").hide();
     $("#cmscore-rolemenu-button-ok-message-in-card").hide();
 
-    var _rolemenumodelQuery: rolemenumodelQuery = {
+    var _rolemenuSelectAllPaged: rolemenuSelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -459,7 +460,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    RoleMenuQuery.SelectAllPagedToHTML(_rolemenumodelQuery);
+    RoleMenuQuery.SelectAllPagedToHTML(_rolemenuSelectAllPaged);
 }
 
 //LOAD EVENT

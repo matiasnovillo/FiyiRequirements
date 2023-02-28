@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.rolemenumodelQuery = exports.RoleMenuModel = void 0;
+exports.RoleMenuModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var RoleMenuModel = /** @class */ (function () {
         var URL = "/api/CMSCore/RoleMenu/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    RoleMenuModel.SelectAllPaged = function (rolemenumodelQuery) {
+    RoleMenuModel.SelectAllPaged = function (rolemenuSelectAllPaged) {
         var URL = "/api/CMSCore/RoleMenu/1/SelectAllPagedToJSON";
         var Body = {
-            QueryString: rolemenumodelQuery.QueryString,
-            ActualPageNumber: rolemenumodelQuery.ActualPageNumber,
-            RowsPerPage: rolemenumodelQuery.RowsPerPage,
-            SorterColumn: rolemenumodelQuery.SorterColumn,
-            SortToggler: rolemenumodelQuery.SortToggler,
-            RowCount: rolemenumodelQuery.TotalRows,
-            TotalPages: rolemenumodelQuery.TotalPages,
-            lstRoleMenuModel: rolemenumodelQuery.lstRoleMenuModel
+            QueryString: rolemenuSelectAllPaged.QueryString,
+            ActualPageNumber: rolemenuSelectAllPaged.ActualPageNumber,
+            RowsPerPage: rolemenuSelectAllPaged.RowsPerPage,
+            SorterColumn: rolemenuSelectAllPaged.SorterColumn,
+            SortToggler: rolemenuSelectAllPaged.SortToggler,
+            RowCount: rolemenuSelectAllPaged.TotalRows,
+            TotalPages: rolemenuSelectAllPaged.TotalPages,
+            lstRoleMenuModel: rolemenuSelectAllPaged.lstRoleMenuModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var RoleMenuModel = /** @class */ (function () {
     return RoleMenuModel;
 }());
 exports.RoleMenuModel = RoleMenuModel;
-var rolemenumodelQuery = /** @class */ (function () {
-    function rolemenumodelQuery() {
-    }
-    return rolemenumodelQuery;
-}());
-exports.rolemenumodelQuery = rolemenumodelQuery;
 //# sourceMappingURL=RoleMenu_TsModel.js.map

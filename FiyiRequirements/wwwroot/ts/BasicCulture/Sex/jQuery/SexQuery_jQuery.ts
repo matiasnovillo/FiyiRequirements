@@ -1,5 +1,6 @@
 //Import libraries to use
-import { SexModel, sexmodelQuery } from "../../Sex/TsModels/Sex_TsModel";
+import { SexModel } from "../../Sex/TsModels/Sex_TsModel";
+import { sexSelectAllPaged } from "../DTOs/sexSelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class SexQuery {
-    static SelectAllPagedToHTML(request_sexmodelQuery: sexmodelQuery) {
+    static SelectAllPagedToHTML(request_sexSelectAllPaged: sexSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -89,13 +90,13 @@ class SexQuery {
 
         var ListContent: string = ``;
 
-        SexModel.SelectAllPaged(request_sexmodelQuery).subscribe(
+        SexModel.SelectAllPaged(request_sexSelectAllPaged).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_sexQuery = newrow.response as sexmodelQuery;
+                        const response_sexQuery = newrow.response as sexSelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_sexQuery.QueryString ?? "";
@@ -420,7 +421,7 @@ class SexQuery {
 
 function ValidateAndSearch() {
 
-    var _sexmodelQuery: sexmodelQuery = {
+    var _sexSelectAllPaged: sexSelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -430,7 +431,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    SexQuery.SelectAllPagedToHTML(_sexmodelQuery);
+    SexQuery.SelectAllPagedToHTML(_sexSelectAllPaged);
 }
 
 //LOAD EVENT

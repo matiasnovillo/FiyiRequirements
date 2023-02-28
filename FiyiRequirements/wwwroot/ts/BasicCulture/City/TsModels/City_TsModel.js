@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.citymodelQuery = exports.CityModel = void 0;
+exports.CityModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var CityModel = /** @class */ (function () {
         var URL = "/api/BasicCulture/City/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    CityModel.SelectAllPaged = function (citymodelQuery) {
+    CityModel.SelectAllPaged = function (citySelectAllPaged) {
         var URL = "/api/BasicCulture/City/1/SelectAllPagedToJSON";
         var Body = {
-            QueryString: citymodelQuery.QueryString,
-            ActualPageNumber: citymodelQuery.ActualPageNumber,
-            RowsPerPage: citymodelQuery.RowsPerPage,
-            SorterColumn: citymodelQuery.SorterColumn,
-            SortToggler: citymodelQuery.SortToggler,
-            RowCount: citymodelQuery.TotalRows,
-            TotalPages: citymodelQuery.TotalPages,
-            lstCityModel: citymodelQuery.lstCityModel
+            QueryString: citySelectAllPaged.QueryString,
+            ActualPageNumber: citySelectAllPaged.ActualPageNumber,
+            RowsPerPage: citySelectAllPaged.RowsPerPage,
+            SorterColumn: citySelectAllPaged.SorterColumn,
+            SortToggler: citySelectAllPaged.SortToggler,
+            RowCount: citySelectAllPaged.TotalRows,
+            TotalPages: citySelectAllPaged.TotalPages,
+            lstCityModel: citySelectAllPaged.lstCityModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var CityModel = /** @class */ (function () {
     return CityModel;
 }());
 exports.CityModel = CityModel;
-var citymodelQuery = /** @class */ (function () {
-    function citymodelQuery() {
-    }
-    return citymodelQuery;
-}());
-exports.citymodelQuery = citymodelQuery;
 //# sourceMappingURL=City_TsModel.js.map

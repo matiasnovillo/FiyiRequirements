@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parametermodelQuery = exports.ParameterModel = void 0;
+exports.ParameterModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var ParameterModel = /** @class */ (function () {
         var URL = "/api/BasicCore/Parameter/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    ParameterModel.SelectAllPaged = function (parametermodelQuery) {
+    ParameterModel.SelectAllPaged = function (parameterSelectAllPaged) {
         var URL = "/api/BasicCore/Parameter/1/SelectAllPagedToJSON";
         var Body = {
-            QueryString: parametermodelQuery.QueryString,
-            ActualPageNumber: parametermodelQuery.ActualPageNumber,
-            RowsPerPage: parametermodelQuery.RowsPerPage,
-            SorterColumn: parametermodelQuery.SorterColumn,
-            SortToggler: parametermodelQuery.SortToggler,
-            RowCount: parametermodelQuery.TotalRows,
-            TotalPages: parametermodelQuery.TotalPages,
-            lstParameterModel: parametermodelQuery.lstParameterModel
+            QueryString: parameterSelectAllPaged.QueryString,
+            ActualPageNumber: parameterSelectAllPaged.ActualPageNumber,
+            RowsPerPage: parameterSelectAllPaged.RowsPerPage,
+            SorterColumn: parameterSelectAllPaged.SorterColumn,
+            SortToggler: parameterSelectAllPaged.SortToggler,
+            RowCount: parameterSelectAllPaged.TotalRows,
+            TotalPages: parameterSelectAllPaged.TotalPages,
+            lstParameterModel: parameterSelectAllPaged.lstParameterModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var ParameterModel = /** @class */ (function () {
     return ParameterModel;
 }());
 exports.ParameterModel = ParameterModel;
-var parametermodelQuery = /** @class */ (function () {
-    function parametermodelQuery() {
-    }
-    return parametermodelQuery;
-}());
-exports.parametermodelQuery = parametermodelQuery;
 //# sourceMappingURL=Parameter_TsModel.js.map

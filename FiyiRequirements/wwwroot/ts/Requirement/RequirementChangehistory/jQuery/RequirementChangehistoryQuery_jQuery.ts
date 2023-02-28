@@ -1,5 +1,6 @@
 //Import libraries to use
-import { RequirementChangehistoryModel, requirementchangehistorymodelQuery } from "../../RequirementChangehistory/TsModels/RequirementChangehistory_TsModel";
+import { RequirementChangehistoryModel } from "../../RequirementChangehistory/TsModels/RequirementChangehistory_TsModel";
+import { requirementchangehistorySelectAllPaged } from "../DTOs/requirementchangehistorySelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -33,7 +34,7 @@ let requirementchangehistoryViewToggler: string = "List";
 let requirementchangehistoryScrollDownNSearchFlag: boolean = false;
 
 class RequirementChangehistoryQuery {
-    static SelectAllPagedToHTML(request_requirementchangehistorymodelQuery: requirementchangehistorymodelQuery) {
+    static SelectAllPagedToHTML(request_requirementchangehistorySelectAllPaged: requirementchangehistorySelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -98,13 +99,13 @@ class RequirementChangehistoryQuery {
 
         var ListContent: string = ``;
 
-        RequirementChangehistoryModel.SelectAllPaged(request_requirementchangehistorymodelQuery, $("#requirement-requirement-requirementid-input").val()).subscribe(
+        RequirementChangehistoryModel.SelectAllPaged(request_requirementchangehistorySelectAllPaged, $("#requirement-requirement-requirementid-input").val()).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_requirementchangehistoryQuery = newrow.response as requirementchangehistorymodelQuery;
+                        const response_requirementchangehistoryQuery = newrow.response as requirementchangehistorySelectAllPaged;
 
                         //Set to default values if they are null
                         requirementchangehistoryQueryString = response_requirementchangehistoryQuery.requirementchangehistoryQueryString ?? "";
@@ -407,7 +408,7 @@ function requirementchangehistoryValidateAndSearch() {
     $("#requirement-requirementchangehistory-button-error-message-in-card").hide();
     $("#requirement-requirementchangehistory-button-ok-message-in-card").hide();
 
-    var _requirementchangehistorymodelQuery: requirementchangehistorymodelQuery = {
+    var _requirementchangehistorySelectAllPaged: requirementchangehistorySelectAllPaged = {
         requirementchangehistoryQueryString,
         requirementchangehistoryActualPageNumber,
         requirementchangehistoryRowsPerPage,
@@ -417,7 +418,7 @@ function requirementchangehistoryValidateAndSearch() {
         requirementchangehistoryTotalPages
     };
 
-    RequirementChangehistoryQuery.SelectAllPagedToHTML(_requirementchangehistorymodelQuery);
+    RequirementChangehistoryQuery.SelectAllPagedToHTML(_requirementchangehistorySelectAllPaged);
 }
 
 //LOAD EVENT

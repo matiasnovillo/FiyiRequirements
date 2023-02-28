@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { failureSelectAllPaged } from "../DTOs/failureSelectAllPaged";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -44,17 +45,17 @@ export class FailureModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(failuremodelQuery: failuremodelQuery) {
+    static SelectAllPaged(failureSelectAllPaged: failureSelectAllPaged) {
         let URL = "/api/BasicCore/Failure/1/SelectAllPagedToJSON";
         let Body = {
-            QueryString: failuremodelQuery.QueryString,
-            ActualPageNumber: failuremodelQuery.ActualPageNumber,
-            RowsPerPage: failuremodelQuery.RowsPerPage,
-            SorterColumn: failuremodelQuery.SorterColumn,
-            SortToggler: failuremodelQuery.SortToggler,
-            RowCount: failuremodelQuery.TotalRows,
-            TotalPages: failuremodelQuery.TotalPages,
-            lstFailureModel: failuremodelQuery.lstFailureModel
+            QueryString: failureSelectAllPaged.QueryString,
+            ActualPageNumber: failureSelectAllPaged.ActualPageNumber,
+            RowsPerPage: failureSelectAllPaged.RowsPerPage,
+            SorterColumn: failureSelectAllPaged.SorterColumn,
+            SortToggler: failureSelectAllPaged.SortToggler,
+            RowCount: failureSelectAllPaged.TotalRows,
+            TotalPages: failureSelectAllPaged.TotalPages,
+            lstFailureModel: failureSelectAllPaged.lstFailureModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -100,15 +101,4 @@ export class FailureModel {
         };
         return Rx.from(ajax.post(URL, Body, Header));
     }
-}
-
-export class failuremodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
-    lstFailureModel?: FailureModel[] | undefined;
 }

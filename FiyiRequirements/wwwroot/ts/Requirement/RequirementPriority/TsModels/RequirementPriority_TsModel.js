@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.requirementprioritymodelQuery = exports.RequirementPriorityModel = void 0;
+exports.RequirementPriorityModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var RequirementPriorityModel = /** @class */ (function () {
         var URL = "/api/Requirement/RequirementPriority/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    RequirementPriorityModel.SelectAllPaged = function (requirementprioritymodelQuery) {
+    RequirementPriorityModel.SelectAllPaged = function (requirementprioritySelectAllPaged) {
         var URL = "/api/Requirement/RequirementPriority/1/SelectAllPagedToJSON";
         var Body = {
-            QueryString: requirementprioritymodelQuery.QueryString,
-            ActualPageNumber: requirementprioritymodelQuery.ActualPageNumber,
-            RowsPerPage: requirementprioritymodelQuery.RowsPerPage,
-            SorterColumn: requirementprioritymodelQuery.SorterColumn,
-            SortToggler: requirementprioritymodelQuery.SortToggler,
-            RowCount: requirementprioritymodelQuery.TotalRows,
-            TotalPages: requirementprioritymodelQuery.TotalPages,
-            lstRequirementPriorityModel: requirementprioritymodelQuery.lstRequirementPriorityModel
+            QueryString: requirementprioritySelectAllPaged.QueryString,
+            ActualPageNumber: requirementprioritySelectAllPaged.ActualPageNumber,
+            RowsPerPage: requirementprioritySelectAllPaged.RowsPerPage,
+            SorterColumn: requirementprioritySelectAllPaged.SorterColumn,
+            SortToggler: requirementprioritySelectAllPaged.SortToggler,
+            RowCount: requirementprioritySelectAllPaged.TotalRows,
+            TotalPages: requirementprioritySelectAllPaged.TotalPages,
+            lstRequirementPriorityModel: requirementprioritySelectAllPaged.lstRequirementPriorityModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var RequirementPriorityModel = /** @class */ (function () {
     return RequirementPriorityModel;
 }());
 exports.RequirementPriorityModel = RequirementPriorityModel;
-var requirementprioritymodelQuery = /** @class */ (function () {
-    function requirementprioritymodelQuery() {
-    }
-    return requirementprioritymodelQuery;
-}());
-exports.requirementprioritymodelQuery = requirementprioritymodelQuery;
 //# sourceMappingURL=RequirementPriority_TsModel.js.map

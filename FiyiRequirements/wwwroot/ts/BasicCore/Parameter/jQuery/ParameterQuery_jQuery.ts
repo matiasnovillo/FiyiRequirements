@@ -1,5 +1,6 @@
 //Import libraries to use
-import { ParameterModel, parametermodelQuery } from "../../Parameter/TsModels/Parameter_TsModel";
+import { ParameterModel } from "../../Parameter/TsModels/Parameter_TsModel";
+import { parameterSelectAllPaged } from "../DTOs/parameterSelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class ParameterQuery {
-    static SelectAllPagedToHTML(request_parametermodelQuery: parametermodelQuery) {
+    static SelectAllPagedToHTML(request_parameterSelectAllPaged: parameterSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -99,13 +100,13 @@ class ParameterQuery {
 
         var ListContent: string = ``;
 
-        ParameterModel.SelectAllPaged(request_parametermodelQuery).subscribe(
+        ParameterModel.SelectAllPaged(request_parameterSelectAllPaged).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_parameterQuery = newrow.response as parametermodelQuery;
+                        const response_parameterQuery = newrow.response as parameterSelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_parameterQuery.QueryString ?? "";
@@ -448,7 +449,7 @@ class ParameterQuery {
 
 function ValidateAndSearch() {
 
-    var _parametermodelQuery: parametermodelQuery = {
+    var _parameterSelectAllPaged: parameterSelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -458,7 +459,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    ParameterQuery.SelectAllPagedToHTML(_parametermodelQuery);
+    ParameterQuery.SelectAllPagedToHTML(_parameterSelectAllPaged);
 }
 
 //LOAD EVENT

@@ -32,13 +32,13 @@ var ScrollDownNSearchFlag = false;
 var VisitorCounterQuery = /** @class */ (function () {
     function VisitorCounterQuery() {
     }
-    VisitorCounterQuery.SelectAllPagedToHTML = function (request_visitorcountermodelQuery) {
+    VisitorCounterQuery.SelectAllPagedToHTML = function (request_visitorcounterSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
         //Load some part of table
         var TableContent = "<thead class=\"thead-light\">\n    <tr>\n        <th scope=\"col\">\n            <div>\n                <input id=\"visitorcounter-table-check-all\" type=\"checkbox\">\n            </div>\n        </th>\n        <th scope=\"col\">\n            <button value=\"VisitorCounterId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                VisitorCounterId\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Active\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Active\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeCreation\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                DateTimeCreation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeLastModification\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                DateTimeLastModification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserCreationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                UserCreationId\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserLastModificationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                UserLastModificationId\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTime\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                DateTime\n            </button>\n        </th>\n        \n        <th scope=\"col\"></th>\n    </tr>\n</thead>\n<tbody>";
         var ListContent = "";
-        VisitorCounter_TsModel_1.VisitorCounterModel.SelectAllPaged(request_visitorcountermodelQuery).subscribe({
+        VisitorCounter_TsModel_1.VisitorCounterModel.SelectAllPaged(request_visitorcounterSelectAllPaged).subscribe({
             next: function (newrow) {
                 var _a, _b, _c, _d, _e, _f, _g, _h, _j;
                 //Only works when there is data available
@@ -209,7 +209,7 @@ var VisitorCounterQuery = /** @class */ (function () {
     return VisitorCounterQuery;
 }());
 function ValidateAndSearch() {
-    var _visitorcountermodelQuery = {
+    var _visitorcounterSelectAllPaged = {
         QueryString: QueryString,
         ActualPageNumber: ActualPageNumber,
         RowsPerPage: RowsPerPage,
@@ -218,7 +218,7 @@ function ValidateAndSearch() {
         TotalRows: TotalRows,
         TotalPages: TotalPages
     };
-    VisitorCounterQuery.SelectAllPagedToHTML(_visitorcountermodelQuery);
+    VisitorCounterQuery.SelectAllPagedToHTML(_visitorcounterSelectAllPaged);
 }
 //LOAD EVENT
 if ($("#basiccore-visitorcounter-title-page").html().includes("Query visitorcounter")) {

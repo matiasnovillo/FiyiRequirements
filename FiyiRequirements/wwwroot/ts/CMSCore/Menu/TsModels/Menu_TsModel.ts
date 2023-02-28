@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { menuSelectAllPaged } from "../DTOs/menuSelectAllPaged";
 
 
 /*
@@ -44,17 +45,17 @@ export class MenuModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(menumodelQuery: menumodelQuery) {
+    static SelectAllPaged(menuSelectAllPaged: menuSelectAllPaged) {
         let URL = "/api/CMSCore/Menu/1/SelectAllPagedToJSON";
         let Body = {
-            QueryString: menumodelQuery.QueryString,
-            ActualPageNumber: menumodelQuery.ActualPageNumber,
-            RowsPerPage: menumodelQuery.RowsPerPage,
-            SorterColumn: menumodelQuery.SorterColumn,
-            SortToggler: menumodelQuery.SortToggler,
-            RowCount: menumodelQuery.TotalRows,
-            TotalPages: menumodelQuery.TotalPages,
-            lstMenuModel: menumodelQuery.lstMenuModel
+            QueryString: menuSelectAllPaged.QueryString,
+            ActualPageNumber: menuSelectAllPaged.ActualPageNumber,
+            RowsPerPage: menuSelectAllPaged.RowsPerPage,
+            SorterColumn: menuSelectAllPaged.SorterColumn,
+            SortToggler: menuSelectAllPaged.SortToggler,
+            RowCount: menuSelectAllPaged.TotalRows,
+            TotalPages: menuSelectAllPaged.TotalPages,
+            lstMenuModel: menuSelectAllPaged.lstMenuModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -100,15 +101,4 @@ export class MenuModel {
         };
         return Rx.from(ajax.post(URL, Body, Header));
     }
-}
-
-export class menumodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
-    lstMenuModel?: MenuModel[] | undefined;
 }

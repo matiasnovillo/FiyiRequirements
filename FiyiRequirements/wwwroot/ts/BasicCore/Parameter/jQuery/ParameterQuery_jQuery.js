@@ -32,13 +32,13 @@ var ScrollDownNSearchFlag = false;
 var ParameterQuery = /** @class */ (function () {
     function ParameterQuery() {
     }
-    ParameterQuery.SelectAllPagedToHTML = function (request_parametermodelQuery) {
+    ParameterQuery.SelectAllPagedToHTML = function (request_parameterSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
         //Load some part of table
         var TableContent = "<thead class=\"thead-light\">\n    <tr>\n        <th scope=\"col\">\n            <div>\n                <input id=\"parameter-table-check-all\" type=\"checkbox\">\n            </div>\n        </th>\n        <th scope=\"col\">\n            <button value=\"ParameterId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Parameter ID\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Active\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Active\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeCreation\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeLastModification\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserCreationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserLastModificationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Name\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Name\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Value\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Value\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"IsPrivate\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Is private\n            </button>\n        </th>\n        \n        <th scope=\"col\"></th>\n    </tr>\n</thead>\n<tbody>";
         var ListContent = "";
-        Parameter_TsModel_1.ParameterModel.SelectAllPaged(request_parametermodelQuery).subscribe({
+        Parameter_TsModel_1.ParameterModel.SelectAllPaged(request_parameterSelectAllPaged).subscribe({
             next: function (newrow) {
                 var _a, _b, _c, _d, _e, _f, _g, _h, _j;
                 //Only works when there is data available
@@ -209,7 +209,7 @@ var ParameterQuery = /** @class */ (function () {
     return ParameterQuery;
 }());
 function ValidateAndSearch() {
-    var _parametermodelQuery = {
+    var _parameterSelectAllPaged = {
         QueryString: QueryString,
         ActualPageNumber: ActualPageNumber,
         RowsPerPage: RowsPerPage,
@@ -218,7 +218,7 @@ function ValidateAndSearch() {
         TotalRows: TotalRows,
         TotalPages: TotalPages
     };
-    ParameterQuery.SelectAllPagedToHTML(_parametermodelQuery);
+    ParameterQuery.SelectAllPagedToHTML(_parameterSelectAllPaged);
 }
 //LOAD EVENT
 if ($("#basiccore-parameter-title-page").html().includes("Query parameter")) {

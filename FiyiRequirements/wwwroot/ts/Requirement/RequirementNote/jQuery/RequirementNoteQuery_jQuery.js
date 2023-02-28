@@ -30,13 +30,13 @@ var ScrollDownNSearchFlag = false;
 var RequirementNoteQuery = /** @class */ (function () {
     function RequirementNoteQuery() {
     }
-    RequirementNoteQuery.SelectAllPagedToHTML = function (request_requirementnotemodelQuery) {
+    RequirementNoteQuery.SelectAllPagedToHTML = function (request_requirementnoteSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
         //Load some part of table
         var TableContent = "<thead class=\"thead-light\">\n    <tr>\n        <th scope=\"col\">\n            <div>\n                <input id=\"requirementnote-table-check-all\" type=\"checkbox\">\n            </div>\n        </th>\n        <th scope=\"col\">\n            <button value=\"RequirementNoteId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Note ID\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Active\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Active\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeCreation\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeLastModification\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserCreationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserLastModificationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Title\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Title\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Body\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Body\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"RequirementId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Requirement ID\n            </button>\n        </th>\n        \n        <th scope=\"col\"></th>\n    </tr>\n</thead>\n<tbody>";
         var ListContent = "";
-        RequirementNote_TsModel_1.RequirementNoteModel.SelectAllPaged(request_requirementnotemodelQuery, $("#requirement-requirement-requirementid-input").val()).subscribe({
+        RequirementNote_TsModel_1.RequirementNoteModel.SelectAllPaged(request_requirementnoteSelectAllPaged, $("#requirement-requirement-requirementid-input").val()).subscribe({
             next: function (newrow) {
                 var _a, _b, _c, _d, _e, _f, _g, _h, _j;
                 //Only works when there is data available
@@ -207,7 +207,7 @@ var RequirementNoteQuery = /** @class */ (function () {
     return RequirementNoteQuery;
 }());
 function ValidateAndSearch() {
-    var _requirementnotemodelQuery = {
+    var _requirementnoteSelectAllPaged = {
         QueryString: QueryString,
         ActualPageNumber: ActualPageNumber,
         RowsPerPage: RowsPerPage,
@@ -216,7 +216,7 @@ function ValidateAndSearch() {
         TotalRows: TotalRows,
         TotalPages: TotalPages
     };
-    RequirementNoteQuery.SelectAllPagedToHTML(_requirementnotemodelQuery);
+    RequirementNoteQuery.SelectAllPagedToHTML(_requirementnoteSelectAllPaged);
 }
 //LOAD EVENT
 if ($("#requirement-requirement-title-page").html().includes("Edit requirement")) {

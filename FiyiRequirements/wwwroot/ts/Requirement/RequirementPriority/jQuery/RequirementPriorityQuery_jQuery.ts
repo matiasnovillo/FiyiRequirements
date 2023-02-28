@@ -1,5 +1,6 @@
 //Import libraries to use
-import { RequirementPriorityModel, requirementprioritymodelQuery } from "../../RequirementPriority/TsModels/RequirementPriority_TsModel";
+import { RequirementPriorityModel } from "../../RequirementPriority/TsModels/RequirementPriority_TsModel";
+import { requirementprioritySelectAllPaged } from "../DTOs/requirementprioritySelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class RequirementPriorityQuery {
-    static SelectAllPagedToHTML(request_requirementprioritymodelQuery: requirementprioritymodelQuery) {
+    static SelectAllPagedToHTML(request_requirementprioritySelectAllPaged: requirementprioritySelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -94,13 +95,13 @@ class RequirementPriorityQuery {
 
         var ListContent: string = ``;
 
-        RequirementPriorityModel.SelectAllPaged(request_requirementprioritymodelQuery).subscribe(
+        RequirementPriorityModel.SelectAllPaged(request_requirementprioritySelectAllPaged).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_requirementpriorityQuery = newrow.response as requirementprioritymodelQuery;
+                        const response_requirementpriorityQuery = newrow.response as requirementprioritySelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_requirementpriorityQuery.QueryString ?? "";
@@ -434,7 +435,7 @@ class RequirementPriorityQuery {
 
 function ValidateAndSearch() {
 
-    var _requirementprioritymodelQuery: requirementprioritymodelQuery = {
+    var _requirementprioritySelectAllPaged: requirementprioritySelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -444,7 +445,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    RequirementPriorityQuery.SelectAllPagedToHTML(_requirementprioritymodelQuery);
+    RequirementPriorityQuery.SelectAllPagedToHTML(_requirementprioritySelectAllPaged);
 }
 
 //LOAD EVENT

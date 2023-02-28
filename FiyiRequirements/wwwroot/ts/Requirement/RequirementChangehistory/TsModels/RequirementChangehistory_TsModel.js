@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.requirementchangehistorymodelQuery = exports.RequirementChangehistoryModel = void 0;
+exports.RequirementChangehistoryModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var RequirementChangehistoryModel = /** @class */ (function () {
         var URL = "/api/Requirement/RequirementChangehistory/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    RequirementChangehistoryModel.SelectAllPaged = function (requirementchangehistorymodelQuery, RequirementId) {
+    RequirementChangehistoryModel.SelectAllPaged = function (requirementchangehistorySelectAllPaged, RequirementId) {
         var URL = "/api/Requirement/RequirementChangehistory/1/SelectAllPagedToJSON/" + RequirementId;
         var Body = {
-            requirementchangehistoryQueryString: requirementchangehistorymodelQuery.requirementchangehistoryQueryString,
-            requirementchangehistoryActualPageNumber: requirementchangehistorymodelQuery.requirementchangehistoryActualPageNumber,
-            requirementchangehistoryRowsPerPage: requirementchangehistorymodelQuery.requirementchangehistoryRowsPerPage,
-            requirementchangehistorySorterColumn: requirementchangehistorymodelQuery.requirementchangehistorySorterColumn,
-            requirementchangehistorySortToggler: requirementchangehistorymodelQuery.requirementchangehistorySortToggler,
-            requirementchangehistoryRowCount: requirementchangehistorymodelQuery.requirementchangehistoryTotalRows,
-            requirementchangehistoryTotalPages: requirementchangehistorymodelQuery.requirementchangehistoryTotalPages,
-            lstRequirementChangehistoryModel: requirementchangehistorymodelQuery.lstRequirementChangehistoryModel
+            requirementchangehistoryQueryString: requirementchangehistorySelectAllPaged.requirementchangehistoryQueryString,
+            requirementchangehistoryActualPageNumber: requirementchangehistorySelectAllPaged.requirementchangehistoryActualPageNumber,
+            requirementchangehistoryRowsPerPage: requirementchangehistorySelectAllPaged.requirementchangehistoryRowsPerPage,
+            requirementchangehistorySorterColumn: requirementchangehistorySelectAllPaged.requirementchangehistorySorterColumn,
+            requirementchangehistorySortToggler: requirementchangehistorySelectAllPaged.requirementchangehistorySortToggler,
+            requirementchangehistoryRowCount: requirementchangehistorySelectAllPaged.requirementchangehistoryTotalRows,
+            requirementchangehistoryTotalPages: requirementchangehistorySelectAllPaged.requirementchangehistoryTotalPages,
+            lstRequirementChangehistoryModel: requirementchangehistorySelectAllPaged.lstRequirementChangehistoryModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var RequirementChangehistoryModel = /** @class */ (function () {
     return RequirementChangehistoryModel;
 }());
 exports.RequirementChangehistoryModel = RequirementChangehistoryModel;
-var requirementchangehistorymodelQuery = /** @class */ (function () {
-    function requirementchangehistorymodelQuery() {
-    }
-    return requirementchangehistorymodelQuery;
-}());
-exports.requirementchangehistorymodelQuery = requirementchangehistorymodelQuery;
 //# sourceMappingURL=RequirementChangehistory_TsModel.js.map

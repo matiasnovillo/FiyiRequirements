@@ -31,13 +31,13 @@ var ScrollDownNSearchFlag = false;
 var RoleMenuQuery = /** @class */ (function () {
     function RoleMenuQuery() {
     }
-    RoleMenuQuery.SelectAllPagedToHTML = function (request_rolemenumodelQuery) {
+    RoleMenuQuery.SelectAllPagedToHTML = function (request_rolemenuSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
         //Load some part of table
         var TableContent = "<thead class=\"thead-light\">\n    <tr>\n        <th scope=\"col\">\n            <div>\n                <input id=\"rolemenu-table-check-all\" type=\"checkbox\">\n            </div>\n        </th>\n        <th scope=\"col\">\n            <button value=\"RoleMenuId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                RoleMenuId\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"RoleId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                RoleId\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"MenuId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                MenuId\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Active\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Active\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserCreationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                UserCreationId\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserLastModificationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                UserLastModificationId\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeCreation\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                DateTimeCreation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeLastModification\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                DateTimeLastModification\n            </button>\n        </th>\n        \n        <th scope=\"col\"></th>\n    </tr>\n</thead>\n<tbody>";
         var ListContent = "";
-        RoleMenu_TsModel_1.RoleMenuModel.SelectAllPaged(request_rolemenumodelQuery).subscribe({
+        RoleMenu_TsModel_1.RoleMenuModel.SelectAllPaged(request_rolemenuSelectAllPaged).subscribe({
             next: function (newrow) {
                 var _a, _b, _c, _d, _e, _f, _g, _h, _j;
                 //Only works when there is data available
@@ -218,7 +218,7 @@ function ValidateAndSearch() {
     //Hide error and OK message button
     $("#cmscore-rolemenu-button-error-message-in-card").hide();
     $("#cmscore-rolemenu-button-ok-message-in-card").hide();
-    var _rolemenumodelQuery = {
+    var _rolemenuSelectAllPaged = {
         QueryString: QueryString,
         ActualPageNumber: ActualPageNumber,
         RowsPerPage: RowsPerPage,
@@ -227,7 +227,7 @@ function ValidateAndSearch() {
         TotalRows: TotalRows,
         TotalPages: TotalPages
     };
-    RoleMenuQuery.SelectAllPagedToHTML(_rolemenumodelQuery);
+    RoleMenuQuery.SelectAllPagedToHTML(_rolemenuSelectAllPaged);
 }
 //LOAD EVENT
 if ($("#cmscore-rolemenu-title-page").html().includes("Query rolemenu")) {

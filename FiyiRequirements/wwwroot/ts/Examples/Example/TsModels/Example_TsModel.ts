@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { exampleSelectAllPaged } from "../DTOs/exampleSelectAllPaged";
 
 
 /*
@@ -55,17 +56,17 @@ export class ExampleModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(examplemodelQuery: examplemodelQuery) {
+    static SelectAllPaged(exampleSelectAllPaged: exampleSelectAllPaged) {
         let URL = "/api/Examples/Example/1/SelectAllPagedToJSON";
         let Body = {
-            QueryString: examplemodelQuery.QueryString,
-            ActualPageNumber: examplemodelQuery.ActualPageNumber,
-            RowsPerPage: examplemodelQuery.RowsPerPage,
-            SorterColumn: examplemodelQuery.SorterColumn,
-            SortToggler: examplemodelQuery.SortToggler,
-            RowCount: examplemodelQuery.TotalRows,
-            TotalPages: examplemodelQuery.TotalPages,
-            lstExampleModel: examplemodelQuery.lstExampleModel
+            QueryString: exampleSelectAllPaged.QueryString,
+            ActualPageNumber: exampleSelectAllPaged.ActualPageNumber,
+            RowsPerPage: exampleSelectAllPaged.RowsPerPage,
+            SorterColumn: exampleSelectAllPaged.SorterColumn,
+            SortToggler: exampleSelectAllPaged.SortToggler,
+            RowCount: exampleSelectAllPaged.TotalRows,
+            TotalPages: exampleSelectAllPaged.TotalPages,
+            lstExampleModel: exampleSelectAllPaged.lstExampleModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -111,15 +112,4 @@ export class ExampleModel {
         };
         return Rx.from(ajax.post(URL, Body, Header));
     }
-}
-
-export class examplemodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
-    lstExampleModel?: ExampleModel[] | undefined;
 }

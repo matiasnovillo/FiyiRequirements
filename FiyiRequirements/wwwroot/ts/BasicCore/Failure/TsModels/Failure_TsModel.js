@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.failuremodelQuery = exports.FailureModel = void 0;
+exports.FailureModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var FailureModel = /** @class */ (function () {
         var URL = "/api/BasicCore/Failure/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    FailureModel.SelectAllPaged = function (failuremodelQuery) {
+    FailureModel.SelectAllPaged = function (failureSelectAllPaged) {
         var URL = "/api/BasicCore/Failure/1/SelectAllPagedToJSON";
         var Body = {
-            QueryString: failuremodelQuery.QueryString,
-            ActualPageNumber: failuremodelQuery.ActualPageNumber,
-            RowsPerPage: failuremodelQuery.RowsPerPage,
-            SorterColumn: failuremodelQuery.SorterColumn,
-            SortToggler: failuremodelQuery.SortToggler,
-            RowCount: failuremodelQuery.TotalRows,
-            TotalPages: failuremodelQuery.TotalPages,
-            lstFailureModel: failuremodelQuery.lstFailureModel
+            QueryString: failureSelectAllPaged.QueryString,
+            ActualPageNumber: failureSelectAllPaged.ActualPageNumber,
+            RowsPerPage: failureSelectAllPaged.RowsPerPage,
+            SorterColumn: failureSelectAllPaged.SorterColumn,
+            SortToggler: failureSelectAllPaged.SortToggler,
+            RowCount: failureSelectAllPaged.TotalRows,
+            TotalPages: failureSelectAllPaged.TotalPages,
+            lstFailureModel: failureSelectAllPaged.lstFailureModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var FailureModel = /** @class */ (function () {
     return FailureModel;
 }());
 exports.FailureModel = FailureModel;
-var failuremodelQuery = /** @class */ (function () {
-    function failuremodelQuery() {
-    }
-    return failuremodelQuery;
-}());
-exports.failuremodelQuery = failuremodelQuery;
 //# sourceMappingURL=Failure_TsModel.js.map

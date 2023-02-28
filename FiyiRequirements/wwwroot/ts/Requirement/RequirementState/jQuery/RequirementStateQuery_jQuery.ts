@@ -1,5 +1,6 @@
 //Import libraries to use
-import { RequirementStateModel, requirementstatemodelQuery } from "../../RequirementState/TsModels/RequirementState_TsModel";
+import { RequirementStateModel } from "../../RequirementState/TsModels/RequirementState_TsModel";
+import { requirementstateSelectAllPaged } from "../DTOs/requirementstateSelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class RequirementStateQuery {
-    static SelectAllPagedToHTML(request_requirementstatemodelQuery: requirementstatemodelQuery) {
+    static SelectAllPagedToHTML(request_requirementstateSelectAllPaged: requirementstateSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -89,13 +90,13 @@ class RequirementStateQuery {
 
         var ListContent: string = ``;
 
-        RequirementStateModel.SelectAllPaged(request_requirementstatemodelQuery).subscribe(
+        RequirementStateModel.SelectAllPaged(request_requirementstateSelectAllPaged).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_requirementstateQuery = newrow.response as requirementstatemodelQuery;
+                        const response_requirementstateQuery = newrow.response as requirementstateSelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_requirementstateQuery.QueryString ?? "";
@@ -420,7 +421,7 @@ class RequirementStateQuery {
 
 function ValidateAndSearch() {
 
-    var _requirementstatemodelQuery: requirementstatemodelQuery = {
+    var _requirementstateSelectAllPaged: requirementstateSelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -430,7 +431,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    RequirementStateQuery.SelectAllPagedToHTML(_requirementstatemodelQuery);
+    RequirementStateQuery.SelectAllPagedToHTML(_requirementstateSelectAllPaged);
 }
 
 //LOAD EVENT

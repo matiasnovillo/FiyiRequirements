@@ -32,13 +32,13 @@ var ScrollDownNSearchFlag = false;
 var RoleQuery = /** @class */ (function () {
     function RoleQuery() {
     }
-    RoleQuery.SelectAllPagedToHTML = function (request_rolemodelQuery) {
+    RoleQuery.SelectAllPagedToHTML = function (request_roleSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
         //Load some part of table
         var TableContent = "<thead class=\"thead-light\">\n    <tr>\n        <th scope=\"col\">\n            <div>\n                <input id=\"role-table-check-all\" type=\"checkbox\">\n            </div>\n        </th>\n        <th scope=\"col\">\n            <button value=\"RoleId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Role ID\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Active\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Active\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeCreation\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeLastModification\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserCreationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserLastModificationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Name\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Name\n            </button>\n        </th>\n        \n        <th scope=\"col\"></th>\n    </tr>\n</thead>\n<tbody>";
         var ListContent = "";
-        Role_TsModel_1.RoleModel.SelectAllPaged(request_rolemodelQuery).subscribe({
+        Role_TsModel_1.RoleModel.SelectAllPaged(request_roleSelectAllPaged).subscribe({
             next: function (newrow) {
                 var _a, _b, _c, _d, _e, _f, _g, _h, _j;
                 //Only works when there is data available
@@ -209,7 +209,7 @@ var RoleQuery = /** @class */ (function () {
     return RoleQuery;
 }());
 function ValidateAndSearch() {
-    var _rolemodelQuery = {
+    var _roleSelectAllPaged = {
         QueryString: QueryString,
         ActualPageNumber: ActualPageNumber,
         RowsPerPage: RowsPerPage,
@@ -218,7 +218,7 @@ function ValidateAndSearch() {
         TotalRows: TotalRows,
         TotalPages: TotalPages
     };
-    RoleQuery.SelectAllPagedToHTML(_rolemodelQuery);
+    RoleQuery.SelectAllPagedToHTML(_roleSelectAllPaged);
 }
 //LOAD EVENT
 if ($("#cmscore-role-title-page").html().includes("Query role")) {

@@ -32,13 +32,13 @@ var ScrollDownNSearchFlag = false;
 var ProvinceQuery = /** @class */ (function () {
     function ProvinceQuery() {
     }
-    ProvinceQuery.SelectAllPagedToHTML = function (request_provincemodelQuery) {
+    ProvinceQuery.SelectAllPagedToHTML = function (request_provinceSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
         //Load some part of table
         var TableContent = "<thead class=\"thead-light\">\n    <tr>\n        <th scope=\"col\">\n            <div>\n                <input id=\"province-table-check-all\" type=\"checkbox\">\n            </div>\n        </th>\n        <th scope=\"col\">\n            <button value=\"ProvinceId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Province ID\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Active\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Active\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeCreation\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeLastModification\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserCreationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserLastModificationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Name\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Name\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"GeographicalCoordinates\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Geographical Coordinates\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Code\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Code\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"CountryId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Country \n            </button>\n        </th>\n        \n        <th scope=\"col\"></th>\n    </tr>\n</thead>\n<tbody>";
         var ListContent = "";
-        Province_TsModel_1.ProvinceModel.SelectAllPaged(request_provincemodelQuery).subscribe({
+        Province_TsModel_1.ProvinceModel.SelectAllPaged(request_provinceSelectAllPaged).subscribe({
             next: function (newrow) {
                 var _a, _b, _c, _d, _e, _f, _g, _h, _j;
                 //Only works when there is data available
@@ -209,7 +209,7 @@ var ProvinceQuery = /** @class */ (function () {
     return ProvinceQuery;
 }());
 function ValidateAndSearch() {
-    var _provincemodelQuery = {
+    var _provinceSelectAllPaged = {
         QueryString: QueryString,
         ActualPageNumber: ActualPageNumber,
         RowsPerPage: RowsPerPage,
@@ -218,7 +218,7 @@ function ValidateAndSearch() {
         TotalRows: TotalRows,
         TotalPages: TotalPages
     };
-    ProvinceQuery.SelectAllPagedToHTML(_provincemodelQuery);
+    ProvinceQuery.SelectAllPagedToHTML(_provinceSelectAllPaged);
 }
 //LOAD EVENT
 if ($("#basicculture-province-title-page").html().includes("Query province")) {

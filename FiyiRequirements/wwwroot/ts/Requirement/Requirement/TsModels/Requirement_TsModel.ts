@@ -2,6 +2,7 @@ import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
 import { RequirementChangehistoryModel } from "../../RequirementChangehistory/TsModels/RequirementChangehistory_TsModel";import { RequirementFileModel } from "../../RequirementFile/TsModels/RequirementFile_TsModel";
+import { requirementSelectAllPaged } from "../DTOs/requirementSelectAllPaged";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -50,17 +51,17 @@ export class RequirementModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(requirementmodelQuery: requirementmodelQuery) {
+    static SelectAllPaged(requirementSelectAllPaged: requirementSelectAllPaged) {
         let URL = "/api/Requirement/Requirement/1/SelectAllPagedToJSON";
         let Body = {
-            QueryString: requirementmodelQuery.QueryString,
-            ActualPageNumber: requirementmodelQuery.ActualPageNumber,
-            RowsPerPage: requirementmodelQuery.RowsPerPage,
-            SorterColumn: requirementmodelQuery.SorterColumn,
-            SortToggler: requirementmodelQuery.SortToggler,
-            RowCount: requirementmodelQuery.TotalRows,
-            TotalPages: requirementmodelQuery.TotalPages,
-            lstRequirementModel: requirementmodelQuery.lstRequirementModel
+            QueryString: requirementSelectAllPaged.QueryString,
+            ActualPageNumber: requirementSelectAllPaged.ActualPageNumber,
+            RowsPerPage: requirementSelectAllPaged.RowsPerPage,
+            SorterColumn: requirementSelectAllPaged.SorterColumn,
+            SortToggler: requirementSelectAllPaged.SortToggler,
+            RowCount: requirementSelectAllPaged.TotalRows,
+            TotalPages: requirementSelectAllPaged.TotalPages,
+            lstRequirementModel: requirementSelectAllPaged.lstRequirementModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -106,15 +107,4 @@ export class RequirementModel {
         };
         return Rx.from(ajax.post(URL, Body, Header));
     }
-}
-
-export class requirementmodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
-    lstRequirementModel?: RequirementModel[] | undefined;
 }

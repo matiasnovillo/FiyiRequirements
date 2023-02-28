@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.requirementstatemodelQuery = exports.RequirementStateModel = void 0;
+exports.RequirementStateModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var RequirementStateModel = /** @class */ (function () {
         var URL = "/api/Requirement/RequirementState/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    RequirementStateModel.SelectAllPaged = function (requirementstatemodelQuery) {
+    RequirementStateModel.SelectAllPaged = function (requirementstateSelectAllPaged) {
         var URL = "/api/Requirement/RequirementState/1/SelectAllPagedToJSON";
         var Body = {
-            QueryString: requirementstatemodelQuery.QueryString,
-            ActualPageNumber: requirementstatemodelQuery.ActualPageNumber,
-            RowsPerPage: requirementstatemodelQuery.RowsPerPage,
-            SorterColumn: requirementstatemodelQuery.SorterColumn,
-            SortToggler: requirementstatemodelQuery.SortToggler,
-            RowCount: requirementstatemodelQuery.TotalRows,
-            TotalPages: requirementstatemodelQuery.TotalPages,
-            lstRequirementStateModel: requirementstatemodelQuery.lstRequirementStateModel
+            QueryString: requirementstateSelectAllPaged.QueryString,
+            ActualPageNumber: requirementstateSelectAllPaged.ActualPageNumber,
+            RowsPerPage: requirementstateSelectAllPaged.RowsPerPage,
+            SorterColumn: requirementstateSelectAllPaged.SorterColumn,
+            SortToggler: requirementstateSelectAllPaged.SortToggler,
+            RowCount: requirementstateSelectAllPaged.TotalRows,
+            TotalPages: requirementstateSelectAllPaged.TotalPages,
+            lstRequirementStateModel: requirementstateSelectAllPaged.lstRequirementStateModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var RequirementStateModel = /** @class */ (function () {
     return RequirementStateModel;
 }());
 exports.RequirementStateModel = RequirementStateModel;
-var requirementstatemodelQuery = /** @class */ (function () {
-    function requirementstatemodelQuery() {
-    }
-    return requirementstatemodelQuery;
-}());
-exports.requirementstatemodelQuery = requirementstatemodelQuery;
 //# sourceMappingURL=RequirementState_TsModel.js.map

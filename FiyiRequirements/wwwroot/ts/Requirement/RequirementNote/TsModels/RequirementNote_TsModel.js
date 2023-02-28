@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.requirementnotemodelQuery = exports.RequirementNoteModel = void 0;
+exports.RequirementNoteModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var RequirementNoteModel = /** @class */ (function () {
         var URL = "/api/Requirement/RequirementNote/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    RequirementNoteModel.SelectAllPaged = function (requirementnotemodelQuery, RequirementId) {
+    RequirementNoteModel.SelectAllPaged = function (requirementnoteSelectAllPaged, RequirementId) {
         var URL = "/api/Requirement/RequirementNote/1/SelectAllPagedToJSON/" + RequirementId;
         var Body = {
-            QueryString: requirementnotemodelQuery.QueryString,
-            ActualPageNumber: requirementnotemodelQuery.ActualPageNumber,
-            RowsPerPage: requirementnotemodelQuery.RowsPerPage,
-            SorterColumn: requirementnotemodelQuery.SorterColumn,
-            SortToggler: requirementnotemodelQuery.SortToggler,
-            RowCount: requirementnotemodelQuery.TotalRows,
-            TotalPages: requirementnotemodelQuery.TotalPages,
-            lstRequirementNoteModel: requirementnotemodelQuery.lstRequirementNoteModel
+            QueryString: requirementnoteSelectAllPaged.QueryString,
+            ActualPageNumber: requirementnoteSelectAllPaged.ActualPageNumber,
+            RowsPerPage: requirementnoteSelectAllPaged.RowsPerPage,
+            SorterColumn: requirementnoteSelectAllPaged.SorterColumn,
+            SortToggler: requirementnoteSelectAllPaged.SortToggler,
+            RowCount: requirementnoteSelectAllPaged.TotalRows,
+            TotalPages: requirementnoteSelectAllPaged.TotalPages,
+            lstRequirementNoteModel: requirementnoteSelectAllPaged.lstRequirementNoteModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var RequirementNoteModel = /** @class */ (function () {
     return RequirementNoteModel;
 }());
 exports.RequirementNoteModel = RequirementNoteModel;
-var requirementnotemodelQuery = /** @class */ (function () {
-    function requirementnotemodelQuery() {
-    }
-    return requirementnotemodelQuery;
-}());
-exports.requirementnotemodelQuery = requirementnotemodelQuery;
 //# sourceMappingURL=RequirementNote_TsModel.js.map

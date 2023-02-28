@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.menumodelQuery = exports.MenuModel = void 0;
+exports.MenuModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var MenuModel = /** @class */ (function () {
         var URL = "/api/CMSCore/Menu/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    MenuModel.SelectAllPaged = function (menumodelQuery) {
+    MenuModel.SelectAllPaged = function (menuSelectAllPaged) {
         var URL = "/api/CMSCore/Menu/1/SelectAllPagedToJSON";
         var Body = {
-            QueryString: menumodelQuery.QueryString,
-            ActualPageNumber: menumodelQuery.ActualPageNumber,
-            RowsPerPage: menumodelQuery.RowsPerPage,
-            SorterColumn: menumodelQuery.SorterColumn,
-            SortToggler: menumodelQuery.SortToggler,
-            RowCount: menumodelQuery.TotalRows,
-            TotalPages: menumodelQuery.TotalPages,
-            lstMenuModel: menumodelQuery.lstMenuModel
+            QueryString: menuSelectAllPaged.QueryString,
+            ActualPageNumber: menuSelectAllPaged.ActualPageNumber,
+            RowsPerPage: menuSelectAllPaged.RowsPerPage,
+            SorterColumn: menuSelectAllPaged.SorterColumn,
+            SortToggler: menuSelectAllPaged.SortToggler,
+            RowCount: menuSelectAllPaged.TotalRows,
+            TotalPages: menuSelectAllPaged.TotalPages,
+            lstMenuModel: menuSelectAllPaged.lstMenuModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var MenuModel = /** @class */ (function () {
     return MenuModel;
 }());
 exports.MenuModel = MenuModel;
-var menumodelQuery = /** @class */ (function () {
-    function menumodelQuery() {
-    }
-    return menumodelQuery;
-}());
-exports.menumodelQuery = menumodelQuery;
 //# sourceMappingURL=Menu_TsModel.js.map

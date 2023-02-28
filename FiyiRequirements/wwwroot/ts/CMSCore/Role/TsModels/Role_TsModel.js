@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.rolemodelQuery = exports.RoleModel = void 0;
+exports.RoleModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var RoleModel = /** @class */ (function () {
         var URL = "/api/CMSCore/Role/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    RoleModel.SelectAllPaged = function (rolemodelQuery) {
+    RoleModel.SelectAllPaged = function (roleSelectAllPaged) {
         var URL = "/api/CMSCore/Role/1/SelectAllPagedToJSON";
         var Body = {
-            QueryString: rolemodelQuery.QueryString,
-            ActualPageNumber: rolemodelQuery.ActualPageNumber,
-            RowsPerPage: rolemodelQuery.RowsPerPage,
-            SorterColumn: rolemodelQuery.SorterColumn,
-            SortToggler: rolemodelQuery.SortToggler,
-            RowCount: rolemodelQuery.TotalRows,
-            TotalPages: rolemodelQuery.TotalPages,
-            lstRoleModel: rolemodelQuery.lstRoleModel
+            QueryString: roleSelectAllPaged.QueryString,
+            ActualPageNumber: roleSelectAllPaged.ActualPageNumber,
+            RowsPerPage: roleSelectAllPaged.RowsPerPage,
+            SorterColumn: roleSelectAllPaged.SorterColumn,
+            SortToggler: roleSelectAllPaged.SortToggler,
+            RowCount: roleSelectAllPaged.TotalRows,
+            TotalPages: roleSelectAllPaged.TotalPages,
+            lstRoleModel: roleSelectAllPaged.lstRoleModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var RoleModel = /** @class */ (function () {
     return RoleModel;
 }());
 exports.RoleModel = RoleModel;
-var rolemodelQuery = /** @class */ (function () {
-    function rolemodelQuery() {
-    }
-    return rolemodelQuery;
-}());
-exports.rolemodelQuery = rolemodelQuery;
 //# sourceMappingURL=Role_TsModel.js.map

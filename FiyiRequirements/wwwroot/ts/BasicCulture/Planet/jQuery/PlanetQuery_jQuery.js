@@ -32,13 +32,13 @@ var ScrollDownNSearchFlag = false;
 var PlanetQuery = /** @class */ (function () {
     function PlanetQuery() {
     }
-    PlanetQuery.SelectAllPagedToHTML = function (request_planetmodelQuery) {
+    PlanetQuery.SelectAllPagedToHTML = function (request_planetSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
         //Load some part of table
         var TableContent = "<thead class=\"thead-light\">\n    <tr>\n        <th scope=\"col\">\n            <div>\n                <input id=\"planet-table-check-all\" type=\"checkbox\">\n            </div>\n        </th>\n        <th scope=\"col\">\n            <button value=\"PlanetId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Planet ID\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Active\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Active\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeCreation\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeLastModification\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserCreationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserLastModificationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Name\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Name\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Code\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Code\n            </button>\n        </th>\n        \n        <th scope=\"col\"></th>\n    </tr>\n</thead>\n<tbody>";
         var ListContent = "";
-        Planet_TsModel_1.PlanetModel.SelectAllPaged(request_planetmodelQuery).subscribe({
+        Planet_TsModel_1.PlanetModel.SelectAllPaged(request_planetSelectAllPaged).subscribe({
             next: function (newrow) {
                 var _a, _b, _c, _d, _e, _f, _g, _h, _j;
                 //Only works when there is data available
@@ -209,7 +209,7 @@ var PlanetQuery = /** @class */ (function () {
     return PlanetQuery;
 }());
 function ValidateAndSearch() {
-    var _planetmodelQuery = {
+    var _planetSelectAllPaged = {
         QueryString: QueryString,
         ActualPageNumber: ActualPageNumber,
         RowsPerPage: RowsPerPage,
@@ -218,7 +218,7 @@ function ValidateAndSearch() {
         TotalRows: TotalRows,
         TotalPages: TotalPages
     };
-    PlanetQuery.SelectAllPagedToHTML(_planetmodelQuery);
+    PlanetQuery.SelectAllPagedToHTML(_planetSelectAllPaged);
 }
 //LOAD EVENT
 if ($("#basicculture-planet-title-page").html().includes("Query planet")) {

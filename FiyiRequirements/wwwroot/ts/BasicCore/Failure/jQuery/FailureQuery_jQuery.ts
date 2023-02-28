@@ -1,5 +1,6 @@
 //Import libraries to use
-import { FailureModel, failuremodelQuery } from "../../Failure/TsModels/Failure_TsModel";
+import { FailureModel } from "../../Failure/TsModels/Failure_TsModel";
+import { failureSelectAllPaged } from "../DTOs/failureSelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class FailureQuery {
-    static SelectAllPagedToHTML(request_failuremodelQuery: failuremodelQuery) {
+    static SelectAllPagedToHTML(request_failureSelectAllPaged: failureSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -114,13 +115,13 @@ class FailureQuery {
 
         var ListContent: string = ``;
 
-        FailureModel.SelectAllPaged(request_failuremodelQuery).subscribe(
+        FailureModel.SelectAllPaged(request_failureSelectAllPaged).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_failureQuery = newrow.response as failuremodelQuery;
+                        const response_failureQuery = newrow.response as failureSelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_failureQuery.QueryString ?? "";
@@ -490,7 +491,7 @@ class FailureQuery {
 
 function ValidateAndSearch() {
 
-    var _failuremodelQuery: failuremodelQuery = {
+    var _failureSelectAllPaged: failureSelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -500,7 +501,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    FailureQuery.SelectAllPagedToHTML(_failuremodelQuery);
+    FailureQuery.SelectAllPagedToHTML(_failureSelectAllPaged);
 }
 
 //LOAD EVENT

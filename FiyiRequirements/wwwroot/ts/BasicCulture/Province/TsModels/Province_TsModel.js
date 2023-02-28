@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.provincemodelQuery = exports.ProvinceModel = void 0;
+exports.ProvinceModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var ProvinceModel = /** @class */ (function () {
         var URL = "/api/BasicCulture/Province/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    ProvinceModel.SelectAllPaged = function (provincemodelQuery) {
+    ProvinceModel.SelectAllPaged = function (provinceSelectAllPaged) {
         var URL = "/api/BasicCulture/Province/1/SelectAllPagedToJSON";
         var Body = {
-            QueryString: provincemodelQuery.QueryString,
-            ActualPageNumber: provincemodelQuery.ActualPageNumber,
-            RowsPerPage: provincemodelQuery.RowsPerPage,
-            SorterColumn: provincemodelQuery.SorterColumn,
-            SortToggler: provincemodelQuery.SortToggler,
-            RowCount: provincemodelQuery.TotalRows,
-            TotalPages: provincemodelQuery.TotalPages,
-            lstProvinceModel: provincemodelQuery.lstProvinceModel
+            QueryString: provinceSelectAllPaged.QueryString,
+            ActualPageNumber: provinceSelectAllPaged.ActualPageNumber,
+            RowsPerPage: provinceSelectAllPaged.RowsPerPage,
+            SorterColumn: provinceSelectAllPaged.SorterColumn,
+            SortToggler: provinceSelectAllPaged.SortToggler,
+            RowCount: provinceSelectAllPaged.TotalRows,
+            TotalPages: provinceSelectAllPaged.TotalPages,
+            lstProvinceModel: provinceSelectAllPaged.lstProvinceModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var ProvinceModel = /** @class */ (function () {
     return ProvinceModel;
 }());
 exports.ProvinceModel = ProvinceModel;
-var provincemodelQuery = /** @class */ (function () {
-    function provincemodelQuery() {
-    }
-    return provincemodelQuery;
-}());
-exports.provincemodelQuery = provincemodelQuery;
 //# sourceMappingURL=Province_TsModel.js.map

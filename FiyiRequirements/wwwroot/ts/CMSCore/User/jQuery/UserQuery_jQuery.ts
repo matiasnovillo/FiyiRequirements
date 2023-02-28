@@ -1,5 +1,6 @@
 //Import libraries to use
-import { UserModel, usermodelQuery } from "../../User/TsModels/User_TsModel";
+import { UserModel } from "../../User/TsModels/User_TsModel";
+import { userSelectAllPaged } from "../DTOs/userSelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class UserQuery {
-    static SelectAllPagedToHTML(request_usermodelQuery: usermodelQuery) {
+    static SelectAllPagedToHTML(request_userSelectAllPaged: userSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -109,13 +110,13 @@ class UserQuery {
 
         var ListContent: string = ``;
 
-        UserModel.SelectAllPaged(request_usermodelQuery).subscribe(
+        UserModel.SelectAllPaged(request_userSelectAllPaged).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_userQuery = newrow.response as usermodelQuery;
+                        const response_userQuery = newrow.response as userSelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_userQuery.QueryString ?? "";
@@ -480,7 +481,7 @@ class UserQuery {
 
 function ValidateAndSearch() {
 
-    var _usermodelQuery: usermodelQuery = {
+    var _userSelectAllPaged: userSelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -490,7 +491,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    UserQuery.SelectAllPagedToHTML(_usermodelQuery);
+    UserQuery.SelectAllPagedToHTML(_userSelectAllPaged);
 }
 
 //LOAD EVENT

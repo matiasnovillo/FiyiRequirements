@@ -32,13 +32,13 @@ var ScrollDownNSearchFlag = false;
 var SexQuery = /** @class */ (function () {
     function SexQuery() {
     }
-    SexQuery.SelectAllPagedToHTML = function (request_sexmodelQuery) {
+    SexQuery.SelectAllPagedToHTML = function (request_sexSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
         //Load some part of table
         var TableContent = "<thead class=\"thead-light\">\n    <tr>\n        <th scope=\"col\">\n            <div>\n                <input id=\"sex-table-check-all\" type=\"checkbox\">\n            </div>\n        </th>\n        <th scope=\"col\">\n            <button value=\"SexId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Sex ID\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Active\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Active\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeCreation\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeLastModification\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserCreationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserLastModificationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Name\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Name\n            </button>\n        </th>\n        \n        <th scope=\"col\"></th>\n    </tr>\n</thead>\n<tbody>";
         var ListContent = "";
-        Sex_TsModel_1.SexModel.SelectAllPaged(request_sexmodelQuery).subscribe({
+        Sex_TsModel_1.SexModel.SelectAllPaged(request_sexSelectAllPaged).subscribe({
             next: function (newrow) {
                 var _a, _b, _c, _d, _e, _f, _g, _h, _j;
                 //Only works when there is data available
@@ -209,7 +209,7 @@ var SexQuery = /** @class */ (function () {
     return SexQuery;
 }());
 function ValidateAndSearch() {
-    var _sexmodelQuery = {
+    var _sexSelectAllPaged = {
         QueryString: QueryString,
         ActualPageNumber: ActualPageNumber,
         RowsPerPage: RowsPerPage,
@@ -218,7 +218,7 @@ function ValidateAndSearch() {
         TotalRows: TotalRows,
         TotalPages: TotalPages
     };
-    SexQuery.SelectAllPagedToHTML(_sexmodelQuery);
+    SexQuery.SelectAllPagedToHTML(_sexSelectAllPaged);
 }
 //LOAD EVENT
 if ($("#basicculture-sex-title-page").html().includes("Query sex")) {

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.usermodelQuery = exports.UserModel = void 0;
+exports.UserModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var UserModel = /** @class */ (function () {
         var URL = "/api/CMSCore/User/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    UserModel.SelectAllPaged = function (usermodelQuery) {
+    UserModel.SelectAllPaged = function (userSelectAllPaged) {
         var URL = "/api/CMSCore/User/1/SelectAllPagedToJSON";
         var Body = {
-            QueryString: usermodelQuery.QueryString,
-            ActualPageNumber: usermodelQuery.ActualPageNumber,
-            RowsPerPage: usermodelQuery.RowsPerPage,
-            SorterColumn: usermodelQuery.SorterColumn,
-            SortToggler: usermodelQuery.SortToggler,
-            RowCount: usermodelQuery.TotalRows,
-            TotalPages: usermodelQuery.TotalPages,
-            lstUserModel: usermodelQuery.lstUserModel
+            QueryString: userSelectAllPaged.QueryString,
+            ActualPageNumber: userSelectAllPaged.ActualPageNumber,
+            RowsPerPage: userSelectAllPaged.RowsPerPage,
+            SorterColumn: userSelectAllPaged.SorterColumn,
+            SortToggler: userSelectAllPaged.SortToggler,
+            RowCount: userSelectAllPaged.TotalRows,
+            TotalPages: userSelectAllPaged.TotalPages,
+            lstUserModel: userSelectAllPaged.lstUserModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var UserModel = /** @class */ (function () {
     return UserModel;
 }());
 exports.UserModel = UserModel;
-var usermodelQuery = /** @class */ (function () {
-    function usermodelQuery() {
-    }
-    return usermodelQuery;
-}());
-exports.usermodelQuery = usermodelQuery;
 //# sourceMappingURL=User_TsModel.js.map

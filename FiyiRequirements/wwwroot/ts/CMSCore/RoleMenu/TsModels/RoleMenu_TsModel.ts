@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { rolemenuSelectAllPaged } from "../DTOs/rolemenuSelectAllPaged";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -38,17 +39,17 @@ export class RoleMenuModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(rolemenumodelQuery: rolemenumodelQuery) {
+    static SelectAllPaged(rolemenuSelectAllPaged: rolemenuSelectAllPaged) {
         let URL = "/api/CMSCore/RoleMenu/1/SelectAllPagedToJSON";
         let Body = {
-            QueryString: rolemenumodelQuery.QueryString,
-            ActualPageNumber: rolemenumodelQuery.ActualPageNumber,
-            RowsPerPage: rolemenumodelQuery.RowsPerPage,
-            SorterColumn: rolemenumodelQuery.SorterColumn,
-            SortToggler: rolemenumodelQuery.SortToggler,
-            RowCount: rolemenumodelQuery.TotalRows,
-            TotalPages: rolemenumodelQuery.TotalPages,
-            lstRoleMenuModel: rolemenumodelQuery.lstRoleMenuModel
+            QueryString: rolemenuSelectAllPaged.QueryString,
+            ActualPageNumber: rolemenuSelectAllPaged.ActualPageNumber,
+            RowsPerPage: rolemenuSelectAllPaged.RowsPerPage,
+            SorterColumn: rolemenuSelectAllPaged.SorterColumn,
+            SortToggler: rolemenuSelectAllPaged.SortToggler,
+            RowCount: rolemenuSelectAllPaged.TotalRows,
+            TotalPages: rolemenuSelectAllPaged.TotalPages,
+            lstRoleMenuModel: rolemenuSelectAllPaged.lstRoleMenuModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -96,13 +97,3 @@ export class RoleMenuModel {
     }
 }
 
-export class rolemenumodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
-    lstRoleMenuModel?: RoleMenuModel[] | undefined;
-}

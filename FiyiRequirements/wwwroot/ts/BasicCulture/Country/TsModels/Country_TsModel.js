@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.countrymodelQuery = exports.CountryModel = void 0;
+exports.CountryModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var CountryModel = /** @class */ (function () {
         var URL = "/api/BasicCulture/Country/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    CountryModel.SelectAllPaged = function (countrymodelQuery) {
+    CountryModel.SelectAllPaged = function (countrySelectAllPaged) {
         var URL = "/api/BasicCulture/Country/1/SelectAllPagedToJSON";
         var Body = {
-            QueryString: countrymodelQuery.QueryString,
-            ActualPageNumber: countrymodelQuery.ActualPageNumber,
-            RowsPerPage: countrymodelQuery.RowsPerPage,
-            SorterColumn: countrymodelQuery.SorterColumn,
-            SortToggler: countrymodelQuery.SortToggler,
-            RowCount: countrymodelQuery.TotalRows,
-            TotalPages: countrymodelQuery.TotalPages,
-            lstCountryModel: countrymodelQuery.lstCountryModel
+            QueryString: countrySelectAllPaged.QueryString,
+            ActualPageNumber: countrySelectAllPaged.ActualPageNumber,
+            RowsPerPage: countrySelectAllPaged.RowsPerPage,
+            SorterColumn: countrySelectAllPaged.SorterColumn,
+            SortToggler: countrySelectAllPaged.SortToggler,
+            RowCount: countrySelectAllPaged.TotalRows,
+            TotalPages: countrySelectAllPaged.TotalPages,
+            lstCountryModel: countrySelectAllPaged.lstCountryModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var CountryModel = /** @class */ (function () {
     return CountryModel;
 }());
 exports.CountryModel = CountryModel;
-var countrymodelQuery = /** @class */ (function () {
-    function countrymodelQuery() {
-    }
-    return countrymodelQuery;
-}());
-exports.countrymodelQuery = countrymodelQuery;
 //# sourceMappingURL=Country_TsModel.js.map

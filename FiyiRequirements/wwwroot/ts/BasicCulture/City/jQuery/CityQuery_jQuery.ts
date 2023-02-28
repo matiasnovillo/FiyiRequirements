@@ -1,5 +1,6 @@
 //Import libraries to use
-import { CityModel, citymodelQuery } from "../../City/TsModels/City_TsModel";
+import { CityModel } from "../../City/TsModels/City_TsModel";
+import { citySelectAllPaged } from "../DTOs/citySelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class CityQuery {
-    static SelectAllPagedToHTML(request_citymodelQuery: citymodelQuery) {
+    static SelectAllPagedToHTML(request_citySelectAllPaged: citySelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -104,13 +105,13 @@ class CityQuery {
 
         var ListContent: string = ``;
 
-        CityModel.SelectAllPaged(request_citymodelQuery).subscribe(
+        CityModel.SelectAllPaged(request_citySelectAllPaged).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_cityQuery = newrow.response as citymodelQuery;
+                        const response_cityQuery = newrow.response as citySelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_cityQuery.QueryString ?? "";
@@ -462,7 +463,7 @@ class CityQuery {
 
 function ValidateAndSearch() {
 
-    var _citymodelQuery: citymodelQuery = {
+    var _citySelectAllPaged: citySelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -472,7 +473,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    CityQuery.SelectAllPagedToHTML(_citymodelQuery);
+    CityQuery.SelectAllPagedToHTML(_citySelectAllPaged);
 }
 
 //LOAD EVENT

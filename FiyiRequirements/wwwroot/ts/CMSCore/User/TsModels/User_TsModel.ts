@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { userSelectAllPaged } from "../DTOs/userSelectAllPaged";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -44,17 +45,17 @@ export class UserModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(usermodelQuery: usermodelQuery) {
+    static SelectAllPaged(userSelectAllPaged: userSelectAllPaged) {
         let URL = "/api/CMSCore/User/1/SelectAllPagedToJSON";
         let Body = {
-            QueryString: usermodelQuery.QueryString,
-            ActualPageNumber: usermodelQuery.ActualPageNumber,
-            RowsPerPage: usermodelQuery.RowsPerPage,
-            SorterColumn: usermodelQuery.SorterColumn,
-            SortToggler: usermodelQuery.SortToggler,
-            RowCount: usermodelQuery.TotalRows,
-            TotalPages: usermodelQuery.TotalPages,
-            lstUserModel: usermodelQuery.lstUserModel
+            QueryString: userSelectAllPaged.QueryString,
+            ActualPageNumber: userSelectAllPaged.ActualPageNumber,
+            RowsPerPage: userSelectAllPaged.RowsPerPage,
+            SorterColumn: userSelectAllPaged.SorterColumn,
+            SortToggler: userSelectAllPaged.SortToggler,
+            RowCount: userSelectAllPaged.TotalRows,
+            TotalPages: userSelectAllPaged.TotalPages,
+            lstUserModel: userSelectAllPaged.lstUserModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -100,15 +101,4 @@ export class UserModel {
         };
         return Rx.from(ajax.post(URL, Body, Header));
     }
-}
-
-export class usermodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
-    lstUserModel?: UserModel[] | undefined;
 }

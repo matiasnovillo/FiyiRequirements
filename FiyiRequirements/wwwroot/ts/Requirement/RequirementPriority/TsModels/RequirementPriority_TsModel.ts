@@ -2,6 +2,7 @@ import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
 import { RequirementModel } from "../../Requirement/TsModels/Requirement_TsModel";import { RequirementChangehistoryModel } from "../../RequirementChangehistory/TsModels/RequirementChangehistory_TsModel";
+import { requirementprioritySelectAllPaged } from "../DTOs/requirementprioritySelectAllPaged";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -43,17 +44,17 @@ export class RequirementPriorityModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(requirementprioritymodelQuery: requirementprioritymodelQuery) {
+    static SelectAllPaged(requirementprioritySelectAllPaged: requirementprioritySelectAllPaged) {
         let URL = "/api/Requirement/RequirementPriority/1/SelectAllPagedToJSON";
         let Body = {
-            QueryString: requirementprioritymodelQuery.QueryString,
-            ActualPageNumber: requirementprioritymodelQuery.ActualPageNumber,
-            RowsPerPage: requirementprioritymodelQuery.RowsPerPage,
-            SorterColumn: requirementprioritymodelQuery.SorterColumn,
-            SortToggler: requirementprioritymodelQuery.SortToggler,
-            RowCount: requirementprioritymodelQuery.TotalRows,
-            TotalPages: requirementprioritymodelQuery.TotalPages,
-            lstRequirementPriorityModel: requirementprioritymodelQuery.lstRequirementPriorityModel
+            QueryString: requirementprioritySelectAllPaged.QueryString,
+            ActualPageNumber: requirementprioritySelectAllPaged.ActualPageNumber,
+            RowsPerPage: requirementprioritySelectAllPaged.RowsPerPage,
+            SorterColumn: requirementprioritySelectAllPaged.SorterColumn,
+            SortToggler: requirementprioritySelectAllPaged.SortToggler,
+            RowCount: requirementprioritySelectAllPaged.TotalRows,
+            TotalPages: requirementprioritySelectAllPaged.TotalPages,
+            lstRequirementPriorityModel: requirementprioritySelectAllPaged.lstRequirementPriorityModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -99,15 +100,4 @@ export class RequirementPriorityModel {
         };
         return Rx.from(ajax.post(URL, Body, Header));
     }
-}
-
-export class requirementprioritymodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
-    lstRequirementPriorityModel?: RequirementPriorityModel[] | undefined;
 }

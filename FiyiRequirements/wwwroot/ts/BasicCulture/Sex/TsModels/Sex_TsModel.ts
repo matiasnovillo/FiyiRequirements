@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { sexSelectAllPaged } from "../DTOs/sexSelectAllPaged";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -39,17 +40,17 @@ export class SexModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(sexmodelQuery: sexmodelQuery) {
+    static SelectAllPaged(sexSelectAllPaged: sexSelectAllPaged) {
         let URL = "/api/BasicCulture/Sex/1/SelectAllPagedToJSON";
         let Body = {
-            QueryString: sexmodelQuery.QueryString,
-            ActualPageNumber: sexmodelQuery.ActualPageNumber,
-            RowsPerPage: sexmodelQuery.RowsPerPage,
-            SorterColumn: sexmodelQuery.SorterColumn,
-            SortToggler: sexmodelQuery.SortToggler,
-            RowCount: sexmodelQuery.TotalRows,
-            TotalPages: sexmodelQuery.TotalPages,
-            lstSexModel: sexmodelQuery.lstSexModel
+            QueryString: sexSelectAllPaged.QueryString,
+            ActualPageNumber: sexSelectAllPaged.ActualPageNumber,
+            RowsPerPage: sexSelectAllPaged.RowsPerPage,
+            SorterColumn: sexSelectAllPaged.SorterColumn,
+            SortToggler: sexSelectAllPaged.SortToggler,
+            RowCount: sexSelectAllPaged.TotalRows,
+            TotalPages: sexSelectAllPaged.TotalPages,
+            lstSexModel: sexSelectAllPaged.lstSexModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -95,15 +96,4 @@ export class SexModel {
         };
         return Rx.from(ajax.post(URL, Body, Header));
     }
-}
-
-export class sexmodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
-    lstSexModel?: SexModel[] | undefined;
 }

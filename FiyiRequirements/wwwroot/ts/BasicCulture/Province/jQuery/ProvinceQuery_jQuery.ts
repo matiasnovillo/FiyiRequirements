@@ -1,5 +1,6 @@
 //Import libraries to use
-import { ProvinceModel, provincemodelQuery } from "../../Province/TsModels/Province_TsModel";
+import { ProvinceModel } from "../../Province/TsModels/Province_TsModel";
+import { provinceSelectAllPaged } from "../DTOs/provinceSelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class ProvinceQuery {
-    static SelectAllPagedToHTML(request_provincemodelQuery: provincemodelQuery) {
+    static SelectAllPagedToHTML(request_provinceSelectAllPaged: provinceSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -104,13 +105,13 @@ class ProvinceQuery {
 
         var ListContent: string = ``;
 
-        ProvinceModel.SelectAllPaged(request_provincemodelQuery).subscribe(
+        ProvinceModel.SelectAllPaged(request_provinceSelectAllPaged).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_provinceQuery = newrow.response as provincemodelQuery;
+                        const response_provinceQuery = newrow.response as provinceSelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_provinceQuery.QueryString ?? "";
@@ -462,7 +463,7 @@ class ProvinceQuery {
 
 function ValidateAndSearch() {
 
-    var _provincemodelQuery: provincemodelQuery = {
+    var _provinceSelectAllPaged: provinceSelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -472,7 +473,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    ProvinceQuery.SelectAllPagedToHTML(_provincemodelQuery);
+    ProvinceQuery.SelectAllPagedToHTML(_provinceSelectAllPaged);
 }
 
 //LOAD EVENT

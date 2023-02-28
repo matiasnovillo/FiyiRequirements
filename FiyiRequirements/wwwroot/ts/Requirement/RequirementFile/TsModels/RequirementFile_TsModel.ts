@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { requirementfileSelectAllPaged } from "../DTOs/requirementfileSelectAllPaged";
 
 
 /*
@@ -42,17 +43,17 @@ export class RequirementFileModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(requirementfilemodelQuery: requirementfilemodelQuery, RequirementId: any) {
+    static SelectAllPaged(requirementfileSelectAllPaged: requirementfileSelectAllPaged, RequirementId: any) {
         let URL = "/api/Requirement/RequirementFile/1/SelectAllPagedToJSON/" + RequirementId;
         let Body = {
-            requirementfileQueryString: requirementfilemodelQuery.requirementfileQueryString,
-            requirementfileActualPageNumber: requirementfilemodelQuery.requirementfileActualPageNumber,
-            requirementfileRowsPerPage: requirementfilemodelQuery.requirementfileRowsPerPage,
-            requirementfileSorterColumn: requirementfilemodelQuery.requirementfileSorterColumn,
-            requirementfileSortToggler: requirementfilemodelQuery.requirementfileSortToggler,
-            requirementfileRowCount: requirementfilemodelQuery.requirementfileTotalRows,
-            requirementfileTotalPages: requirementfilemodelQuery.requirementfileTotalPages,
-            lstRequirementFileModel: requirementfilemodelQuery.lstRequirementFileModel
+            requirementfileQueryString: requirementfileSelectAllPaged.requirementfileQueryString,
+            requirementfileActualPageNumber: requirementfileSelectAllPaged.requirementfileActualPageNumber,
+            requirementfileRowsPerPage: requirementfileSelectAllPaged.requirementfileRowsPerPage,
+            requirementfileSorterColumn: requirementfileSelectAllPaged.requirementfileSorterColumn,
+            requirementfileSortToggler: requirementfileSelectAllPaged.requirementfileSortToggler,
+            requirementfileRowCount: requirementfileSelectAllPaged.requirementfileTotalRows,
+            requirementfileTotalPages: requirementfileSelectAllPaged.requirementfileTotalPages,
+            lstRequirementFileModel: requirementfileSelectAllPaged.lstRequirementFileModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -98,15 +99,4 @@ export class RequirementFileModel {
         };
         return Rx.from(ajax.post(URL, Body, Header));
     }
-}
-
-export class requirementfilemodelQuery {
-    requirementfileQueryString ?: string;
-    requirementfileActualPageNumber?: number;
-    requirementfileRowsPerPage?: number;
-    requirementfileSorterColumn?: string;
-    requirementfileSortToggler?: boolean;
-    requirementfileTotalRows?: number;
-    requirementfileTotalPages?: number;
-    lstRequirementFileModel?: RequirementFileModel[] | undefined;
 }

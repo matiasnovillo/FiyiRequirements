@@ -1,5 +1,6 @@
 //Import libraries to use
-import { PlanetModel, planetmodelQuery } from "../../Planet/TsModels/Planet_TsModel";
+import { PlanetModel } from "../../Planet/TsModels/Planet_TsModel";
+import { planetSelectAllPaged } from "../DTOs/planetSelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class PlanetQuery {
-    static SelectAllPagedToHTML(request_planetmodelQuery: planetmodelQuery) {
+    static SelectAllPagedToHTML(request_planetSelectAllPaged: planetSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -94,13 +95,13 @@ class PlanetQuery {
 
         var ListContent: string = ``;
 
-        PlanetModel.SelectAllPaged(request_planetmodelQuery).subscribe(
+        PlanetModel.SelectAllPaged(request_planetSelectAllPaged).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_planetQuery = newrow.response as planetmodelQuery;
+                        const response_planetQuery = newrow.response as planetSelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_planetQuery.QueryString ?? "";
@@ -434,7 +435,7 @@ class PlanetQuery {
 
 function ValidateAndSearch() {
 
-    var _planetmodelQuery: planetmodelQuery = {
+    var _planetSelectAllPaged: planetSelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -444,7 +445,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    PlanetQuery.SelectAllPagedToHTML(_planetmodelQuery);
+    PlanetQuery.SelectAllPagedToHTML(_planetSelectAllPaged);
 }
 
 //LOAD EVENT

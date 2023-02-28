@@ -32,13 +32,13 @@ var ScrollDownNSearchFlag = false;
 var FailureQuery = /** @class */ (function () {
     function FailureQuery() {
     }
-    FailureQuery.SelectAllPagedToHTML = function (request_failuremodelQuery) {
+    FailureQuery.SelectAllPagedToHTML = function (request_failureSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
         //Load some part of table
         var TableContent = "<thead class=\"thead-light\">\n    <tr>\n        <th scope=\"col\">\n            <div>\n                <input id=\"failure-table-check-all\" type=\"checkbox\">\n            </div>\n        </th>\n        <th scope=\"col\">\n            <button value=\"FailureId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Failure ID\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"HTTPCode\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                HTTP Code\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"EmergencyLevel\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Emergency Level\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Message\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Message\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"StackTrace\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Stack Trace\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Source\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Source\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Comment\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Comment\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Active\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Active\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserCreationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserLastModificationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeCreation\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeLastModification\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Last Modification\n            </button>\n        </th>\n        \n        <th scope=\"col\"></th>\n    </tr>\n</thead>\n<tbody>";
         var ListContent = "";
-        Failure_TsModel_1.FailureModel.SelectAllPaged(request_failuremodelQuery).subscribe({
+        Failure_TsModel_1.FailureModel.SelectAllPaged(request_failureSelectAllPaged).subscribe({
             next: function (newrow) {
                 var _a, _b, _c, _d, _e, _f, _g, _h, _j;
                 //Only works when there is data available
@@ -209,7 +209,7 @@ var FailureQuery = /** @class */ (function () {
     return FailureQuery;
 }());
 function ValidateAndSearch() {
-    var _failuremodelQuery = {
+    var _failureSelectAllPaged = {
         QueryString: QueryString,
         ActualPageNumber: ActualPageNumber,
         RowsPerPage: RowsPerPage,
@@ -218,7 +218,7 @@ function ValidateAndSearch() {
         TotalRows: TotalRows,
         TotalPages: TotalPages
     };
-    FailureQuery.SelectAllPagedToHTML(_failuremodelQuery);
+    FailureQuery.SelectAllPagedToHTML(_failureSelectAllPaged);
 }
 //LOAD EVENT
 if ($("#basiccore-failure-title-page").html().includes("Query failure")) {

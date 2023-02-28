@@ -32,13 +32,13 @@ var ScrollDownNSearchFlag = false;
 var UserQuery = /** @class */ (function () {
     function UserQuery() {
     }
-    UserQuery.SelectAllPagedToHTML = function (request_usermodelQuery) {
+    UserQuery.SelectAllPagedToHTML = function (request_userSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
         //Load some part of table
         var TableContent = "<thead class=\"thead-light\">\n    <tr>\n        <th scope=\"col\">\n            <div>\n                <input id=\"user-table-check-all\" type=\"checkbox\">\n            </div>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User ID\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Active\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Active\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeCreation\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeLastModification\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserCreationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserLastModificationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"FantasyName\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Fantasy Name\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Email\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Email\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Password\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Password\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"RoleId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Role\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"RegistrationToken\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Registration Token\n            </button>\n        </th>\n        \n        <th scope=\"col\"></th>\n    </tr>\n</thead>\n<tbody>";
         var ListContent = "";
-        User_TsModel_1.UserModel.SelectAllPaged(request_usermodelQuery).subscribe({
+        User_TsModel_1.UserModel.SelectAllPaged(request_userSelectAllPaged).subscribe({
             next: function (newrow) {
                 var _a, _b, _c, _d, _e, _f, _g, _h, _j;
                 //Only works when there is data available
@@ -209,7 +209,7 @@ var UserQuery = /** @class */ (function () {
     return UserQuery;
 }());
 function ValidateAndSearch() {
-    var _usermodelQuery = {
+    var _userSelectAllPaged = {
         QueryString: QueryString,
         ActualPageNumber: ActualPageNumber,
         RowsPerPage: RowsPerPage,
@@ -218,7 +218,7 @@ function ValidateAndSearch() {
         TotalRows: TotalRows,
         TotalPages: TotalPages
     };
-    UserQuery.SelectAllPagedToHTML(_usermodelQuery);
+    UserQuery.SelectAllPagedToHTML(_userSelectAllPaged);
 }
 //LOAD EVENT
 if ($("#cmscore-user-title-page").html().includes("Query user")) {

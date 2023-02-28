@@ -1,5 +1,6 @@
 //Import libraries to use
-import { ExampleModel, examplemodelQuery } from "../../Example/TsModels/Example_TsModel";
+import { ExampleModel } from "../../Example/TsModels/Example_TsModel";
+import { exampleSelectAllPaged } from "../DTOs/exampleSelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class ExampleQuery {
-    static SelectAllPagedToHTML(request_examplemodelQuery: examplemodelQuery) {
+    static SelectAllPagedToHTML(request_exampleSelectAllPaged: exampleSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -169,13 +170,13 @@ class ExampleQuery {
 
         var ListContent: string = ``;
 
-        ExampleModel.SelectAllPaged(request_examplemodelQuery).subscribe(
+        ExampleModel.SelectAllPaged(request_exampleSelectAllPaged).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_exampleQuery = newrow.response as examplemodelQuery;
+                        const response_exampleQuery = newrow.response as exampleSelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_exampleQuery.QueryString ?? "";
@@ -657,7 +658,7 @@ class ExampleQuery {
 
 function ValidateAndSearch() {
 
-    var _examplemodelQuery: examplemodelQuery = {
+    var _exampleSelectAllPaged: exampleSelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -667,7 +668,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    ExampleQuery.SelectAllPagedToHTML(_examplemodelQuery);
+    ExampleQuery.SelectAllPagedToHTML(_exampleSelectAllPaged);
 }
 
 //LOAD EVENT

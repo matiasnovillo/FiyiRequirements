@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { parameterSelectAllPaged } from "../DTOs/parameterSelectAllPaged";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -41,17 +42,17 @@ export class ParameterModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(parametermodelQuery: parametermodelQuery) {
+    static SelectAllPaged(parameterSelectAllPaged: parameterSelectAllPaged) {
         let URL = "/api/BasicCore/Parameter/1/SelectAllPagedToJSON";
         let Body = {
-            QueryString: parametermodelQuery.QueryString,
-            ActualPageNumber: parametermodelQuery.ActualPageNumber,
-            RowsPerPage: parametermodelQuery.RowsPerPage,
-            SorterColumn: parametermodelQuery.SorterColumn,
-            SortToggler: parametermodelQuery.SortToggler,
-            RowCount: parametermodelQuery.TotalRows,
-            TotalPages: parametermodelQuery.TotalPages,
-            lstParameterModel: parametermodelQuery.lstParameterModel
+            QueryString: parameterSelectAllPaged.QueryString,
+            ActualPageNumber: parameterSelectAllPaged.ActualPageNumber,
+            RowsPerPage: parameterSelectAllPaged.RowsPerPage,
+            SorterColumn: parameterSelectAllPaged.SorterColumn,
+            SortToggler: parameterSelectAllPaged.SortToggler,
+            RowCount: parameterSelectAllPaged.TotalRows,
+            TotalPages: parameterSelectAllPaged.TotalPages,
+            lstParameterModel: parameterSelectAllPaged.lstParameterModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -97,15 +98,4 @@ export class ParameterModel {
         };
         return Rx.from(ajax.post(URL, Body, Header));
     }
-}
-
-export class parametermodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
-    lstParameterModel?: ParameterModel[] | undefined;
 }

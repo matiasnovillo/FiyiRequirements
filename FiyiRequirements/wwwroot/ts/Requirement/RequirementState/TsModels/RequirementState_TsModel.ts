@@ -2,6 +2,7 @@ import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
 import { RequirementModel } from "../../Requirement/TsModels/Requirement_TsModel";import { RequirementChangehistoryModel } from "../../RequirementChangehistory/TsModels/RequirementChangehistory_TsModel";
+import { requirementstateSelectAllPaged } from "../DTOs/requirementstateSelectAllPaged";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -42,17 +43,17 @@ export class RequirementStateModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(requirementstatemodelQuery: requirementstatemodelQuery) {
+    static SelectAllPaged(requirementstateSelectAllPaged: requirementstateSelectAllPaged) {
         let URL = "/api/Requirement/RequirementState/1/SelectAllPagedToJSON";
         let Body = {
-            QueryString: requirementstatemodelQuery.QueryString,
-            ActualPageNumber: requirementstatemodelQuery.ActualPageNumber,
-            RowsPerPage: requirementstatemodelQuery.RowsPerPage,
-            SorterColumn: requirementstatemodelQuery.SorterColumn,
-            SortToggler: requirementstatemodelQuery.SortToggler,
-            RowCount: requirementstatemodelQuery.TotalRows,
-            TotalPages: requirementstatemodelQuery.TotalPages,
-            lstRequirementStateModel: requirementstatemodelQuery.lstRequirementStateModel
+            QueryString: requirementstateSelectAllPaged.QueryString,
+            ActualPageNumber: requirementstateSelectAllPaged.ActualPageNumber,
+            RowsPerPage: requirementstateSelectAllPaged.RowsPerPage,
+            SorterColumn: requirementstateSelectAllPaged.SorterColumn,
+            SortToggler: requirementstateSelectAllPaged.SortToggler,
+            RowCount: requirementstateSelectAllPaged.TotalRows,
+            TotalPages: requirementstateSelectAllPaged.TotalPages,
+            lstRequirementStateModel: requirementstateSelectAllPaged.lstRequirementStateModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -98,15 +99,4 @@ export class RequirementStateModel {
         };
         return Rx.from(ajax.post(URL, Body, Header));
     }
-}
-
-export class requirementstatemodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
-    lstRequirementStateModel?: RequirementStateModel[] | undefined;
 }

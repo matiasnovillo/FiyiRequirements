@@ -1,5 +1,6 @@
 //Import libraries to use
-import { RequirementNoteModel, requirementnotemodelQuery } from "../../RequirementNote/TsModels/RequirementNote_TsModel";
+import { RequirementNoteModel } from "../../RequirementNote/TsModels/RequirementNote_TsModel";
+import { requirementnoteSelectAllPaged } from "../DTOs/requirementnoteSelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class RequirementNoteQuery {
-    static SelectAllPagedToHTML(request_requirementnotemodelQuery: requirementnotemodelQuery) {
+    static SelectAllPagedToHTML(request_requirementnoteSelectAllPaged: requirementnoteSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -99,13 +100,13 @@ class RequirementNoteQuery {
 
         var ListContent: string = ``;
 
-        RequirementNoteModel.SelectAllPaged(request_requirementnotemodelQuery, $("#requirement-requirement-requirementid-input").val()).subscribe(
+        RequirementNoteModel.SelectAllPaged(request_requirementnoteSelectAllPaged, $("#requirement-requirement-requirementid-input").val()).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_requirementnoteQuery = newrow.response as requirementnotemodelQuery;
+                        const response_requirementnoteQuery = newrow.response as requirementnoteSelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_requirementnoteQuery.QueryString ?? "";
@@ -421,7 +422,7 @@ class RequirementNoteQuery {
 
 function ValidateAndSearch() {
 
-    var _requirementnotemodelQuery: requirementnotemodelQuery = {
+    var _requirementnoteSelectAllPaged: requirementnoteSelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -431,7 +432,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    RequirementNoteQuery.SelectAllPagedToHTML(_requirementnotemodelQuery);
+    RequirementNoteQuery.SelectAllPagedToHTML(_requirementnoteSelectAllPaged);
 }
 
 //LOAD EVENT

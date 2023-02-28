@@ -1,5 +1,6 @@
 //Import libraries to use
-import { CountryModel, countrymodelQuery } from "../../Country/TsModels/Country_TsModel";
+import { CountryModel } from "../../Country/TsModels/Country_TsModel";
+import { countrySelectAllPaged } from "../DTOs/countrySelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class CountryQuery {
-    static SelectAllPagedToHTML(request_countrymodelQuery: countrymodelQuery) {
+    static SelectAllPagedToHTML(request_countrySelectAllPaged: countrySelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -104,13 +105,13 @@ class CountryQuery {
 
         var ListContent: string = ``;
 
-        CountryModel.SelectAllPaged(request_countrymodelQuery).subscribe(
+        CountryModel.SelectAllPaged(request_countrySelectAllPaged).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_countryQuery = newrow.response as countrymodelQuery;
+                        const response_countryQuery = newrow.response as countrySelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_countryQuery.QueryString ?? "";
@@ -462,7 +463,7 @@ class CountryQuery {
 
 function ValidateAndSearch() {
 
-    var _countrymodelQuery: countrymodelQuery = {
+    var _countrySelectAllPaged: countrySelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -472,7 +473,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    CountryQuery.SelectAllPagedToHTML(_countrymodelQuery);
+    CountryQuery.SelectAllPagedToHTML(_countrySelectAllPaged);
 }
 
 //LOAD EVENT

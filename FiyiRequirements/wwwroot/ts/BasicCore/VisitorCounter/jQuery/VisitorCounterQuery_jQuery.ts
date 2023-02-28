@@ -1,5 +1,6 @@
 //Import libraries to use
-import { VisitorCounterModel, visitorcountermodelQuery } from "../../VisitorCounter/TsModels/VisitorCounter_TsModel";
+import { VisitorCounterModel } from "../../VisitorCounter/TsModels/VisitorCounter_TsModel";
+import { visitorcounterSelectAllPaged } from "../DTOs/visitorcounterSelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let ViewToggler: string = "List";
 let ScrollDownNSearchFlag: boolean = false;
 
 class VisitorCounterQuery {
-    static SelectAllPagedToHTML(request_visitorcountermodelQuery: visitorcountermodelQuery) {
+    static SelectAllPagedToHTML(request_visitorcounterSelectAllPaged: visitorcounterSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -89,13 +90,13 @@ class VisitorCounterQuery {
 
         var ListContent: string = ``;
 
-        VisitorCounterModel.SelectAllPaged(request_visitorcountermodelQuery).subscribe(
+        VisitorCounterModel.SelectAllPaged(request_visitorcounterSelectAllPaged).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_visitorcounterQuery = newrow.response as visitorcountermodelQuery;
+                        const response_visitorcounterQuery = newrow.response as visitorcounterSelectAllPaged;
 
                         //Set to default values if they are null
                         QueryString = response_visitorcounterQuery.QueryString ?? "";
@@ -420,7 +421,7 @@ class VisitorCounterQuery {
 
 function ValidateAndSearch() {
 
-    var _visitorcountermodelQuery: visitorcountermodelQuery = {
+    var _visitorcounterSelectAllPaged: visitorcounterSelectAllPaged = {
         QueryString,
         ActualPageNumber,
         RowsPerPage,
@@ -430,7 +431,7 @@ function ValidateAndSearch() {
         TotalPages
     };
 
-    VisitorCounterQuery.SelectAllPagedToHTML(_visitorcountermodelQuery);
+    VisitorCounterQuery.SelectAllPagedToHTML(_visitorcounterSelectAllPaged);
 }
 
 //LOAD EVENT

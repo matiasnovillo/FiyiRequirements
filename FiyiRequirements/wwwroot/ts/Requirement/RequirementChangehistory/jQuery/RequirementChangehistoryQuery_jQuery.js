@@ -29,13 +29,13 @@ var requirementchangehistoryScrollDownNSearchFlag = false;
 var RequirementChangehistoryQuery = /** @class */ (function () {
     function RequirementChangehistoryQuery() {
     }
-    RequirementChangehistoryQuery.SelectAllPagedToHTML = function (request_requirementchangehistorymodelQuery) {
+    RequirementChangehistoryQuery.SelectAllPagedToHTML = function (request_requirementchangehistorySelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
         //Load some part of table
         var TableContent = "<thead class=\"thead-light\">\n    <tr>\n        <th scope=\"col\">\n            <div>\n                <input id=\"requirementchangehistory-table-check-all\" type=\"checkbox\">\n            </div>\n        </th>\n        <th scope=\"col\">\n            <button value=\"RequirementChangehistoryId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Change history ID\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"Active\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Active\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeCreation\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"DateTimeLastModification\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Date Time Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserCreationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Creation\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"UserLastModificationId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                User Last Modification\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"RequirementId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Requirement ID\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"RequirementStateId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                State\n            </button>\n        </th>\n        <th scope=\"col\">\n            <button value=\"RequirementPriorityId\" class=\"btn btn-outline-secondary btn-sm\" type=\"button\">\n                Priority\n            </button>\n        </th>\n        \n        <th scope=\"col\"></th>\n    </tr>\n</thead>\n<tbody>";
         var ListContent = "";
-        RequirementChangehistory_TsModel_1.RequirementChangehistoryModel.SelectAllPaged(request_requirementchangehistorymodelQuery, $("#requirement-requirement-requirementid-input").val()).subscribe({
+        RequirementChangehistory_TsModel_1.RequirementChangehistoryModel.SelectAllPaged(request_requirementchangehistorySelectAllPaged, $("#requirement-requirement-requirementid-input").val()).subscribe({
             next: function (newrow) {
                 var _a, _b, _c, _d, _e, _f, _g, _h, _j;
                 //Only works when there is data available
@@ -216,7 +216,7 @@ function requirementchangehistoryValidateAndSearch() {
     //Hide error and OK message button
     $("#requirement-requirementchangehistory-button-error-message-in-card").hide();
     $("#requirement-requirementchangehistory-button-ok-message-in-card").hide();
-    var _requirementchangehistorymodelQuery = {
+    var _requirementchangehistorySelectAllPaged = {
         requirementchangehistoryQueryString: requirementchangehistoryQueryString,
         requirementchangehistoryActualPageNumber: requirementchangehistoryActualPageNumber,
         requirementchangehistoryRowsPerPage: requirementchangehistoryRowsPerPage,
@@ -225,7 +225,7 @@ function requirementchangehistoryValidateAndSearch() {
         requirementchangehistoryTotalRows: requirementchangehistoryTotalRows,
         requirementchangehistoryTotalPages: requirementchangehistoryTotalPages
     };
-    RequirementChangehistoryQuery.SelectAllPagedToHTML(_requirementchangehistorymodelQuery);
+    RequirementChangehistoryQuery.SelectAllPagedToHTML(_requirementchangehistorySelectAllPaged);
 }
 //LOAD EVENT
 if ($("#requirement-requirement-title-page").html().includes("Edit requirement")) {

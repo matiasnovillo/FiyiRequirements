@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.examplemodelQuery = exports.ExampleModel = void 0;
+exports.ExampleModel = void 0;
 var Rx = require("rxjs");
 var ajax_1 = require("rxjs/ajax");
 /*
@@ -26,17 +26,17 @@ var ExampleModel = /** @class */ (function () {
         var URL = "/api/Examples/Example/1/SelectAllToJSON";
         return Rx.from((0, ajax_1.ajax)(URL));
     };
-    ExampleModel.SelectAllPaged = function (examplemodelQuery) {
+    ExampleModel.SelectAllPaged = function (exampleSelectAllPaged) {
         var URL = "/api/Examples/Example/1/SelectAllPagedToJSON";
         var Body = {
-            QueryString: examplemodelQuery.QueryString,
-            ActualPageNumber: examplemodelQuery.ActualPageNumber,
-            RowsPerPage: examplemodelQuery.RowsPerPage,
-            SorterColumn: examplemodelQuery.SorterColumn,
-            SortToggler: examplemodelQuery.SortToggler,
-            RowCount: examplemodelQuery.TotalRows,
-            TotalPages: examplemodelQuery.TotalPages,
-            lstExampleModel: examplemodelQuery.lstExampleModel
+            QueryString: exampleSelectAllPaged.QueryString,
+            ActualPageNumber: exampleSelectAllPaged.ActualPageNumber,
+            RowsPerPage: exampleSelectAllPaged.RowsPerPage,
+            SorterColumn: exampleSelectAllPaged.SorterColumn,
+            SortToggler: exampleSelectAllPaged.SortToggler,
+            RowCount: exampleSelectAllPaged.TotalRows,
+            TotalPages: exampleSelectAllPaged.TotalPages,
+            lstExampleModel: exampleSelectAllPaged.lstExampleModel
         };
         var Header = {
             "Accept": "application/json",
@@ -81,10 +81,4 @@ var ExampleModel = /** @class */ (function () {
     return ExampleModel;
 }());
 exports.ExampleModel = ExampleModel;
-var examplemodelQuery = /** @class */ (function () {
-    function examplemodelQuery() {
-    }
-    return examplemodelQuery;
-}());
-exports.examplemodelQuery = examplemodelQuery;
 //# sourceMappingURL=Example_TsModel.js.map

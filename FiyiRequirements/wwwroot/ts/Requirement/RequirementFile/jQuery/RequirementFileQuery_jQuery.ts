@@ -1,5 +1,6 @@
 //Import libraries to use
-import { RequirementFileModel, requirementfilemodelQuery } from "../../RequirementFile/TsModels/RequirementFile_TsModel";
+import { RequirementFileModel } from "../../RequirementFile/TsModels/RequirementFile_TsModel";
+import { requirementfileSelectAllPaged } from "../DTOs/requirementfileSelectAllPaged";
 import * as $ from "jquery";
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
@@ -34,7 +35,7 @@ let requirementfileViewToggler: string = "List";
 let requirementfileScrollDownNSearchFlag: boolean = false;
 
 class RequirementFileQuery {
-    static SelectAllPagedToHTML(request_requirementfilemodelQuery: requirementfilemodelQuery) {
+    static SelectAllPagedToHTML(request_requirementfileSelectAllPaged: requirementfileSelectAllPaged) {
         //Used for list view
         $(window).off("scroll");
 
@@ -94,13 +95,13 @@ class RequirementFileQuery {
 
         var ListContent: string = ``;
 
-        RequirementFileModel.SelectAllPaged(request_requirementfilemodelQuery, $("#requirement-requirement-requirementid-input").val()).subscribe(
+        RequirementFileModel.SelectAllPaged(request_requirementfileSelectAllPaged, $("#requirement-requirement-requirementid-input").val()).subscribe(
             {
                 next: newrow => {
                     //Only works when there is data available
                     if (newrow.status != 204) {
 
-                        const response_requirementfileQuery = newrow.response as requirementfilemodelQuery;
+                        const response_requirementfileQuery = newrow.response as requirementfileSelectAllPaged;
 
                         //Set to default values if they are null
                         requirementfileQueryString = response_requirementfileQuery.requirementfileQueryString ?? "";
@@ -413,7 +414,7 @@ class RequirementFileQuery {
 
 function requirementfileValidateAndSearch() {
 
-    var _requirementfilemodelQuery: requirementfilemodelQuery = {
+    var _requirementfileSelectAllPaged: requirementfileSelectAllPaged = {
         requirementfileQueryString,
         requirementfileActualPageNumber,
         requirementfileRowsPerPage,
@@ -423,7 +424,7 @@ function requirementfileValidateAndSearch() {
         requirementfileTotalPages
     };
 
-    RequirementFileQuery.SelectAllPagedToHTML(_requirementfilemodelQuery);
+    RequirementFileQuery.SelectAllPagedToHTML(_requirementfileSelectAllPaged);
 }
 
 //LOAD EVENT

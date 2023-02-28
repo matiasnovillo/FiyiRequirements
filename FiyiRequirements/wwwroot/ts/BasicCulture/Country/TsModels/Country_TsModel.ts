@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { countrySelectAllPaged } from "../DTOs/countrySelectAllPaged";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -43,17 +44,17 @@ export class CountryModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(countrymodelQuery: countrymodelQuery) {
+    static SelectAllPaged(countrySelectAllPaged: countrySelectAllPaged) {
         let URL = "/api/BasicCulture/Country/1/SelectAllPagedToJSON";
         let Body = {
-            QueryString: countrymodelQuery.QueryString,
-            ActualPageNumber: countrymodelQuery.ActualPageNumber,
-            RowsPerPage: countrymodelQuery.RowsPerPage,
-            SorterColumn: countrymodelQuery.SorterColumn,
-            SortToggler: countrymodelQuery.SortToggler,
-            RowCount: countrymodelQuery.TotalRows,
-            TotalPages: countrymodelQuery.TotalPages,
-            lstCountryModel: countrymodelQuery.lstCountryModel
+            QueryString: countrySelectAllPaged.QueryString,
+            ActualPageNumber: countrySelectAllPaged.ActualPageNumber,
+            RowsPerPage: countrySelectAllPaged.RowsPerPage,
+            SorterColumn: countrySelectAllPaged.SorterColumn,
+            SortToggler: countrySelectAllPaged.SortToggler,
+            RowCount: countrySelectAllPaged.TotalRows,
+            TotalPages: countrySelectAllPaged.TotalPages,
+            lstCountryModel: countrySelectAllPaged.lstCountryModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -99,15 +100,4 @@ export class CountryModel {
         };
         return Rx.from(ajax.post(URL, Body, Header));
     }
-}
-
-export class countrymodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
-    lstCountryModel?: CountryModel[] | undefined;
 }

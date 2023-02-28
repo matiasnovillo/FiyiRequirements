@@ -1,6 +1,7 @@
 import * as Rx from "rxjs";
 import { ajax } from "rxjs/ajax";
 import { Ajax } from "../../../Library/Ajax";
+import { provinceSelectAllPaged } from "../DTOs/provinceSelectAllPaged";
 
 /*
  * GUID:e6c09dfe-3a3e-461b-b3f9-734aee05fc7b
@@ -43,17 +44,17 @@ export class ProvinceModel {
         return Rx.from(ajax(URL));
     }
     
-    static SelectAllPaged(provincemodelQuery: provincemodelQuery) {
+    static SelectAllPaged(provinceSelectAllPaged: provinceSelectAllPaged) {
         let URL = "/api/BasicCulture/Province/1/SelectAllPagedToJSON";
         let Body = {
-            QueryString: provincemodelQuery.QueryString,
-            ActualPageNumber: provincemodelQuery.ActualPageNumber,
-            RowsPerPage: provincemodelQuery.RowsPerPage,
-            SorterColumn: provincemodelQuery.SorterColumn,
-            SortToggler: provincemodelQuery.SortToggler,
-            RowCount: provincemodelQuery.TotalRows,
-            TotalPages: provincemodelQuery.TotalPages,
-            lstProvinceModel: provincemodelQuery.lstProvinceModel
+            QueryString: provinceSelectAllPaged.QueryString,
+            ActualPageNumber: provinceSelectAllPaged.ActualPageNumber,
+            RowsPerPage: provinceSelectAllPaged.RowsPerPage,
+            SorterColumn: provinceSelectAllPaged.SorterColumn,
+            SortToggler: provinceSelectAllPaged.SortToggler,
+            RowCount: provinceSelectAllPaged.TotalRows,
+            TotalPages: provinceSelectAllPaged.TotalPages,
+            lstProvinceModel: provinceSelectAllPaged.lstProvinceModel
         };
         let Header: any = {
             "Accept": "application/json",
@@ -99,15 +100,4 @@ export class ProvinceModel {
         };
         return Rx.from(ajax.post(URL, Body, Header));
     }
-}
-
-export class provincemodelQuery {
-    QueryString ?: string;
-    ActualPageNumber?: number;
-    RowsPerPage?: number;
-    SorterColumn?: string;
-    SortToggler?: boolean;
-    TotalRows?: number;
-    TotalPages?: number;
-    lstProvinceModel?: ProvinceModel[] | undefined;
 }
