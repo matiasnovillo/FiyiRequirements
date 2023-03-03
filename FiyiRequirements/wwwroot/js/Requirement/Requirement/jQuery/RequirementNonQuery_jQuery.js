@@ -109,7 +109,6 @@ $(document).ready(function () {
                     }
                     else {
                         //SUCCESS
-                        $.notify({ icon: "fas fa-check", message: "Data sent successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
 
                         //Create a formdata object
                         var changehistoryformData = new FormData();
@@ -128,10 +127,6 @@ $(document).ready(function () {
                         //Setup request
                         var changehistoryxmlHttpRequest = new XMLHttpRequest();
                         //Set event listeners
-                        changehistoryxmlHttpRequest.upload.addEventListener("loadstart", function (e) {
-                            //SAVING
-                            $.notify({ message: "Saving data. Please, wait" }, { type: "info", placement: { from: "bottom", align: "center" } });
-                        });
                         changehistoryxmlHttpRequest.onload = function () {
                             if (xmlHttpRequest.status >= 400) {
                                 //ERROR
@@ -140,7 +135,7 @@ $(document).ready(function () {
                             }
                             else {
                                 //SUCCESS
-                                $.notify({ icon: "fas fa-check", message: "Data sent successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
+                                window.location.replace("/Requirement/RequirementQueryPage");
                             }
                         };
                         //Open connection

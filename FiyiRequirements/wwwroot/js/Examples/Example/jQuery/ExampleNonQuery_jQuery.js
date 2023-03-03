@@ -105,7 +105,7 @@ $(document).ready(function () {
                     }
                     else {
                         //SUCCESS
-                        $.notify({ icon: "fas fa-check", message: "Data sent successfully" }, { type: "success", placement: { from: "bottom", align: "center" } });
+                        window.location.replace("/Examples/ExampleQueryPage");
                     }
                 };
                 //Open connection
