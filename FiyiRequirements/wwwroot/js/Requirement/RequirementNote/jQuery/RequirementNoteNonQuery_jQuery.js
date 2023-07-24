@@ -75,7 +75,7 @@ $(document).ready(function () {
                     }
                     else {
                         //SUCCESS
-                        window.location.replace("/Requirement/RequirementNoteQueryPage");
+                        window.location.replace("/Requirement/RequirementQueryPage");
                     }
                 };
                 //Open connection

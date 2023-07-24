@@ -62,7 +62,7 @@ $(document).ready(function () {
                     }
                     else {
                         //SUCCESS
-                        window.location.replace("/Requirement/RequirementFileQueryPage");
+                        window.location.replace("/Requirement/RequirementQueryPage");
                     }
                 };
                 //Open connection
