@@ -112,9 +112,6 @@ $(document).ready(function () {
 
                         //Create a formdata object
                         var changehistoryformData = new FormData();
-                        //Stop stuff happening
-                        e.stopPropagation();
-                        e.preventDefault();
 
                         //RequirementChangehistoryId
                         changehistoryformData.append("requirement-requirementchangehistory-requirementchangehistoryid-input", $("#requirement-requirementchangehistory-requirementchangehistoryid-input").val());
